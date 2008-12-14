@@ -12,7 +12,7 @@
 <a:Code>web</a:Code>
 <a:CreationDate>1228969058</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1229071524</a:ModificationDate>
+<a:ModificationDate>1229267064</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
 <a:PackageOptionsText>[FolderOptions]
 
@@ -86,7 +86,7 @@ GenScriptName6=
 GenScriptName7=
 GenScriptName8=
 GenScriptName9=
-GenPathName=D:\MyWrokspaces\Web\doc\web\
+GenPathName=D:\MyWorkspaces\Website\doc\web\
 GenSingleFile=Yes
 GenODBC=Yes
 GenCheckModel=Yes
@@ -3095,9 +3095,10 @@ TableComment 0 新宋体,8,N</a:FontList>
 <a:Code>id</a:Code>
 <a:CreationDate>1228986662</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1228987201</a:ModificationDate>
+<a:ModificationDate>1229266912</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
 <a:DataType>bigint</a:DataType>
+<a:Identity>1</a:Identity>
 <a:Mandatory>1</a:Mandatory>
 <a:CheckConstraintName>CK_id</a:CheckConstraintName>
 </o:Column>
@@ -3328,9 +3329,10 @@ TableComment 0 新宋体,8,N</a:FontList>
 <a:Code>id</a:Code>
 <a:CreationDate>1228988151</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1228988335</a:ModificationDate>
+<a:ModificationDate>1229266926</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
 <a:DataType>bigint</a:DataType>
+<a:Identity>1</a:Identity>
 <a:Mandatory>1</a:Mandatory>
 <a:CheckConstraintName>CK_id</a:CheckConstraintName>
 </o:Column>
@@ -3455,9 +3457,10 @@ TableComment 0 新宋体,8,N</a:FontList>
 <a:Code>id</a:Code>
 <a:CreationDate>1228987566</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1228987608</a:ModificationDate>
+<a:ModificationDate>1229266919</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
 <a:DataType>bigint</a:DataType>
+<a:Identity>1</a:Identity>
 <a:Mandatory>1</a:Mandatory>
 <a:CheckConstraintName>CK_id</a:CheckConstraintName>
 </o:Column>

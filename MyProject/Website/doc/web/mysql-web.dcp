@@ -1,0 +1,10 @@
+[ConnectionProfile]
+ConnectionType=JDBC
+Dbms=MySQL
+Description=web
+Driver=com.mysql.jdbc.Driver
+JarFiles=D:\Program Files\MySQL\mysql-connector-java-5.1.7-bin.jar
+LogId=root
+LogPassword=root
+TrimSpaces=0
+URL=jdbc:mysql://localhost:3306/web

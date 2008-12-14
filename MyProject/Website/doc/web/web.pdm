@@ -12,7 +12,7 @@
 <a:Code>web</a:Code>
 <a:CreationDate>1228969058</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1229071524</a:ModificationDate>
+<a:ModificationDate>1229267064</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
 <a:PackageOptionsText>[FolderOptions]
 
@@ -86,7 +86,7 @@ GenScriptName6=
 GenScriptName7=
 GenScriptName8=
 GenScriptName9=
-GenPathName=D:\MyWrokspaces\Web\doc\web\
+GenPathName=D:\MyWorkspaces\Website\doc\web\
 GenSingleFile=Yes
 GenODBC=Yes
 GenCheckModel=Yes
@@ -3086,9 +3086,10 @@ TableComment 0 新宋体,8,N</a:FontList>
 <a:Code>id</a:Code>
 <a:CreationDate>1228986662</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1228987201</a:ModificationDate>
+<a:ModificationDate>1229266912</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
 <a:DataType>bigint</a:DataType>
+<a:Identity>1</a:Identity>
 <a:Mandatory>1</a:Mandatory>
 </o:Column>
 <o:Column Id="o39">
@@ -3144,12 +3145,10 @@ TableComment 0 新宋体,8,N</a:FontList>
 <a:Code>enabled</a:Code>
 <a:CreationDate>1228986662</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1228986846</a:ModificationDate>
+<a:ModificationDate>1229269978</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
-<a:LowValue>0</a:LowValue>
-<a:HighValue>1</a:HighValue>
-<a:DefaultValue>0</a:DefaultValue>
-<a:DataType>smallint</a:DataType>
+<a:DefaultValue>FALSE</a:DefaultValue>
+<a:DataType>boolean</a:DataType>
 <a:Mandatory>1</a:Mandatory>
 </o:Column>
 <o:Column Id="o44">
@@ -3158,12 +3157,10 @@ TableComment 0 新宋体,8,N</a:FontList>
 <a:Code>expired</a:Code>
 <a:CreationDate>1228986662</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1228986834</a:ModificationDate>
+<a:ModificationDate>1229269987</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
-<a:LowValue>0</a:LowValue>
-<a:HighValue>1</a:HighValue>
-<a:DefaultValue>0</a:DefaultValue>
-<a:DataType>smallint</a:DataType>
+<a:DefaultValue>FALSE</a:DefaultValue>
+<a:DataType>boolean</a:DataType>
 <a:Mandatory>1</a:Mandatory>
 </o:Column>
 <o:Column Id="o45">
@@ -3172,12 +3169,10 @@ TableComment 0 新宋体,8,N</a:FontList>
 <a:Code>locked</a:Code>
 <a:CreationDate>1228986662</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1228986840</a:ModificationDate>
+<a:ModificationDate>1229269995</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
-<a:LowValue>0</a:LowValue>
-<a:HighValue>1</a:HighValue>
-<a:DefaultValue>0</a:DefaultValue>
-<a:DataType>smallint</a:DataType>
+<a:DefaultValue>FALSE</a:DefaultValue>
+<a:DataType>boolean</a:DataType>
 <a:Mandatory>1</a:Mandatory>
 </o:Column>
 <o:Column Id="o46">
@@ -3293,11 +3288,11 @@ TableComment 0 新宋体,8,N</a:FontList>
 </o:Table>
 <o:Table Id="o23">
 <a:ObjectID>0A4CB6CF-9580-4B1A-A9F1-1CA43856BD02</a:ObjectID>
-<a:Name>t_permission</a:Name>
-<a:Code>t_permission</a:Code>
+<a:Name>t_permissions</a:Name>
+<a:Code>t_permissions</a:Code>
 <a:CreationDate>1228987383</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1229005375</a:ModificationDate>
+<a:ModificationDate>1229269198</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
 <a:PhysicalOptions>type = InnoDB</a:PhysicalOptions>
 <c:Columns>
@@ -3307,9 +3302,10 @@ TableComment 0 新宋体,8,N</a:FontList>
 <a:Code>id</a:Code>
 <a:CreationDate>1228988151</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1228988335</a:ModificationDate>
+<a:ModificationDate>1229266926</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
 <a:DataType>bigint</a:DataType>
+<a:Identity>1</a:Identity>
 <a:Mandatory>1</a:Mandatory>
 </o:Column>
 <o:Column Id="o56">
@@ -3427,9 +3423,10 @@ TableComment 0 新宋体,8,N</a:FontList>
 <a:Code>id</a:Code>
 <a:CreationDate>1228987566</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1228987608</a:ModificationDate>
+<a:ModificationDate>1229266919</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
 <a:DataType>bigint</a:DataType>
+<a:Identity>1</a:Identity>
 <a:Mandatory>1</a:Mandatory>
 </o:Column>
 <o:Column Id="o64">

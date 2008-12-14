@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2008-12-12 16:47:11                          */
+/* Created on:     2008-12-14 23:13:29                          */
 /*==============================================================*/
 
 
@@ -74,7 +74,7 @@ create index Index_t_groups_2 on t_groups
 /*==============================================================*/
 create table t_permission
 (
-   id                   bigint not null,
+   id                   bigint not null auto_increment,
    name                 varchar(100) not null,
    display_name         varchar(100) not null,
    primary key (id),
@@ -96,7 +96,7 @@ create index Index_t_permissions_1 on t_permission
 /*==============================================================*/
 create table t_roles
 (
-   id                   bigint not null,
+   id                   bigint not null auto_increment,
    name                 varchar(50) not null,
    description          text not null,
    modify_time          timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -145,7 +145,7 @@ create index Index_t_roles_permissions_2 on t_roles_permissions
 /*==============================================================*/
 create table t_users
 (
-   id                   bigint not null,
+   id                   bigint not null auto_increment,
    name                 varchar(100)  not null,
    group_id             bigint not null,
    login_name           varchar(100) binary not null,
