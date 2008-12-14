@@ -1,12 +1,14 @@
 package com.yanpeng.entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,9 +20,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 /**
- * TUsers entity.
- * 
- * @author MyEclipse Persistence Tools
+ * TUsers entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name = "t_users", catalog = "web", uniqueConstraints = @UniqueConstraint(columnNames = "login_name"))
@@ -33,10 +33,10 @@ public class TUsers implements java.io.Serializable {
 	private String name;
 	private String loginName;
 	private String password;
-	private Short enabled;
-	private Short expired;
-	private Short locked;
-	private Date modifyTime;
+	private Boolean enabled;
+	private Boolean expired;
+	private Boolean locked;
+	private Timestamp modifyTime;
 	private Set<TRoles> TRoleses = new HashSet<TRoles>(0);
 
 	// Constructors
@@ -46,10 +46,9 @@ public class TUsers implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public TUsers(Long id, TGroups TGroups, String name, String loginName,
-			String password, Short enabled, Short expired, Short locked,
-			Date modifyTime) {
-		this.id = id;
+	public TUsers(TGroups TGroups, String name, String loginName,
+			String password, Boolean enabled, Boolean expired, Boolean locked,
+			Timestamp modifyTime) {
 		this.TGroups = TGroups;
 		this.name = name;
 		this.loginName = loginName;
@@ -61,10 +60,9 @@ public class TUsers implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TUsers(Long id, TGroups TGroups, String name, String loginName,
-			String password, Short enabled, Short expired, Short locked,
-			Date modifyTime, Set<TRoles> TRoleses) {
-		this.id = id;
+	public TUsers(TGroups TGroups, String name, String loginName,
+			String password, Boolean enabled, Boolean expired, Boolean locked,
+			Timestamp modifyTime, Set<TRoles> TRoleses) {
 		this.TGroups = TGroups;
 		this.name = name;
 		this.loginName = loginName;
@@ -78,6 +76,7 @@ public class TUsers implements java.io.Serializable {
 
 	// Property accessors
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public Long getId() {
 		return this.id;
@@ -125,39 +124,39 @@ public class TUsers implements java.io.Serializable {
 	}
 
 	@Column(name = "enabled", nullable = false)
-	public Short getEnabled() {
+	public Boolean getEnabled() {
 		return this.enabled;
 	}
 
-	public void setEnabled(Short enabled) {
+	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
 
 	@Column(name = "expired", nullable = false)
-	public Short getExpired() {
+	public Boolean getExpired() {
 		return this.expired;
 	}
 
-	public void setExpired(Short expired) {
+	public void setExpired(Boolean expired) {
 		this.expired = expired;
 	}
 
 	@Column(name = "locked", nullable = false)
-	public Short getLocked() {
+	public Boolean getLocked() {
 		return this.locked;
 	}
 
-	public void setLocked(Short locked) {
+	public void setLocked(Boolean locked) {
 		this.locked = locked;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "modify_time", nullable = false, length = 0)
-	public Date getModifyTime() {
+	public Timestamp getModifyTime() {
 		return this.modifyTime;
 	}
 
-	public void setModifyTime(Date modifyTime) {
+	public void setModifyTime(Timestamp modifyTime) {
 		this.modifyTime = modifyTime;
 	}
 

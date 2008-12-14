@@ -1,12 +1,14 @@
 package com.yanpeng.entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -17,9 +19,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 /**
- * TRoles entity.
- * 
- * @author MyEclipse Persistence Tools
+ * TRoles entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name = "t_roles", catalog = "web", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
@@ -30,8 +30,8 @@ public class TRoles implements java.io.Serializable {
 	private Long id;
 	private String name;
 	private String description;
-	private Date modifyTime;
-	private Set<TPermission> TPermissions = new HashSet<TPermission>(0);
+	private Timestamp modifyTime;
+	private Set<TPermissions> TPermissionses = new HashSet<TPermissions>(0);
 	private Set<TUsers> TUserses = new HashSet<TUsers>(0);
 
 	// Constructors
@@ -41,26 +41,25 @@ public class TRoles implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public TRoles(Long id, String name, String description, Date modifyTime) {
-		this.id = id;
+	public TRoles(String name, String description, Timestamp modifyTime) {
 		this.name = name;
 		this.description = description;
 		this.modifyTime = modifyTime;
 	}
 
 	/** full constructor */
-	public TRoles(Long id, String name, String description, Date modifyTime,
-			Set<TPermission> TPermissions, Set<TUsers> TUserses) {
-		this.id = id;
+	public TRoles(String name, String description, Timestamp modifyTime,
+			Set<TPermissions> TPermissionses, Set<TUsers> TUserses) {
 		this.name = name;
 		this.description = description;
 		this.modifyTime = modifyTime;
-		this.TPermissions = TPermissions;
+		this.TPermissionses = TPermissionses;
 		this.TUserses = TUserses;
 	}
 
 	// Property accessors
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public Long getId() {
 		return this.id;
@@ -88,24 +87,24 @@ public class TRoles implements java.io.Serializable {
 		this.description = description;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "modify_time", nullable = false, length = 0)
-	public Date getModifyTime() {
+	public Timestamp getModifyTime() {
 		return this.modifyTime;
 	}
 
-	public void setModifyTime(Date modifyTime) {
+	public void setModifyTime(Timestamp modifyTime) {
 		this.modifyTime = modifyTime;
 	}
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "t_roles_permissions", catalog = "web", joinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "permission_id", nullable = false, updatable = false) })
-	public Set<TPermission> getTPermissions() {
-		return this.TPermissions;
+	public Set<TPermissions> getTPermissionses() {
+		return this.TPermissionses;
 	}
 
-	public void setTPermissions(Set<TPermission> TPermissions) {
-		this.TPermissions = TPermissions;
+	public void setTPermissionses(Set<TPermissions> TPermissionses) {
+		this.TPermissionses = TPermissionses;
 	}
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TRoleses")
