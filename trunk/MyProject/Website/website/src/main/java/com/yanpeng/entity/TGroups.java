@@ -1,6 +1,6 @@
 package com.yanpeng.entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -17,9 +17,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 /**
- * TGroups entity.
- * 
- * @author MyEclipse Persistence Tools
+ * TGroups entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name = "t_groups", catalog = "web", uniqueConstraints = @UniqueConstraint(columnNames = {
@@ -32,7 +30,7 @@ public class TGroups implements java.io.Serializable {
 	private String name;
 	private Long parentId;
 	private String description;
-	private Date modifyTime;
+	private Timestamp modifyTime;
 	private Set<TUsers> TUserses = new HashSet<TUsers>(0);
 
 	// Constructors
@@ -43,7 +41,7 @@ public class TGroups implements java.io.Serializable {
 
 	/** minimal constructor */
 	public TGroups(String name, Long parentId, String description,
-			Date modifyTime) {
+			Timestamp modifyTime) {
 		this.name = name;
 		this.parentId = parentId;
 		this.description = description;
@@ -52,7 +50,7 @@ public class TGroups implements java.io.Serializable {
 
 	/** full constructor */
 	public TGroups(String name, Long parentId, String description,
-			Date modifyTime, Set<TUsers> TUserses) {
+			Timestamp modifyTime, Set<TUsers> TUserses) {
 		this.name = name;
 		this.parentId = parentId;
 		this.description = description;
@@ -99,13 +97,13 @@ public class TGroups implements java.io.Serializable {
 		this.description = description;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "modify_time", nullable = false, length = 0)
-	public Date getModifyTime() {
+	public Timestamp getModifyTime() {
 		return this.modifyTime;
 	}
 
-	public void setModifyTime(Date modifyTime) {
+	public void setModifyTime(Timestamp modifyTime) {
 		this.modifyTime = modifyTime;
 	}
 
