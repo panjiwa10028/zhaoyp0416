@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd 
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-lazy-init="true">
+	<description>Spring公共配置文件</description>
+
+	<!-- 
+	 在配置文件中，很有一些属性会在团队的开发环境，个人的开发环境，集成测试环境，生产环境，甚至生产环境集群的每台服务器中都有所不同的。
+	 为了将这些易变的属性抽从applicationContext取出来，Spring 做了一些特殊的支持，团队公用的开发环境配置在application.properties中，放入版本控制系统管理中。
+  个人的开发环境，集成测试环境中与公共环境不相同的部分，放入application.local.properties中，会覆盖application.properties中的设置，由个人管理，不放入版本管理系统。
+  在打包部署到生产环境时，可将生产环境每台服务器的特殊属性可放在服务器的某个固定目录，如/var/myapplicaiton/application.server.properties中(而不放在项目jar内)，
+  每台服务器的配置文件分开不同服务器目录放在版本管理系统中。也可以在启动命令中加入参数来覆盖，如-Djdbc.username=aaa。	 
+	 -->
+	<!-- 定义受环境影响易变的变量 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:spring/application.properties</value>
+				<!--<value>classpath:application.local.properties</value>-->
+				<!-- <value>file:/var/myapp/application.server.properties</value> -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
+	<context:component-scan base-package="com.yanpeng" />
+
+	<!-- 数据源配置,主要用于开发测试环境 -->
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" destroy-method="close">
+		<property name="driverClassName" value="${database.driverClassName}" />
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.username}" />
+		<property name="password" value="${database.password}" />
+	</bean>
+	<!-- 数据源配置,在生产环境使用应用服务器的数据库连接池 -->
+	<!--
+		<jee:jndi-lookup id="dataSource"
+		jndi-name="java:comp/env/jdbc/miniweb" />
+	-->
+
+	<!-- Hibernate配置 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="namingStrategy">
+			<bean class="org.hibernate.cfg.ImprovedNamingStrategy" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.provider_configuration_file_resource_path">/ehcache-hibernate.xml</prop>
+			</props>
+		</property>
+		<property name="packagesToScan" value="com.yanpeng.entity.*"/>
+	</bean>
+
+	<!-- 事务配置 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!--
+		JTA环境的事务配置 <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager or
+		WebLogicJtaTransactionManager"/>
+	-->
+
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>
