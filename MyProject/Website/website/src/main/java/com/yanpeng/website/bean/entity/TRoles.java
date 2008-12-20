@@ -30,6 +30,7 @@ public class TRoles implements java.io.Serializable {
 	private String name;
 	private String description;
 	private Date modifyTime;
+	private Set<TMenus> TMenuses = new HashSet<TMenus>(0);
 	private Set<TPermissions> TPermissionses = new HashSet<TPermissions>(0);
 	private Set<TUsers> TUserses = new HashSet<TUsers>(0);
 
@@ -50,12 +51,13 @@ public class TRoles implements java.io.Serializable {
 
 	/** full constructor */
 	public TRoles(String id, String name, String description,
-			Date modifyTime, Set<TPermissions> TPermissionses,
-			Set<TUsers> TUserses) {
+			Date modifyTime, Set<TMenus> TMenuses,
+			Set<TPermissions> TPermissionses, Set<TUsers> TUserses) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.modifyTime = modifyTime;
+		this.TMenuses = TMenuses;
 		this.TPermissionses = TPermissionses;
 		this.TUserses = TUserses;
 	}
@@ -97,6 +99,16 @@ public class TRoles implements java.io.Serializable {
 
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "t_roles_menus", catalog = "website", joinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "menu_id", nullable = false, updatable = false) })
+	public Set<TMenus> getTMenuses() {
+		return this.TMenuses;
+	}
+
+	public void setTMenuses(Set<TMenus> TMenuses) {
+		this.TMenuses = TMenuses;
 	}
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -1,8 +1,13 @@
 package com.yanpeng.website.bean.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +25,7 @@ public class TMenus implements java.io.Serializable {
 	private String displayName;
 	private String url;
 	private Integer disabled;
+	private Set<TRoles> TRoleses = new HashSet<TRoles>(0);
 
 	// Constructors
 
@@ -27,7 +33,7 @@ public class TMenus implements java.io.Serializable {
 	public TMenus() {
 	}
 
-	/** full constructor */
+	/** minimal constructor */
 	public TMenus(String id, String name, String parentId, String displayName,
 			String url, Integer disabled) {
 		this.id = id;
@@ -36,6 +42,18 @@ public class TMenus implements java.io.Serializable {
 		this.displayName = displayName;
 		this.url = url;
 		this.disabled = disabled;
+	}
+
+	/** full constructor */
+	public TMenus(String id, String name, String parentId, String displayName,
+			String url, Integer disabled, Set<TRoles> TRoleses) {
+		this.id = id;
+		this.name = name;
+		this.parentId = parentId;
+		this.displayName = displayName;
+		this.url = url;
+		this.disabled = disabled;
+		this.TRoleses = TRoleses;
 	}
 
 	// Property accessors
@@ -92,6 +110,15 @@ public class TMenus implements java.io.Serializable {
 
 	public void setDisabled(Integer disabled) {
 		this.disabled = disabled;
+	}
+
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TMenuses")
+	public Set<TRoles> getTRoleses() {
+		return this.TRoleses;
+	}
+
+	public void setTRoleses(Set<TRoles> TRoleses) {
+		this.TRoleses = TRoleses;
 	}
 
 }
