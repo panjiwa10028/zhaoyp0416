@@ -1,0 +1,209 @@
+A:link 
+{
+	text-decoration: none; 
+	color:white
+} 
+
+A:visited 
+{
+	text-decoration: none; 
+	color:white
+} 
+
+A:active 
+{
+	text-decoration: none; 
+	color:red
+} 
+
+A:hover 
+{
+	text-decoration: none; 
+	color:red
+} 
+
+A.Login1:link 
+{
+	text-decoration: underline;
+	color:white;
+		 	
+} 
+
+A.Login1:visited 
+{
+	text-decoration: underline;
+	color:white
+} 
+
+A.Login1:active 
+{
+	text-decoration: underline;
+	color:white
+} 
+
+A.Login1:hover 
+{
+	text-decoration: underline;
+	color:white
+} 
+
+A.Login2:link 
+{
+	text-decoration: none; 
+	color:white
+} 
+
+A.Login2:visited 
+{
+	text-decoration: none; 
+	color:white
+} 
+
+A.Login2:active 
+{
+	text-decoration: underline; 
+	color:white
+} 
+
+A.Login2:hover 
+{
+	text-decoration: underline; 
+	color:white
+} 
+
+A.Login3:link 
+{
+	text-decoration: none; 
+	color:#014F8A
+} 
+
+A.Login3:visited 
+{
+	text-decoration: none; 
+	color:#014F8A
+} 
+
+A.Login3:active 
+{
+	text-decoration: underline; 
+	color:#014F8A
+} 
+
+A.Login3:hover 
+{
+	text-decoration: underline; 
+	color:#014F8A
+} 
+
+A.Login4:link 
+{
+	text-decoration: none; 
+	color:#0783DF
+} 
+
+A.Login4:visited 
+{
+	text-decoration: none; 
+	color:#0783DF
+} 
+
+A.Login4:active 
+{
+	text-decoration: underline; 
+	color:#0783DF
+} 
+
+A.Login4:hover 
+{
+	text-decoration: underline; 
+	color:#0783DF
+} 
+
+BODY
+{
+	font-size: 9pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;	
+	text-align: center;
+	color:#014F8A;
+	background-color:#ffffff;				
+}
+
+BODY.bdLogin
+{
+	font-size: 9pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;	
+	text-align: center;
+	color:#575757;
+	background-color:#ffffff;
+	
+	overflow:auto;
+	
+	background-image: url(../images/login_bg1.gif);
+	background-attachment: fixed;
+	background-repeat:repeat;
+	background-position: center;
+}
+
+TABLE
+{
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;	
+}
+
+INPUT
+{
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;	
+}
+
+SELECT
+{
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	height: 32px;
+	width: 160px;
+}
+
+IMG
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+}
+
+.hui 
+{
+	COLOR: 575757;
+	TEXT-DECORATION: none;
+	line-height: 19px;
+
+}
+
+.blue 
+{
+	FONT: 9pt/13pt "ËÎÌו"
+}
+
+.headBg01
+{
+	background: url(../images/headBg01.gif) transparent no-repeat center left; 
+	border : 0;
+	width : 339px;
+	height : 90px;
+}
+
+.leftBg
+{
+	background-color:#CBEBFF;
+}
+
+.show 
+{ 
+	DISPLAY: block 
+}
+
+.hide 
+{ 
+	DISPLAY: none 
+}
