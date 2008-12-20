@@ -1,0 +1,98 @@
+BODY
+{
+	font-size: 9pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;	
+	text-align: center;
+	color:#014F8A;
+	background-color:#ffffff;
+	
+	overflow:auto;
+	 	
+	SCROLLBAR-FACE-COLOR: #ebf7fe; 
+	SCROLLBAR-HIGHLIGHT-COLOR: #ffffff; 
+	SCROLLBAR-SHADOW-COLOR: #2178a3; 
+	SCROLLBAR-3DLIGHT-COLOR: #2178a3; 
+	SCROLLBAR-ARROW-COLOR: #000000; 
+	SCROLLBAR-TRACK-COLOR: #d3d3d3; 	
+	SCROLLBAR-DARKSHADOW-COLOR: #d3d3d3; 
+	SCROLLBAR-BASE-COLOR: #FFFFFF;
+}
+
+TABLE
+{
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;	
+}
+
+.font {
+	font-size: 12px;
+	color: #585858;
+	text-decoration: none;
+}
+
+input
+{
+	behavior: url(../doc/Scripts/button.htc);
+}
+
+.btn
+{
+background-image:url(../images/bg2.gif);
+border: #8496CE 0px solid;
+color: #08428A;
+height: 21px;
+cursor: hand;
+width:56
+}
+
+.btnOver
+{
+background-image:url(../images/bg1.gif);
+border: #8496CE 0px solid;
+color: #08428A;
+height: 21px;
+cursor: hand;
+width:56
+}
+.font1 {
+
+	font-size: 12px;
+	color: 000000;
+	text-decoration: none;
+}
+.unnamed1 {
+	font-size: 12px;
+	color: #0077cc;
+	font-weight: bold;
+}
+
+A:link 
+{
+	text-decoration: none;
+	color:#014F8A
+} 
+
+A:visited 
+{
+	text-decoration: none;
+	color:#014F8A
+} 
+
+A:active 
+{
+	text-decoration: none; 
+	color:red
+} 
+
+A:hover 
+{
+	text-decoration: none; 
+	color:red
+} 
+
+.Text
+{
+	color:#3D3D3B;
+	line-height:24px;
+	text-align:left;
+}
