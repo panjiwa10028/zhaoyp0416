@@ -68,6 +68,7 @@
 				<prop key="hibernate.cache.provider_configuration_file_resource_path">/ehcache-hibernate.xml</prop>
 			</props>
 		</property>
+		<!-- 只能指向bean所在的上一级包名 -->
 		<property name="packagesToScan" value="org.springside.examples.miniweb.entity.*"/>
 	</bean>
 
