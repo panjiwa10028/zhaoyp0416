@@ -6,5 +6,5 @@
         <meta http-equiv="Expires" content="0"/>
 
 		<script src="<c:url value="/js/jquery.js"/>" type="text/javascript"></script>
-
+		<link href="<c:url value="/css/styles.css"/>" type="text/css" rel="stylesheet">
 		
