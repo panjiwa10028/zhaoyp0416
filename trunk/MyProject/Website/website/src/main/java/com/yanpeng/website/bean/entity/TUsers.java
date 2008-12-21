@@ -3,6 +3,7 @@ package com.yanpeng.website.bean.entity;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,7 +17,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.springside.modules.utils.CollectionUtils;
 
 /**
  * TUsers entity. @author MyEclipse Persistence Tools
@@ -168,6 +173,22 @@ public class TUsers implements java.io.Serializable {
 
 	public void setTRoleses(Set<TRoles> TRoleses) {
 		this.TRoleses = TRoleses;
+	}
+	
+	@Transient
+	public String getRoleNames() throws Exception {
+		return CollectionUtils.fetchPropertyToString(TRoleses, "name", ", ");
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transient
+	public List<String> getRoleIds() throws Exception {
+		return CollectionUtils.fetchPropertyToList(TRoleses, "id");
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

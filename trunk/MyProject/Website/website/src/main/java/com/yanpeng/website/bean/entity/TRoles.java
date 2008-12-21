@@ -3,6 +3,7 @@ package com.yanpeng.website.bean.entity;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,7 +16,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+
+import org.springside.modules.utils.CollectionUtils;
 
 /**
  * TRoles entity. @author MyEclipse Persistence Tools
@@ -130,4 +134,9 @@ public class TRoles implements java.io.Serializable {
 		this.TUserses = TUserses;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Transient
+	public List<String> getMenuIds() throws Exception {
+		return CollectionUtils.fetchPropertyToList(TMenuses, "id");
+	}
 }
