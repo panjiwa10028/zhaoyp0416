@@ -394,7 +394,12 @@
 				<artifactId>mail</artifactId>
 				<version>1.4</version>
 			</dependency>
-
+			<dependency>
+				<groupId>jdom</groupId>
+				<artifactId>jdom</artifactId>
+				<version>1.1</version>
+			</dependency>
+			
 			<!-- usually for orm -->
 			<dependency>
 				<groupId>net.sf.ehcache</groupId>
