@@ -9,12 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * TMenus entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_menus", catalog = "website")
+@Table(name = "t_menus", catalog = "website", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class TMenus implements java.io.Serializable {
 
 	// Fields
@@ -26,6 +27,7 @@ public class TMenus implements java.io.Serializable {
 	private String url;
 	private Integer disabled;
 	private Set<TRoles> TRoleses = new HashSet<TRoles>(0);
+	private String sort;
 
 	// Constructors
 
@@ -35,24 +37,27 @@ public class TMenus implements java.io.Serializable {
 
 	/** minimal constructor */
 	public TMenus(String id, String name, String parentId, String displayName,
-			String url, Integer disabled) {
+			String url, Integer disabled, String sort) {
 		this.id = id;
 		this.name = name;
 		this.parentId = parentId;
 		this.displayName = displayName;
 		this.url = url;
 		this.disabled = disabled;
+		this.sort = sort;
 	}
 
 	/** full constructor */
 	public TMenus(String id, String name, String parentId, String displayName,
-			String url, Integer disabled, Set<TRoles> TRoleses) {
+			String url, Integer disabled, String sort,
+			Set<TRoles> TRoleses) {
 		this.id = id;
 		this.name = name;
 		this.parentId = parentId;
 		this.displayName = displayName;
 		this.url = url;
 		this.disabled = disabled;
+		this.sort = sort;
 		this.TRoleses = TRoleses;
 	}
 
@@ -67,7 +72,7 @@ public class TMenus implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "name", nullable = false, length = 50)
+	@Column(name = "name", unique = true, nullable = false, length = 50)
 	public String getName() {
 		return this.name;
 	}
@@ -110,6 +115,15 @@ public class TMenus implements java.io.Serializable {
 
 	public void setDisabled(Integer disabled) {
 		this.disabled = disabled;
+	}
+
+	@Column(name = "sort", nullable = false, length = 50)
+	public String getSort() {
+		return this.sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
 	}
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TMenuses")
