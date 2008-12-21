@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/leftMenu" xmlns:tns="http://www.example.org/leftMenu" elementFormDefault="qualified">
+
+    <element name="DIV" type="tns:DIV"></element>
+
+
+    <complexType name="A">
+    	<attribute name="class" type="string"></attribute>
+    	<attribute name="href" type="string"></attribute>
+    	<attribute name="onclick" type="string"></attribute>
+    </complexType>
+
+    <complexType name="UL">
+    	<sequence>
+    		<element ref="tns:LI" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    	<attribute name="id" type="string"></attribute>
+    	<attribute name="style" type="string"></attribute>
+    	<attribute name="height" type="string"></attribute>
+    </complexType>
+    
+
+    <complexType name="LI">
+    	<sequence>
+    		<element ref="tns:A" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    	<attribute name="class" type="string"></attribute>
+    	<attribute name="id" type="string"></attribute>
+    </complexType>
+
+
+    <complexType name="DIV">
+    	<sequence>
+    		<element ref="tns:A"></element>
+    		<element name="UL" type="tns:UL"></element>
+    	</sequence>
+    	<attribute name="id" type="string"></attribute>
+    	<attribute name="headerOpenClass" type="string"></attribute>
+    	<attribute ref="tns:NewAttribute"></attribute>
+    </complexType>
+    
+    <element name="A" type="tns:A"></element>
+
+
+    <attribute name="NewAttribute" type="string"></attribute>
+
+
+    <element name="LI" type="tns:LI"></element>
+</schema>
