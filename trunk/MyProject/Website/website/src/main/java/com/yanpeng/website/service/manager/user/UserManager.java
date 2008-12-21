@@ -1,6 +1,11 @@
 package com.yanpeng.website.service.manager.user;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +13,7 @@ import org.springside.modules.orm.hibernate.Page;
 import org.springside.modules.orm.hibernate.SimpleHibernateTemplate;
 
 import com.yanpeng.website.bean.entity.TGroups;
+import com.yanpeng.website.bean.entity.TMenus;
 import com.yanpeng.website.bean.entity.TUsers;
 import com.yanpeng.website.service.exception.ServiceException;
 
@@ -63,5 +69,7 @@ public class UserManager {
 		TUsers user = userDao.get(id);
 		userDao.delete(user);
 	}
+	
+	
 
 }
