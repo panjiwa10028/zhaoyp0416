@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2008-12-14 23:13:29                          */
+/* Created on:     2008-12-21 23:10:18                          */
 /*==============================================================*/
 
 
@@ -10,13 +10,27 @@ drop index Index_t_groups_1 on t_groups;
 
 drop table if exists t_groups;
 
-drop index Index_t_permissions_1 on t_permission;
+drop index Index_t_menu_3 on t_menus;
 
-drop table if exists t_permission;
+drop index Index_t_menu_2 on t_menus;
+
+drop index Index_t_menu_1 on t_menus;
+
+drop table if exists t_menus;
+
+drop index Index_t_permissions_1 on t_permissions;
+
+drop table if exists t_permissions;
 
 drop index Index_t_roles_1 on t_roles;
 
 drop table if exists t_roles;
+
+drop index Index_t_roels_menus_2 on t_roles_menus;
+
+drop index Index_t_roels_menus_1 on t_roles_menus;
+
+drop table if exists t_roles_menus;
 
 drop index Index_t_roles_permissions_2 on t_roles_permissions;
 
@@ -43,7 +57,7 @@ drop table if exists t_users_roles;
 /*==============================================================*/
 create table t_groups
 (
-   id                   bigint not null auto_increment,
+   id                   char(36) not null,
    name                 varchar(100)  not null,
    parent_id            bigint not null,
    description          text not null,
@@ -70,11 +84,52 @@ create index Index_t_groups_2 on t_groups
 );
 
 /*==============================================================*/
-/* Table: t_permission                                          */
+/* Table: t_menus                                               */
 /*==============================================================*/
-create table t_permission
+create table t_menus
 (
-   id                   bigint not null auto_increment,
+   id                   char(36) not null,
+   name                 varchar(50) not null,
+   parent_id            char(36) not null,
+   display_name         varchar(100) not null,
+   url                  varchar(500) not null,
+   sort                 varchar(100),
+   disabled             int not null default 0,
+   primary key (id),
+   unique key AK_Key_t_menu_2 (name)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Index: Index_t_menu_1                                        */
+/*==============================================================*/
+create index Index_t_menu_1 on t_menus
+(
+   parent_id
+);
+
+/*==============================================================*/
+/* Index: Index_t_menu_2                                        */
+/*==============================================================*/
+create index Index_t_menu_2 on t_menus
+(
+   disabled
+);
+
+/*==============================================================*/
+/* Index: Index_t_menu_3                                        */
+/*==============================================================*/
+create index Index_t_menu_3 on t_menus
+(
+   sort
+);
+
+/*==============================================================*/
+/* Table: t_permissions                                         */
+/*==============================================================*/
+create table t_permissions
+(
+   id                   char(36) not null,
    name                 varchar(100) not null,
    display_name         varchar(100) not null,
    primary key (id),
@@ -86,7 +141,7 @@ type = InnoDB;
 /*==============================================================*/
 /* Index: Index_t_permissions_1                                 */
 /*==============================================================*/
-create index Index_t_permissions_1 on t_permission
+create index Index_t_permissions_1 on t_permissions
 (
    name
 );
@@ -96,7 +151,7 @@ create index Index_t_permissions_1 on t_permission
 /*==============================================================*/
 create table t_roles
 (
-   id                   bigint not null auto_increment,
+   id                   char(36) not null,
    name                 varchar(50) not null,
    description          text not null,
    modify_time          timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -114,12 +169,39 @@ create index Index_t_roles_1 on t_roles
 );
 
 /*==============================================================*/
+/* Table: t_roles_menus                                         */
+/*==============================================================*/
+create table t_roles_menus
+(
+   role_id              char(36) not null,
+   menu_id              char(36) not null,
+   primary key (role_id, menu_id)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Index: Index_t_roels_menus_1                                 */
+/*==============================================================*/
+create index Index_t_roels_menus_1 on t_roles_menus
+(
+   role_id
+);
+
+/*==============================================================*/
+/* Index: Index_t_roels_menus_2                                 */
+/*==============================================================*/
+create index Index_t_roels_menus_2 on t_roles_menus
+(
+   menu_id
+);
+
+/*==============================================================*/
 /* Table: t_roles_permissions                                   */
 /*==============================================================*/
 create table t_roles_permissions
 (
-   role_id              bigint not null,
-   permission_id        bigint not null,
+   role_id              char(36) not null,
+   permission_id        char(36) not null,
    primary key (role_id, permission_id)
 )
 type = InnoDB;
@@ -145,14 +227,14 @@ create index Index_t_roles_permissions_2 on t_roles_permissions
 /*==============================================================*/
 create table t_users
 (
-   id                   bigint not null auto_increment,
+   id                   char(36) not null,
    name                 varchar(100)  not null,
-   group_id             bigint not null,
+   group_id             char(36) not null,
    login_name           varchar(100) binary not null,
    password             varchar(255) not null,
-   enabled              smallint not null default 0,
-   expired              smallint not null default 0,
-   locked               smallint not null default 0,
+   disabled             int not null default 0,
+   expired              int not null default 0,
+   locked               int not null default 0,
    modify_time          timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    primary key (id),
    unique key AK_Key_t_users_2 (login_name)
@@ -188,8 +270,8 @@ create index Index_t_users_3 on t_users
 /*==============================================================*/
 create table t_users_roles
 (
-   user_id              bigint not null,
-   role_id              bigint not null,
+   user_id              char(36) not null,
+   role_id              char(36) not null,
    primary key (user_id, role_id)
 )
 type = InnoDB;
@@ -210,8 +292,14 @@ create index Index_t_users_roles_2 on t_users_roles
    role_id
 );
 
+alter table t_roles_menus add constraint FK_t_menus_t_roles_menus foreign key (menu_id)
+      references t_menus (id);
+
+alter table t_roles_menus add constraint FK_t_roles_t_roles_menus foreign key (role_id)
+      references t_roles (id);
+
 alter table t_roles_permissions add constraint FK_t_permissions_t_roles_permissions_1 foreign key (permission_id)
-      references t_permission (id);
+      references t_permissions (id);
 
 alter table t_roles_permissions add constraint FK_t_roles_t_roles_permissions_1 foreign key (role_id)
       references t_roles (id);
