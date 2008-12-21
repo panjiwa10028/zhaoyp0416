@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/common/taglibs.jsp"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" >
+<html>
 	<head>
 		<title></title>
 		<%@ include file="/common/meta.jsp"%>
@@ -14,12 +14,12 @@
 
 		<script language="JavaScript" type="text/JavaScript"> 
 
-		var GenShell_ClientNo="015C3BBB172525FEBE9231E3448941E1127204223268947900111786";
-		var DefaultAuthName="CBANK_PB";
-		var LoginType="D";
-		var DefaultMenuType="A";
+		//var GenShell_ClientNo="015C3BBB172525FEBE9231E3448941E1127204223268947900111786";
+		//var DefaultAuthName="CBANK_PB";
+		//var LoginType="D";
+		//var DefaultMenuType="A";
 		var DefaultPageNo="";
-		var ClientWarrantFlag="N";
+		//var ClientWarrantFlag="N";
 		moveTo(0,0);
   		resizeTo(screen.width,screen.height);
 
@@ -29,13 +29,14 @@
 		{
 			MainWorkAreaIFrame = document.getElementById(Default_FormTarget);
 			
-			cw_switchMenu(DefaultMenuType);
+			cw_switchMenu();
 			
 		}
 		
 		//默认打开欢迎页
-		function cw_switchMenu(menuType)
+		function cw_switchMenu()
 		{
+			var menuType = "";
 			initMenu(menuType);
 			initShortCutMenu(menuType);
 			cw_openHomePage(menuType);
@@ -78,60 +79,52 @@
 		//初始化快捷菜单
 		function initShortCutMenu(menuType)
 		{
-				
-			var menu = AccMenuManager.getMenu("vmenu");
-			var needOpenUsual = false;
-			if( null == menu )
-			{
-				menu = AccMenuManager.createNewMenu("vmenu","headerOpen","headerClose","menuItem");
-				
-				var header = menu.addHeader("我的收藏","");
-				
-				//FavoriteMgr.Init(header.id);
-				//FavoriteMgr.Update();
-				if(header.size()>1)
-					needOpenUsual = false;
-				else
-				{
-					header.hide();
-					needOpenUsual = true;
-				}
-				
-				var header1 = menu.addHeader("快速通道","");
-				var header = menu.addHeader("最近操作","");
-				HistoryOpMenuMgr.init("vmenu",header);
-				HistoryOpMenuMgr.clear();
-			}
-			var header1 = menu.getHeaderAt(1);
-
-			//header1.addItem('账户管理','mainWorkArea.location="b.html"');alert(header1.innerHTML);
-			
-			//var menuData='<LI class="menuItem" id="vmenu_1_0"><A href="null" onclick="mainWorkArea.location=\'main!repsonseWorkArea.action\';return ';
-			//menuData+= 'false;window.focus();">main</A></LI></UL>';
-			
-			//menuData +='<LI class="menuItem" id="vmenu_1_1"><A href="null" onclick="mainWorkArea.location=\'./bank/guanli.html\';return ';
-			//menuData+= 'false;window.focus();">帐户管理</A></LI></UL>';
-			var menuData= "";
 			$.ajax({
 				 type: "POST",
 				 url: "main!leftMenu.action",
 				 data:   "role_id=1",				 
 				 success: function(msg){
-							 menuData = msg; 
-							 header1.setContent(menuData);
-							 header1.showAll();
+								setLeftMenu(msg);
+							 //header1.showAll();
+							//document.getElementById("vmenu").innerHTML;
+							 //alert("${entity}");
+							 
+							//document.getElementById("vmenu").innerHTML=msg;
 				 			} 
-				}); alert(${loginName});
-			if(menuData)
-			{
-				header1.setContent(menuData);
-			}
-			if(needOpenUsual)
-				header1.showAll();
-			if(window.event!=null)
-				window.event.returnValue = false;
+				}); 
+
 			return false;
 		}		
+
+		function setLeftMenu(returnValue) {
+			var leftMenus = returnValue.split(",");
+
+			var menu = AccMenuManager.getMenu("vmenu");
+			var needOpenUsual = false;
+			if( null == menu )
+			{
+				menu = AccMenuManager.createNewMenu("vmenu","headerOpen","headerClose","menuItem");
+
+				for(var i=0; i<leftMenus.length; i++) {
+					var element = leftMenus[i].split("||");
+
+					var header = menu.addHeader(element[0],"");
+					if(element[1])
+					{
+						header.setContent(element[1]);
+						if(!needOpenUsual) {
+							header.showAll();
+						}						
+						needOpenUsual = true;
+					}else{
+						header.hide();
+					}
+				}				
+			}
+
+			if(window.event!=null)
+				window.event.returnValue = false;			
+		}
 		
 		function cw_openHomePage(menuType)
 		{
