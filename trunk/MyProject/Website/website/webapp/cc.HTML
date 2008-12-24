@@ -1,0 +1,427 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
+<HTML>
+	<HEAD>
+		<title></title>
+		<meta content="True" name="vs_snapToGrid">
+		<meta content="True" name="vs_showGrid">
+		<meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
+		<meta content="C#" name="CODE_LANGUAGE">
+		<meta content="JavaScript" name="vs_defaultClientScript">
+		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
+		<LINK href="./css/styles.css" type="text/css" rel="stylesheet">
+
+		<script language="JavaScript" type="text/JavaScript">
+		
+		function InitPage()
+		{
+			body.style.cursor = "";
+		}		
+		
+		function CheckValid()
+		{
+			body.style.cursor = "wait";			
+		}
+		</script>
+	</HEAD>
+	<body id="body" onload="InitPage()" MS_POSITIONING="GridLayout">
+		<form name="am_QuerySubAccount" method="post" action="am_QuerySubAccount.aspx" id="am_QuerySubAccount" onsubmit="CheckValid()">
+<input type="hidden" name="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" value="dDwtOTY4OTA2NzA7dDw7bDxpPDM+Oz47bDx0PDtsPGk8MT47aTwzPjtpPDU+O2k8Nz47aTw5PjtpPDExPjs+O2w8dDxwPHA8bDxUZXh0Oz47bDzotKbmiLfnrqHnkIYgXD4g6aaW6aG1Oz4+Oz47Oz47dDxwPGw8VmlzaWJsZTs+O2w8bzx0Pjs+Pjs7Pjt0PHQ8O3Q8aTwxPjtAPDYyMjU4ODAxMDQ5ODU1OTQ7PjtAPEEwMDEwNjIyNTg4MDEwNDk4NTU5NDs+PjtsPGk8MD47Pj47Oz47dDxwPGw8VmlzaWJsZTs+O2w8bzx0Pjs+PjtsPGk8MT47PjtsPHQ8cDxwPGw8VmlzaWJsZTs+O2w8bzx0Pjs+Pjs+Ozs+Oz4+O3Q8cDxsPFZpc2libGU7PjtsPG88dD47Pj47bDxpPDE+O2k8Mz47aTw1Pjs+O2w8dDxwPGw8VmlzaWJsZTs+O2w8bzx0Pjs+Pjs7Pjt0PHQ8cDxwPGw8RGF0YVZhbHVlRmllbGQ7RGF0YVRleHRGaWVsZDs+O2w8S2V5O1ZhbHVlOz4+Oz47dDxpPDM+O0A8WyDlhajpg6ggXTvmtLvmnJ/nu5PnrpfmiLc75rS75pyf5oqV6LWE5oi3Oz47QDwtOzEwMDAxOzEwMDAyOz4+Oz47Oz47dDx0PHA8cDxsPERhdGFWYWx1ZUZpZWxkO0RhdGFUZXh0RmllbGQ7PjtsPEtleTtWYWx1ZTs+Pjs+O3Q8aTwyPjtAPFsg5YWo6YOoIF075Lq65rCR5biBOz47QDwtOzEwMDs+Pjs+Ozs+Oz4+O3Q8cDxsPFZpc2libGU7PjtsPG88dD47Pj47bDxpPDE+O2k8NT47PjtsPHQ8cDxwPGw8VGV4dDs+O2w8NjIyNTg4MDEwNDk4NTU5NDs+Pjs+Ozs+O3Q8cDxwPGw8VGV4dDs+O2w8Mjs+Pjs+Ozs+Oz4+Oz4+Oz4+Oz46B4yLhfnstPFTGNbCGnWQ9Un4VQ==" />
+
+<script language="javascript" type="text/javascript">
+<!--
+	function __doPostBack(eventTarget, eventArgument) {
+		var theform;
+		if (window.navigator.appName.toLowerCase().indexOf("microsoft") > -1) {
+			theform = document.am_QuerySubAccount;
+		}
+		else {
+			theform = document.forms["am_QuerySubAccount"];
+		}
+		theform.__EVENTTARGET.value = eventTarget.split("$").join(":");
+		theform.__EVENTARGUMENT.value = eventArgument;
+		theform.submit();
+	}
+// -->
+</script>
+
+			<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
+				<TR>
+					<TD class="tdCommonTop">
+						<TABLE class="tbTitle" id="Table2" cellSpacing="0" border="0">
+							<TR>
+								<TD class="tdTitle1" colSpan="1" rowSpan="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
+									<span id="Location">账户管理 > 首页</span>&nbsp;&nbsp;&nbsp; <img src="./images/ask.gif" id="BtnAsk" style="CURSOR: hand" alt="账户管理提供账户余额查询、交易查询、修改密码、挂失等账户基本功能。" height="23" width="24" align="absMiddle" /></TD>
+								<TD class="tdTitle2"><FONT face="宋体"></FONT></TD>
+								<TD class="tdTitle3">版面号：101002<IMG alt="" src="./images/title_06.gif"></TD>
+							</TR>
+						</TABLE>
+						<TABLE class="tbBlock" id="Table3" cellSpacing="1" border="0">
+							<TR>
+								<TD class="tdCenterW20H40" colSpan="1" rowSpan="1">一卡通卡号：</TD>
+								<TD class="tdLeftH40"><select name="ddlDebitCardList" onchange="__doPostBack('ddlDebitCardList','')" language="javascript" id="ddlDebitCardList">
+	<option selected="selected" value="A00106225880104985594">6225880104985594</option>
+
+</select></TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+				<TR>
+					<TD class="tdSpaceH12"><FONT face="宋体"></FONT><FONT face="宋体"></FONT></TD>
+				</TR>
+				<TR>
+					<TD id="tdPanel" class="tdCommonTop">
+						<TABLE class="tbPanel" id="Table4" cellSpacing="0" cellPadding="0" border="0">
+							<TR>
+								<TD class="tdPanelContent">
+<!-- 账户管理首页标签 -->
+<table  border="0" cellpadding="0" cellspacing="0" class=tbPanelContent>
+	<tr>
+	    <td class=tdPanelHead>&nbsp; </td>
+	    <td>
+	    <td  nowrap class=tdPanelSel>ffffffffffffff adsdsdsfdfs<a href="#" class=lkPanelSel onclick="triggerFunc('am_QuerySubAccount.aspx','FORM','_self','panelcontrol=HomeAccountManager')">账户查询</a></td>
+	   <td>
+
+
+	</tr>
+</table>
+
+<!-- END 账户管理首页标签 --></TD>
+								<TD class="tdPanelTrail">
+									
+									<table  border="0" cellpadding="0" cellspacing="0" class=tbPanelContent>
+	<tr>
+
+		<td width="74" class=tdRelFuncPwdManager onclick="triggerFunc('../DebitCard/am_ModiPwd.aspx','FORM','PwdManager','panel=ModiQueryPwd')"> </td>
+		<td width="20" class=tdPanelSpaceW20>&nbsp; </td>
+		<td width="74" class=tdRelFuncReportLoss onclick="triggerFunc('../DebitCard/am_ReportLoss.aspx','FORM','ReportLoss','panel=ReportLoss')"> </td>
+		<td width="20" class=tdPanelSpaceW20>&nbsp; </td>
+		<td width="74" class=tdRelFuncInvestFS onclick="triggerFunc('../DebitCard/im_InvestFS.aspx','FORM','InvestFS','panel=InvestFS')"> </td>		
+		<td width="20" class=tdPanelSpaceW20>&nbsp; </td>
+
+	</tr>
+</table>
+									</TD>
+							</TR>
+						</TABLE>
+					</TD>
+
+				</TR>
+				<TR>
+					<TD id="tdQueryResult1" class="tdCommonTop"><TABLE class="tbCommonColor" id="Table5" cellSpacing="0" border="0">
+							<TR>
+								<TD id="tdSpace" class=""></TD>
+
+							</TR>
+						</TABLE>
+						<TABLE class="tbCommonColor" id="Table6" cellSpacing="1" border="0">
+							<TR>
+								<TD class="tdLeftH30">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类型：<select name="ddlTypeList" id="ddlTypeList" style="width:100px;">
+	<option selected="selected" value="-">[ 全部 ]</option>
+	<option value="10001">活期结算户</option>
+	<option value="10002">活期投资户</option>
+
+</select>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;币种：<select name="ddlCurrencyList" id="ddlCurrencyList" style="width:100px;">
+	<option selected="selected" value="-">[ 全部 ]</option>
+	<option value="100">人民币</option>
+
+</select>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="BtnOK" value="查 询" id="BtnOK" class="btn" />
+								</TD>
+							</TR>
+						</TABLE>
+					</TD>
+
+				</TR>
+				<TR>
+					<TD class="tdSpaceH12"></TD>
+				</TR>
+				<TR>
+					<TD id="tdQueryResult2" class="tdCommonTop"><TABLE class="tbBlock" id="Table8" cellSpacing="1" border="0">
+							<TR>
+								<TD class="tdPrompt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以下是一卡通
+									<span id="AccountNo" class="wcLabel">6225880104985594</span>&nbsp;的子账户：</TD>
+							</TR>
+						</TABLE>
+						<table class="dgMain" cellspacing="0" cellpadding="3" align="Center" rules="all" bordercolor="#9FD6FF" border="1" id="dgSubAccRecSet" style="border-color:#9FD6FF;border-width:1px;border-style:solid;border-collapse:collapse;">
+	<tr class="dgHeader" align="Center">
+		<td class="dgHeader">操作</td><td class="dgHeader">子账户</td><td class="dgHeader">类型</td><td class="dgHeader">币种</td><td class="dgHeader">余额</td><td class="dgHeader">利率</td><td class="dgHeader">状态</td><td class="dgHeader">起息日</td><td class="dgHeader">存期</td><td class="dgHeader">到期日</td>
+	</tr><tr>
+		<td align="Center"><a href="#" onclick="triggerFunc('../DebitCard/am_QueryTodayTrans.aspx','FORM','110056674000001','SubAccountNo=110056674000001');"> 交易查询 </a></td><td align="Center">00000</td><td align="Left">活期结算户</td><td align="Left">人民币</td><td align="Right" style="color:#585858;">379.46</td><td align="Right">0.3600</td><td align="Left">活动</td><td align="Center">&nbsp;</td><td align="Left">&nbsp;</td><td align="Center">&nbsp;</td>
+	</tr><tr class="dgAlternatingItem">
+		<td align="Center"><a href="#" onclick="triggerFunc('../DebitCard/am_QueryTodayTrans.aspx','FORM','110056674000003','SubAccountNo=110056674000003');"> 交易查询 </a></td><td align="Center">00000</td><td align="Left">活期投资户</td><td align="Left">人民币</td><td align="Right" style="color:#585858;">0.00</td><td align="Right">0.3600</td><td align="Left">活动</td><td align="Center">&nbsp;</td><td align="Left">&nbsp;</td><td align="Center">&nbsp;</td>
+	</tr>
+</table>
+						<TABLE class="tbBlock" id="Table9" cellSpacing="1" border="0">
+							<TR>
+								<TD class="tdLeftH30">&nbsp; 子账户个数：
+									<span id="RecCount" class="wcLabel">2</span></TD>
+							</TR>
+						</TABLE>
+					</TD>
+
+				</TR>
+				<TR>
+					<TD class="tdSpaceH12"></TD>
+				</TR>
+				<TR>
+					<TD class="tdCommonTop">
+						<TABLE class="tbExplain" id="Table10" height="80" cellSpacing="1" border="0">
+							<TR>
+								<TD class="tdExplain"><IFRAME class="ifExplain" id="ExplainPageFrame" name="ExplainPageFrame" src="../doc/Htmls/101002.htm"
+										frameBorder="0" scrolling="no"></IFRAME>
+								</TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+				<TR>
+					<TD style="HEIGHT: 1px"><input name="ClientNo" id="ClientNo" type="hidden" value="61B8EC7D81070286438E84403866759F664475607854262400002835" /><input name="PanelControl" id="PanelControl" type="hidden" value="HomeAccountManager" />
+						
+<script language="JavaScript" type="text/JavaScript">
+		var DIV_MSG_Show = false;
+		var DIV_MSG_AdjustDIVSize = null;
+		var DIV_MSG_SelectedObj = null;
+		
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//层的显示、隐藏以及大小调整
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		function AdjustFrameWidth(id)
+		{
+			var frameIdOBJECT = window.document.getElementById(id);
+			/*
+			if(frameIdOBJECT.offsetWidth < 500)
+			{
+				frameIdOBJECT.style.width = 500;
+			}
+			else if(frameIdOBJECT.offsetWidth > window.document.body.clientWidth)
+			{
+				frameIdOBJECT.style.width = window.document.body.clientWidth;
+			}
+			*/
+			frameIdOBJECT.style.width = 539;
+		}
+
+		function AdjustFrameHeight(id)
+		{
+			var frameIdDOM = window.frames[id];
+			var frameIdOBJECT = window.document.getElementById(id);
+			frameIdOBJECT.style.height = frameIdDOM.document.body.scrollHeight;
+			
+			var imgLefter = window.document.getElementById("imgLefter");
+			var imgRighter = window.document.getElementById("imgRighter");
+			imgLefter.height = frameIdOBJECT.offsetHeight;
+			imgRighter.height = frameIdOBJECT.offsetHeight;
+		}
+		
+		function AdjustDIVSize(msgID,shieldID)
+		{
+			var MsgDIV = window.document.getElementById(msgID);
+			var ShieldDIV = window.document.getElementById(shieldID);
+			if(MsgDIV != null)
+			{
+				MsgDIV.style.width = 565;//MsgDIV.scrollWidth;
+				MsgDIV.style.height = MsgDIV.scrollHeight;
+				
+				MsgDIV.style.left = (window.document.body.clientWidth - MsgDIV.offsetWidth)/2;
+				MsgDIV.style.top = (window.document.body.clientHeight - MsgDIV.offsetHeight)/2;
+			}
+			
+			if(ShieldDIV != null)
+			{
+				ShieldDIV.style.width = window.document.body.clientWidth;
+				
+				if(window.document.body.scrollHeight > window.document.body.clientHeight)
+				{
+					ShieldDIV.style.height = window.document.body.scrollHeight;
+				}
+				else
+				{
+					ShieldDIV.style.height = window.document.body.clientHeight;
+				}
+			}			
+		}
+		
+		function AdjustMsgDIVSize()
+		{
+			AdjustDIVSize('MsgDIV','');
+		}
+		
+		function MsgShow()
+		{
+			if(DIV_MSG_Show)
+			{
+				var ShieldDIV = window.document.getElementById("ShieldDIV");
+			
+				if(ShieldDIV.style.visibility == "hidden")
+				{
+					AdjustDIVSize('','ShieldDIV');
+					ShieldDIV.style.visibility = "visible";
+					AdjustFrameWidth('MsgIframe');
+					var param1 = "MsgXml='" + DIV_MSG_MsgXml + "'";
+					triggerFuncEq('../Base/MessagePage3.aspx','FORM','MsgIframe',param1);
+				}
+				else
+				{
+	 				var MsgTable = window.document.getElementById("MsgTable");
+					MsgTable.style.display = "inline";
+				
+					AdjustFrameHeight("MsgIframe");
+					AdjustDIVSize('MsgDIV','');
+					var MsgDIV = window.document.getElementById("MsgDIV");
+					MsgDIV.style.visibility = "visible";
+	 				MsgDIV.onmousedown = grabObj;
+					
+					ShieldDIV.onresize = AdjustMsgDIVSize;
+					
+					DIV_MSG_AdjustDIVSize = window.setInterval("AdjustDIVSize('','ShieldDIV')",100);
+					DIV_MSG_Show = false;
+				}
+			}
+		}
+		
+		function MsgHide()
+		{
+			var MsgDIV = window.document.getElementById("MsgDIV");
+			var MsgIframe = window.document.getElementById("MsgIframe");
+			var ShieldDIV = window.document.getElementById("ShieldDIV");
+			
+			if(MsgDIV.style.visibility == "visible")
+			{
+				MsgDIV.style.visibility = "hidden";
+				MsgDIV.style.width = 0;
+				MsgDIV.style.height = 0;
+				MsgDIV.onmousedown = null;
+				MsgIframe.style.width = "100%";
+				MsgIframe.style.height = "100%";
+				
+	 			var MsgTable = window.document.getElementById("MsgTable");
+				MsgTable.style.display = "none";				
+			}			
+			if(ShieldDIV.style.visibility == "visible")
+			{
+				ShieldDIV.style.visibility = "hidden";
+				ShieldDIV.style.width = 0;
+				ShieldDIV.style.height = 0;
+				ShieldDIV.onresize = null;
+			}
+			
+			if(DIV_MSG_AdjustDIVSize != null)
+			{
+				window.clearInterval(DIV_MSG_AdjustDIVSize);
+			}
+		}
+		
+////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+//层的移动
+////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+		function grabObj()
+		{
+			var imgObjID = window.event.srcElement.id;
+			if(imgObjID == "imgHeader")
+			{
+				DIV_MSG_SelectedObj = window.document.getElementById("MsgDIV");
+			}
+
+			offsetX = window.event.offsetX;
+			offsetY = window.event.offsetY;
+
+			var MsgDIV = window.document.getElementById("MsgDIV");
+			MsgDIV.onmousemove = dragObj;
+			MsgDIV.onmouseup = releaseObj;	
+			// prevent further processing of mouseDown event so 
+  			// that the Macintosh doesn't display the contextual 
+			// menu and lets dragging work normally.
+			return false;
+		}
+			
+		function dragObj()
+		{
+			if (DIV_MSG_SelectedObj)
+			{
+				x = window.event.clientX - offsetX;
+				y = window.event.clientY - offsetY;
+
+				if(x<0) x = 0;
+				if((x+DIV_MSG_SelectedObj.offsetWidth)>window.document.body.clientWidth) x=window.document.body.clientWidth-DIV_MSG_SelectedObj.offsetWidth;
+
+				DIV_MSG_SelectedObj.style.pixelLeft = x;
+
+				if(y<0) y=0;
+				if((y+DIV_MSG_SelectedObj.offsetHeight)>window.document.body.clientHeight) y=window.document.body.clientHeight-DIV_MSG_SelectedObj.offsetHeight;
+
+				DIV_MSG_SelectedObj.style.pixelTop = y;
+
+				//prevent further system response to dragging
+				window.event.returnValue = false;
+				return false
+			}
+		}
+
+		function releaseObj()
+		{
+			if (DIV_MSG_SelectedObj)
+			{
+				DIV_MSG_SelectedObj = null;
+				var MsgDIV = window.document.getElementById("MsgDIV");
+				MsgDIV.onmousemove = null;
+				MsgDIV.onmouseup = null;				
+			}
+		}
+		
+////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+//其他事件处理
+////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+		function ChangeSrc(flag)
+		{
+			var imgClose = window.document.getElementById("imgClose");
+			if(flag == 2)
+			{
+				imgClose.src = '..\\doc\\Images\\MessageNew9.gif';
+			}
+			else
+			{
+				imgClose.src = '..\\doc\\Images\\MessageNew12.gif';
+			}
+		}
+		
+</script>
+<div id="MsgDIV" style="Z-INDEX: 15; LEFT: 0px; VISIBILITY: hidden; WIDTH: 0px; POSITION: absolute; TOP: 0px; HEIGHT: 0px">
+	<table border="0" align="center" cellpadding="0" cellspacing="0" id="MsgTable" style="display:none">
+		<tr>
+			<td colspan="3">
+				<img src="./images/MessageNew7.jpg" id="imgHeader"><div style="LEFT: 535px; POSITION: absolute; TOP: 10px"><img src="./images\MessageNew9.gif" id="imgClose" onmouseover="ChangeSrc(1);" onmouseout="ChangeSrc(2);"
+						style="CURSOR: hand" onclick="MsgHide();"></div>
+			</td>
+		</tr>
+		<tr>
+			<td><img src="./images\MessageNew10.gif" id="imgLefter" height="10" width="13"></td>
+			<td>
+				<iframe id='MsgIframe' name='MsgIframe' frameBorder="0" width="537" height="10" scrolling="no"
+					marginheight="0" marginwidth="0" src="..\Base\Blank.htm" onload="MsgShow()"></iframe>
+			</td>
+			<td><img src="./images\MessageNew11.gif" id="imgRighter" height="10" width="13"></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<img src="./images\MessageNew8.jpg">
+			</td>
+		</tr>
+	</table>
+</div>
+<div id="ShieldDIV" style="Z-INDEX: 10; FILTER: alpha(opacity=10); LEFT: 0px; VISIBILITY: hidden; WIDTH: 0px; POSITION: absolute; TOP: 0px; HEIGHT: 0px">
+	<iframe id='ShieldIftame' frameBorder="0" width="100%" height="100%" scrolling="no" marginheight="0"
+		marginwidth="0" src="..\Base\DefaultDiv.htm"></iframe>
+</div>
+
+					</TD>
+				</TR>
+			</TABLE>
+		</form>
+	</body>
+</HTML>
