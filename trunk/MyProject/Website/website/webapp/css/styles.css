@@ -557,6 +557,10 @@ TD.tdPanelContent
 {
 	height:24px;
 	align:left;	
+	background-image:url(../images/panel_005.gif);
+	background-attachment: scroll;
+	background-repeat: repeat;
+	background-position: left center;	
 }
 
 TD.tdPanelHead
@@ -591,7 +595,8 @@ TD.tdPanelSpaceW20
 
 TD.tdPanelTrail
 {
-	width:100%;
+	text-align:right;
+	
 	height:24px;	
 	background-image:url(../images/panel_005.gif);
 	background-attachment: scroll;
@@ -605,7 +610,7 @@ TD.tdPanelSel
 	height:24px;
 	align:center;
 	text-align:center;
-	background-image:url(../images/panel_001.gif);
+	
 }
 
 TD.tdPanelNoSel
