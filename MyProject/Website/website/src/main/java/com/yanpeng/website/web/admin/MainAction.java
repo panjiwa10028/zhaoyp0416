@@ -13,7 +13,9 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.config.ParentPackage;
 import org.apache.struts2.config.Result;
 import org.apache.struts2.config.Results;
+import org.apache.struts2.config.NullResult;
 import org.apache.struts2.dispatcher.ServletActionRedirectResult;
+import org.apache.struts2.dispatcher.ServletDispatcherResult;
 import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.context.SecurityContext;
@@ -37,7 +39,7 @@ import org.springside.modules.web.struts2.CRUDActionSupport;
 import org.springside.modules.web.struts2.SimpleActionSupport;
 
 import org.springframework.security.Authentication;
-
+import com.opensymphony.xwork2.ActionChainResult;
 /**
  * 用户管理Action.
  * 
@@ -46,8 +48,7 @@ import org.springframework.security.Authentication;
  * @author calvin
  */
 @ParentPackage("default")
-@Results( { @Result(name = CRUDActionSupport.RELOAD, value = "/main", type = ServletActionRedirectResult.class)
-,@Result(name = "mainWorkArea", value = "/mainWorkArea", type = ServletActionRedirectResult.class)})
+@Results( { @Result(name = "firstPage", value = "/firstPage", type = ServletActionRedirectResult.class)})
 public class MainAction extends SimpleActionSupport {
 
 	private static final long serialVersionUID = -2180690009159324387L;
@@ -56,34 +57,18 @@ public class MainAction extends SimpleActionSupport {
 	private MenuManager menuManager;
 	private TUsers entity;
 	
-	private Page page;
 	
-
-	public Page getPage() {
-		return page;
-	}
-
 	public TUsers getEntity() {
 		return entity;
 	}
 
 	@Override
 	public String execute() throws Exception {
-		return list();
+		return SimpleActionSupport.SUCCESS;
 	}
 
-	public String list() throws Exception {
-		return SUCCESS;
-	}
 	
-	public String leftMenu() throws Exception {
-		HttpServletRequest request = ServletActionContext.getRequest();
-//		String value="<LI class=\"menuItem\" id=\"vmenu_1_0\"><A href=\"null\" onclick='mainWorkArea.location=\"main!repsonseWorkArea.action\";return ";
-//		value += "false;window.focus();'>main</A></LI>";
-//		
-//		value +="<LI class=\"menuItem\" id=\"vmenu_1_1\"><A href=null onclick='mainWorkArea.location=\"./bank/guanli.html\";return ";
-//		value +="false;window.focus();'>帐户管理</A></LI>";
-
+	public String getLeftMenu() throws Exception {
 		User u = getUser();
 		
 		entity = userManager.getUserByLoginName(u.getUsername());
@@ -101,10 +86,6 @@ public class MainAction extends SimpleActionSupport {
 	}
 
 
-	public String repsonseWorkArea() throws Exception {
-		return new String("mainWorkArea");
-	}
-	
 	@Required
 	public void setUserManager(UserManager userManager) {
 		this.userManager = userManager;
@@ -115,7 +96,7 @@ public class MainAction extends SimpleActionSupport {
 		this.menuManager = menuManager;
 	}
 	
-	public User getUser()    
+	private User getUser()    
     {   
         //取得登录用户   
         SecurityContext ctx = SecurityContextHolder.getContext();       
