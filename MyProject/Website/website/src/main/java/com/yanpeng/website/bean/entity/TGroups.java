@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,10 +28,11 @@ public class TGroups implements java.io.Serializable {
 	// Fields
 
 	private String id;
+	private TGroups TGroups;
 	private String name;
-	private Long parentId;
 	private String description;
 	private Date modifyTime;
+	private Set<TGroups> TGroupses = new HashSet<TGroups>(0);
 	private Set<TUsers> TUserses = new HashSet<TUsers>(0);
 
 	// Constructors
@@ -39,23 +42,24 @@ public class TGroups implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public TGroups(String id, String name, Long parentId, String description,
+	public TGroups(String id, TGroups TGroups, String name, String description,
 			Date modifyTime) {
 		this.id = id;
+		this.TGroups = TGroups;
 		this.name = name;
-		this.parentId = parentId;
 		this.description = description;
 		this.modifyTime = modifyTime;
 	}
 
 	/** full constructor */
-	public TGroups(String id, String name, Long parentId, String description,
-			Date modifyTime, Set<TUsers> TUserses) {
+	public TGroups(String id, TGroups TGroups, String name, String description,
+			Date modifyTime, Set<TGroups> TGroupses, Set<TUsers> TUserses) {
 		this.id = id;
+		this.TGroups = TGroups;
 		this.name = name;
-		this.parentId = parentId;
 		this.description = description;
 		this.modifyTime = modifyTime;
+		this.TGroupses = TGroupses;
 		this.TUserses = TUserses;
 	}
 
@@ -70,6 +74,16 @@ public class TGroups implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "parent_id", nullable = false)
+	public TGroups getTGroups() {
+		return this.TGroups;
+	}
+
+	public void setTGroups(TGroups TGroups) {
+		this.TGroups = TGroups;
+	}
+
 	@Column(name = "name", nullable = false, length = 100)
 	public String getName() {
 		return this.name;
@@ -77,15 +91,6 @@ public class TGroups implements java.io.Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	@Column(name = "parent_id", nullable = false)
-	public Long getParentId() {
-		return this.parentId;
-	}
-
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
 	}
 
 	@Column(name = "description", nullable = false, length = 65535)
@@ -105,6 +110,15 @@ public class TGroups implements java.io.Serializable {
 
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TGroups")
+	public Set<TGroups> getTGroupses() {
+		return this.TGroupses;
+	}
+
+	public void setTGroupses(Set<TGroups> TGroupses) {
+		this.TGroupses = TGroupses;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TGroups")
