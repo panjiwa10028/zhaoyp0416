@@ -183,7 +183,11 @@ TD.tdLeftH30
 	text-align: left;
 	background-color: #f2f9ff;	
 }
-
+TD.tdH30
+{
+	height: 30px;
+	background-color: #f2f9ff;	
+}
 TD.tdLeftH40
 {
 	height: 40px;
@@ -582,7 +586,15 @@ TD.tdPanelSpace
 	background-repeat: repeat;	
 	background-position: center;	
 }
-
+TD.tdPanelSpace10
+{
+	width:10px;
+	height:24px;	
+	background-image:url(../images/panel_005.gif);
+	background-attachment: scroll;
+	background-repeat: repeat;	
+	background-position: center;	
+}
 TD.tdPanelSpaceW20
 {
 	width:20px;
@@ -596,7 +608,6 @@ TD.tdPanelSpaceW20
 TD.tdPanelTrail
 {
 	text-align:right;
-	
 	height:24px;	
 	background-image:url(../images/panel_005.gif);
 	background-attachment: scroll;
@@ -604,22 +615,46 @@ TD.tdPanelTrail
 	background-position: right center;	
 }
 
-TD.tdPanelSel
+TD.tdPanelSel_left
 {
-	width:100px;
+	width:10px;
 	height:24px;
 	align:center;
 	text-align:center;
-	
+	background-image:url(../images/panel_left.jpg);	
+}
+TD.tdPanelSel_center
+{
+	width:80px;
+	height:24px;
+	align:center;
+	text-align:center;
+	background-image:url(../images/panel_center.jpg);	
+}
+TD.tdPanelSel_right
+{
+	width:10px;
+	height:24px;
+	align:center;
+	text-align:center;
+	background-image:url(../images/panel_right.jpg);	
 }
 
+TD.tdOperButton
+{
+	width:74px;
+	height:24px;	
+	align:center;
+	text-align:center;
+	cursor:hand;
+}
 TD.tdPanelNoSel
 {
 	width:100px;
 	height:24px;
 	align:center;
 	text-align:center;	
-	background-image:url(../images/panel_002.gif);	
+	background-image:url(/images/panel_002.gif);	
 }
 
 TD.tdRelPanelSel
@@ -993,7 +1028,7 @@ A.lkPanelNoSel:hover
 
 input
 {
-	behavior: url(../doc/Scripts/button.htc);
+	behavior: url(../js/button.htc);
 }
 
 .btn
@@ -1149,4 +1184,19 @@ TD.tdMsgPageCenter3
 .keyword
 {
 	color:Red;
+}
+
+
+.checkbox {	height:15px; width:15px; }
+
+#processMessage{
+	position:absolute;
+	border:1px solid #00aeda;
+	background-color:#c5f1ff;
+	padding:5px;
+	width:expression(document.body.clientWidth - 40);
+	top:expression(document.body.clientHeight - 680);
+
+	margin-left:5px;
+	filter: alpha(opacity=80);
 }
