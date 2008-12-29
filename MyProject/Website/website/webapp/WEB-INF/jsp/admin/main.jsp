@@ -14,12 +14,7 @@
 
 		<script language="JavaScript" type="text/JavaScript"> 
 
-		//var GenShell_ClientNo="015C3BBB172525FEBE9231E3448941E1127204223268947900111786";
-		//var DefaultAuthName="CBANK_PB";
-		//var LoginType="D";
-		//var DefaultMenuType="A";
 		var DefaultPageNo="";
-		//var ClientWarrantFlag="N";
 		moveTo(0,0);
   		resizeTo(screen.width,screen.height);
 
@@ -27,23 +22,46 @@
 		var Default_FormTarget = "mainWorkArea";
 		function initPage()
 		{
-			MainWorkAreaIFrame = document.getElementById(Default_FormTarget);
 			
+			setDiv("visible");		
+			MainWorkAreaIFrame = document.getElementById(Default_FormTarget);			
 			cw_switchMenu();
+			
+		}
+
+		//加载页面弹出层和隐藏层
+		function setDiv(style) {
+			if(ShieldDIV != null) {
+				if (style == "hidden") {
+					ShieldDIV.style.visibility = style;
+				}else {
+					ShieldDIV.style.visibility = style;
+					ShieldDIV.style.width = window.document.body.clientWidth;
+					
+					if(window.document.body.scrollHeight > window.document.body.clientHeight)
+					{
+						ShieldDIV.style.height = window.document.body.scrollHeight;
+					}
+					else
+					{
+						ShieldDIV.style.height = window.document.body.clientHeight;
+					}
+				}
+			}
 			
 		}
 		
 		//默认打开欢迎页
 		function cw_switchMenu()
 		{
-			var menuType = "";
-			initMenu(menuType);
-			initShortCutMenu(menuType);
-			cw_openHomePage(menuType);
+		
+			initMenu();
+			initLeftMenu();
+			cw_openHomePage();
 		}	
 		
 		//下拉菜单
-		function initMenu(menuType)
+		function initMenu()
 		{
 			hideAllSubMenu();
 
@@ -68,7 +86,7 @@
 			menuData += '</ul>';
 			if(menuData)
 			{
-				sysMenuTD.innerHTML = menuData;
+				//sysMenuTD.innerHTML = menuData;
 			}
 			buildMenu("menu");
 			if(window.event!=null)
@@ -76,26 +94,22 @@
 			return false;
 		}	
 		
-		//初始化快捷菜单
-		function initShortCutMenu(menuType)
+		//初始化左侧菜单
+		function initLeftMenu()
 		{
 			$.ajax({
 				 type: "POST",
-				 url: "main!leftMenu.action",
-				 data:   "role_id=1",				 
+				 url: "main!getLeftMenu.action",
+				 data:   "",				 
 				 success: function(msg){
 								setLeftMenu(msg);
-							 //header1.showAll();
-							//document.getElementById("vmenu").innerHTML;
-							 //alert("${entity}");
-							 
-							//document.getElementById("vmenu").innerHTML=msg;
 				 			} 
 				}); 
 
 			return false;
 		}		
 
+		//设置加载左侧菜单
 		function setLeftMenu(returnValue) {
 			var leftMenus = returnValue.split(",");
 
@@ -121,12 +135,12 @@
 					}
 				}				
 			}
-
+			setDiv("hidden");
 			if(window.event!=null)
 				window.event.returnValue = false;			
 		}
 		
-		function cw_openHomePage(menuType)
+		function cw_openHomePage()
 		{
 			//空白页
 			mainWorkArea.document.write("<style TYPE='text/css'>.mycontent {font: 9pt/14pt '宋体';}</style>");
@@ -136,24 +150,9 @@
 			if (DefaultPageNo == "")
 			{
 				//CallFunc('CBANK_SHELL','b.html','FORM',null,'DefaultMenuType='+menuType);
-				mainWorkArea.location="main!repsonseWorkArea.action";
+				mainWorkArea.location="firstPage.action";
 			}
-			/*
-			//银证通快速通道
-			else if (DefaultPageNo == "105101" && (LoginType == "A" || LoginType == "B" || LoginType == "D") && (DefaultMenuType == "A" || DefaultMenuType == "B"))
-			{			
-				CallFunc('CBANK_INVEST','Invest/StockHome.aspx','FORM',null);
-			}
-			//银基通快速通道
-			else if (DefaultPageNo == "105202" && (LoginType == "A" || LoginType == "B" || LoginType == "D") && (DefaultMenuType == "A" || DefaultMenuType == "B"))
-			{
-				CallFunc('CBANK_INVEST','Fund/FundHome.aspx','FORM',null);
-			}
-			else
-			{
-				CallFunc('CBANK_SHELL','Login/HomePage.aspx','FORM',null,'DefaultMenuType='+menuType);
-			}
-		*/
+
 		    window.event.returnValue = false;
 			return false;
 		}
@@ -193,6 +192,34 @@
 				document.all.splitter.background = "${ctx}/images/splitter_l.gif";
 			}
 		}
+
+		function showDialog(sURL ,vArguments ,width, height) {
+			
+		    if((width == undefined) || (width == "")){
+		    	width = "750";
+			}
+
+		    if((height == undefined) || (height == "")){
+		    	height = "550";
+			}
+			
+		    var iLeft = (top.window.screen.availWidth-10-width)/2;
+		    var iTop = (top.window.screen.availHeight-30-height)/2;  
+
+		    var sFeatures = "dialogWidth: "+ width +"px; dialogHeight: "+ height +"px; dialogTop: "+ iTop +"px; dialogLeft: "+ iLeft +"px; edge: Raised; center: Yes; help: Yes; resizable: No; status: No;";
+
+			/*页面传参数方法
+		    var array = new Array();
+			array[0] = theURL;
+			array[1] = winName;
+			array[2] = jsonrpc;
+			页面接参数方法
+			var para = window.dialogArguments;
+			openDialog.location = para[0];
+			win = para[1];
+			*/
+			window.showModalDialog(sURL,window,sFeatures);
+		}
 		</script>
 	</head>
 	<body style="MARGIN: 0px 2px" bgColor="#ffffff" onLoad="initPage();" onUnload="doUnload();">
@@ -226,19 +253,19 @@
 												<table cellSpacing="0" cellPadding="0" width="100%" border="0">
 													<tr>
 														<td height="62" align="right" style="PADDING-RIGHT:20px;padding-top:6px" valign=top>
-															<A onClick="CallFunc('CBANK_SHELL','Login/HomePage.aspx','FORM',null);" href="#null">
-																首页</A>&nbsp;|&nbsp;<A onClick="CallFunc('CBANK_SHELL','Service/WebSiteMap.aspx','FORM',null);" href="#null">功能地图</A>&nbsp;|&nbsp;<A onClick="CallFunc('CBANK_SHELL','Login/HP_QueryLog.aspx','FORM',null);" href="#null">日志查询</A>
-															|&nbsp;<A onClick="doRelogin();" href="#null">重登录</A>&nbsp;|&nbsp;<A onClick="doExit();" href="#null">退出</A>&nbsp;
+															<A onclick="CallFunc('CBANK_SHELL','Login/HomePage.aspx','FORM',null);" href="#null">
+																首页</A>&nbsp;|&nbsp;<A onclick="CallFunc('CBANK_SHELL','Service/WebSiteMap.aspx','FORM',null);" href="#null">功能地图</A>&nbsp;|&nbsp;<A onclick="CallFunc('CBANK_SHELL','Login/HP_QueryLog.aspx','FORM',null);" href="#null">日志查询</A>
+															|&nbsp;<A onclick="doRelogin();" href="#null">重登录</A>&nbsp;|&nbsp;<A onclick="doExit();" href="#null">退出</A>&nbsp;
 														</td>
 													</tr>
 												</table>
 											</td>
 										</tr>
 										<tr>
-											<td width="100%" background="${ctx}/images/headBg_16.gif" height="28">
-												<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+											<td width="100%" background="${ctx}/images/headBg.jpg" height="28">
+												<table cellSpacing="0" cellPadding="0" width="318" border="0">
 													<tr>
-														<td align="right" width="100%" height="28"><img id="imgCommonCard" onClick="switchImg('A');switchMenu('A');" src="${ctx}/images/tab_CommonCard_sel.gif" alt="一卡通" border="0" style="CURSOR: hand" /><img id="imgCreditCard" onClick="switchImg('C_A');switchMenu('C_A');" src="${ctx}/images/tab_CreditCard_unsel_01.gif" alt="信用卡" border="0" style="CURSOR: hand" /><img id="imgBook" onClick="alert('对不起，您没有绑定存折，无法使用相关功能！');" src="${ctx}/images/tab_Book_unsel_03.gif" alt="存折" border="0" style="CURSOR: hand" /><img id="imgUser" onClick="switchImg('D');switchMenu('D');" src="${ctx}/images/tab_User_unsel_02.gif" alt="一网通用户" border="0" style="CURSOR: hand" /></td>
+														<td align="right" height="28"><img src="${ctx}/images/headBg.jpg" border="0"/></td>
 													</tr>
 												</table>
 											</td>
@@ -315,7 +342,10 @@
 				</tr>				
 			</table>
 			
-		
+		<div id="ShieldDIV" style="Z-INDEX: 10; FILTER: alpha(opacity=10); LEFT: 0px; VISIBILITY: hidden WIDTH: 0px; POSITION: absolute; TOP: 0px; HEIGHT: 0px">
+	<iframe id='ShieldIftame' frameBorder="0" width="100%" height="100%" scrolling="no" marginheight="0"
+		marginwidth="0" src="${ctx}/common/defaultDiv.jsp"></iframe>
+</div>
 </form>
 	</body>
 </HTML>
