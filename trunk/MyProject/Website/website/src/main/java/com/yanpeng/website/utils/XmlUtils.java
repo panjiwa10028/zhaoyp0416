@@ -34,7 +34,7 @@ public class XmlUtils {
 		for (int i = 0; i < menuList.size(); i++) {    
             
 	    	   TMenus menu = (TMenus)menuList.get(i);
-	    	   if("0".equals(menu.getParentId())) {
+	    	   if("0".equals(menu.getTMenus().getId())) {
 	    		// 创建节点 user; 
 	    		   if(!"".equals(returnValue)) {
 //	    			   elementDIV.addContent(elementA);
@@ -79,6 +79,9 @@ public class XmlUtils {
 //	               elementLI.addContent(elementLI_A);
 //	               elementUL.addContent(elementLI);
 	               
+	    		   if(menu.getDisabled() == 1) {
+	    			   continue;
+	    		   }
 	              value = XmlUtils.setChildMenu(menu, cnt);
 	              returnValue += value;
 	    	   }	           
