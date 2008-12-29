@@ -7,7 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -21,13 +24,14 @@ public class TMenus implements java.io.Serializable {
 	// Fields
 
 	private String id;
+	private TMenus TMenus;
 	private String name;
-	private String parentId;
 	private String displayName;
 	private String url;
-	private Integer disabled;
-	private Set<TRoles> TRoleses = new HashSet<TRoles>(0);
 	private String sort;
+	private Integer disabled;
+	private Set<TMenus> TMenuses = new HashSet<TMenus>(0);
+	private Set<TRoles> TRoleses = new HashSet<TRoles>(0);
 
 	// Constructors
 
@@ -36,28 +40,29 @@ public class TMenus implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public TMenus(String id, String name, String parentId, String displayName,
-			String url, Integer disabled, String sort) {
+	public TMenus(String id, TMenus TMenus, String name, String displayName,
+			String url, String sort, Integer disabled) {
 		this.id = id;
+		this.TMenus = TMenus;
 		this.name = name;
-		this.parentId = parentId;
 		this.displayName = displayName;
 		this.url = url;
-		this.disabled = disabled;
 		this.sort = sort;
+		this.disabled = disabled;
 	}
 
 	/** full constructor */
-	public TMenus(String id, String name, String parentId, String displayName,
-			String url, Integer disabled, String sort,
+	public TMenus(String id, TMenus TMenus, String name, String displayName,
+			String url, String sort, Integer disabled, Set<TMenus> TMenuses,
 			Set<TRoles> TRoleses) {
 		this.id = id;
+		this.TMenus = TMenus;
 		this.name = name;
-		this.parentId = parentId;
 		this.displayName = displayName;
 		this.url = url;
-		this.disabled = disabled;
 		this.sort = sort;
+		this.disabled = disabled;
+		this.TMenuses = TMenuses;
 		this.TRoleses = TRoleses;
 	}
 
@@ -72,6 +77,16 @@ public class TMenus implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "parent_id", nullable = false)
+	public TMenus getTMenus() {
+		return this.TMenus;
+	}
+
+	public void setTMenus(TMenus TMenus) {
+		this.TMenus = TMenus;
+	}
+
 	@Column(name = "name", unique = true, nullable = false, length = 50)
 	public String getName() {
 		return this.name;
@@ -79,15 +94,6 @@ public class TMenus implements java.io.Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	@Column(name = "parent_id", nullable = false, length = 36)
-	public String getParentId() {
-		return this.parentId;
-	}
-
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
 	}
 
 	@Column(name = "display_name", nullable = false, length = 100)
@@ -108,6 +114,15 @@ public class TMenus implements java.io.Serializable {
 		this.url = url;
 	}
 
+	@Column(name = "sort", nullable = false, length = 100)
+	public String getSort() {
+		return this.sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+
 	@Column(name = "disabled", nullable = false)
 	public Integer getDisabled() {
 		return this.disabled;
@@ -117,13 +132,13 @@ public class TMenus implements java.io.Serializable {
 		this.disabled = disabled;
 	}
 
-	@Column(name = "sort", nullable = false, length = 50)
-	public String getSort() {
-		return this.sort;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TMenus")
+	public Set<TMenus> getTMenuses() {
+		return this.TMenuses;
 	}
 
-	public void setSort(String sort) {
-		this.sort = sort;
+	public void setTMenuses(Set<TMenus> TMenuses) {
+		this.TMenuses = TMenuses;
 	}
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TMenuses")
