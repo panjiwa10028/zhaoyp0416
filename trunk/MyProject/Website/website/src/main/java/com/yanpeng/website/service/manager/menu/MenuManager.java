@@ -48,6 +48,17 @@ public class MenuManager {
 	
 	@Transactional(readOnly = true)
 	public Page<TMenus> getAllMenus(Page<TMenus> page) {
+		page.setOrder("asc");
+		page.setOrderBy("sort");
 		return menuDao.findAll(page);
+	}
+	
+	public void saveMenu(TMenus menu) {
+		menuDao.save(menu);
+	}
+	
+	@Transactional(readOnly = true)
+	public boolean isDisplayNameUnique(String displayName, String oldDisplayName) {
+		return menuDao.isPropertyUnique("displayName", displayName, oldDisplayName);
 	}
 }
