@@ -18,7 +18,9 @@ import javax.persistence.UniqueConstraint;
  * TMenus entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_menus", catalog = "website", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
+@Table(name = "t_menus", catalog = "website", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "name"),
+		@UniqueConstraint(columnNames = "display_name") })
 public class TMenus implements java.io.Serializable {
 
 	// Fields
@@ -30,8 +32,8 @@ public class TMenus implements java.io.Serializable {
 	private String url;
 	private String sort;
 	private Integer disabled;
-	private Set<TMenus> TMenuses = new HashSet<TMenus>(0);
 	private Set<TRoles> TRoleses = new HashSet<TRoles>(0);
+	private Set<TMenus> TMenuses = new HashSet<TMenus>(0);
 
 	// Constructors
 
@@ -53,8 +55,8 @@ public class TMenus implements java.io.Serializable {
 
 	/** full constructor */
 	public TMenus(String id, TMenus TMenus, String name, String displayName,
-			String url, String sort, Integer disabled, Set<TMenus> TMenuses,
-			Set<TRoles> TRoleses) {
+			String url, String sort, Integer disabled, Set<TRoles> TRoleses,
+			Set<TMenus> TMenuses) {
 		this.id = id;
 		this.TMenus = TMenus;
 		this.name = name;
@@ -62,8 +64,8 @@ public class TMenus implements java.io.Serializable {
 		this.url = url;
 		this.sort = sort;
 		this.disabled = disabled;
-		this.TMenuses = TMenuses;
 		this.TRoleses = TRoleses;
+		this.TMenuses = TMenuses;
 	}
 
 	// Property accessors
@@ -96,7 +98,7 @@ public class TMenus implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "display_name", nullable = false, length = 100)
+	@Column(name = "display_name", unique = true, nullable = false, length = 100)
 	public String getDisplayName() {
 		return this.displayName;
 	}
@@ -132,15 +134,6 @@ public class TMenus implements java.io.Serializable {
 		this.disabled = disabled;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TMenus")
-	public Set<TMenus> getTMenuses() {
-		return this.TMenuses;
-	}
-
-	public void setTMenuses(Set<TMenus> TMenuses) {
-		this.TMenuses = TMenuses;
-	}
-
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TMenuses")
 	public Set<TRoles> getTRoleses() {
 		return this.TRoleses;
@@ -148,6 +141,15 @@ public class TMenus implements java.io.Serializable {
 
 	public void setTRoleses(Set<TRoles> TRoleses) {
 		this.TRoleses = TRoleses;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TMenus")
+	public Set<TMenus> getTMenuses() {
+		return this.TMenuses;
+	}
+
+	public void setTMenuses(Set<TMenus> TMenuses) {
+		this.TMenuses = TMenuses;
 	}
 
 }
