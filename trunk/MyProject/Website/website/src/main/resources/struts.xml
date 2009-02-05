@@ -3,6 +3,7 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<constant name="struts.codebehind.pathPrefix" value="/WEB-INF/jsp/" />
+	<constant name="struts.custom.i18n.resources" value="i18n/messages"></constant>
 
 	<!-- package提供了将多个Action组织为一个模块的方式
          package的名字必须是唯一的 package可以扩展 当一个package扩展自
@@ -26,6 +27,8 @@
 					<param name="operationMode">AUTOMATIC</param>
 				</interceptor-ref>
 				<interceptor-ref name="paramsPrepareParamsStack" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="timer" />
 			</interceptor-stack>
 		</interceptors>
 		
@@ -39,5 +42,5 @@
 		使用ZeroConfig + CodeBehind插件,实现约定大于配置的零配置文件风格.
 	           特殊的Result路径在Action类中使用@Result设定. 
 	-->
-	<constant name="struts.custom.i18n.resources" value="i18n/messages"></constant>
+	
 </struts>
