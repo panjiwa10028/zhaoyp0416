@@ -1,6 +1,9 @@
 package com.yanpeng.website.web.admin.menu;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,13 +39,19 @@ public class MenuAction extends CRUDActionSupport<TMenus> {
 
 	private MenuManager manager;
 
-	private Page<TMenus> page = new Page<TMenus>(5, true);//每页5项，自动查询计算总页数.
+	private Page<TMenus> page = new Page<TMenus>(2, true);//每页5项，自动查询计算总页数.
 
 	private TMenus entity;
 
 	private String id;
+	
+	Map<String, Object> conditionMap = new HashMap<String, Object>();
 
+	
 
+	public Map<String, Object> getConditionMap() {
+		return conditionMap;
+	}
 
 	public TMenus getModel() {
 		return entity;
@@ -66,11 +75,41 @@ public class MenuAction extends CRUDActionSupport<TMenus> {
 	}
 
 	@Override
-	public String list() throws Exception {
-		page = manager.getAllMenus(page);
+	public String list() throws Exception {		
+		HttpServletRequest request = ServletActionContext.getRequest();
+		
+		String displayName = request.getParameter("displayName");
+		String disabled = request.getParameter("disabled");
+		String parentId = request.getParameter("parentId");
+		
+		if(displayName != null && !"".equals(displayName)) {
+			conditionMap.put("displayName", displayName);
+		}
+		if(disabled != null && !"".equals(disabled)) {
+			conditionMap.put("disabled", Integer.valueOf(disabled));
+		}
+		if(parentId != null && !"".equals(parentId)) {
+			conditionMap.put("parentId", parentId);
+			
+		}
+		
+		page = manager.findList(page, conditionMap);
+		
+		
+		Map typeMap = new HashMap();
+		typeMap.put("TMenus.id", "0");
+		Page typePage = manager.findList(new Page(), typeMap);
+		
+		if(parentId != null && !"".equals(parentId)) {
+			conditionMap.put("parentId", parentId);
+		}
+		
+		conditionMap.put("typeMenu", typePage.getResult());
+		
 		return SUCCESS;
 	}
-
+	
+	
 	@Override
 	public String input() throws Exception {
 //		allRoles = manager.getAllRoles();
@@ -82,9 +121,9 @@ public class MenuAction extends CRUDActionSupport<TMenus> {
 	public String save() throws Exception {
 		//根据页面上的checkbox 整合entity的roles Set
 //		CollectionUtils.mergeByCheckedIds(entity.getRoles(), checkedRoleIds, Role.class);
-		System.out.println(entity.getDisabled());
+
 		HttpServletRequest request = ServletActionContext.getRequest();
-		System.out.println(request.getParameter("disabled"));
+
 		if(request.getParameter("disabled") == null) {
 			entity.setDisabled(0);
 		}
