@@ -114,6 +114,7 @@ public class SimpleHibernateTemplate<T, PK extends Serializable> {
 			logger.warn("HQL查询暂不支持自动获取总结果数,hql为{}", hql);
 		}
 		Query q = createQuery(hql, values);
+		page.setTotalCount(q.list().size());
 		if (page.isFirstSetted()) {
 			q.setFirstResult(page.getFirst());
 		}
@@ -265,12 +266,13 @@ public class SimpleHibernateTemplate<T, PK extends Serializable> {
 
 		// 执行Count查询
 		int totalCount = (Integer) c.setProjection(Projections.rowCount()).uniqueResult();
-		if (totalCount < 1)
-			return -1;
+		
 
 		// 将之前的Projection和OrderBy条件重新设回去
 		c.setProjection(projection);
 
+		if (totalCount < 1)
+			return -1;
 		if (projection == null) {
 			c.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
 		}
