@@ -1,0 +1,14 @@
+<script language=javascript>
+	if(type=="submit" || type == "button")
+	{
+		onmouseover = function()
+		{
+			className = "btnOver";
+		};
+		
+		onmouseout = function()
+		{
+			className = "btn";
+		};
+	}
+</script>
