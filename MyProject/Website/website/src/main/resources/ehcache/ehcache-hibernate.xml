@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache>
 
-	<diskStore path="java.io.tmpdir/hibernate/mini-web" />
+	<diskStore path="java.io.tmpdir/hibernate/website" />
 
 	<!-- Cluster localhost setting -->
 	<cacheManagerPeerListenerFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
