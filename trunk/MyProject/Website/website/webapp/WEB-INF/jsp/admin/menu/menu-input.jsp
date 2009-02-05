@@ -32,7 +32,6 @@
 	});
 
 	function initPage() {
-		
 	}
 
 	function subForm() {
