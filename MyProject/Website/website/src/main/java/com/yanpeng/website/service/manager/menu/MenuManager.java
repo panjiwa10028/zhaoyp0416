@@ -1,8 +1,15 @@
 package com.yanpeng.website.service.manager.menu;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +49,28 @@ public class MenuManager {
 	}	
 	
 	@Transactional(readOnly = true)
+	public Page<TMenus> findList(Page<TMenus> page, Map<String, Object> conditionsMap) {
+		Criterion []criterion = new Criterion[conditionsMap.size()];
+		int cnt = 0;
+		for(Iterator<String> names = conditionsMap.keySet().iterator();names.hasNext();) {
+			String key = (String) names.next();
+			if(key.equals("displayName")) {
+				criterion[cnt] = Restrictions.like("displayName", (String) conditionsMap.get(key), MatchMode.ANYWHERE);
+				cnt++;
+			}else if(key.equals("disabled")) {
+				criterion[cnt] = Restrictions.eq("disabled", conditionsMap.get(key));
+				cnt++;
+			}
+			else if(key.equals("parentId")) {
+				criterion[cnt] = Restrictions.like("TMenus.id", (String) conditionsMap.get(key), MatchMode.EXACT);
+				cnt++;
+			}
+		}
+		
+		return menuDao.findByCriteria(page, criterion);
+	}
+	
+	@Transactional(readOnly = true)
 	public TMenus getMenu(String id) {
 		return menuDao.get(id);
 	}
@@ -52,7 +81,7 @@ public class MenuManager {
 		page.setOrderBy("sort");
 		return menuDao.findAll(page);
 	}
-	
+
 	public void saveMenu(TMenus menu) {
 		menuDao.save(menu);
 	}
@@ -61,4 +90,8 @@ public class MenuManager {
 	public boolean isDisplayNameUnique(String displayName, String oldDisplayName) {
 		return menuDao.isPropertyUnique("displayName", displayName, oldDisplayName);
 	}
+
+//	private void OrganizationalConditions(List<Map<String, Object>> conditionList, Criterion criterions){
+//		
+//	}
 }
