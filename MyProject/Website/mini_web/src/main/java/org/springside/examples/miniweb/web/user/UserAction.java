@@ -5,66 +5,53 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.config.ParentPackage;
-import org.apache.struts2.config.Result;
-import org.apache.struts2.config.Results;
-import org.apache.struts2.dispatcher.ServletActionRedirectResult;
+import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Required;
 import org.springside.examples.miniweb.entity.user.Role;
 import org.springside.examples.miniweb.entity.user.User;
 import org.springside.examples.miniweb.service.ServiceException;
 import org.springside.examples.miniweb.service.user.UserManager;
+import org.springside.modules.orm.hibernate.HibernateUtils;
 import org.springside.modules.orm.hibernate.Page;
-import org.springside.modules.utils.CollectionUtils;
 import org.springside.modules.web.struts2.CRUDActionSupport;
 
 /**
  * 用户管理Action.
  * 
  * @see CRUDActionSupport
- * 
  * @author calvin
  */
-@ParentPackage("default")
-@Results( { @Result(name = CRUDActionSupport.RELOAD, value = "/user", type = ServletActionRedirectResult.class) })
+@Results( { @Result(name = CRUDActionSupport.RELOAD, location = "user.action?page.pageParam=${page.pageParam}", type = "redirect") })
 public class UserAction extends CRUDActionSupport<User> {
 
 	private static final long serialVersionUID = -2180690009159324387L;
 
-	private UserManager manager;
-
-	private Page<User> page = new Page<User>(5, true);//每页5项，自动查询计算总页数.
+	// CRUD Action 基本属性
+	
+	private Page<User> page = new Page<User>(5, true);//每页5项记录，自动执行count查询计算总页数.
 
 	private User entity;
 
 	private Long id;
 
-	private List<Role> allRoles;
+	private UserManager manager;
 
-	private List<Long> checkedRoleIds;
+	// 用户角色 相关属性
+	
+	private List<Role> allRoles; //全部可选角色列表
 
+	private List<Long> checkedRoleIds; //页面中钩选的角色id列表
+	
+	@Required
+	public void setUserManager(UserManager userManager) {
+		manager = userManager;
+	}
+
+	// CRUD Action 属性访问函数
+	
 	public User getModel() {
 		return entity;
-	}
-
-	public Page<User> getPage() {
-		return page;
-	}
-
-	public List<Role> getAllRoles() {
-		return allRoles;
-	}
-
-	public List<Long> getCheckedRoleIds() {
-		return checkedRoleIds;
-	}
-
-	public void setCheckedRoleIds(List<Long> checkedRoleIds) {
-		this.checkedRoleIds = checkedRoleIds;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	@Override
@@ -76,6 +63,16 @@ public class UserAction extends CRUDActionSupport<User> {
 		}
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Page<User> getPage() {
+		return page;
+	}
+	
+	// CRUD Action 函数
+	
 	@Override
 	public String list() throws Exception {
 		page = manager.getAllUsers(page);
@@ -92,7 +89,7 @@ public class UserAction extends CRUDActionSupport<User> {
 	@Override
 	public String save() throws Exception {
 		//根据页面上的checkbox 整合entity的roles Set
-		CollectionUtils.mergeByCheckedIds(entity.getRoles(), checkedRoleIds, Role.class);
+		HibernateUtils.mergeByCheckedIds(entity.getRoles(), checkedRoleIds, Role.class);
 		manager.saveUser(entity);
 		addActionMessage("保存用户成功");
 		return RELOAD;
@@ -109,6 +106,21 @@ public class UserAction extends CRUDActionSupport<User> {
 		}
 		return RELOAD;
 	}
+	
+	// 其他属性访问函数及Action函数
+	
+	public List<Role> getAllRoles() {
+		return allRoles;
+	}
+
+	public List<Long> getCheckedRoleIds() {
+		return checkedRoleIds;
+	}
+
+	public void setCheckedRoleIds(List<Long> checkedRoleIds) {
+		this.checkedRoleIds = checkedRoleIds;
+	}
+
 
 	/**
 	 * 支持使用Jquery.validate Ajax检验用户名是否重复.
@@ -118,37 +130,12 @@ public class UserAction extends CRUDActionSupport<User> {
 		String loginName = request.getParameter("loginName");
 		String orgLoginName = request.getParameter("orgLoginName");
 
-		if (manager.isLoginNameUnique(loginName, orgLoginName))
-			return renderText("true");
-		else
-			return renderText("false");
+		if (manager.isLoginNameUnique(loginName, orgLoginName)) {
+			renderText("true");
+		} else {
+			renderText("false");
+		}
+		//因为直接输出,不使用Jsp,因此返回null.
+		return null;
 	}
-
-	@Required
-	public void setUserManager(UserManager userManager) {
-		manager = userManager;
-	}
-	/**
-	 * 规范了CRUD函数的名称，规定使用ModelDriven和Preparedable接口，并规范了prepare二次绑定接口只在input和save函数中的使用
-     	流程如下：
-
-		1.用户打开用户列表页，访问/user.action
-		a.执行默认的execute() 函数，实际执行list() 函数。
-		b.list() 函数查询列表放入某list变量，返回SUCCESS，默认跳转到user.jsp
-		c.user.jsp取出action中的list变量进行渲染。 
-		2.用户新增对象时，访问/user!input.action
-		a.首先将id放入id变量，执行prepareSave()函数创建一个新的user变量
-		b.input() 函数，返回INPUT，默认跳转到user-input.jsp
-		c.user-input.jsp 执行getModel()获得user变量渲染input框 
-		3.用户提交Form，访问/user!save.action
-		a.执行preparedSave()函数创建新的user变量，将input框的内容绑定到getModel()获得的user变量
-		b.执行save()函数保存user，返回RELOAD，跳转到@Result中定义RELOAD页面，以redirect方式重新打开/user.action 
-		4.用户修改对象，访问/user!input.action?id=1
-		a.绑定id=1到id变量，执行prepareInput()从数据库查询出user。
-		b.下同2. 
-		5.用户提交Form,访问/user!save.action
-		a.绑定id=1到id变量，执行prepareSave()从数据库查询出user。
-		b.下同3. 
-
-	 */
 }

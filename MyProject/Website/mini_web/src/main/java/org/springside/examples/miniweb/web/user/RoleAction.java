@@ -2,15 +2,14 @@ package org.springside.examples.miniweb.web.user;
 
 import java.util.List;
 
-import org.apache.struts2.config.ParentPackage;
-import org.apache.struts2.config.Result;
-import org.apache.struts2.config.Results;
-import org.apache.struts2.dispatcher.ServletActionRedirectResult;
+import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Required;
 import org.springside.examples.miniweb.entity.user.Authority;
 import org.springside.examples.miniweb.entity.user.Role;
+import org.springside.examples.miniweb.service.ServiceException;
 import org.springside.examples.miniweb.service.user.UserManager;
-import org.springside.modules.utils.CollectionUtils;
+import org.springside.modules.orm.hibernate.HibernateUtils;
 import org.springside.modules.web.struts2.CRUDActionSupport;
 
 /**
@@ -19,46 +18,37 @@ import org.springside.modules.web.struts2.CRUDActionSupport;
  * @see CRUDActionSupport
  * @author calvin
  */
-@ParentPackage("default")
-@Results( { @Result(name = CRUDActionSupport.RELOAD, value = "/role", type = ServletActionRedirectResult.class) })
+
+@Results( { @Result(name = CRUDActionSupport.RELOAD, location = "role.action", type = "redirect") })
 public class RoleAction extends CRUDActionSupport<Role> {
 
 	private static final long serialVersionUID = 8517636900960039101L;
 
-	private UserManager manager;
-
-	private List<Role> allRoles;
+	// CRUD Action 基本属性
 
 	private Role entity;
 
 	private Long id;
 
-	private List<Long> checkedAuthIds;
+	private List<Role> allRoles;
 
-	private List<Authority> allAuths;
+	private UserManager manager;
+
+	// 角色权限相关属性
+
+	private List<Authority> allAuths; //全部可选权限列表
+
+	private List<Long> checkedAuthIds;//页面中钩选的权限id列表
+	
+	@Required
+	public void setUserManager(UserManager userManager) {
+		manager = userManager;
+	}
+
+	// CRUD Action 属性访问函数
 
 	public Role getModel() {
 		return entity;
-	}
-
-	public List<Role> getAllRoles() {
-		return allRoles;
-	}
-
-	public List<Authority> getAllAuths() {
-		return allAuths;
-	}
-
-	public List<Long> getCheckedAuthIds() {
-		return checkedAuthIds;
-	}
-
-	public void setCheckedAuthIds(List<Long> checkedAuthIds) {
-		this.checkedAuthIds = checkedAuthIds;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	@Override
@@ -69,6 +59,16 @@ public class RoleAction extends CRUDActionSupport<Role> {
 			entity = new Role();
 		}
 	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<Role> getAllRoles() {
+		return allRoles;
+	}
+
+	// CRUD Action 函数
 
 	@Override
 	public String list() throws Exception {
@@ -86,7 +86,7 @@ public class RoleAction extends CRUDActionSupport<Role> {
 	@Override
 	public String save() throws Exception {
 		//根据页面上的checkbox 整合entity的auth Set.
-		CollectionUtils.mergeByCheckedIds(entity.getAuths(), checkedAuthIds, Authority.class);
+		HibernateUtils.mergeByCheckedIds(entity.getAuths(), checkedAuthIds, Authority.class);
 		manager.saveRole(entity);
 		addActionMessage("保存角色成功");
 		return RELOAD;
@@ -94,13 +94,27 @@ public class RoleAction extends CRUDActionSupport<Role> {
 
 	@Override
 	public String delete() throws Exception {
-		manager.deleteRole(id);
-		addActionMessage("删除角色成功");
+		try {
+			manager.deleteRole(id);
+			addActionMessage("删除角色成功");
+		} catch (ServiceException e) {
+			logger.error(e.getMessage(), e);
+			addActionMessage(e.getMessage());
+		}
 		return RELOAD;
 	}
 
-	@Required
-	public void setUserManager(UserManager userManager) {
-		manager = userManager;
+	// 其他属性访问函数及Action函数
+
+	public List<Authority> getAllAuths() {
+		return allAuths;
+	}
+
+	public List<Long> getCheckedAuthIds() {
+		return checkedAuthIds;
+	}
+
+	public void setCheckedAuthIds(List<Long> checkedAuthIds) {
+		this.checkedAuthIds = checkedAuthIds;
 	}
 }
