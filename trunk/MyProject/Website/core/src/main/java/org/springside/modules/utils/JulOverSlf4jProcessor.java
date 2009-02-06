@@ -5,7 +5,7 @@ import javax.annotation.PostConstruct;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 /**
- * 初始化拦截Java.util.logging 到 Slf4j.
+ * 在Spring ApplicationContext中初始化Slf4对Java.util.logging的拦截.
  * 
  * @author calvin
  */
