@@ -10,9 +10,9 @@ import org.springside.modules.utils.DozerMapperSingleton;
 
 /**
  * 可选的WebService辅助基类.
- * 暂时只提供了公共的logger和dozer及转换未知错误的方法,日后将提供更多公共能力.
  * 
- * @see net.sf.dozer.util.mapping.DozerBeanMapper
+ * 暂时只提供了公共的logger和dozer.
+ * 
  * @author calvin
  */
 public abstract class WebServiceSupport {
@@ -21,7 +21,7 @@ public abstract class WebServiceSupport {
 
 	protected MapperIF dozer;
 
-	public void setDozer(MapperIF dozer) {
+	public void setDozer(final MapperIF dozer) {
 		this.dozer = dozer;
 	}
 
