@@ -17,29 +17,30 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springside.examples.miniweb.entity.IdEntity;
-import org.springside.modules.utils.CollectionUtils;
+import org.springside.modules.utils.ReflectionUtils;
 
 /**
  * 用户.
  * 
- * 注意@Cache(Entity与集合的缓存),@ManyToMany/@JoinTable(多对多关系),@OrderBy/LinkedHashSet(集合排序),@Transient(非持久化属性)的应用.
+ * 使用JPA annotation定义ORM关系.
+ * 使用Hibernate annotation定义缓存.
  * 
  * @author calvin
  */
 @Entity
-@Table(name = "USERS")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Table(name = "USERS") //表名默认等于类名,不相同时需重新定义.
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)  //默认的缓存策略
 public class User extends IdEntity {
 
 	private String loginName;
 
-	private String password;
+	private String password; //为简化演示,使用明文保存密码.
 
 	private String name;
 
 	private String email;
 
-	private Set<Role> roles = new LinkedHashSet<Role>();
+	private Set<Role> roles = new LinkedHashSet<Role>(); //有序的关联对象集合
 
 	public String getLoginName() {
 		return loginName;
@@ -73,10 +74,10 @@ public class User extends IdEntity {
 		this.email = email;
 	}
 
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE}) //避免定义CascadeType.REMOVE, 否则删除角色时会连带删除拥有它的用户
 	@JoinTable(name = "USERS_ROLES", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
-	@OrderBy("id")
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	@OrderBy("id") //集合按id排序
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE) //集合中对象的id的缓存
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -85,15 +86,15 @@ public class User extends IdEntity {
 		this.roles = roles;
 	}
 
-	@Transient
+	@Transient //非持久化属性
 	public String getRoleNames() throws Exception {
-		return CollectionUtils.fetchPropertyToString(roles, "name", ", ");
+		return ReflectionUtils.fetchElementPropertyToString(roles, "name", ", ");
 	}
 
+	@Transient //非持久化属性
 	@SuppressWarnings("unchecked")
-	@Transient
 	public List<Long> getRoleIds() throws Exception {
-		return CollectionUtils.fetchPropertyToList(roles, "id");
+		return ReflectionUtils.fetchElementPropertyToList(roles, "id");
 	}
 
 	@Override

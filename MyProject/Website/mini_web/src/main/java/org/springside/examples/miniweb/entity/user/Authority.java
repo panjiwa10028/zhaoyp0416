@@ -11,13 +11,14 @@ import org.springside.examples.miniweb.entity.IdEntity;
 /**
  * 权限.
  * 
- * @Cache使用READ_ONLY策略.
+ * 使用JPA annotation定义ORM关系.
+ * 使用Hibernate annotation定义缓存. 
  * 
  * @author calvin
  */
 @Entity
-@Table(name = "AUTHORITIES")
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Table(name = "AUTHORITIES") //表名默认等于类名,不相同时需重新定义.
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY) //因Authority只会增加不会修改,使用只读缓存策略.
 public class Authority extends IdEntity {
 
 	private String name;

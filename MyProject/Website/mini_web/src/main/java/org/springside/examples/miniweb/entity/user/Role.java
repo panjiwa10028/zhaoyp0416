@@ -17,23 +17,24 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springside.examples.miniweb.entity.IdEntity;
-import org.springside.modules.utils.CollectionUtils;
+import org.springside.modules.utils.ReflectionUtils;
 
 /**
  * 角色.
  * 
- * 注意@Cache(Entity与集合的缓存),@ManyToMany/@JoinTable(多对多关系),@OrderBy/LinkedHashSet(集合排序),@Transient(非持久化属性)的应用.
+ * 使用JPA annotation定义ORM关系.
+ * 使用Hibernate annotation定义缓存. 
  * 
  * @author calvin
  */
 @Entity
-@Table(name = "ROLES")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Table(name = "ROLES")  //表名默认等于类名,不相同时需重新定义.
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE) //默认的缓存策略
 public class Role extends IdEntity {
 
 	private String name;
 
-	private Set<Authority> auths = new LinkedHashSet<Authority>();
+	private Set<Authority> auths = new LinkedHashSet<Authority>(); //有序的关联对象集合
 
 	public String getName() {
 		return name;
@@ -43,10 +44,10 @@ public class Role extends IdEntity {
 		this.name = name;
 	}
 
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }) //避免定义CascadeType.REMOVE, 否则删除权限时会连带删除拥有它的角色
 	@JoinTable(name = "ROLES_AUTHORITIES", joinColumns = { @JoinColumn(name = "ROLE_ID") }, inverseJoinColumns = { @JoinColumn(name = "AUTHORITY_ID") })
-	@OrderBy("id")
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	@OrderBy("id") //集合按id排序
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE) //集合中对象的id的缓存
 	public Set<Authority> getAuths() {
 		return auths;
 	}
@@ -55,15 +56,15 @@ public class Role extends IdEntity {
 		this.auths = auths;
 	}
 
-	@Transient
+	@Transient //非持久化属性
 	public String getAuthNames() throws Exception {
-		return CollectionUtils.fetchPropertyToString(auths, "displayName", ", ");
+		return ReflectionUtils.fetchElementPropertyToString(auths, "displayName", ", ");
 	}
 
+	@Transient //非持久化属性
 	@SuppressWarnings("unchecked")
-	@Transient
 	public List<Long> getAuthIds() throws Exception {
-		return CollectionUtils.fetchPropertyToList(auths, "id");
+		return ReflectionUtils.fetchElementPropertyToList(auths, "id");
 	}
 
 	@Override
