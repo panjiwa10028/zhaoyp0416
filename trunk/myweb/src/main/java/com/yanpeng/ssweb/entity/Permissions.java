@@ -24,6 +24,7 @@ public class Permissions extends BaseEntity implements java.io.Serializable {
 	// Fields
 	private String name;
 	private String displayName;
+	private String path;
 	private Set<Roles> roleses = new LinkedHashSet<Roles>(0);
 
 	// Constructors
@@ -53,7 +54,16 @@ public class Permissions extends BaseEntity implements java.io.Serializable {
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
+	
+	@Column(name = "path")
+	public String getPath() {
+		return this.path;
+	}
 
+	public void setPath(String path) {
+		this.path = path;
+	}
+	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "permissionses")
 	public Set<Roles> getRoleses() {
 		return this.roleses;

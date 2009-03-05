@@ -28,8 +28,7 @@ public class Roles implements java.io.Serializable {
 
 	private String name;
 	private String description;
-	private Timestamp modifyTime;
-	private Set<Permissions> permissionses = new HashSet<Permissions>(0);
+	private Set<Permissions> permissionses = new LinkedHashSet<Permissions>(0);
 	private Set<Users> userses = new LinkedHashSet<Users>(0);
 
 	// Constructors
@@ -58,16 +57,6 @@ public class Roles implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "modify_time", length = 19)
-	public Timestamp getModifyTime() {
-		return this.modifyTime;
-	}
-
-	public void setModifyTime(Timestamp modifyTime) {
-		this.modifyTime = modifyTime;
 	}
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
