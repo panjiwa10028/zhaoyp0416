@@ -43,6 +43,15 @@ public class Page<T> {
 		this.pageSize = pageSize;
 		this.autoCount = autoCount;
 	}
+	
+	public Page(int pageSize, boolean autoCount,String order,String orderBy) {
+		this.pageSize = pageSize;
+		this.autoCount = autoCount;
+		if (ASC.equalsIgnoreCase(order) || DESC.equalsIgnoreCase(order)) {
+			this.order = order.toLowerCase();
+			this.orderBy=orderBy;
+		} 
+	}
 
 	// 查询参数相关函数
 
@@ -78,7 +87,7 @@ public class Page<T> {
 	 * 是否已设置每页的记录数量.
 	 */
 	public boolean isPageSizeSetted() {
-		return pageSize > 0;
+		return pageSize > -1;
 	}
 
 	/**
