@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	
+	<constant name="struts.devMode" value="false"/>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+	<constant name="struts.i18n.reload" value="true"/>
+	<constant name="struts.ui.theme" value="simple"/>
+	<constant name="struts.locale" value="zh_CN"/>
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<constant name="struts.objectFactory" value="spring"/>
+	<constant name="struts.objectFactory.spring.autoWire" value="name"/>
+	<constant name="struts.serve.static.browserCache" value="false"/>
+	<constant name="struts.url.includeParams" value="none"/>
+	<constant name="struts.multipart.maxSize" value="209715200"/>
+	<constant name="struts.multipart.saveDir" value="c:\\temp"/>
+	<constant name="struts.codebehind.pathPrefix" value="/WEB-INF/pages/" />
+
+	<package name="default" extends="struts-default">
+	
+		<interceptors>
+				<interceptor-stack name="ss3exStack">
+		                <interceptor-ref name="params"/>
+						<interceptor-ref name="store">
+								<param name="operationMode">AUTOMATIC</param>
+						</interceptor-ref>
+						<interceptor-ref name="exception"/>
+						<interceptor-ref name="conversionError"/>
+				</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="ss3exStack"/>
+		
+		<global-results>
+				<result name="error">/error.jsp</result>
+		</global-results>
+		
+	</package>
+
+	<package name="fileUpload" extends="struts-default">
+	
+		<interceptors>
+				<interceptor-stack name="ss3exStack">
+		                <interceptor-ref name="params"/>
+						<interceptor-ref name="store">
+								<param name="operationMode">AUTOMATIC</param>
+						</interceptor-ref>
+						<interceptor-ref name="fileUpload"/>
+						<interceptor-ref name="exception"/>
+						<interceptor-ref name="conversionError"/>
+				</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="ss3exStack"/>
+		
+		<global-results>
+				<result name="error">/error.jsp</result>
+		</global-results>
+		
+	</package>
+
+</struts>
