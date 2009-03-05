@@ -56,10 +56,40 @@ public class SimpleHibernateTemplate<T, PK extends Serializable> {
 		return sessionFactory;
 	}
 
-	public void save(final T entity) {
+//	public void save(final T entity) {
+//		Assert.notNull(entity);
+//		getSession().saveOrUpdate(entity);
+//		logger.debug("save entity: {}", entity);
+//	}
+	
+	public void saveOrUpdate(final T entity) {
 		Assert.notNull(entity);
 		getSession().saveOrUpdate(entity);
+		logger.debug("saveOrUpdate entity: {}", entity);
+	}
+	
+	public Serializable save(final T entity) {
+		Assert.notNull(entity);
 		logger.debug("save entity: {}", entity);
+		return getSession().save(entity);
+	}
+	
+	public void update(final T entity) {
+		Assert.notNull(entity);
+		getSession().update(entity);
+		logger.info("update entity: {}", entity);
+	}
+
+	public Object merge(final T entity){
+		Assert.notNull(entity);
+		logger.info("merge entity: {}", entity);
+		return getSession().merge(entity);
+	}
+	
+	public void persist(final T entity){
+		Assert.notNull(entity);
+		logger.info("persist entity: {}", entity);
+		getSession().persist(entity);
 	}
 
 	public void delete(final T entity) {
@@ -85,6 +115,13 @@ public class SimpleHibernateTemplate<T, PK extends Serializable> {
 	 * 按id获取对象.
 	 */
 	public T get(final PK id) {
+		return (T) getSession().get(entityClass, id);
+	}
+	
+	/**
+	 * 按id获取对象.
+	 */
+	public T load(final PK id) {
 		return (T) getSession().load(entityClass, id);
 	}
 
@@ -102,7 +139,7 @@ public class SimpleHibernateTemplate<T, PK extends Serializable> {
 	public T findUniqueByProperty(final String propertyName, final Object value) {
 		Assert.hasText(propertyName);
 		return (T) createCriteria(Restrictions.eq(propertyName, value)).uniqueResult();
-	}
+	}	
 
 	/**
 	 * 按HQL查询对象列表.
@@ -118,17 +155,26 @@ public class SimpleHibernateTemplate<T, PK extends Serializable> {
 	 * 按HQL分页查询.
 	 * 不支持自动获取总结果数,需用户另行执行查询.
 	 * 
-	 * @param page 分页参数.仅包括pageSize 和firstResult,忽略其他参数.
+	 * @param page 分页参数.包括pageSize 和firstResult.
 	 * @param hql hql语句.
 	 * @param values 数量可变的查询参数.
 	 * 
 	 * @return 分页查询结果,附带结果列表及所有查询时的参数.
 	 */
-	public Page<T> find(final Page<T> page, final String hql, final Object... values) {
+	public Page<T> find(final Page<T> page, String hql, final Object... values) {
 		Assert.notNull(page);
 
 		if (page.isAutoCount()) {
-			logger.warn("HQL查询暂不支持自动获取总结果数,hql语句为{}", hql);
+			if(page.getOrderBy()!=null&&!"".equals(page.getOrderBy())){
+				String newHql="select count(*) as n "+hql+ "order by " + page.getOrderBy() + " " + page.getOrder();
+				page.setTotalCount(findLong(newHql, values).intValue());
+			}else{
+				String newHql="select count(*) as n "+hql;
+				page.setTotalCount(findLong(newHql, values).intValue());
+			}
+		}
+		if(page.getOrderBy()!=null&&!"".equals(page.getOrderBy())){
+			hql=hql+ "order by " + page.getOrderBy() + " " + page.getOrder();
 		}
 		Query q = createQuery(hql, values);
 		if (page.isFirstSetted()) {
@@ -140,7 +186,7 @@ public class SimpleHibernateTemplate<T, PK extends Serializable> {
 		page.setResult(q.list());
 		return page;
 	}
-
+	
 	/**
 	 * 按HQL查询唯一对象.
 	 */
@@ -267,6 +313,8 @@ public class SimpleHibernateTemplate<T, PK extends Serializable> {
 
 		// 执行Count查询
 		int totalCount = (Integer) c.setProjection(Projections.rowCount()).uniqueResult();
+		if (totalCount < 1)
+			return -1;
 
 		// 将之前的Projection和OrderBy条件重新设回去
 		c.setProjection(projection);
