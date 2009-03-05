@@ -241,7 +241,7 @@ public class SimpleHibernateTemplate<T, PK extends Serializable> {
 		}
 
 		if (page.isOrderBySetted()) {
-			if (page.getOrder().equals(Page.ASC)) {
+			if (page.getOrder().equalsIgnoreCase(Page.ASC)) {
 				c.addOrder(Order.asc(page.getOrderBy()));
 			} else {
 				c.addOrder(Order.desc(page.getOrderBy()));
