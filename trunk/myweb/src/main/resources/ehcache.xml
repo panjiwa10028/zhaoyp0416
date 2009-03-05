@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+
+	<diskStore path="java.io.tmpdir/ss3ex" />
+
+	<!-- Cluster localhost setting -->
+	<cacheManagerPeerListenerFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+		properties="hostName=localhost, port=40001,socketTimeoutMillis=2000" />
+
+	<!-- Cluster peer host setting -->
+	<cacheManagerPeerProviderFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+		properties="peerDiscovery=manual,
+ 		rmiUrls=//localhost:40002/com.ss3ex.core.security.domain.User|//localhost:40002/com.ss3ex.core.security.domain.User.roles|
+ 		        //localhost:40002/com.ss3ex.core.security.domain.Role|//localhost:40002/com.ss3ex.core.security.domain.Role.resources" />
+
+
+	<!-- Special objects setting. -->
+	<cache name="com.ss3ex.core.security.domain.User" maxElementsInMemory="500" overflowToDisk="true"
+		eternal="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+	<cache name="com.ss3ex.core.security.domain.User.roles" maxElementsInMemory="500" overflowToDisk="true"
+		eternal="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+	<cache name="com.ss3ex.core.security.domain.Role" maxElementsInMemory="500" overflowToDisk="true"
+		eternal="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+	<cache name="com.ss3ex.core.security.domain.Role.resources" maxElementsInMemory="500" overflowToDisk="true"
+		eternal="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+
+	<cache name="com.ss3ex.core.security.domain.Resource" maxElementsInMemory="500" overflowToDisk="true"
+		eternal="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+
+	<cache name="security_resource" maxElementsInMemory="500" overflowToDisk="true"
+		eternal="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+
+	<!--
+		DefaultCache setting.
+		Modify ehcache-safe.xml for timeToIdleSeconds,timeToLiveSecond,diskExpiryThreadIntervalSeconds
+		Use ehcache-safe.xml default for maxElementsInMemory,maxElementsOnDisk,overflowToDisk,eternal Use ehcache default
+		for memoryStoreEvictionPolicy,diskPersistent,.
+	-->
+	<defaultCache maxElementsInMemory="10000" overflowToDisk="true" eternal="false"
+		memoryStoreEvictionPolicy="LRU" maxElementsOnDisk="10000000" diskExpiryThreadIntervalSeconds="600"
+		timeToIdleSeconds="3600" timeToLiveSeconds="100000" diskPersistent="false" />
+</ehcache>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-autowire="byName" default-lazy-init="true">
+	<description>Spring公共配置文件</description>
+
+	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
+	<context:component-scan base-package="com.ss3ex.core,com.ss3ex.examples"/>
+
+	<!-- 数据源配置,主要用于开发测试环境 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem:ss3ex" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+
+	<!-- 数据源配置,在生产环境使用应用服务器的数据库连接池 -->
+	<!--
+		<jee:jndi-lookup id="dataSource"
+		jndi-name="java:comp/env/jdbc/ss3ex" />
+	-->
+
+	<!-- Hibernate配置 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="namingStrategy"><bean class="org.hibernate.cfg.ImprovedNamingStrategy"/></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.provider_configuration_file_resource_path">/ehcache.xml</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.search.default.directory_provider">org.hibernate.search.store.FSDirectoryProvider</prop>
+				<prop key="hibernate.search.default.indexBase">/lucene/indexes</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.ss3ex.core.security.domain.Resource</value>
+				<value>com.ss3ex.core.security.domain.Role</value>
+				<value>com.ss3ex.core.security.domain.User</value>
+			</list>
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>com.ss3ex.examples.entity.*</value>
+			</list>
+		</property>
+		<property name="lobHandler" ref="defaultLobHandler"/>
+	</bean>
+	
+	<bean id="defaultLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler"/>
+
+	<!-- 事务配置 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- jdbc-->
+	<!-- 数据源配置
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem:ss3ex" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+		<property name="initialSize" value="10" />
+		<property name="maxActive" value="50" />
+		<property name="maxIdle" value="20" />
+		<property name="minIdle" value="5" />
+	</bean> -->
+
+	<!-- 事务管理器配置
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean> -->
+	 <!-- jdbc-->
+
+	<!--
+		JTA环境的事务配置 <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager or
+		WebLogicJtaTransactionManager"/>
+	-->
+
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- 内存库界面 -->
+	<bean id="dbui" class="com.ss3ex.core.utils.HsqlUi" init-method="init" lazy-init="false" autowire="byName"/>
+
+	<bean id="dbinit" class="com.ss3ex.examples.service.InitSystemData" init-method="init" lazy-init="false">
+		<property name="run" value="true"/><!-- 如果是内存库true，其他普通库为false -->
+	</bean>
+	
+</beans>
