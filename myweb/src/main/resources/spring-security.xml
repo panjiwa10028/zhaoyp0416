@@ -27,7 +27,7 @@
         <beans:property name="decisionVoters">  
             <beans:list>  
                 <beans:bean class="org.springframework.security.vote.RoleVoter">
-                	<beans:property name="rolePrefix" value="RES_"/>
+                	<beans:property name="rolePrefix" value="PER_"/>
                 </beans:bean>  
                 <beans:bean class="org.springframework.security.vote.AuthenticatedVoter"/>  
             </beans:list>  
@@ -42,14 +42,14 @@
         <custom-filter after="LAST" />  
     </beans:bean>  
        
-    <beans:bean id="dbFilterInvocationDefinitionSource" class="com.ss3ex.core.security.resource.DbFilterInvocationDefinitionSource" />  
+    <beans:bean id="dbFilterInvocationDefinitionSource" class="com.yanpeng.ssweb.service.resource.DbFilterInvocationDefinitionSource" />  
 	
 
-	<beans:bean id="userDetailsService" class="com.ss3ex.core.security.service.UserDetailServiceImpl" >
-		<beans:property name="userService" ref="userService"/>
+	<beans:bean id="userDetailsService" class="com.yanpeng.ssweb.service.security.UserDetailServiceImpl" >
+		<beans:property name="userManager" ref="userManager"/>
 	</beans:bean>
 	
-	<beans:bean id="userService" class="com.ss3ex.core.security.service.UserService">
+	<beans:bean id="userManager" class="com.yanpeng.ssweb.service.user.UserManager">
 		<beans:property name="sessionFactory" ref="sessionFactory"/>
 	</beans:bean>
 	
