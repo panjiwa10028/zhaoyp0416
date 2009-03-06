@@ -7,13 +7,13 @@
 	<description>Spring公共配置文件</description>
 
 	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
-	<context:component-scan base-package="com.ss3ex.core,com.ss3ex.examples"/>
+	<context:component-scan base-package="com.yanpeng.ssweb"/>
 
 	<!-- 数据源配置,主要用于开发测试环境 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" destroy-method="close">
-		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
-		<property name="url" value="jdbc:hsqldb:mem:ss3ex" />
-		<property name="username" value="sa" />
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://127.0.0.1/myweb?useUnicode=true&amp;characterEncoding=utf8" />
+		<property name="username" value="root" />
 		<property name="password" value="" />
 	</bean>
 
@@ -29,7 +29,7 @@
 		<property name="namingStrategy"><bean class="org.hibernate.cfg.ImprovedNamingStrategy"/></property>
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
 				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
 				<prop key="hibernate.cache.provider_configuration_file_resource_path">/ehcache.xml</prop>
 				<prop key="hibernate.show_sql">true</prop>
@@ -37,17 +37,10 @@
 				<prop key="hibernate.search.default.directory_provider">org.hibernate.search.store.FSDirectoryProvider</prop>
 				<prop key="hibernate.search.default.indexBase">/lucene/indexes</prop>
 			</props>
-		</property>
-		<property name="annotatedClasses">
-			<list>
-				<value>com.ss3ex.core.security.domain.Resource</value>
-				<value>com.ss3ex.core.security.domain.Role</value>
-				<value>com.ss3ex.core.security.domain.User</value>
-			</list>
-		</property>
+		</property>		
 		<property name="packagesToScan">
 			<list>
-				<value>com.ss3ex.examples.entity.*</value>
+				<value>com.yanpeng.ssweb.*</value>
 			</list>
 		</property>
 		<property name="lobHandler" ref="defaultLobHandler"/>
@@ -88,10 +81,12 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<!-- 内存库界面 -->
+	<!-- 
 	<bean id="dbui" class="com.ss3ex.core.utils.HsqlUi" init-method="init" lazy-init="false" autowire="byName"/>
-
+	 -->
+	<!-- 
 	<bean id="dbinit" class="com.ss3ex.examples.service.InitSystemData" init-method="init" lazy-init="false">
-		<property name="run" value="true"/><!-- 如果是内存库true，其他普通库为false -->
+		<property name="run" value="false"/><!-- 如果是内存库true，其他普通库为false ->
 	</bean>
-	
+	 -->
 </beans>
