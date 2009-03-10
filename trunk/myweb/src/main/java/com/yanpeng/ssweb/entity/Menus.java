@@ -50,7 +50,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 	
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "parent_id")
+	@JoinColumn(name = "id", unique = true, nullable = false, insertable = false, updatable = false)
 	public Menus getMenus() {
 		return this.menus;
 	}
@@ -123,7 +123,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 		this.roleses = roleses;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "menus")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "menuses")
 	public Set<Menus> getMenuses() {
 		return this.menuses;
 	}
