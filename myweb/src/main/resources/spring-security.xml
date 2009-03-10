@@ -8,10 +8,14 @@
 	
 	<http auto-config="true" access-denied-page="/common/403.htm">
 		<intercept-url pattern="/login.**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-		<form-login login-page="/login.jsp" default-target-url="/demo/success.action" authentication-failure-url="/login.jsp?error=1" />
-		<logout logout-success-url="/login.jsp" invalidate-session="true"/>
+		<form-login login-page="/login.action" default-target-url="/admin/main.action" authentication-failure-url="/login.action?error=1" />
+		<logout logout-success-url="/" invalidate-session="true"/>
 		<remember-me key="e37f4b31-0c45-11dd-bd0b-0800200c9a66" />
-		<concurrent-session-control max-sessions="1" exception-if-maximum-exceeded="false" expired-url="/login.jsp?error=3"/>
+		<!-- 两个配置都只允许用户登录一次，exception-if-maximum-exceeded 默认为false，此值表示：
+用户第二次登录时，前一次的登录信息都被清空。当exception-if-maximum-exceeded="true"时系统会拒
+绝第二次登录。
+		 -->
+		<concurrent-session-control max-sessions="1" exception-if-maximum-exceeded="false" expired-url="/login.action?error=3"/>
 	</http>
 
 	<authentication-provider user-service-ref="userDetailsService">
