@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yanpeng.ssweb.entity.Permissions;
-import com.yanpeng.ssweb.service.resource.SecurityResourceCache;
+import com.yanpeng.ssweb.service.security.resource.SecurityResourceCache;
 import com.yanpeng.ssweb.service.user.UserManager;
 
 
