@@ -2,6 +2,7 @@ package com.yanpeng.core.dao.hibernate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -140,6 +141,20 @@ public class SimpleHibernateTemplate<T, PK extends Serializable> {
 		Assert.hasText(propertyName);
 		return (T) createCriteria(Restrictions.eq(propertyName, value)).uniqueResult();
 	}	
+	
+	public List<T> findEntitysByIds(final Collection<Serializable> values){
+		Assert.notNull(values);
+		StringBuffer strbf=new StringBuffer();
+		for(Serializable pk:values){
+			if(pk instanceof String||pk instanceof Character){
+				strbf.append("'"+pk+"',");
+			}else{
+				strbf.append(pk+",");
+			}
+		}
+		String parms=strbf.substring(0, strbf.length()-1).toString();
+		return find("from "+entityClass.getSimpleName()+" as entity where entity.id in("+parms+")");
+	}
 
 	/**
 	 * 按HQL查询对象列表.
