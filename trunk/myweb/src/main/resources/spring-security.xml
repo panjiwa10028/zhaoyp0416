@@ -46,7 +46,7 @@
         <custom-filter after="LAST" />  
     </beans:bean>  
        
-    <beans:bean id="dbFilterInvocationDefinitionSource" class="com.yanpeng.ssweb.service.resource.DbFilterInvocationDefinitionSource" />  
+    <beans:bean id="dbFilterInvocationDefinitionSource" class="com.yanpeng.ssweb.service.security.resource.DbFilterInvocationDefinitionSource" />  
 	
 
 	<beans:bean id="userDetailsService" class="com.yanpeng.ssweb.service.security.UserDetailServiceImpl" >
