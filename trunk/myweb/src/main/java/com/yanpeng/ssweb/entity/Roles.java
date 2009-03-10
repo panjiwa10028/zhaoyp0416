@@ -22,12 +22,13 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "roles", catalog = "myweb", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
-public class Roles implements java.io.Serializable {
+public class Roles extends BaseEntity implements java.io.Serializable {
 
 	// Fields
 
 	private String name;
 	private String description;
+	private Timestamp updateDate;
 	private Set<Permissions> permissionses = new LinkedHashSet<Permissions>(0);
 	private Set<Users> userses = new LinkedHashSet<Users>(0);
 
@@ -37,10 +38,10 @@ public class Roles implements java.io.Serializable {
 	public Roles() {
 	}
 
-	
 
 	// Property accessors
 	
+
 	@Column(name = "name", unique = true, nullable = false, length = 50)
 	public String getName() {
 		return this.name;
@@ -57,6 +58,16 @@ public class Roles implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "update_date", length = 19)
+	public Timestamp getUpdateDate() {
+		return this.updateDate;
+	}
+
+	public void setUpdateDate(Timestamp updateDate) {
+		this.updateDate = updateDate;
 	}
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

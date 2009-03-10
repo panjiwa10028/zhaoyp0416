@@ -26,7 +26,6 @@ import javax.persistence.UniqueConstraint;
 public class Users extends BaseEntity implements java.io.Serializable {
 
 	// Fields
-
 	private Groups groups;
 	private String name;
 	private String loginName;
@@ -34,6 +33,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 	private Short disabled;
 	private Short expired;
 	private Short locked;
+	private Timestamp updateDate;
 	private Set<Roles> roleses = new LinkedHashSet<Roles>(0);
 
 	// Constructors
@@ -41,7 +41,6 @@ public class Users extends BaseEntity implements java.io.Serializable {
 	/** default constructor */
 	public Users() {
 	}
-
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "group_id", nullable = false)
@@ -107,6 +106,15 @@ public class Users extends BaseEntity implements java.io.Serializable {
 		this.locked = locked;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "update_date", length = 19)
+	public Timestamp getUpdateDate() {
+		return this.updateDate;
+	}
+
+	public void setUpdateDate(Timestamp updateDate) {
+		this.updateDate = updateDate;
+	}
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "users_roles", catalog = "myweb", joinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) })

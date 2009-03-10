@@ -36,6 +36,7 @@ public class Permissions extends BaseEntity implements java.io.Serializable {
 	
 
 	// Property accessors
+	
 
 	@Column(name = "name", unique = true, nullable = false, length = 100)
 	public String getName() {
@@ -54,7 +55,7 @@ public class Permissions extends BaseEntity implements java.io.Serializable {
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
-	
+
 	@Column(name = "path")
 	public String getPath() {
 		return this.path;
@@ -63,7 +64,7 @@ public class Permissions extends BaseEntity implements java.io.Serializable {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	
+
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "permissionses")
 	public Set<Roles> getRoleses() {
 		return this.roleses;
