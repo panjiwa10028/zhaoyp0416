@@ -1,8 +1,10 @@
 package com.yanpeng.ssweb.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,7 +18,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
+
+import com.yanpeng.core.utils.ReflectionUtils;
+
 
 /**
  * Users entity. @author MyEclipse Persistence Tools
@@ -33,7 +41,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 	private Short disabled;
 	private Short expired;
 	private Short locked;
-	private Timestamp updateDate;
+	private Date updateDate;
 	private Set<Roles> roleses = new LinkedHashSet<Roles>(0);
 
 	// Constructors
@@ -108,7 +116,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date", length = 19)
-	public Timestamp getUpdateDate() {
+	public Date getUpdateDate() {
 		return this.updateDate;
 	}
 
@@ -124,6 +132,24 @@ public class Users extends BaseEntity implements java.io.Serializable {
 
 	public void setRoleses(Set<Roles> roleses) {
 		this.roleses = roleses;
+	}
+	
+	//非持久化属性.
+	@Transient
+	public String getRoleNames() throws Exception {
+		return ReflectionUtils.fetchElementPropertyToString(roleses, "name", ", ");
+	}
+
+	//非持久化属性.
+	@Transient
+	@SuppressWarnings("unchecked")
+	public List<Long> getRoleIds() throws Exception {
+		return ReflectionUtils.fetchElementPropertyToList(roleses, "id");
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

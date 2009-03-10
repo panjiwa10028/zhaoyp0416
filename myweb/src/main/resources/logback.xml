@@ -22,21 +22,21 @@
 		</layout>
 	</appender>
 	
-	<logger name="com.ss3ex.examples">
-		<level value="INFO" />
+	<logger name="com.yanpeng.ssweb">
+		<level value="DEBUG" />
 	</logger>
-	<logger name="com.ss3ex.core">
-		<level value="INFO" />
+	<logger name="com.yanpeng.core">
+		<level value="DEBUG" />
 	</logger>
 
 	<logger name="org.springframework">
 		<level value="WARN" />
 	</logger>
 	<logger name="org.hibernate">
-		<level value="WARN" />
+		<level value="ERROR" />
 	</logger>
 	<logger name="org.hibernate.SQL">
-		<level value="ERROR" />
+		<level value="DEBUG" />
 	</logger>
 		<logger name="org.hibernate.cache">
 		<level value="ERROR" />

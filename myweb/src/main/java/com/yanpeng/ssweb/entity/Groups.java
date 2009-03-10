@@ -1,6 +1,7 @@
 package com.yanpeng.ssweb.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -29,7 +30,7 @@ public class Groups extends BaseEntity implements java.io.Serializable {
 	private String name;
 	private String description;
 	private String parentId;
-	private Timestamp updateDate;
+	private Date updateDate;
 	private Set<Users> userses = new LinkedHashSet<Users>(0);
 	private Set<Groups> groupses = new LinkedHashSet<Groups>(0);
 
@@ -82,7 +83,7 @@ public class Groups extends BaseEntity implements java.io.Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date", length = 19)
-	public Timestamp getUpdateDate() {
+	public Date getUpdateDate() {
 		return this.updateDate;
 	}
 

@@ -50,8 +50,14 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>com.genuitec.eclipse.ast.deploy.core.DeploymentBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>com.genuitec.eclipse.ast.deploy.core.deploymentnature</nature>
 		<nature>com.genuitec.eclipse.persistence.jpa.jpanature</nature>
 		<nature>org.eclipse.dali.core.persistenceNature</nature>
 		<nature>com.genuitec.eclipse.springframework.springnature</nature>

@@ -84,9 +84,9 @@
 	<!-- 
 	<bean id="dbui" class="com.ss3ex.core.utils.HsqlUi" init-method="init" lazy-init="false" autowire="byName"/>
 	 -->
-	<!-- 
-	<bean id="dbinit" class="com.ss3ex.examples.service.InitSystemData" init-method="init" lazy-init="false">
-		<property name="run" value="false"/><!-- 如果是内存库true，其他普通库为false ->
+	
+	<bean id="dbinit" class="com.yanpeng.ssweb.service.InitSystemData" init-method="init" lazy-init="false">
+		<property name="run" value="false"/><!-- 如果是内存库true，其他普通库为false -->
 	</bean>
-	 -->
+	 
 </beans>
