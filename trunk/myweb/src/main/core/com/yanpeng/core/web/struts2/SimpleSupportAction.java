@@ -38,7 +38,7 @@ public class SimpleSupportAction extends ActionSupport {
 	public UserManager userManager;
 
 	
-	public void setUserService(UserManager userManager) {
+	public void setUserManager(UserManager userManager) {
 		this.userManager = userManager;
 	}
 
