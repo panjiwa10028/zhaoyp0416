@@ -34,10 +34,6 @@ public class BaseEntity implements Serializable{
 	private Long version;
 	
 	
-	private Date insertDate=DateUtils.getCurrentDateTime();
-	
-	
-	private Date updateDate=DateUtils.getCurrentDateTime();
 	
 	@Id
 	@GeneratedValue(generator="paymentableGenerator")
@@ -60,22 +56,5 @@ public class BaseEntity implements Serializable{
 	}
 
 
-	@Column(insertable=true,updatable=false)
-	public Date getInsertDate() {
-		return insertDate;
-	}
-
-	public void setInsertDate(Date insertDate) {
-		this.insertDate = insertDate;
-	}
-
-	@Column(insertable=false,updatable=true)
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
 	
 }
