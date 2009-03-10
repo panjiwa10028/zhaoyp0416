@@ -1,5 +1,6 @@
 package com.yanpeng.ssweb.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
@@ -143,7 +144,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 	//非持久化属性.
 	@Transient
 	@SuppressWarnings("unchecked")
-	public List<Long> getRoleIds() throws Exception {
+	public List<Serializable> getRoleIds() throws Exception {
 		return ReflectionUtils.fetchElementPropertyToList(roleses, "id");
 	}
 
