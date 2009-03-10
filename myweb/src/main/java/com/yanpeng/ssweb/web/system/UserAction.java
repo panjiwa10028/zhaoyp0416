@@ -46,7 +46,7 @@ public class UserAction extends CRUDSupportAction<Users> {
 
 	private List<Roles> allRoles; //全部可选角色列表
 
-	private List<Long> checkedRoleIds; //页面中钩选的角色id列表
+	private List checkedRoleIds; //页面中钩选的角色id列表
 
 	@Required
 	public void setUserManager(UserManager userManager) {
