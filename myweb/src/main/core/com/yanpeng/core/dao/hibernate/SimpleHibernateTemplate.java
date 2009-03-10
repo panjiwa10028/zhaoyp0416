@@ -310,7 +310,6 @@ public class SimpleHibernateTemplate<T, PK extends Serializable> {
 		} catch (Exception e) {
 			logger.error("不可能抛出的异常:{}", e.getMessage());
 		}
-
 		// 执行Count查询
 		int totalCount = (Integer) c.setProjection(Projections.rowCount()).uniqueResult();
 		if (totalCount < 1)
