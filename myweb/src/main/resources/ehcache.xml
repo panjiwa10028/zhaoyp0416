@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache>
 
-	<diskStore path="java.io.tmpdir/ss3ex" />
+	<diskStore path="java.io.tmpdir/ssweb" />
 
 	<!-- Cluster localhost setting -->
 	<cacheManagerPeerListenerFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
@@ -15,33 +15,12 @@
 
 
 	<!-- Special objects setting. -->
-	<cache name="com.ss3ex.core.security.domain.User" maxElementsInMemory="500" overflowToDisk="true"
+	<cache name="com.yanpeng.ssweb.entity.Users" maxElementsInMemory="500" overflowToDisk="true"
 		eternal="true">
 		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
 			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
 	</cache>
-	<cache name="com.ss3ex.core.security.domain.User.roles" maxElementsInMemory="500" overflowToDisk="true"
-		eternal="true">
-		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
-			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
-	</cache>
-	<cache name="com.ss3ex.core.security.domain.Role" maxElementsInMemory="500" overflowToDisk="true"
-		eternal="true">
-		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
-			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
-	</cache>
-	<cache name="com.ss3ex.core.security.domain.Role.resources" maxElementsInMemory="500" overflowToDisk="true"
-		eternal="true">
-		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
-			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
-	</cache>
-
-	<cache name="com.ss3ex.core.security.domain.Resource" maxElementsInMemory="500" overflowToDisk="true"
-		eternal="true">
-		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
-			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
-	</cache>
-
+	
 	<cache name="security_resource" maxElementsInMemory="500" overflowToDisk="true"
 		eternal="true">
 		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
