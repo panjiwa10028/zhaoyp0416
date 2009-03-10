@@ -32,6 +32,7 @@ public class Roles extends BaseEntity implements java.io.Serializable {
 	private Date updateDate;
 	private Set<Permissions> permissionses = new LinkedHashSet<Permissions>(0);
 	private Set<Users> userses = new LinkedHashSet<Users>(0);
+	private Set<Menus> menuses = new LinkedHashSet<Menus>(0);
 
 	// Constructors
 
@@ -88,6 +89,16 @@ public class Roles extends BaseEntity implements java.io.Serializable {
 
 	public void setUserses(Set<Users> userses) {
 		this.userses = userses;
+	}
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "roles_menus", catalog = "myweb", joinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "menu_id", nullable = false, updatable = false) })
+	public Set<Menus> getMenuses() {
+		return this.menuses;
+	}
+
+	public void setMenuses(Set<Menus> menuses) {
+		this.menuses = menuses;
 	}
 
 }
