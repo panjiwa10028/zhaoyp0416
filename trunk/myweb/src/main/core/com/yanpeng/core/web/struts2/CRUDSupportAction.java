@@ -13,7 +13,7 @@ import com.opensymphony.xwork2.Preparable;
  * @author calvin
  */
 @SuppressWarnings("serial")
-public abstract class CRUDActionSupport<T> extends SimpleActionSupport implements ModelDriven<T>, Preparable {
+public abstract class CRUDSupportAction<T> extends SimpleSupportAction implements ModelDriven<T>, Preparable {
 
 	/**
 	 * 进行CUD操作后,以redirect方式重新打开action默认页的result名.

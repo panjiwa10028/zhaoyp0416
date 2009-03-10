@@ -9,8 +9,15 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.Authentication;
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.yanpeng.ssweb.entity.Users;
+import com.yanpeng.ssweb.service.user.UserManager;
 
 /**
  * Struts2 Action基类.
@@ -19,7 +26,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * 
  * @author calvin
  */
-public class SimpleActionSupport extends ActionSupport {
+public class SimpleSupportAction extends ActionSupport {
 
 	private static final long serialVersionUID = -3200676032178970212L;
 
@@ -27,6 +34,33 @@ public class SimpleActionSupport extends ActionSupport {
 
 	// 取得Request/Response/Session的简化函数
 
+	@Autowired
+	public UserManager userManager;
+
+	
+	public void setUserService(UserManager userManager) {
+		this.userManager = userManager;
+	}
+
+	public Users getLoginUser() throws Exception{
+		try{
+			Users user=(Users)getSession().getAttribute("LoginUser");
+			if(user==null){
+				SecurityContext ctx = SecurityContextHolder.getContext();
+		        Authentication auth = ctx.getAuthentication();       
+		        if(auth.getPrincipal() instanceof UserDetails){   
+		        	org.springframework.security.userdetails.User userd = (org.springframework.security.userdetails.User)auth.getPrincipal();     
+		        	if(userd!=null&&userd.getUsername()!=null){
+		        		user=userManager.getUserByLoginName(userd.getUsername());
+		        		getSession().setAttribute("LoginUser", user);
+		        	}
+		        }     
+			}
+	        return user;   
+		}catch (Exception e) {
+			return null;
+		}
+	}
 	/**
 	 * 取得HttpSession的简化方法.
 	 */
