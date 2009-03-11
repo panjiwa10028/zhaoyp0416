@@ -29,7 +29,6 @@ public class Groups extends BaseEntity implements java.io.Serializable {
 	private Groups groups;
 	private String name;
 	private String description;
-	private String parentId;
 	private Date updateDate;
 	private Set<Users> userses = new LinkedHashSet<Users>(0);
 	private Set<Groups> groupses = new LinkedHashSet<Groups>(0);
@@ -45,7 +44,7 @@ public class Groups extends BaseEntity implements java.io.Serializable {
 	// Property accessors
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", unique = true, nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "parent_id", unique = true, nullable = false, insertable = false, updatable = false)
 	public Groups getGroups() {
 		return this.groups;
 	}
@@ -72,14 +71,6 @@ public class Groups extends BaseEntity implements java.io.Serializable {
 		this.description = description;
 	}
 
-	@Column(name = "parent_id", nullable = false, length = 32)
-	public String getParentId() {
-		return this.parentId;
-	}
-
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
-	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date", length = 19)
