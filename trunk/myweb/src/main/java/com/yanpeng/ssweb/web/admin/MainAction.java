@@ -30,7 +30,7 @@ import com.yanpeng.ssweb.service.user.UserManager;
 public class MainAction extends SimpleSupportAction {
 
 	// 基本属性
-	private Users users;
+	private Users user;
 
 	private String leftMenuValue;
 
@@ -52,18 +52,18 @@ public class MainAction extends SimpleSupportAction {
 		return leftMenuValue;
 	}
 
-	public Users getUsers() {
-		return users;
+	public Users getUser() {
+		return user;
 	}
 
 	@Override
 	public String execute() throws Exception {
-		users = getLoginUser();
-		if (users == null) {
-			users = new Users();
+		user = getLoginUser();
+		if (user == null) {
+			user = new Users();
 		}
 
-		Collection<Serializable> roleIds = users.getRoleIds();
+		Collection<Serializable> roleIds = user.getRoleIds();
 		List<Menus> menusList = menuManager.findMenusByRoleIds(roleIds);
 		leftMenuValue = listToLeftMenu(menusList);
 		return SUCCESS;
