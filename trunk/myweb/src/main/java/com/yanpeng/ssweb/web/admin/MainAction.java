@@ -64,7 +64,7 @@ public class MainAction extends SimpleSupportAction {
 		}
 
 		Collection<Serializable> roleIds = users.getRoleIds();
-		List<Menus> menusList = menuManager.findMenusByIds(roleIds);
+		List<Menus> menusList = menuManager.findMenusByRoleIds(roleIds);
 		leftMenuValue = listToLeftMenu(menusList);
 		return SUCCESS;
 	}

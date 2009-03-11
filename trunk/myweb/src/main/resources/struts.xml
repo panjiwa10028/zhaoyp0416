@@ -39,11 +39,11 @@
 	
 		<interceptors>
 				<interceptor-stack name="crudStack">
-		                <interceptor-ref name="params"/>
+		                <interceptor-ref name="paramsPrepareParamsStack"/>
 						<interceptor-ref name="store">
 								<param name="operationMode">AUTOMATIC</param>
 						</interceptor-ref>
-						<interceptor-ref name="fileUpload"/>
+						<interceptor-ref name="fileUploadStack"/>
 						<interceptor-ref name="exception"/>
 						<interceptor-ref name="conversionError"/>
 				</interceptor-stack>
