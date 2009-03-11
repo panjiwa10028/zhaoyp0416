@@ -50,7 +50,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 	
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", unique = true, nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "parent_id", unique = true, nullable = false, insertable = false, updatable = false)
 	public Menus getMenus() {
 		return this.menus;
 	}
