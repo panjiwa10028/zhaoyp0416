@@ -55,7 +55,7 @@
 		function cw_switchMenu()
 		{
 		
-			initMenu();
+			//initMenu();
 			initLeftMenu();
 			cw_openHomePage();
 		}	
@@ -97,6 +97,7 @@
 		//初始化左侧菜单
 		function initLeftMenu()
 		{
+			/*
 			$.ajax({
 				 type: "POST",
 				 url: "main!getLeftMenu.action",
@@ -105,8 +106,8 @@
 								setLeftMenu(msg);
 				 			} 
 				}); 
-
-			return false;
+			*/
+			setLeftMenu($('#leftMenuValue').val());
 		}		
 
 		//设置加载左侧菜单
@@ -222,6 +223,8 @@
 		}
 		</script>
 	</head>
+	<input id="leftMenuValue" name="leftMenuValue" type="hidden" value='<c:out value="${leftMenuValue}" escapeXml="true"/>'/>
+	
 	<body style="MARGIN: 0px 2px" bgColor="#ffffff" onLoad="initPage();" onUnload="doUnload();">
 		<form name="TheForm" method="post" action="GenIndex.aspx" id="TheForm" onSubmit="window.event.returnValue = false;">
 

@@ -1,5 +1,6 @@
 package com.yanpeng.core.dao.lucene;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.apache.lucene.analysis.StopAnalyzer;
@@ -17,11 +18,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 @SuppressWarnings("unchecked")
-public class SimpleLuceneTemplate{
+public class SimpleLuceneTemplate<T, PK extends Serializable>{
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	protected SessionFactory sessionFactory;
+	
+	protected Class<T> entityClass;
 
 	protected Session getSession() {
 		return sessionFactory.getCurrentSession();
@@ -35,8 +38,9 @@ public class SimpleLuceneTemplate{
 		this.sessionFactory = sessionFactory;
 	}
 	
-	public SimpleLuceneTemplate(SessionFactory sessionFactory) {
+	public SimpleLuceneTemplate(final SessionFactory sessionFactory, final Class<T> entityClass) {
 		this.sessionFactory=sessionFactory;
+		this.entityClass = entityClass;
 	}
 	
 	/**
@@ -46,7 +50,7 @@ public class SimpleLuceneTemplate{
 	 * @return
 	 * @throws ParseException
 	 */
-	public List findByFullText(String field,String text,Class clazz){
+	public List findByFullText(String field,String text){
 		try{
 			Assert.notNull(field,"搜索字段为空");
 			Assert.hasText(field,"搜索字段不是文本");
@@ -56,8 +60,8 @@ public class SimpleLuceneTemplate{
 			//parser.setAllowLeadingWildcard(true);
 			org.apache.lucene.search.Query luceneQuery = parser.parse(text);
 			org.hibernate.Query fullTextQuery = null;
-			if(clazz!=null){
-				fullTextQuery=fullTextSession.createFullTextQuery(luceneQuery,clazz);
+			if(entityClass != null){
+				fullTextQuery=fullTextSession.createFullTextQuery(luceneQuery,entityClass);
 			}else{
 				fullTextQuery=fullTextSession.createFullTextQuery(luceneQuery);
 			}
@@ -79,7 +83,7 @@ public class SimpleLuceneTemplate{
 	 * @return
 	 * @throws ParseException
 	 */
-	public List findByFullText(String[] field,String text,Class clazz){
+	public List findByFullText(String[] field,String text){
 		try{
 			Assert.notNull(field,"搜索字段为空");
 			Assert.notEmpty(field,"搜索字段数目为0");
@@ -91,8 +95,8 @@ public class SimpleLuceneTemplate{
 			}
 			org.apache.lucene.search.Query luceneQuery = MultiFieldQueryParser.parse(text, field,flags, new StandardAnalyzer());
 			org.hibernate.Query fullTextQuery = null;
-			if(clazz!=null){
-				fullTextQuery=fullTextSession.createFullTextQuery(luceneQuery,clazz);
+			if(entityClass != null){
+				fullTextQuery=fullTextSession.createFullTextQuery(luceneQuery,entityClass);
 			}else{
 				fullTextQuery=fullTextSession.createFullTextQuery(luceneQuery);
 			}

@@ -1,11 +1,10 @@
-package com.yanpeng.ssweb.service.menu;
+package com.yanpeng.ssweb.service.news;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yanpeng.core.dao.hibernate.Page;
 import com.yanpeng.core.dao.hibernate.SimpleHibernateTemplate;
+import com.yanpeng.core.dao.lucene.SimpleLuceneTemplate;
 import com.yanpeng.core.security.SpringSecurityUtils;
 import com.yanpeng.ssweb.entity.Menus;
+import com.yanpeng.ssweb.entity.News;
 import com.yanpeng.ssweb.entity.Permissions;
 import com.yanpeng.ssweb.entity.Roles;
 import com.yanpeng.ssweb.entity.Users;
@@ -33,51 +34,49 @@ import com.yanpeng.ssweb.exceptions.ServiceException;
 @Service
 //默认将类中的所有函数纳入事务管理.
 @Transactional
-public class MenuManager {
+public class NewsManager {
 
 	// 统一定义所有HQL
 
-	private final Logger logger = LoggerFactory.getLogger(MenuManager.class);
+	
+	private final Logger logger = LoggerFactory.getLogger(NewsManager.class);
 
-	private SimpleHibernateTemplate<Menus, String> menuDao;
+	private SimpleHibernateTemplate<News, String> newsDao;
+	private SimpleLuceneTemplate<News, String> newsLuceneDao;
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
-		menuDao = new SimpleHibernateTemplate<Menus, String>(sessionFactory, Menus.class);
+		newsDao = new SimpleHibernateTemplate<News, String>(sessionFactory, News.class);
+		newsLuceneDao = new SimpleLuceneTemplate<News, String>(sessionFactory, News.class);
 	}
 
 	// 用户业务函数
 
 	//不更新数据库的函数重新定义readOnly属性以加强性能.
-	@Transactional(readOnly = true)
-	public Menus getMenu(String id) {
-		return menuDao.get(id);
-	}
-
-	@Transactional(readOnly = true)
-	public Page<Menus> getAllMenus(Page<Menus> page) {
-		return menuDao.findAll(page);
-	}
-
-	public void saveMenu(Menus menu) {
-		menuDao.save(menu);
+	
+	
+	@Transactional(readOnly=true)
+	public Page getAllNews(Page page){
+		return newsDao.findAll(page);
 	}
 	
-	@Transactional(readOnly = true)
-	public List<Menus> findMenusByRoleIds(Collection<Serializable> ids) {
-		StringBuffer strbf=new StringBuffer();
-		for(Serializable pk:ids){
-			if(pk instanceof String||pk instanceof Character){
-				strbf.append("'"+pk+"',");
-			}else{
-				strbf.append(pk+",");
-			}
-		}
-		String parms=strbf.substring(0, strbf.length()-1).toString();
-		return menuDao.createQuery("select m from Menus as m inner join m.roleses as r where r.id in ("+parms+")").list();
-		
+	@Transactional(readOnly=true)
+	public News getNewsById(String id){
+		return (News)newsDao.get(id);
+	}
+	
+	public void saveOrUpdateNews(News news){
+		newsDao.saveOrUpdate(news);
 	}
 
+	@SuppressWarnings("unchecked")
+	public void removeNews(News news){
+		newsDao.delete(news);
+	}
+	
+	public List<News> getText(String text){
+		return newsLuceneDao.findByFullText(new String[]{"news_title","news_auth","news_content"}, text);
+	}
 
 	
 }
