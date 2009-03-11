@@ -74,7 +74,7 @@ public class MenuManager {
 			}
 		}
 		String parms=strbf.substring(0, strbf.length()-1).toString();
-		return menuDao.createQuery("select m from Menus as m inner join m.roleses as r where r.id in ("+parms+")").list();
+		return menuDao.createQuery("select m from Menus as m inner join m.roleses as r where r.id in ("+parms+") order by sort asc").list();
 		
 	}
 
