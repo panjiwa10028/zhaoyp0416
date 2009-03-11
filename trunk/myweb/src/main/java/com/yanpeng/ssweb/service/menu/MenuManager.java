@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +37,6 @@ public class MenuManager {
 
 	// 统一定义所有HQL
 
-	private static final String QUERY_ADMIN_HQL = "select user from User user join user.roles as role where role.name=?";
-
 	private final Logger logger = LoggerFactory.getLogger(MenuManager.class);
 
 	private SimpleHibernateTemplate<Menus, String> menuDao;
@@ -63,9 +63,21 @@ public class MenuManager {
 		menuDao.save(menu);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
-	public List<Menus> findMenusByIds(Collection<Serializable> ids) {
-		return menuDao.findEntitysByIds(ids);
+	public List<Menus> findMenusByRoleIds(Collection<Serializable> ids) {
+		
+		StringBuffer strbf=new StringBuffer();
+		for(Serializable pk:ids){
+			if(pk instanceof String||pk instanceof Character){
+				strbf.append("'"+pk+"',");
+			}else{
+				strbf.append(pk+",");
+			}
+		}
+		String parms=strbf.substring(0, strbf.length()-1).toString();
+		return menuDao.createQuery("select m from Menus m inner join m.roleses as r where r.id in (?)",parms).list();
+		
 	}
 
 
