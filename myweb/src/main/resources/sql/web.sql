@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2009-3-10 17:01:15                           */
+/* Created on:     2009-3-11 16:14:34                           */
 /*==============================================================*/
 
 
@@ -21,6 +21,8 @@ drop index Index_t_menu_2 on menus;
 drop index Index_t_menu_1 on menus;
 
 drop table if exists menus;
+
+drop table if exists news;
 
 drop index Index_t_permissions_3 on permissions;
 
@@ -144,6 +146,20 @@ create unique index Index_t_menu_4 on menus
 create index Index_t_menu_5 on menus
 (
    parent_id
+);
+
+/*==============================================================*/
+/* Table: news                                                  */
+/*==============================================================*/
+create table news
+(
+   id                   char(32) not null,
+   title                varchar(100),
+   auth                 varchar(50),
+   content              text,
+   picture              varchar(255),
+   date                 datetime,
+   primary key (id)
 );
 
 /*==============================================================*/
