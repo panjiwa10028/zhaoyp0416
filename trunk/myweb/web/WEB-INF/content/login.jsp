@@ -30,8 +30,8 @@
 					<%
 				} 
 			%>
-			<h2>Mini-Web示例</h2>
-			<h3>--CRUD管理界面演示</h3>
+			<h2>My-Web示例</h2>
+			<h3>--管理界面</h3>
 			<form id="loginForm" action="${base}/j_spring_security_check" method="post">
 				<table class="inputView">
 					<tr>

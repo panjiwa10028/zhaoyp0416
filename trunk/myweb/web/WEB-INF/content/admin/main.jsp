@@ -22,7 +22,6 @@
 		var Default_FormTarget = "mainWorkArea";
 		function initPage()
 		{
-			alert('${user.name}');
 			setDiv("visible");		
 			MainWorkAreaIFrame = $(Default_FormTarget);			
 			cw_switchMenu();
@@ -225,9 +224,7 @@
 	</head>
 	<input id="leftMenuValue" name="leftMenuValue" type="hidden" value='<c:out value="${leftMenuValue}" escapeXml="true"/>'/>
 	
-	<body style="MARGIN: 0px 2px" bgColor="#ffffff" onLoad="initPage();" onUnload="doUnload();">
-		<form name="TheForm" method="post" action="GenIndex.aspx" id="TheForm" onSubmit="window.event.returnValue = false;">
-
+	<body scroll="no" border="no" style="MARGIN: 0px 2px" bgColor="#ffffff" onLoad="initPage();" onUnload="doUnload();">
 			<table id="mainTable" height="100%" cellSpacing="0" cellPadding="0" width="100%" border="0">
 				<tr>
 					<td>
@@ -337,7 +334,7 @@
 								</td>
 								<td vAlign="top"><iframe onactivate="hideAllSubMenu();" id="mainWorkArea" name="mainWorkArea" marginWidth="0"
 										marginHeight="0" src="" frameBorder="0" width="100%"
-										scrolling="yes" onload="adjustFrameSize();" height="400"> </iframe>
+										scrolling="no" onload="adjustFrameSize();" height="400"> </iframe>
 								</td>
 							</tr>
 						</table>
@@ -349,6 +346,16 @@
 	<iframe id='ShieldIftame' frameBorder="0" width="100%" height="100%" scrolling="no" marginheight="0"
 		marginwidth="0" src="${base}/common/defaultDiv.jsp"></iframe>
 </div>
-</form>
+
+<div id="processMessage" style="display: none">
+						<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td id="statusBarInfo">提示信息：&nbsp;</td>
+								<td width="15" align="right">
+									<img src="${base}/images/statusClose.gif" width="13" height="13" style="cursor:pointer;" title="Close" onClick="hideDiv('processMessage')">
+								</td>
+							</tr>
+						</table>
+					</div>	
 	</body>
 </HTML>
