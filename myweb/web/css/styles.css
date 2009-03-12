@@ -1194,9 +1194,18 @@ TD.tdMsgPageCenter3
 	border:1px solid #00aeda;
 	background-color:#c5f1ff;
 	padding:5px;
-	width:expression(document.body.clientWidth - 40);
-	top:expression(document.body.clientHeight - 680);
-
-	margin-left:5px;
+	width:expression(document.body.clientWidth-140);
+	top:expression(document.body.clientHeight-100);
+	/*margin-top:-28px;*/
+	left:150px;
+	overflow:hidden;
+	white-space:nowrap;
 	filter: alpha(opacity=80);
+}
+#processMessage td{
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	white-space:nowrap;
+	display:block;
+	overflow:hidden;
 }
