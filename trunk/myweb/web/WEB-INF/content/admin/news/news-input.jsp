@@ -26,7 +26,7 @@
 		$("#name").focus();
 		$("#inputForm").validate({
 			 rules: { 
-			displayName: { 
+			name: { 
         			required: true, 
         			remote: encodeURI("menu!checkDisplayName.action?oldDisplayName=${displayName}")
     			}
@@ -41,6 +41,10 @@
 	});
 
 	function initPage() {
+		top.setStatusBarInfo('');
+		if($("#message").text() != '') {
+			top.setStatusBarInfo($("#message").text());
+		}
 	}
 
 	function subForm() {
@@ -62,7 +66,7 @@
 <form id="inputForm" action="news!save.action" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="news.id" value="${news.id}" />
 		<input type="hidden" name="news.version" value="${news.version}" />
-	<body onload="initPage()">
+	<body scroll="auto" style="overflow: auto" onload="initPage()">
 	
 		<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
 			<TR>
@@ -172,7 +176,7 @@
 			<TR>
 				<TD class="tdCommonTop">
 					<TABLE class="tbExplain" id="Table6" cellSpacing="1" border="0"
-						height="270">
+						height="20">
 						<TR>
 							<TD class="tdExplain">
 								<IFRAME class="ifExplain" id="ExplainPageFrame"
@@ -185,9 +189,7 @@
 			</TR>
 			
 		</TABLE>
-		<div id="message"><s:actionmessage theme="simple"/></div>
-<iframe id="dialog_Info_hiddenSubmitIFrame" width="0" height="0" frameborder="0" name="dialog_Info_hiddenSubmitIFrame" scrolling="no"></iframe>
-
+			<div id="message" style="display:none;"><s:actionmessage theme="simple"/></div>
 		</form>
 	</body>
 </html>

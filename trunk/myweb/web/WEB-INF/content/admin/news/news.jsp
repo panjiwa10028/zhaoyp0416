@@ -10,6 +10,11 @@
 		
 		function InitPage()
 		{
+			top.setStatusBarInfo('');
+			if($("#message").text() != '') {
+				top.setStatusBarInfo($("#message").text());
+			}
+			
 			body.style.cursor = "";
 		}		
 		
@@ -19,9 +24,9 @@
 		}
 
 		function add() {
-			top.document.getElementById("processMessage").style.display = 'block';
+			
 			var url = "news!input.action";
-			//top.mainWorkArea.location = url;
+			top.mainWorkArea.location = url;
 			//top.showDialog(url, null, 750, 500);
 		}
 
@@ -57,8 +62,9 @@
 		}
 		</script>
 	</HEAD>
-	<body scroll="auto" style="overflow: auto" id="body" onload="InitPage()" MS_POSITIONING="GridLayout">	
 	
+	<body scroll="auto" style="overflow: auto" id="body" onload="InitPage()" MS_POSITIONING="GridLayout">	
+<div id="message" style="display:none;"><s:actionmessage theme="simple"/></div>
 <form id="queryForm" action="menu.action" method="post">
 		<input name="pageSize" type="hidden"
 			value="<c:out value='${NPAGESIZE}'/><c:if test="${NPAGESIZE==null || NPAGESIZE <= 0}">20</c:if>" />
@@ -303,7 +309,7 @@
 				</TR>
 				<TR>
 					<TD class="tdCommonTop">
-						<TABLE class="tbExplain" id="Table10" height="80" cellSpacing="1"
+						<TABLE class="tbExplain" id="Table10" height="20" cellSpacing="1"
 							border="0">
 							<TR>
 								<TD class="tdExplain">
@@ -316,7 +322,7 @@
 					</TD>
 				</TR>
 			</TABLE>
-			
+				
 	</body>
 	</form>
 </HTML>
