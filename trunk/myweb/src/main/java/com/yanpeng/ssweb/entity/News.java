@@ -79,7 +79,7 @@ public class News extends BaseEntity implements java.io.Serializable {
 		return this.date;
 	}
 
-	public void setDate(Timestamp date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
