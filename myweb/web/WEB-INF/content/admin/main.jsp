@@ -11,6 +11,7 @@
 		<link href="<c:url value="/css/leftMenu.css"/>" type="text/css" rel="stylesheet">
 		<script src="<c:url value="/scripts/menu.js"/>" type="text/javascript"></script>
 		<script src="<c:url value="/scripts/leftMenu.js"/>" type="text/javascript"></script>
+		<script src="<c:url value="/scripts/default.js"/>" type="text/javascript"></script>
 
 		<script language="JavaScript" type="text/JavaScript"> 
 
@@ -171,9 +172,9 @@
 
 		function adjustFrameSize()
 		{
-			document.all.mainWorkArea.style.height=mainWorkArea.document.body.scrollHeight<400?400:mainWorkArea.document.body.scrollHeight;
-			mainWorkArea.document.body.style.overflowX='auto';
-			mainWorkArea.document.body.style.overflowY='auto';
+			//document.all.mainWorkArea.style.height=mainWorkArea.document.body.scrollHeight<400?400:mainWorkArea.document.body.scrollHeight;
+			//mainWorkArea.document.body.style.overflowX='auto';
+			//mainWorkArea.document.body.style.overflowY='auto';
 		}
 		
 		var sDisplay = "inline";
@@ -219,6 +220,16 @@
 			win = para[1];
 			*/
 			window.showModalDialog(sURL,window,sFeatures);
+		}
+
+		function setStatusBarInfo(info){
+		 	if(info != undefined && info != ''){
+		 		$("#statusBarInfo").html("提示信息：" + info);
+				$("#processMessage").attr("style","display = 'block'");
+		 	}else{
+		 		$("#processMessage").attr("style","display = 'none'");
+		 	}
+			
 		}
 		</script>
 	</head>
@@ -333,8 +344,8 @@
 									</table>
 								</td>
 								<td vAlign="top"><iframe onactivate="hideAllSubMenu();" id="mainWorkArea" name="mainWorkArea" marginWidth="0"
-										marginHeight="0" src="" frameBorder="0" width="100%"
-										scrolling="no" onload="adjustFrameSize();" height="400"> </iframe>
+										marginHeight="0" src="" frameBorder="2" width="100%"
+										scrolling="no"  height="400"> </iframe>
 								</td>
 							</tr>
 						</table>
