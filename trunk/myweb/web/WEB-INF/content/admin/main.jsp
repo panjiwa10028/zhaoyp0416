@@ -17,7 +17,8 @@
 
 		var DefaultPageNo="";
 		moveTo(0,0);
-  		resizeTo(screen.width,screen.height);
+		resizeTo(screen.availWidth,screen.availHeight);
+  		//resizeTo(screen.width,screen.height);
 
 		
 		var Default_FormTarget = "mainWorkArea";
