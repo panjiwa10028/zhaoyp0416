@@ -3,7 +3,9 @@ package com.yanpeng.ssweb.web.admin.news;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -16,6 +18,8 @@ import com.yanpeng.core.dao.hibernate.Page;
 import com.yanpeng.core.web.struts2.CRUDSupportAction;
 import com.yanpeng.ssweb.entity.News;
 import com.yanpeng.ssweb.service.news.NewsManager;
+import com.yanpeng.ssweb.util.CommUtil;
+import com.yanpeng.ssweb.util.HtmlGenerator;
 
 @SuppressWarnings({ "finally", "serial","deprecation" })
 @ParentPackage("fileUpload")
@@ -76,19 +80,33 @@ public class NewsAction extends CRUDSupportAction<News> {
 	@Override
 	public String save() throws Exception {
 		try{
+			String path = getRequest().getRealPath("");
 			if(upload != null) {
 				String newFileName=RandomStringUtils.randomAlphabetic(9).toLowerCase()+uploadFileName;
-				String newPath=getRequest().getRealPath("") + "\\upload\\" + newFileName;
+				String newPath=path + "\\upload\\" + newFileName;
 				copy(upload,newPath);
 				
-				String fileName=getRequest().getRealPath("")+ "\\upload\\" + news.getPicture();
+				String fileName=path + "\\upload\\" + news.getPicture();
 				FileUtil.deleteContents(new File(fileName));
 				
 				news.setPicture(newFileName);
 			}
 			
 			newsManager.saveOrUpdateNews(news);
-			
+			HtmlGenerator htmlGenerator = new HtmlGenerator();
+			htmlGenerator.setEncode("utf-8");
+			htmlGenerator.setTemplateDir("/htmlskin/");
+			htmlGenerator.setTemplateFile("view.ftl");
+			htmlGenerator.setPreviewHtmlFileDir("preview");
+			htmlGenerator.setRootDir(path);
+			Map map = new HashMap();
+			map.put("news", news);
+//			CommUtil.ObjToMap(news, map);
+			String returnValue = htmlGenerator.preview(map, "1111.html");
+			if(returnValue == null) {
+				addActionError("保存失败!");
+				return INPUT;
+			}
 			addActionMessage("保存成功!");
 			return RELOAD;
 		}catch (Exception e) {
