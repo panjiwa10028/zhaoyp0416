@@ -259,10 +259,11 @@
 										${date}
 									</td>
 									<td align="Left">
-										<!-- img src="${base}/upload/${picture}" alt="${base}/upload/${picture}" width="64" height="56"/-->
+										<img src="${base}/upload/${picture}" alt="${base}/upload/${picture}" width="64" height="56"/>
 									</td>
 									<td align="Left">
-										<a href="news!delete.action?news.id=${id}">删除</a>
+									<a href="news!input.action?news.id=${id}&page.pageParam=${page.pageParam}">修改</a>
+										<a href="news!delete.action?news.id=${id}&page.pageParam=${page.pageParam}">删除</a>
 									</td>
 								</tr>
 							</s:iterator>
