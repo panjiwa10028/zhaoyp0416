@@ -9,7 +9,6 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.dispatcher.ServletActionRedirectResult;
 import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,7 +20,7 @@ import com.yanpeng.ssweb.service.news.NewsManager;
 @SuppressWarnings({ "finally", "serial","deprecation" })
 @ParentPackage("fileUpload")
 @Results( { @Result(name = CRUDSupportAction.RELOAD, location = "news.action?page.pageParam=${page.pageParam}", type = "redirect") })
-public class NewsAction extends CRUDSupportAction {
+public class NewsAction extends CRUDSupportAction<News> {
 
 	@Autowired
 	private NewsManager newsManager;
@@ -51,10 +50,7 @@ public class NewsAction extends CRUDSupportAction {
 		return SUCCESS;
 	}
 	
-	public String input() throws Exception {
-		if(news!=null&&news.getId()!=null){
-			news=newsManager.getNewsById(news.getId());
-		}
+	public String input() throws Exception {		
 		return INPUT;
 	}
 	
@@ -62,7 +58,7 @@ public class NewsAction extends CRUDSupportAction {
 	@Override
 	public String delete() throws Exception {
 		try{
-			if(news!=null&&news.getId()!=null){
+			if(news != null && news.getId() != null) {
 				news=newsManager.getNewsById(news.getId());
 				String fileName=getRequest().getRealPath("")+ "\\upload\\" + news.getPicture();
 				FileUtil.deleteContents(new File(fileName));
@@ -80,17 +76,27 @@ public class NewsAction extends CRUDSupportAction {
 	@Override
 	public String save() throws Exception {
 		try{
-			String newFileName=RandomStringUtils.randomAlphabetic(9).toLowerCase()+uploadFileName;
-			String newPath=getRequest().getRealPath("") + "\\upload\\" + newFileName;
-			copy(upload,newPath);
-			news.setPicture(newFileName);
+			if(upload != null) {
+				String newFileName=RandomStringUtils.randomAlphabetic(9).toLowerCase()+uploadFileName;
+				String newPath=getRequest().getRealPath("") + "\\upload\\" + newFileName;
+				copy(upload,newPath);
+				
+				String fileName=getRequest().getRealPath("")+ "\\upload\\" + news.getPicture();
+				FileUtil.deleteContents(new File(fileName));
+				
+				news.setPicture(newFileName);
+			}
+			
 			newsManager.saveOrUpdateNews(news);
+			
 			addActionMessage("保存成功!");
+			return RELOAD;
 		}catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			addActionError("保存失败!");
+			return INPUT;
 		}finally{
-			return RELOAD;
+//			return RELOAD;
 		}
 	}
 	
@@ -177,13 +183,17 @@ public class NewsAction extends CRUDSupportAction {
 	@Override
 	protected void prepareModel() throws Exception {
 		// TODO Auto-generated method stub
-		
+		if(news != null && news.getId() != null) {
+			news=newsManager.getNewsById(news.getId());
+		}else {
+			news = new News();
+		}
 	}
 
 	@Override
-	public Object getModel() {
+	public News getModel() {
 		// TODO Auto-generated method stub
-		return null;
+		return news;
 	}
 
 }
