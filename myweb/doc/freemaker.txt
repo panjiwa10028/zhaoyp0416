@@ -1,0 +1,69 @@
+public synchronized boolean  geneHtmlFile(String root,String templateFileName,String tplPath,Map propMap, String htmlFilePath,String htmlFileName )
+    {          
+        try
+        {            
+          Template t = getFreeMarkerCFG(root,tplPath).getTemplate(templateFileName);             
+          creatDirs(root,htmlFilePath);
+          File afile = new File(root+htmlFilePath + "/" + htmlFileName);
+          Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(afile),"utf-8")); 
+          t.setEncoding("utf-8");         
+          t.process(propMap, out);          
+        }
+        catch (TemplateException e)
+        {
+          logger.error("Error while processing FreeMarker template " + templateFileName,e);
+          return false;
+        }
+        catch (IOException e)
+        {
+          logger.error("Error while generate Static Html File " + htmlFileName,e);
+          return false;
+        }
+
+        return true;
+    }
+    ---------------------------------------------
+    <?xml version="1.0" encoding="utf-8"?>
+<root size="${count}" page="${page}">
+<#list emps as emp>
+ <employ>
+ <id>${emp.id}</id>
+ <name>${emp.username}</name>
+ </employ>
+</#list>
+</root>
+-------------------------
+protected Configuration getFreeMarkerCFG(String root,String telpath)
+    {
+        try {
+   if (null == freemarker_cfg)        
+   {          
+     freemarker_cfg = new Configuration();   
+     File templateDir=new File(root+"templates/"+telpath);
+     FileTemplateLoader ftl = new FileTemplateLoader(templateDir); 
+     freemarker_cfg.setDefaultEncoding("UTF-8");
+     //设置加载模板目录
+     freemarker_cfg.setTemplateLoader(ftl);
+     
+     //freemarker_cfg.setDirectoryForTemplateLoading(templateDir);
+     
+     
+     //freemarker_cfg.setClassForTemplateLoading(this.getClass(), "/templates/"+telpath);
+   }
+  } catch (Exception e) {
+   // TODO Auto-generated catch block
+   e.printStackTrace();
+  }
+        
+        return freemarker_cfg;
+    }
+    
+    -------------------------------------
+    <#import "/plugin/base/macros/pager-macros.html" as mypager />
+<#import "/plugin/base/macros/util-macros.html" as util />
+<#import "/plugin/base/macros/tabler-macros.html" as tabler />
+<#assign pageUrl=baseUrl+"admin/member.htm?action=List&where=${where}&order=${order}&order_mode=${order_mode}&order_name=${order_name}&pageNum="+pageNum+"&page="/>
+    
+    
+    
+    
