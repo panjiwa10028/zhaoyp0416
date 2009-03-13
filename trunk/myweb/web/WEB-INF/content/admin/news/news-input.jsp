@@ -14,14 +14,13 @@
 		<link href="${base}/js/validate/jquery.validate.css" type="text/css"
 			rel="stylesheet" />
 		<link href="${base}/scripts/validate/jquery.validate.css" type="text/css" rel="stylesheet" />
-<script src="${base}/scripts/validate/jquery.validate.js" type="text/javascript"></script>
-<script src="${base}/scripts/validate/messages_cn.js" type="text/javascript"></script>
+<script language="javascript" src="${base}/scripts/validate/jquery.validate.js" type="text/javascript"></script>
+<script language="javascript" src="${base}/scripts/validate/messages_cn.js" type="text/javascript"></script>
 <script type="text/javascript" charset="utf-8" src="${base}/scripts/kindeditor/src/lang/zh_CN.js"></script>
 <script type="text/javascript" charset="utf-8" src="${base}/scripts/kindeditor/src/kindeditor-core.js"></script>
 <script type="text/javascript" charset="utf-8" src="${base}/scripts/kindeditor/src/plugin-all.js"></script>
 <script language="javascript" src="${base}/scripts/previewImage.js"  type="text/javascript" ></script>
-
-<script src="${base}/scripts/validate/jquery.validate.js" type="text/javascript"></script>
+<script language="javascript" src="${base}/scripts/date-picker/WdatePicker.js"  type="text/javascript" ></script>
 <script type="text/javascript">
 	KE.show({
 		id:'news.content',
@@ -192,15 +191,6 @@
 			<div id="message" style="display:none;"><s:actionmessage theme="simple"/></div>
 		</form>
 		
-
-<hr />
-
-<p>不论您使用的是 IE6 还是 IE7，均可以看到以下预览。</p>
-
-
-<hr />
-
-<p>请选择一个图片进行预览：<input type="file" size="20" onchange="javascript:PreviewImg(this);" /></p>
 	</body>
 </html>
 
