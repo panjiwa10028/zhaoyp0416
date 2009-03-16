@@ -173,7 +173,7 @@
 
 		function adjustFrameSize()
 		{
-			//document.all.mainWorkArea.style.height=mainWorkArea.document.body.scrollHeight<400?400:mainWorkArea.document.body.scrollHeight;
+			document.all.mainWorkArea.style.height=mainWorkArea.document.body.scrollHeight<400?400:document.body.scrollHeight-130;
 			//mainWorkArea.document.body.style.overflowX='auto';
 			//mainWorkArea.document.body.style.overflowY='auto';
 		}
@@ -346,7 +346,7 @@
 								</td>
 								<td vAlign="top"><iframe onactivate="hideAllSubMenu();" id="mainWorkArea" name="mainWorkArea" marginWidth="0"
 										marginHeight="0" src="" frameBorder="2" width="100%"
-										scrolling="no"  height="400"> </iframe>
+										scrolling="no"  height="400" onload="adjustFrameSize()"> </iframe>
 								</td>
 							</tr>
 						</table>

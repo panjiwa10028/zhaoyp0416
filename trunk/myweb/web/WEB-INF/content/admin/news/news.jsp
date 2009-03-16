@@ -57,7 +57,10 @@
 		}
 
 		function query() {
-			queryForm.target = "mainWorkArea";
+			submitForm();
+		}
+
+		function submitForm() {
 			queryForm.submit();
 		}
 		</script>
@@ -65,15 +68,10 @@
 	
 	<body scroll="auto" style="overflow: auto" id="body" onload="InitPage()" MS_POSITIONING="GridLayout">	
 <div id="message" style="display:none;"><s:actionmessage theme="simple"/></div>
-<form id="queryForm" action="menu.action" method="post">
-		<input name="pageSize" type="hidden"
-			value="<c:out value='${NPAGESIZE}'/><c:if test="${NPAGESIZE==null || NPAGESIZE <= 0}">20</c:if>" />
-		<input name="pageIndex" type="hidden"
-			value="<c:out value='${NPAGEINDEX}'/>" />
-		<input name="recordIndex" type="hidden"
-			value="<c:out value='${NPAGESIZE*(NPAGEINDEX-1)}'/>" />
-		<input name="pageCount" type="hidden"
-			value="<c:out value='${NPAGECOUNT}'/>" />
+<form action="news!search.action" method="post" id="inputForm">
+										<input id="search_text" name="search_text" class="required"/><input type="submit" value="搜索" class="button"/>
+									</form>
+<form id="queryForm" name="queryForm" action="news.action" method="post">
 			<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
 				<TR>
 					<TD class="tdCommonTop">
@@ -164,37 +162,7 @@
 							border="0">
 							<TR>
 								<TD class="tdLeftH30">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;菜单级别：
-									<select name="parentId" id="parentId"
-										style="width: 100px;">
-										<option selected="selected" value="-">
-											[ 全部 ]
-										</option>
-										<c:forEach var="element" items="${conditionMap.typeMenu}">
-											<option value="${element.id}" <c:if test="${conditionMap.parentId == element.id}">selected</c:if>>
-												${element.displayName}
-											</option>
-										</c:forEach>
-									</select>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名称：
-									<input type="text" id="name" name="displayName" value="${conditionMap.displayName}"/>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是否可用：
-									<select name="disabled" id="disabled"
-										style="width: 100px;">
-										<option value="">
-											[ 全部 ]
-										</option>
-										<option value="0" <c:if test="${conditionMap.disabled == 0}">selected</c:if>>
-											可用
-										</option>
-										<option value="1" <c:if test="${conditionMap.disabled == 1}">selected</c:if>>
-											不可用
-										</option>
-
-									</select>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="button" name="BtnOK" value="查 询" id="BtnOK"
-										class="btn" onclick="query()"/>
+									
 								</TD>
 							</TR>
 						</TABLE>
@@ -222,9 +190,7 @@
 									<input type="checkbox" class="checkbox" name="lId" />
 								</td>
 								<td class="dgHeader">
-									<a href="${base}/demo/news.action?page.orderBy=name&page.order=
-			<s:if test="page.orderBy=='title'">${page.inverseOrder}</s:if><s:else>desc</s:else>
-			"><b>标题</b></a>
+									<a href="javascript:orderBy('title')"><b>标题</b></a>
 								</td>
 								<td class="dgHeader">
 									<a href="news.action?page.orderBy=auth&page.order=
@@ -266,42 +232,11 @@
 										<a href="news!delete.action?news.id=${id}&page.pageParam=${page.pageParam}">删除</a>
 									</td>
 								</tr>
-							</s:iterator>
+							</s:iterator>							
 						</table>
-						<div id="footer" style="margin-top:10px;width: 600px;">
-		第${page.pageNo}页, 共${page.totalPages}页 
-		<s:set var="actionName" value="news.action"></s:set>
-		<a href="${actionName}?page.pageNo=1&page.orderBy=${page.orderBy}&page.order=${page.order}">首页</a>
-		<s:if test="page.pageNo-3>0">
-			...&nbsp;
-		</s:if>
-		<s:if test="page.pageNo-2>0">
-			<a href="${actionName}?page.pageNo=${page.pageNo-2}&page.orderBy=${page.orderBy}&page.order=${page.order}">${page.pageNo-2}</a>&nbsp;
-		</s:if>
-		<s:if test="page.pageNo-1>0">
-			<a href="${actionName}?page.pageNo=${page.pageNo-1}&page.orderBy=${page.orderBy}&page.order=${page.order}">${page.pageNo-1}</a>&nbsp;
-		</s:if>
-		<s:if test="page.pageNo>0">
-			${page.pageNo}&nbsp;
-		</s:if>
-		<s:if test="page.totalPages>=page.pageNo+1">
-			<a href="${actionName}?page.pageNo=${page.pageNo+1}&page.orderBy=${page.orderBy}&page.order=${page.order}">${page.pageNo+1}</a>&nbsp;
-		</s:if>
-		<s:if test="page.totalPages>=page.pageNo+2">
-			<a href="${actionName}?page.pageNo=${page.pageNo+2}&page.orderBy=${page.orderBy}&page.order=${page.order}">${page.pageNo+2}</a>&nbsp;
-		</s:if>
-		<s:if test="page.totalPages>=page.pageNo+3">
-			<a href="${actionName}?page.pageNo=${page.pageNo+3}&page.orderBy=${page.orderBy}&page.order=${page.order}">${page.pageNo+3}</a>&nbsp;
-		</s:if>
-		<s:if test="page.totalPages>=page.pageNo+4">
-			<a href="${actionName}?page.pageNo=${page.pageNo+4}&page.orderBy=${page.orderBy}&page.order=${page.order}">${page.pageNo+4}</a>&nbsp;
-		</s:if>
-		<s:if test="page.totalPages>=page.pageNo+5">
-			...&nbsp;
-		</s:if>
-		<a href="${actionName}?page.pageNo=${page.totalPages}&page.orderBy=${page.orderBy}&page.order=${page.order}">末页</a>
-		
-	</div>
+						<s:if test="page.result != null">
+							<%@ include file="/common/paginateTool.jsp"%>
+						</s:if>		
 					</TD>
 
 				</TR>
