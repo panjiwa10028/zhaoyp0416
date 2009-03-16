@@ -1195,7 +1195,8 @@ TD.tdMsgPageCenter3
 	background-color:#c5f1ff;
 	padding:5px;
 	width:expression(document.body.clientWidth-186);
-	top:500px;
+	top:expression(document.body.scrollHeight-40);
+	
 	/*margin-top:-28px;*/
 	left:175px;
 	overflow:hidden;
