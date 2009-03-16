@@ -151,7 +151,7 @@ public class HtmlGenerator {
      * @param aSubDir    以 / 开头
      * @return boolean 是否成功
      */
-    private boolean creatDirs(String aParentDir, String aSubDir) {
+    public boolean creatDirs(String aParentDir, String aSubDir) {
         File aFile = new File(aParentDir);
         if (aFile.exists()) {
             File aSubFile = new File(aParentDir + "/" + aSubDir);
