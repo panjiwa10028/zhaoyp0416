@@ -3,6 +3,7 @@ package com.yanpeng.ssweb.web.admin.news;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yanpeng.core.dao.hibernate.Page;
+import com.yanpeng.core.utils.DateUtils;
 import com.yanpeng.core.web.struts2.CRUDSupportAction;
 import com.yanpeng.ssweb.entity.News;
 import com.yanpeng.ssweb.service.news.NewsManager;
@@ -43,7 +45,7 @@ public class NewsAction extends CRUDSupportAction<News> {
     	}catch (Exception e) {
     		addActionError("没有搜索到结果!");
     	}finally{
-    		return "search";
+    		return SUCCESS;
     	}
     		
     }
@@ -80,29 +82,43 @@ public class NewsAction extends CRUDSupportAction<News> {
 	@Override
 	public String save() throws Exception {
 		try{
+			HtmlGenerator htmlGenerator = new HtmlGenerator();
+//			取服务器路径
 			String path = getRequest().getRealPath("");
-			if(upload != null) {
-				String newFileName=RandomStringUtils.randomAlphabetic(9).toLowerCase()+uploadFileName;
-				String newPath=path + "\\upload\\" + newFileName;
+//			生成随机的字符串
+			String rnadomString = RandomStringUtils.randomAlphabetic(9).toLowerCase();
+			Date date = new Date();
+//			取当前日期
+			String dateString = DateUtils.convertDateToString(date,"yyyy-MM-dd");
+			if(upload != null) {	
+				String newFileName=rnadomString;
+				if(uploadFileName.indexOf(".") != -1) {
+					newFileName += uploadFileName.substring(uploadFileName.lastIndexOf("."));
+				}
+//				创建日期文件夹
+				htmlGenerator.creatDirs(path, "\\upload\\news\\" + dateString);
+//				上传文件的路径
+				String newPath=path + "\\upload\\news\\" + dateString + "\\" + newFileName;
+//				上传
 				copy(upload,newPath);
-				
-				String fileName=path + "\\upload\\" + news.getPicture();
+//				删除旧的上传文件
+				String fileName=path + "\\upload\\news\\" + dateString + "\\" + news.getPicture();
 				FileUtil.deleteContents(new File(fileName));
 				
 				news.setPicture(newFileName);
 			}
 			
 			newsManager.saveOrUpdateNews(news);
-			HtmlGenerator htmlGenerator = new HtmlGenerator();
+			
 			htmlGenerator.setEncode("utf-8");
 			htmlGenerator.setTemplateDir("/htmlskin/");
 			htmlGenerator.setTemplateFile("view.ftl");
-			htmlGenerator.setPreviewHtmlFileDir("preview");
+			htmlGenerator.setPreviewHtmlFileDir("html\\news\\" + dateString);
 			htmlGenerator.setRootDir(path);
 			Map map = new HashMap();
 			map.put("news", news);
 //			CommUtil.ObjToMap(news, map);
-			String returnValue = htmlGenerator.preview(map, "1111.html");
+			String returnValue = htmlGenerator.preview(map, rnadomString + ".html");
 			if(returnValue == null) {
 				addActionError("保存失败!");
 				return INPUT;
