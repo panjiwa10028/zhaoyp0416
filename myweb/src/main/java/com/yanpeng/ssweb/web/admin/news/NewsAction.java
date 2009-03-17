@@ -30,7 +30,7 @@ public class NewsAction extends CRUDSupportAction<News> {
 
 	@Autowired
 	private NewsManager newsManager;
-	private Page page = new Page(5,true,"desc","id");;
+	private Page page = new Page(5,true,"desc","id");
 	private News news;
 	private File upload;   
     private String uploadFileName;
