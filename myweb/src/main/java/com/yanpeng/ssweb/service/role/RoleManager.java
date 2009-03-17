@@ -56,6 +56,10 @@ public class RoleManager {
 		return roleDao.findByCriteria(Restrictions.in("", ids));
 	}
 
+	@Transactional(readOnly = true)
+	public List<Roles> getAllRoles() {
+		return roleDao.findAll();
+	}
 
 	
 }
