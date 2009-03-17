@@ -1,6 +1,8 @@
 package com.yanpeng.core.utils;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -181,6 +183,21 @@ public abstract class DateUtils extends org.apache.commons.lang.time.DateUtils {
      */
     public static Date addMonths(Date when, int amount) {
         return add(when,Calendar.MONTH,amount);
+    }
+    
+    /**
+     * 将字符串转换为日期（不包括时间）
+     * @param dateString "yyyy-MM-dd"格式的日期字符串
+     * @return 日期
+     */
+    public static String convertDateToString(Date date, String formatString) {
+		try{
+			DateFormat format = new SimpleDateFormat(formatString);
+			
+			return format.format(date);
+		}catch (Exception e) {
+		    return null;
+		}
     }
 
 }
