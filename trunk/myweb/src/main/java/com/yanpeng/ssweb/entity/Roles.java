@@ -72,7 +72,7 @@ public class Roles extends BaseEntity implements java.io.Serializable {
 		this.updateDate = updateDate;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "roles_permissions", catalog = "myweb", joinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "permission_id", nullable = false, updatable = false) })
 	public Set<Permissions> getPermissionses() {
 		return this.permissionses;
@@ -91,7 +91,7 @@ public class Roles extends BaseEntity implements java.io.Serializable {
 		this.userses = userses;
 	}
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "roles_menus", catalog = "myweb", joinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "menu_id", nullable = false, updatable = false) })
 	public Set<Menus> getMenuses() {
 		return this.menuses;
