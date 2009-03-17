@@ -1,8 +1,12 @@
 package com.yanpeng.ssweb.service.user;
 
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yanpeng.core.dao.hibernate.Page;
 import com.yanpeng.core.dao.hibernate.SimpleHibernateTemplate;
 import com.yanpeng.core.security.SpringSecurityUtils;
+import com.yanpeng.core.utils.BaseCodeUtils;
 import com.yanpeng.ssweb.entity.Permissions;
 import com.yanpeng.ssweb.entity.Roles;
 import com.yanpeng.ssweb.entity.Users;
@@ -32,7 +37,7 @@ public class UserManager {
 
 	// 统一定义所有HQL
 
-	private static final String QUERY_ADMIN_HQL = "select user from User user join user.roles as role where role.name=?";
+	private static final String QUERY_ADMIN_HQL = "select user from Users user join user.roleses as role where role.name=?";
 
 	private final Logger logger = LoggerFactory.getLogger(UserManager.class);
 
@@ -63,7 +68,15 @@ public class UserManager {
 	}
 
 	public void saveUser(Users user) {
-		userDao.save(user);
+		userDao.saveOrUpdate(user);
+	}
+	public void saveUser(Users user, Collection ids) {
+		List<Roles> list = roleDao.findByCriteria(Restrictions.in("id", ids));
+		Set set = new LinkedHashSet(list); 
+		user.setRoleses(set);
+		String psw=BaseCodeUtils.getMd5PasswordEncoder(user.getPassword(), user.getLoginName());
+		user.setPassword(psw);
+		userDao.saveOrUpdate(user);
 	}
 
 	public void deleteUser(String id) {
