@@ -6,7 +6,7 @@
 	default-autowire="byName" default-lazy-init="true">
 
 	
-	<http auto-config="true" access-denied-page="/common/403.htm">
+	<http auto-config="true" access-denied-page="/common/403.jsp">
 		<intercept-url pattern="/login.**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 		<form-login login-page="/login.action" default-target-url="/admin/main.action" authentication-failure-url="/login.action?error=1" />
 		<logout logout-success-url="/" invalidate-session="true"/>

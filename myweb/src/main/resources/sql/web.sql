@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2009-3-11 16:14:34                           */
+/* Created on:     2009-3-17 17:16:37                           */
 /*==============================================================*/
 
 
@@ -65,10 +65,10 @@ drop table if exists users_roles;
 /*==============================================================*/
 create table groups
 (
-   id                   char(32) not null,
+   id                   varchar(36) not null,
    name                 varchar(100)  not null,
    description          text not null,
-   parent_id            char(32),
+   parent_id            varchar(36),
    update_date          datetime,
    primary key (id),
    unique key AK_Key_t_groups_2 (name)
@@ -96,9 +96,9 @@ create index Index_t_groups_2 on groups
 /*==============================================================*/
 create table menus
 (
-   id                   char(32) not null,
+   id                   varchar(36) not null,
    name                 varchar(50) not null,
-   parent_id            char(32),
+   parent_id            varchar(36),
    display_name         varchar(100) not null,
    url                  varchar(500),
    sort                 varchar(100),
@@ -153,12 +153,13 @@ create index Index_t_menu_5 on menus
 /*==============================================================*/
 create table news
 (
-   id                   char(32) not null,
+   id                   varchar(36) not null,
    title                varchar(100),
    auth                 varchar(50),
    content              text,
    picture              varchar(255),
    date                 datetime,
+   user_id              varchar(36),
    primary key (id)
 );
 
@@ -167,7 +168,7 @@ create table news
 /*==============================================================*/
 create table permissions
 (
-   id                   char(32) not null,
+   id                   varchar(36) not null,
    name                 varchar(100) not null,
    display_name         varchar(100) not null,
    path                 varchar(255),
@@ -196,7 +197,7 @@ create unique index Index_t_permissions_3 on permissions
 /*==============================================================*/
 create table roles
 (
-   id                   char(32) not null,
+   id                   varchar(36) not null,
    name                 varchar(50) not null,
    description          text not null,
    update_date          datetime,
@@ -217,8 +218,8 @@ create unique index Index_t_roles_1 on roles
 /*==============================================================*/
 create table roles_menus
 (
-   role_id              char(32) not null,
-   menu_id              char(32) not null,
+   role_id              varchar(36) not null,
+   menu_id              varchar(36) not null,
    primary key (role_id, menu_id)
 )
 type = InnoDB;
@@ -244,8 +245,8 @@ create index Index_t_roels_menus_2 on roles_menus
 /*==============================================================*/
 create table roles_permissions
 (
-   role_id              char(32) not null,
-   permission_id        char(32) not null,
+   role_id              varchar(36) not null,
+   permission_id        varchar(36) not null,
    primary key (role_id, permission_id)
 )
 type = InnoDB;
@@ -271,9 +272,9 @@ create index Index_t_role_permissions_2 on roles_permissions
 /*==============================================================*/
 create table users
 (
-   id                   char(32) not null,
+   id                   varchar(36) not null,
    name                 varchar(100)  not null,
-   group_id             char(32) not null,
+   group_id             varchar(36) not null,
    login_name           varchar(100) binary not null,
    password             varchar(255) not null,
    disabled             smallint not null default 0,
@@ -313,8 +314,8 @@ create unique index Index_t_users_3 on users
 /*==============================================================*/
 create table users_roles
 (
-   user_id              char(32) not null,
-   role_id              char(32) not null,
+   user_id              varchar(36) not null,
+   role_id              varchar(36) not null,
    primary key (user_id, role_id)
 )
 type = InnoDB;
@@ -340,6 +341,9 @@ alter table groups add constraint FK_groups_groups foreign key (parent_id)
 
 alter table menus add constraint FK_menus_menus foreign key (parent_id)
       references menus (id);
+
+alter table news add constraint FK_users_news foreign key (user_id)
+      references users (id);
 
 alter table roles_menus add constraint FK_menus_rolesmenus foreign key (menu_id)
       references menus (id);
