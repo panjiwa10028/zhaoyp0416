@@ -30,9 +30,7 @@ public class BaseEntity implements Serializable{
 	
 	private String id;
 	
-	
-	private Long version;
-	
+		
 	
 	
 	@Id
@@ -45,16 +43,6 @@ public class BaseEntity implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
-
-	@Version
-	public Long getVersion() {
-		return version;
-	}
-
-	public void setVersion(Long version) {
-		this.version = version;
-	}
-
 
 	
 }
