@@ -20,7 +20,7 @@ public class Page<T> {
 	// 查询参数变量
 
 	private int pageNo = 1;
-	private int pageSize = -1;
+	private int pageSize = 0;
 	private String orderBy = null; //仅在Criterion查询时有效
 	private String order = ASC; //仅在Criterion查询时有效
 	private boolean autoCount = false; //查询对象时是否自动另外执行count查询获取总记录数,仅在Criterion查询时有效.
@@ -28,7 +28,7 @@ public class Page<T> {
 	// 返回结果变量
 
 	private List<T> result = null;
-	private int totalCount = -1;
+	private int totalCount = 0;
 
 	// 构造函数
 
@@ -218,8 +218,8 @@ public class Page<T> {
 	 * 计算总页数.
 	 */
 	public int getTotalPages() {
-		if (totalCount == -1)
-			return -1;
+		if (totalCount == 0)
+			return 0;
 
 		int count = totalCount / pageSize;
 		if (totalCount % pageSize > 0) {
