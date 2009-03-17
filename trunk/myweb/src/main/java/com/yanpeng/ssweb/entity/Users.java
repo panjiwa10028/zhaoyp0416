@@ -39,9 +39,9 @@ public class Users extends BaseEntity implements java.io.Serializable {
 	private String name;
 	private String loginName;
 	private String password;
-	private Short disabled;
-	private Short expired;
-	private Short locked;
+	private Short disabled = 0;
+	private Short expired = 0;
+	private Short locked = 0;
 	private Date updateDate;
 	private Set<Roles> roleses = new LinkedHashSet<Roles>(0);
 
@@ -125,7 +125,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 		this.updateDate = updateDate;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "users_roles", catalog = "myweb", joinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) })
 	public Set<Roles> getRoleses() {
 		return this.roleses;
