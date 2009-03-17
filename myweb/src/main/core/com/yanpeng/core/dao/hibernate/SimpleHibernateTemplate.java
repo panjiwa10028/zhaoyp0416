@@ -262,8 +262,10 @@ public class SimpleHibernateTemplate<T, PK extends Serializable> {
 				c.addOrder(Order.desc(page.getOrderBy()));
 			}
 		}
-
-		page.setResult(c.list());
+		if(page.getTotalCount() > 0) {
+			page.setResult(c.list());
+		}
+		
 		return page;
 	}
 
@@ -328,7 +330,7 @@ public class SimpleHibernateTemplate<T, PK extends Serializable> {
 		// 执行Count查询
 		int totalCount = (Integer) c.setProjection(Projections.rowCount()).uniqueResult();
 		if (totalCount < 1)
-			return -1;
+			return 0;
 
 		// 将之前的Projection和OrderBy条件重新设回去
 		c.setProjection(projection);
