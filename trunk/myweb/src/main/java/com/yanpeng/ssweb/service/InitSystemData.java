@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yanpeng.ssweb.entity.Permissions;
+import com.yanpeng.ssweb.service.permission.PermissionManager;
 import com.yanpeng.ssweb.service.security.resource.SecurityResourceCache;
 import com.yanpeng.ssweb.service.user.UserManager;
 
@@ -13,8 +14,9 @@ import com.yanpeng.ssweb.service.user.UserManager;
 @SuppressWarnings("unused")
 public class InitSystemData {
 
+
 	@Autowired
-	private UserManager userManager;
+	private PermissionManager permissionManager;
 	
 	private boolean isRun;
 
@@ -30,7 +32,7 @@ public class InitSystemData {
 	}
 	
 	public void initCache(){
-		List<Permissions> pers=userManager.getAllResource();
+		List<Permissions> pers=permissionManager.getAllPermissions();
 		for(Permissions r:pers){
 			SecurityResourceCache.putCache(r);
 		}
@@ -295,10 +297,7 @@ public class InitSystemData {
 //		news.setPicture("demo.gif");
 //		newsService.saveOrUpdateNews(news);
 //	}
-	
-	public void setUserManager(UserManager userManager) {
-		this.userManager = userManager;
-	}
+
 
 	public boolean isRun() {
 		return isRun;

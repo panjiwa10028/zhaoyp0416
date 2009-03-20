@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yanpeng.core.dao.hibernate.Page;
-import com.yanpeng.core.dao.hibernate.SimpleHibernateTemplate;
 import com.yanpeng.core.dao.lucene.SimpleLuceneTemplate;
+import com.yanpeng.core.orm.Page;
+import com.yanpeng.core.orm.hibernate.EntityManager;
 import com.yanpeng.core.security.SpringSecurityUtils;
+import com.yanpeng.ssweb.dao.group.GroupDao;
+import com.yanpeng.ssweb.dao.role.RoleDao;
 import com.yanpeng.ssweb.entity.Groups;
 import com.yanpeng.ssweb.entity.Menus;
 import com.yanpeng.ssweb.entity.News;
@@ -35,18 +37,19 @@ import com.yanpeng.ssweb.exceptions.ServiceException;
 @Service
 //默认将类中的所有函数纳入事务管理.
 @Transactional
-public class GroupManager {
+public class GroupManager extends EntityManager<Groups, String> {
 
 	// 统一定义所有HQL
 
 	
 	private final Logger logger = LoggerFactory.getLogger(GroupManager.class);
 
-	private SimpleHibernateTemplate<Groups, String> groupDao;
-
 	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		groupDao = new SimpleHibernateTemplate<Groups, String>(sessionFactory, Groups.class);
+	private GroupDao groupDao;
+	
+	@Override
+	protected GroupDao getEntityDao() {
+		return groupDao;
 	}
 
 	// 用户业务函数
@@ -55,12 +58,12 @@ public class GroupManager {
 	
 	@Transactional(readOnly=true)
 	public List<Groups> getAllGroup(){
-		return groupDao.findAll();
+		return groupDao.getAll();
 	}
 	
 	@Transactional(readOnly=true)
 	public Page getAllGroup(Page page){
-		return groupDao.findAll(page);
+		return groupDao.getAll(page);
 	}
 	
 	@Transactional(readOnly=true)
@@ -68,8 +71,8 @@ public class GroupManager {
 		return (Groups)groupDao.get(id);
 	}
 	
-	public void saveOrUpdateGroup(Groups group){
-		groupDao.saveOrUpdate(group);
+	public void saveGroup(Groups group){
+		groupDao.save(group);
 	}
 
 	@SuppressWarnings("unchecked")
