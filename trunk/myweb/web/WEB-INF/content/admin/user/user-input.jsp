@@ -68,6 +68,7 @@
 	<body scroll="auto" style="overflow: auto" onload="initPage()">
 	<form id="inputForm" name="inputForm" action="user!save.action" method="post">
 <input type="hidden" name="id" value="${id}" />
+<input type="hidden" name="page.pageRequest" value="${page.pageRequest}" />
 		<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
 			<TR>
 				<TD class="tdCommonTop">

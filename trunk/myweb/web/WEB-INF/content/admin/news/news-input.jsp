@@ -63,7 +63,7 @@
 	</head>
 <form id="inputForm" action="news!save.action" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="id" value="${id}" />
-	<input type="hidden" name="page.pageParam" value="${page.pageParam}" />
+	<input type="hidden" name="page.pageRequest" value="${page.pageRequest}" />
 	<body scroll="auto" style="overflow: auto" onload="initPage()">
 	
 		<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
