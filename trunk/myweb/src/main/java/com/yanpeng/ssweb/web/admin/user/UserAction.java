@@ -8,21 +8,23 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.Authentication;
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.userdetails.UserDetails;
 
-import com.yanpeng.core.dao.hibernate.HibernateUtils;
-import com.yanpeng.core.dao.hibernate.Page;
-import com.yanpeng.core.web.struts2.CRUDSupportAction;
+import com.yanpeng.core.orm.Page;
+import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.Groups;
 import com.yanpeng.ssweb.entity.Roles;
 import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.exceptions.ServiceException;
 import com.yanpeng.ssweb.service.group.GroupManager;
+import com.yanpeng.ssweb.service.role.RoleManager;
 import com.yanpeng.ssweb.service.user.UserManager;
+import com.yanpeng.ssweb.web.BaseAction;
 
 /**
  * 用户管理Action.
@@ -32,19 +34,24 @@ import com.yanpeng.ssweb.service.user.UserManager;
  * @author calvin
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = CRUDSupportAction.RELOAD, location = "user.action?page.pageParam=${page.pageParam}", type = "redirect") })
-public class UserAction extends CRUDSupportAction<Users> {
+@Results( { @Result(name = BaseAction.RELOAD, location = "user.action?page.pageParam=${page.pageParam}", type = "redirect") })
+public class UserAction extends BaseAction<Users> {
 
 	// CRUD Action 基本属性
 
-	private Page<Users> page = new Page(5,true,"desc","id");//每页5项记录，自动执行count查询计算总页数.
+	private Page<Users> page = new Page<Users>(5);//每页5条记录
 
 	private Users entity;
 
 	private String id;
 
+	@Autowired
 	private UserManager userManager;
 	
+	@Autowired
+	private RoleManager roleManager;
+	
+	@Autowired
 	private GroupManager groupManager;
 
 	// 用户-角色 相关属性
@@ -55,10 +62,8 @@ public class UserAction extends CRUDSupportAction<Users> {
 	
 	private List<Groups> allGroups;
 
-	@Required
-	public void setUserManager(UserManager userManager) {
-		this.userManager = userManager;
-	}
+	
+
 
 	// CRUD Action 属性访问函数
 
@@ -75,13 +80,7 @@ public class UserAction extends CRUDSupportAction<Users> {
 		}
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public Page<Users> getPage() {
-		return page;
-	}
+	
 
 	// CRUD Action 函数
 
@@ -93,7 +92,7 @@ public class UserAction extends CRUDSupportAction<Users> {
 
 	@Override
 	public String input() throws Exception {
-		allRoles = userManager.getAllRoles();
+		allRoles = roleManager.getAllRoles();
 		checkedRoleIds = entity.getRoleIds();
 		allGroups = groupManager.getAllGroup();
 		return INPUT;
@@ -102,7 +101,6 @@ public class UserAction extends CRUDSupportAction<Users> {
 	@Override
 	public String save() throws Exception {
 		//根据页面上的checkbox 整合entity的roles Set
-//		HibernateUtils.mergeByCheckedIds(user.getRoleses(), checkedRoleIds, Roles.class);
 //		
 		if(entity != null && entity.getId().equals("")) {
 			entity.setId(null);
@@ -128,6 +126,33 @@ public class UserAction extends CRUDSupportAction<Users> {
 
 	// 其他属性访问函数及Action函数
 
+	
+	/**
+	 * 支持使用Jquery.validate Ajax检验用户名是否重复.
+	 */
+	public String checkLoginName() throws Exception {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String loginName = request.getParameter("loginName");
+		String orgLoginName = request.getParameter("orgLoginName");
+
+		if (userManager.isLoginNameUnique(loginName, orgLoginName)) {
+			Struts2Utils.renderText("true");
+		} else {
+			Struts2Utils.renderText("false");
+		}
+		//因为直接输出而不经过Jsp,因此返回null.
+		return null;
+	}	
+
+	
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Page<Users> getPage() {
+		return page;
+	}
+	
 	public List<Roles> getAllRoles() {
 		return allRoles;
 	}
@@ -143,48 +168,4 @@ public class UserAction extends CRUDSupportAction<Users> {
 	public void setCheckedRoleIds(List<Serializable> checkedRoleIds) {
 		this.checkedRoleIds = checkedRoleIds;
 	}
-
-	/**
-	 * 支持使用Jquery.validate Ajax检验用户名是否重复.
-	 */
-	public String checkLoginName() throws Exception {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		String loginName = request.getParameter("loginName");
-		String orgLoginName = request.getParameter("orgLoginName");
-
-		if (userManager.isLoginNameUnique(loginName, orgLoginName)) {
-			renderText("true");
-		} else {
-			renderText("false");
-		}
-		//因为直接输出而不经过Jsp,因此返回null.
-		return null;
-	}
-	
-	public Users getLoginUser() throws Exception{
-		try{
-			Users user=(Users)getSession().getAttribute("LoginUser");
-			if(user==null){
-				SecurityContext ctx = SecurityContextHolder.getContext();
-		        Authentication auth = ctx.getAuthentication();       
-		        if(auth.getPrincipal() instanceof UserDetails){   
-		        	org.springframework.security.userdetails.User userd = (org.springframework.security.userdetails.User)auth.getPrincipal();     
-		        	if(userd!=null&&userd.getUsername()!=null){
-		        		user=userManager.getUserByLoginName(userd.getUsername());
-		        		getSession().setAttribute("LoginUser", user);
-		        	}
-		        }     
-			}
-	        return user;   
-		}catch (Exception e) {
-			return null;
-		}
-	}
-
-
-	public void setGroupManager(GroupManager groupManager) {
-		this.groupManager = groupManager;
-	}
-	
-	
 }
