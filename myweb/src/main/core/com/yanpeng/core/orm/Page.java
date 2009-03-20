@@ -16,7 +16,7 @@ public class Page<T> {
 	public static final String ASC = "asc";
 	public static final String DESC = "desc";
 
-	public static final int MIN_PAGESIZE = 5;
+	public static final int MIN_PAGESIZE = 1;
 	public static final int MAX_PAGESIZE = 200;
 
 	//分页参数
