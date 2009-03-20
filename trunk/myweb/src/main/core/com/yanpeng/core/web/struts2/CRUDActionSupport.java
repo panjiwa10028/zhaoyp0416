@@ -1,24 +1,30 @@
 package com.yanpeng.core.web.struts2;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
 /**
  * Struts2中典型CRUD Action的规范基类.
  * 
- * 使用Preparable,ModelDriven接口,并规范了一些函数和返回值的命名.
+ * 声明对Preparable,ModelDriven接口的使用,并规范了CRUD函数和返回值的命名.
  *
  * @param <T> CRUD所管理的对象类型.
  * 
  * @author calvin
  */
 @SuppressWarnings("serial")
-public abstract class CRUDSupportAction<T> extends SimpleSupportAction implements ModelDriven<T>, Preparable {
+public abstract class CRUDActionSupport<T> extends ActionSupport implements ModelDriven<T>, Preparable {
 
 	/**
-	 * 进行CUD操作后,以redirect方式重新打开action默认页的result名.
+	 * 进行增删改操作后,以redirect方式重新打开action默认页的result名.
 	 */
 	public static final String RELOAD = "reload";
+
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	/**
 	 * Action函数,默认action函数，默认指向list函数.
@@ -27,6 +33,8 @@ public abstract class CRUDSupportAction<T> extends SimpleSupportAction implement
 	public String execute() throws Exception {
 		return list();
 	}
+
+	// CRUD函数 //
 
 	/**
 	 * Action函数,显示Entity列表.
@@ -46,10 +54,7 @@ public abstract class CRUDSupportAction<T> extends SimpleSupportAction implement
 	 */
 	public abstract String delete() throws Exception;
 
-	/**
-	 * 等同于prepare()的内部函数,供prepardMethodName()函数调用. 
-	 */
-	protected abstract void prepareModel() throws Exception;
+	// Preparable函数 //
 
 	/**
 	 * 实现空的prepare()函数,屏蔽所有Action函数公共的二次绑定.
@@ -70,4 +75,9 @@ public abstract class CRUDSupportAction<T> extends SimpleSupportAction implement
 	public void prepareInput() throws Exception {
 		prepareModel();
 	}
+
+	/**
+	 * 等同于prepare()的内部函数,供prepardMethodName()函数调用. 
+	 */
+	protected abstract void prepareModel() throws Exception;
 }
