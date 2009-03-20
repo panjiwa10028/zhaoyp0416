@@ -28,8 +28,6 @@ public class UserManagerTest extends SpringTransactionalTestCase {
 	private UserManager userManager;
 	@Autowired
 	private GroupManager groupManager;
-	@Autowired
-	private RoleManager roleManager;
 
 
 	public void testCRUD() {
@@ -94,5 +92,11 @@ public class UserManagerTest extends SpringTransactionalTestCase {
 		flush();
 	}
 
+	public void testLoginNameUnique() {
+		String loginName = "tt";
+		String orgLoginName = "";
+		boolean returnValue = userManager.isLoginNameUnique(loginName, orgLoginName);
+		this.assertEquals(true, returnValue);
+	}
 	
 }

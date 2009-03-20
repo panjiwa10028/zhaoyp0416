@@ -1,9 +1,11 @@
 package com.yanpeng.ssweb.service.user;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
 
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -101,14 +103,27 @@ public class UserManager extends EntityManager<Users, String>{
 	/**
 	 * 检查用户名是否唯一.
 	 *
-	 * @return loginName在数据库中唯一或等于orgLoginName时返回true.
+	 * @return loginName重复返回false.
 	 */
 	@Transactional(readOnly = true)
 	public boolean isLoginNameUnique(String loginName, String orgLoginName) {
 		return userDao.isPropertyUnique("loginName", loginName, orgLoginName);
 	}
 
-	// 角色业务函数
+	
+	public void deleteUsers(Collection ids) {
+		//为演示异常处理及用户行为日志而故意抛出的异常.
+		if (ids.contains("1")) {
+			logger.warn("操作员{}尝试删除超级管理员用户", SpringSecurityUtils.getCurrentUserName());
+			throw new ServiceException("不能删除超级管理员用户");
+		}
+		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
+			String id = (String) it.next();
+			Users user = userDao.get(id);
+			userDao.delete(user);
+		}
+		
+	}
 
 	
 }
