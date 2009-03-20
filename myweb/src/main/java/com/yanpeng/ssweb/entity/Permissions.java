@@ -12,6 +12,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
  * Permissions entity. @author MyEclipse Persistence Tools
  */
@@ -19,6 +22,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "permissions", catalog = "myweb", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "name"),
 		@UniqueConstraint(columnNames = "display_name") })
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)		
 public class Permissions extends BaseEntity implements java.io.Serializable {
 
 	// Fields
