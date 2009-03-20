@@ -13,11 +13,11 @@ import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.userdetails.UserDetails;
 
-import com.yanpeng.core.web.struts2.SimpleSupportAction;
 import com.yanpeng.ssweb.entity.Menus;
 import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.service.menu.MenuManager;
 import com.yanpeng.ssweb.service.user.UserManager;
+import com.yanpeng.ssweb.web.BaseAction;
 
 /**
  * 用户管理Action.
@@ -27,7 +27,7 @@ import com.yanpeng.ssweb.service.user.UserManager;
  * @author Allen
  */
 @SuppressWarnings("serial")
-public class MainAction extends SimpleSupportAction {
+public class MainAction extends BaseAction<Users> {
 
 	// 基本属性
 	private Users user;
@@ -69,27 +69,7 @@ public class MainAction extends SimpleSupportAction {
 		return SUCCESS;
 	}
 
-	public Users getLoginUser() throws Exception {
-		try {
-			Users user = (Users) getSession().getAttribute("LoginUser");
-			if (user == null) {
-				SecurityContext ctx = SecurityContextHolder.getContext();
-				Authentication auth = ctx.getAuthentication();
-				if (auth.getPrincipal() instanceof UserDetails) {
-					org.springframework.security.userdetails.User userd = (org.springframework.security.userdetails.User) auth
-							.getPrincipal();
-					if (userd != null && userd.getUsername() != null) {
-						user = userManager.getUserByLoginName(userd
-								.getUsername());
-						getSession().setAttribute("LoginUser", user);
-					}
-				}
-			}
-			return user;
-		} catch (Exception e) {
-			return null;
-		}
-	}
+	
 
 	private String listToLeftMenu(List menuList) {
 

@@ -15,41 +15,31 @@ import org.apache.struts2.convention.annotation.Results;
 import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.yanpeng.core.dao.hibernate.Page;
+import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.utils.DateUtils;
-import com.yanpeng.core.web.struts2.CRUDSupportAction;
+import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.News;
 import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.service.news.NewsManager;
 import com.yanpeng.ssweb.util.CommUtil;
 import com.yanpeng.ssweb.util.HtmlGenerator;
+import com.yanpeng.ssweb.web.BaseAction;
 
-@SuppressWarnings({ "finally", "serial","deprecation" })
-@Results( { @Result(name = CRUDSupportAction.RELOAD, location = "news.action?page.pageParam=${page.pageParam}", type = "redirect") })
-public class NewsAction extends CRUDSupportAction<News> {
+@SuppressWarnings("serial")
+@Results( { @Result(name = BaseAction.RELOAD, location = "news.action?page.pageParam=${page.pageParam}", type = "redirect") })
+public class NewsAction extends BaseAction<News> {
 
 	@Autowired
 	private NewsManager newsManager;
-	private Page page = new Page(5,true,"desc","id");
+	
+	private Page<News> page = new Page<News>(5);
 	private News entity;
+	private String id;
+	
 	private File upload;   
     private String uploadFileName;
-    private List<News> allNews;
-    private String search_text;
-    private String id;
+    
 
-    public String search()throws Exception{
-    	try{
-    		if(search_text!=null&&!search_text.trim().equals("")){
-    			allNews=newsManager.getText(search_text);
-        	}
-    	}catch (Exception e) {
-    		addActionError("没有搜索到结果!");
-    	}finally{
-    		return SUCCESS;
-    	}
-    		
-    }
     
 	@Override
 	public String list() throws Exception {
@@ -57,6 +47,7 @@ public class NewsAction extends CRUDSupportAction<News> {
 		return SUCCESS;
 	}
 	
+	@Override
 	public String input() throws Exception {		
 		return INPUT;
 	}
@@ -65,13 +56,13 @@ public class NewsAction extends CRUDSupportAction<News> {
 	@Override
 	public String delete() throws Exception {
 		try{
-			if(entity != null && entity.getId() != null) {
-				entity =newsManager.getNewsById(entity.getId());
-				String fileName=getRequest().getRealPath("")+ "\\upload\\" + entity.getPicture();
+
+				entity =newsManager.getNewsById(id);
+				String fileName=Struts2Utils.getRequest().getRealPath("")+ "\\upload\\" + entity.getPicture();
 				FileUtil.deleteContents(new File(fileName));
 				newsManager.removeNews(entity);
 				addActionMessage("删除成功!");
-			}
+			
 		}catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			addActionError("删除失败!");
@@ -90,7 +81,7 @@ public class NewsAction extends CRUDSupportAction<News> {
 			
 			HtmlGenerator htmlGenerator = new HtmlGenerator();
 //			取服务器路径
-			String path = getRequest().getRealPath("");
+			String path = Struts2Utils.getRequest().getRealPath("");
 //			生成随机的字符串
 			String rnadomString = RandomStringUtils.randomAlphabetic(9).toLowerCase();
 			Date date = new Date();
@@ -114,7 +105,7 @@ public class NewsAction extends CRUDSupportAction<News> {
 				entity.setPicture(newFileName);
 			}
 			
-			newsManager.saveOrUpdateNews(entity);
+			newsManager.saveNews(entity);
 			
 			htmlGenerator.setEncode("utf-8");
 			htmlGenerator.setTemplateDir("/htmlskin/");
@@ -139,6 +130,22 @@ public class NewsAction extends CRUDSupportAction<News> {
 		}
 	}
 	
+	@Override
+	protected void prepareModel() throws Exception {
+		// TODO Auto-generated method stub
+		if (id != null && !id.equals("")) {
+			entity = newsManager.getNewsById(id);
+		} else {
+			entity = new News();
+		}
+	}
+
+	@Override
+	public News getModel() {
+		// TODO Auto-generated method stub
+		return entity;
+	}
+	
 	/**
 	 * 拷贝文件
 	 * @param upload文件流
@@ -160,13 +167,10 @@ public class NewsAction extends CRUDSupportAction<News> {
 	// ==================================================
 
 
-	public Page getPage() {
+	public Page<News> getPage() {
 		return page;
 	}
 
-	public void setPage(Page page) {
-		this.page = page;
-	}
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -188,45 +192,6 @@ public class NewsAction extends CRUDSupportAction<News> {
 	}
 
 	
-
-	public NewsManager getNewsManager() {
-		return newsManager;
-	}
-
-	public void setNewsManager(NewsManager newsManager) {
-		this.newsManager = newsManager;
-	}
-
-	public List<News> getAllNews() {
-		return allNews;
-	}
-
-	public void setAllNews(List<News> allNews) {
-		this.allNews = allNews;
-	}
-
-	public String getSearch_text() {
-		return search_text;
-	}
-
-	public void setSearch_text(String search_text) {
-		this.search_text = search_text;
-	}
-
-	@Override
-	protected void prepareModel() throws Exception {
-		// TODO Auto-generated method stub
-		if (id != null && !id.equals("")) {
-			entity = newsManager.getNewsById(id);
-		} else {
-			entity = new News();
-		}
-	}
-
-	@Override
-	public News getModel() {
-		// TODO Auto-generated method stub
-		return entity;
-	}
+	
 
 }
