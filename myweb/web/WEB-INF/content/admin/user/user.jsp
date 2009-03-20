@@ -5,7 +5,8 @@
 	<HEAD>
 		<title></title>
 		<%@ include file="/common/meta.jsp"%>
-		<script src="<c:url value="/scripts/default.js"/>" type="text/javascript"></script>
+		<script src="<c:url value="/scripts/default.js"/>"
+			type="text/javascript"></script>
 		<script language="JavaScript" type="text/JavaScript">
 		
 		function InitPage()
@@ -23,16 +24,28 @@
 			body.style.cursor = "wait";			
 		}
 
-		function add() {
-			
+		function add() {			
 			var url = "user!input.action";
 			top.mainWorkArea.location = url;
-			//top.showDialog(url, null, 750, 500);
+		}
+
+		function update() {		
+			var ids = getSelectedIds();
+
+			var url = "user!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
+			top.mainWorkArea.location = url;
+		}
+		
+		function del() {		
+			var ids = getSelectedIds();
+
+			var url = "user!delete.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
+			top.mainWorkArea.location = url;
 		}
 
 		function getSelectedIds()
 		{
-			var checkList = document.getElementsByName("id");
+			var checkList = document.getElementsByName("selectIds");
 				
 			if(checkList==null)
 			{
@@ -65,13 +78,14 @@
 		}
 		</script>
 	</HEAD>
-	
-	<body scroll="auto" style="overflow: auto" id="body" onload="InitPage()" MS_POSITIONING="GridLayout">	
-<div id="message" style="display:none;"><s:actionmessage theme="simple"/></div>
-<form action="user!search.action" method="post" id="inputForm">
-										<input id="search_text" name="search_text" class="required"/><input type="submit" value="搜索" class="button"/>
-									</form>
-<form id="queryForm" name="queryForm" action="user.action" method="post">
+
+	<body scroll="auto" style="overflow: auto" id="body"
+		onload="InitPage()" MS_POSITIONING="GridLayout">
+		<div id="message" style="display: none;">
+			<s:actionmessage theme="simple" />
+		</div>
+		<form id="queryForm" name="queryForm" action="user.action"
+			method="post">
 			<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
 				<TR>
 					<TD class="tdCommonTop">
@@ -79,7 +93,7 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">新闻管理 > 新闻设定</span>&nbsp;&nbsp;&nbsp;
+									<span id="Location">用户管理 > 用户设定</span>&nbsp;&nbsp;&nbsp;
 									<img src="${base}/images/ask.gif" id="BtnAsk"
 										style="CURSOR: hand" alt="账户管理提供账户余额查询、交易查询、修改密码、挂失等账户基本功能。"
 										height="23" width="24" align="absMiddle" />
@@ -88,9 +102,9 @@
 									<FONT face="宋体"></FONT>
 								</TD>
 								<TD class="tdTitle3">
-								
-								<IMG alt="" src="${base}/images/title_06.gif">
-							</TD>
+
+									<IMG alt="" src="${base}/images/title_06.gif">
+								</TD>
 							</TR>
 						</TABLE>
 
@@ -111,18 +125,10 @@
 									<table border="0" cellpadding="0" cellspacing="0"
 										class=tbPanelContent>
 										<tr>
-											<td class=tdPanelHead>
-												&nbsp;
-											</td>
-											<td class=tdPanelSel_left>
-												&nbsp;
-											</td>
-											<td class=tdPanelSel_center>
-												<pre style="margin: 0px"><a href="#" class=lkPanelSel onclick="top.mainWorkArea.location='user.action'">新闻设定</a></pre>
-											</td>
-											<td class=tdPanelSel_right>
-												&nbsp;
-											</td>
+											<td class=tdPanelHead>&nbsp;</td>
+											<td class=tdPanelSel_left>&nbsp;</td>
+											<td class=tdPanelSel_center><pre style="margin: 0px"><a href="#" class=lkPanelSel onclick="top.mainWorkArea.location='user.action'">用户设定</a></pre></td>
+											<td class=tdPanelSel_right>&nbsp;</td>
 										</tr>
 									</table>
 									<!-- END 账户管理首页标签 -->
@@ -133,13 +139,10 @@
 										<tr>
 											<td class=tdOperButton onclick="add()"><img src="${base}/images/${locale}/new.jpg" /></td>
 											<td class=tdPanelSpace10>&nbsp;</td>
-											<td class=tdOperButton onclick="update()"><img src="${base}/images/${locale}/update.jpg"/></td>
+											<td class=tdOperButton onclick="update()"><img src="${base}/images/${locale}/update.jpg" /></td>
 											<td class=tdPanelSpace10>&nbsp;</td>
-											<td class=tdOperButton onclick="del()"><img src="${base}/images/${locale}/del.jpg"/></td>		
-										
-											<td class=tdPanelSpaceW20>
-												&nbsp;
-											</td>
+											<td class=tdOperButton onclick=del();><img src="${base}/images/${locale}/del.jpg" /></td>
+											<td class=tdPanelSpaceW20>&nbsp;</td>
 
 										</tr>
 									</table>
@@ -162,7 +165,7 @@
 							border="0">
 							<TR>
 								<TD class="tdLeftH30">
-									
+
 								</TD>
 							</TR>
 						</TABLE>
@@ -187,40 +190,35 @@
 							style="border-color: #9FD6FF; border-width: 1px; border-style: solid; border-collapse: collapse;">
 							<tr class="dgHeader" align="Center">
 								<td class="dgHeader">
-									<input type="checkbox" class="checkbox" name="lId" />
+									<input type="checkbox" class="checkbox" name="ids"/>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('loginName')"><b>登录名</b></a>
+									<a href="javascript:orderBy('loginName')"><b>登录名</b>
+									</a>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('name')"><b>姓名</b></a>
-								</td>								
-								<td class="dgHeader">
-									<b>操作</b>
+									<a href="javascript:orderBy('name')"><b>姓名</b>
+									</a>
 								</td>
 							</tr>
 							<s:iterator value="page.result">
 								<tr class="dgAlternatingItem">
 									<td align="center">
-										<input type="checkbox" class="checkbox" name="id"
-											value="<c:out value='${user.id}'/>" />
+										<input type="checkbox" class="checkbox" name="selectIds"
+											value="${id}" />
 									</td>
 									<td align="Left">
 										${loginName}
 									</td>
 									<td align="Left">
 										${name}
-									</td>									
-									<td align="Left">
-									<a href="user!input.action?id=${id}&page.pageRequest=${page.pageRequest}">修改</a>
-										<a href="user!delete.action?id=${id}&page.pageRequest=${page.pageRequest}">删除</a>
 									</td>
 								</tr>
-							</s:iterator>							
+							</s:iterator>
 						</table>
 						<s:if test="page.result != null">
 							<%@ include file="/common/paginateTool.jsp"%>
-						</s:if>		
+						</s:if>
 					</TD>
 
 				</TR>
@@ -242,7 +240,6 @@
 					</TD>
 				</TR>
 			</TABLE>
-				
 	</body>
 	</form>
 </HTML>
