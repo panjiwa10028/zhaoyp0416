@@ -16,17 +16,18 @@
 		<link href="${base}/scripts/validate/jquery.validate.css" type="text/css" rel="stylesheet" />
 <script language="javascript" src="${base}/scripts/validate/jquery.validate.js" type="text/javascript"></script>
 <script language="javascript" src="${base}/scripts/validate/messages_cn.js" type="text/javascript"></script>
-<script type="text/javascript" charset="utf-8" src="${base}/scripts/kindeditor/src/lang/zh_CN.js"></script>
-<script type="text/javascript" charset="utf-8" src="${base}/scripts/kindeditor/src/kindeditor-core.js"></script>
-<script type="text/javascript" charset="utf-8" src="${base}/scripts/kindeditor/src/plugin-all.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="${base}/scripts/kindeditor/kindeditor.js"></script>
+
 <script language="javascript" src="${base}/scripts/previewImage.js"  type="text/javascript" ></script>
 <script language="javascript" src="${base}/scripts/date-picker/WdatePicker.js"  type="text/javascript" ></script>
+
 <script type="text/javascript">
-	KE.show({
-		id:'news.content',
-		cssPath:'${base}/scripts/kindeditor/src/index.css'
-	});
-</script>
+    KE.show({
+        id : 'content',
+        cssPath : '${base}/scripts/kindeditor/index.css'
+    });
+  </script>
 		<script>
 	$(document).ready(function(){
 		$("#name").focus();
@@ -38,15 +39,15 @@
 		if($("#message").text() != '') {
 			top.setStatusBarInfo($("#message").text());
 		}
-		if('${news.picture}' != '') {
-			$("#newPreview").html("<img width='80' height='60' src='${base}/upload/${news.picture}'/>"); 
+		if('${picture}' != '') {
+			$("#newPreview").html("<img width='80' height='60' src='${base}/upload/${picture}'/>"); 
 		}
 	}
 
 	function subForm() {
 		//inputForm.target = "mainWorkArea";
 		//inputForm.target = "dialog_Info_hiddenSubmitIFrame";
-		KE.util.setData('news.content');
+		KE.util.setData('content');
 		inputForm.submit();
 	}
 
@@ -61,7 +62,7 @@
 
 	</head>
 <form id="inputForm" action="news!save.action" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="news.id" value="${news.id}" />
+	<input type="hidden" name="id" value="${id}" />
 	<input type="hidden" name="page.pageParam" value="${page.pageParam}" />
 	<body scroll="auto" style="overflow: auto" onload="initPage()">
 	
@@ -130,7 +131,7 @@
 								标题:
 							</TD>
 							<TD class="tdLeftH40">
-								<input type="text" id="name" name="news.title" size="40" value="${news.title}" class="required"/>
+								<input type="text" id="name" name="title" size="40" value="${title}" class="required"/>
 							</TD>
 						</TR>	
 						<TR>
@@ -145,15 +146,15 @@
 						</TR>	
 						<tr>
 				<td class="tdRightW30H40">作者:</td>
-				<td class="tdLeftH40"><input type="text" name="news.auth" size="40" value="${news.auth}" class="required"/></td>
+				<td class="tdLeftH40"><input type="text" name="auth" size="40" value="${auth}" class="required"/></td>
 			</tr>
 			<tr>
 				<td class="tdRightW30H40">发布日期:</td>
-				<td class="tdLeftH40"><input type="text" name="news.date" size="40" value="${news.date}" onFocus="new WdatePicker(this,'%Y-%M-%D',false)"/></td>
+				<td class="tdLeftH40"><input type="text" name="date" size="40" value="${date}" onFocus="new WdatePicker(this,'%Y-%M-%D',false)"/></td>
 			</tr>
 			<tr>
 				<td class="tdRightW30H40">内容:</td>
-				<td class="tdLeftH40"><textarea id="content" name="news.content" style="width:600px;height:250px;visibility:hidden;" class="required">${news.content}</textarea>
+				<td class="tdLeftH40"><textarea id="content" name="content" style="width:600px;height:250px;visibility:hidden;" class="required">${content}</textarea>
 				</td>
 			</tr>				
 					</TABLE>
