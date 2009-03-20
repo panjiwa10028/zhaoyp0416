@@ -1,6 +1,9 @@
 package com.yanpeng.ssweb.web.admin.user;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,6 +64,8 @@ public class UserAction extends BaseAction<Users> {
 	private List checkedRoleIds; //页面中钩选的角色id列表
 	
 	private List<Groups> allGroups;
+	
+	private List selectIds;
 
 	
 
@@ -115,7 +120,10 @@ public class UserAction extends BaseAction<Users> {
 	@Override
 	public String delete() throws Exception {
 		try {
-			userManager.deleteUser(id);
+			String []ids = id.split(",");
+			List list = Arrays.asList(ids);   
+	
+			userManager.deleteUsers(list);
 			addActionMessage("删除用户成功");
 		} catch (ServiceException e) {
 			logger.error(e.getMessage(), e);
@@ -134,7 +142,7 @@ public class UserAction extends BaseAction<Users> {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String loginName = request.getParameter("loginName");
 		String orgLoginName = request.getParameter("orgLoginName");
-
+		
 		if (userManager.isLoginNameUnique(loginName, orgLoginName)) {
 			Struts2Utils.renderText("true");
 		} else {
@@ -168,4 +176,14 @@ public class UserAction extends BaseAction<Users> {
 	public void setCheckedRoleIds(List<Serializable> checkedRoleIds) {
 		this.checkedRoleIds = checkedRoleIds;
 	}
+
+	public List getSelectIds() {
+		return selectIds;
+	}
+
+	public void setSelectIds(List selectIds) {
+		this.selectIds = selectIds;
+	}
+	
+	
 }
