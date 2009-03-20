@@ -212,8 +212,8 @@
 										${name}
 									</td>									
 									<td align="Left">
-									<a href="user!input.action?id=${id}&page.pageParam=${page.pageParam}">修改</a>
-										<a href="user!delete.action?id=${id}&page.pageParam=${page.pageParam}">删除</a>
+									<a href="user!input.action?id=${id}&page.pageRequest=${page.pageRequest}">修改</a>
+										<a href="user!delete.action?id=${id}&page.pageRequest=${page.pageRequest}">删除</a>
 									</td>
 								</tr>
 							</s:iterator>							
