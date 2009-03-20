@@ -49,13 +49,9 @@
     <beans:bean id="dbFilterInvocationDefinitionSource" class="com.yanpeng.ssweb.service.security.resource.DbFilterInvocationDefinitionSource" />  
 	
 
-	<beans:bean id="userDetailsService" class="com.yanpeng.ssweb.service.security.UserDetailServiceImpl" >
-		<beans:property name="userManager" ref="userManager"/>
-	</beans:bean>
+	<beans:bean id="userDetailsService" class="com.yanpeng.ssweb.service.security.UserDetailServiceImpl" />
+
 	
-	<beans:bean id="userManager" class="com.yanpeng.ssweb.service.user.UserManager">
-		<beans:property name="sessionFactory" ref="sessionFactory"/>
-	</beans:bean>
 	
 	
 </beans:beans>

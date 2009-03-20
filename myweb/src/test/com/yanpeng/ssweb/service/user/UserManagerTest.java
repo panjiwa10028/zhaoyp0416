@@ -94,11 +94,5 @@ public class UserManagerTest extends SpringTransactionalTestCase {
 		flush();
 	}
 
-	public void testGetUserByRole() {
-		List<Users> admins = userManager.getUserByRole("admin");
-		assertEquals(1, admins.size());
-
-		List<Users> notExits = userManager.getUserByRole("NotExitRole");
-		assertEquals(0, notExits.size());
-	}
+	
 }
