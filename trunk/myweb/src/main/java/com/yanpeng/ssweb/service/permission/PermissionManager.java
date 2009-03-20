@@ -1,4 +1,4 @@
-package com.yanpeng.ssweb.service.role;
+package com.yanpeng.ssweb.service.permission;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.orm.hibernate.EntityManager;
 import com.yanpeng.core.security.SpringSecurityUtils;
+import com.yanpeng.ssweb.dao.permission.PermissionDao;
 import com.yanpeng.ssweb.dao.role.RoleDao;
 import com.yanpeng.ssweb.dao.user.UserDao;
 import com.yanpeng.ssweb.entity.Menus;
@@ -35,34 +36,29 @@ import com.yanpeng.ssweb.exceptions.ServiceException;
 @Service
 //默认将类中的所有函数纳入事务管理.
 @Transactional
-public class RoleManager extends EntityManager<Roles, String> {
+public class PermissionManager extends EntityManager<Permissions, String> {
 
 	// 统一定义所有HQL
 
 	
-	private final Logger logger = LoggerFactory.getLogger(RoleManager.class);
+	private final Logger logger = LoggerFactory.getLogger(PermissionManager.class);
 
 	@Autowired
-	private RoleDao roleDao;
+	private PermissionDao permissionsDao;
 	
 	@Override
-	protected RoleDao getEntityDao() {
-		return roleDao;
+	protected PermissionDao getEntityDao() {
+		return permissionsDao;
 	}
 
 	// 用户业务函数
 
 	//不更新数据库的函数重新定义readOnly属性以加强性能.
 	
-	
-	@Transactional(readOnly = true)
-	public List<Roles> findMenusByRoleIds(Collection<Serializable> ids) {
-		return roleDao.findByCriteria(Restrictions.in("", ids));
-	}
 
 	@Transactional(readOnly = true)
-	public List<Roles> getAllRoles() {
-		return roleDao.getAll();
+	public List<Permissions> getAllPermissions() {
+		return permissionsDao.getAll();
 	}
 
 	

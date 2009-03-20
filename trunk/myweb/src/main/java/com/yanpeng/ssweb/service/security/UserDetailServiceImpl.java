@@ -3,6 +3,7 @@ package com.yanpeng.ssweb.service.security;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.GrantedAuthorityImpl;
@@ -24,6 +25,7 @@ import com.yanpeng.ssweb.service.user.UserManager;
  */
 public class UserDetailServiceImpl implements UserDetailsService {
 
+	@Autowired
 	private UserManager userManager;
 
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException, DataAccessException {
@@ -47,7 +49,4 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		return userdetail;
 	}
 
-	public void setUserManager(UserManager userManager) {
-		this.userManager = userManager;
-	}
 }

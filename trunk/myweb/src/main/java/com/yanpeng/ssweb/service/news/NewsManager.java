@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yanpeng.core.dao.hibernate.Page;
-import com.yanpeng.core.dao.hibernate.SimpleHibernateTemplate;
 import com.yanpeng.core.dao.lucene.SimpleLuceneTemplate;
+import com.yanpeng.core.orm.Page;
+import com.yanpeng.core.orm.hibernate.EntityManager;
 import com.yanpeng.core.security.SpringSecurityUtils;
+import com.yanpeng.ssweb.dao.news.NewsDao;
+import com.yanpeng.ssweb.dao.user.UserDao;
 import com.yanpeng.ssweb.entity.Menus;
 import com.yanpeng.ssweb.entity.News;
 import com.yanpeng.ssweb.entity.Permissions;
@@ -34,20 +36,19 @@ import com.yanpeng.ssweb.exceptions.ServiceException;
 @Service
 //默认将类中的所有函数纳入事务管理.
 @Transactional
-public class NewsManager {
+public class NewsManager extends EntityManager<News, String> {
 
 	// 统一定义所有HQL
 
 	
 	private final Logger logger = LoggerFactory.getLogger(NewsManager.class);
 
-	private SimpleHibernateTemplate<News, String> newsDao;
-	private SimpleLuceneTemplate<News, String> newsLuceneDao;
-
 	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		newsDao = new SimpleHibernateTemplate<News, String>(sessionFactory, News.class);
-		newsLuceneDao = new SimpleLuceneTemplate<News, String>(sessionFactory, News.class);
+	private NewsDao newsDao;
+	
+	@Override
+	protected NewsDao getEntityDao() {
+		return newsDao;
 	}
 
 	// 用户业务函数
@@ -57,7 +58,7 @@ public class NewsManager {
 	
 	@Transactional(readOnly=true)
 	public Page getAllNews(Page page){
-		return newsDao.findAll(page);
+		return newsDao.getAll(page);
 	}
 	
 	@Transactional(readOnly=true)
@@ -65,8 +66,8 @@ public class NewsManager {
 		return (News)newsDao.get(id);
 	}
 	
-	public void saveOrUpdateNews(News news){
-		newsDao.saveOrUpdate(news);
+	public void saveNews(News news){
+		newsDao.save(news);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -74,9 +75,5 @@ public class NewsManager {
 		newsDao.delete(news);
 	}
 	
-	public List<News> getText(String text){
-		return newsLuceneDao.findByFullText(new String[]{"news_title","news_auth","news_content"}, text);
-	}
-
 	
 }

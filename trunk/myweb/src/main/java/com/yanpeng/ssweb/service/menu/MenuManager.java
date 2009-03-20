@@ -13,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yanpeng.core.dao.hibernate.Page;
-import com.yanpeng.core.dao.hibernate.SimpleHibernateTemplate;
+import com.yanpeng.core.orm.Page;
+import com.yanpeng.core.orm.hibernate.EntityManager;
 import com.yanpeng.core.security.SpringSecurityUtils;
+import com.yanpeng.ssweb.dao.menu.MenuDao;
+import com.yanpeng.ssweb.dao.permission.PermissionDao;
 import com.yanpeng.ssweb.entity.Menus;
 import com.yanpeng.ssweb.entity.Permissions;
 import com.yanpeng.ssweb.entity.Roles;
@@ -33,17 +35,18 @@ import com.yanpeng.ssweb.exceptions.ServiceException;
 @Service
 //默认将类中的所有函数纳入事务管理.
 @Transactional
-public class MenuManager {
+public class MenuManager extends EntityManager<Menus, String> {
 
 	// 统一定义所有HQL
 
 	private final Logger logger = LoggerFactory.getLogger(MenuManager.class);
 
-	private SimpleHibernateTemplate<Menus, String> menuDao;
-
 	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		menuDao = new SimpleHibernateTemplate<Menus, String>(sessionFactory, Menus.class);
+	private MenuDao menuDao;
+	
+	@Override
+	protected MenuDao getEntityDao() {
+		return menuDao;
 	}
 
 	// 用户业务函数
@@ -56,7 +59,7 @@ public class MenuManager {
 
 	@Transactional(readOnly = true)
 	public Page<Menus> getAllMenus(Page<Menus> page) {
-		return menuDao.findAll(page);
+		return menuDao.getAll(page);
 	}
 
 	public void saveMenu(Menus menu) {
