@@ -18,11 +18,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
  * Roles entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name = "roles", catalog = "myweb", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Roles extends BaseEntity implements java.io.Serializable {
 
 	// Fields

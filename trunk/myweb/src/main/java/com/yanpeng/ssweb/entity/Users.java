@@ -23,6 +23,8 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.yanpeng.core.utils.ReflectionUtils;
 
@@ -32,6 +34,7 @@ import com.yanpeng.core.utils.ReflectionUtils;
  */
 @Entity
 @Table(name = "users", catalog = "myweb", uniqueConstraints = @UniqueConstraint(columnNames = "login_name"))
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Users extends BaseEntity implements java.io.Serializable {
 
 	// Fields
