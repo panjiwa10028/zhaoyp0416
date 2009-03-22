@@ -58,7 +58,7 @@ public class GroupManager extends EntityManager<Groups, String> {
 	
 	@Transactional(readOnly=true)
 	public List<Groups> getAllGroup(){
-		return groupDao.getAll();
+		return groupDao.findByCriteria(Restrictions.not(Restrictions.eq("id", "0")));
 	}
 	
 	@Transactional(readOnly=true)

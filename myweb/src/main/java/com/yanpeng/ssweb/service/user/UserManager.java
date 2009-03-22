@@ -1,5 +1,6 @@
 package com.yanpeng.ssweb.service.user;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -74,10 +75,13 @@ public class UserManager extends EntityManager<Users, String>{
 		userDao.save(user);
 	}
 	
-	public void saveUser(Users user, Collection ids) {
-		List<Roles> list = roleDao.findByCriteria(Restrictions.in("id", ids));
-		Set set = new LinkedHashSet(list); 
-		user.setRoleses(set);
+	public void saveUser(Users user, Collection<Serializable> ids) {
+		if(ids != null ) {
+			List<Roles> list = roleDao.findByCriteria(Restrictions.in("id", ids));
+			Set<Roles> set = new LinkedHashSet<Roles>(list); 
+			user.setRoleses(set);
+		}
+		
 		String psw=BaseCodeUtils.getMd5PasswordEncoder(user.getPassword(), user.getLoginName());
 		user.setPassword(psw);
 		userDao.save(user);

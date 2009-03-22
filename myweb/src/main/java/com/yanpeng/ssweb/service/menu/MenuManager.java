@@ -2,6 +2,7 @@ package com.yanpeng.ssweb.service.menu;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -53,7 +54,7 @@ public class MenuManager extends EntityManager<Menus, String> {
 
 	//不更新数据库的函数重新定义readOnly属性以加强性能.
 	@Transactional(readOnly = true)
-	public Menus getMenu(String id) {
+	public Menus getMenuById(String id) {
 		return menuDao.get(id);
 	}
 
@@ -80,7 +81,29 @@ public class MenuManager extends EntityManager<Menus, String> {
 		return menuDao.createQuery("select m from Menus as m inner join m.roleses as r where r.id in ("+parms+") order by sort asc").list();
 		
 	}
-
+	public void deleteMenus(Collection ids) {
+		//为演示异常处理及用户行为日志而故意抛出的异常.
+		if (ids.contains("1")) {
+			logger.warn("操作员{}尝试删除超级管理员用户", SpringSecurityUtils.getCurrentUserName());
+			throw new ServiceException("不能删除超级管理员用户");
+		}
+		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
+			String id = (String) it.next();
+			Menus menu = menuDao.get(id);
+			menuDao.delete(menu);
+		}
+		
+	}
+	
+	@Transactional(readOnly = true)
+	public boolean isNameUnique(String name, String orgName) {
+		return menuDao.isPropertyUnique("name", name, orgName);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Menus> findFirstLevelMenus() {
+		return menuDao.findByCriteria(Restrictions.lt("parentId", "1"));
+	}
 
 	
 }
