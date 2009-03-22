@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2009-3-17 17:16:37                           */
+/* Created on:     2009-3-22 17:06:00                           */
 /*==============================================================*/
 
 
@@ -67,7 +67,7 @@ create table groups
 (
    id                   varchar(36) not null,
    name                 varchar(100)  not null,
-   description          text not null,
+   description          text,
    parent_id            varchar(36),
    update_date          datetime,
    primary key (id),
@@ -100,7 +100,7 @@ create table menus
    name                 varchar(50) not null,
    parent_id            varchar(36),
    display_name         varchar(100) not null,
-   url                  varchar(500),
+   path                 varchar(500),
    sort                 varchar(100),
    disabled             int default 0,
    update_date          datetime,
@@ -199,7 +199,7 @@ create table roles
 (
    id                   varchar(36) not null,
    name                 varchar(50) not null,
-   description          text not null,
+   description          text,
    update_date          datetime,
    primary key (id)
 )
