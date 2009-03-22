@@ -88,4 +88,9 @@ public class PermissionManager extends EntityManager<Permissions, String> {
 		return permissionsDao.isPropertyUnique("name", name, orgName);
 	}
 	
+	@Transactional(readOnly = true)
+	public Page<Permissions> getPermissions(Page<Permissions> page) {
+		return permissionsDao.getAll(page);
+	}
+	
 }

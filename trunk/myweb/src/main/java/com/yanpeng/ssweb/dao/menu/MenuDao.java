@@ -2,6 +2,7 @@ package com.yanpeng.ssweb.dao.menu;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.yanpeng.core.orm.hibernate.HibernateDao;
@@ -19,5 +20,8 @@ import com.yanpeng.ssweb.entity.Roles;
 @Repository
 public class MenuDao extends HibernateDao<Menus, String> {
 
-	
+	public List<Menus> findMenusByRoleIds(String ids) {
+		String queryString = "select m from Menus as m inner join m.roleses as r where r.id in ("+ids+") order by m.sort asc,m.id asc";
+		return this.createQuery(queryString).list();
+	}
 }

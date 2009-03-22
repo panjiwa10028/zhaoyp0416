@@ -161,6 +161,18 @@
 											listKey="id" listValue="displayName" cssClass="button" />
 									</div>
 								</td>
+							</tr>	
+							<tr>
+								<TD class="tdRightW30H40">
+									菜单:
+								</td>
+								<TD class="tdLeftH40">
+									<div
+										style="word-break: break-all; width: 320px; overflow: auto;">
+										<s:checkboxlist name="checkedMenuIds" list="allMenus"
+											listKey="id" listValue="displayName" cssClass="button" />
+									</div>
+								</td>
 							</tr>							
 							<tr>
 								<TD class="tdRightW30H40">

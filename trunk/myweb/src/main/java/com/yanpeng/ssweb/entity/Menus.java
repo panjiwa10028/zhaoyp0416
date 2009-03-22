@@ -31,7 +31,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 	private Menus menus;
 	private String name;
 	private String displayName;
-	private String url;
+	private String path;
 	private String sort;
 	private Integer disabled;
 	private Date updateDate;
@@ -79,13 +79,13 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 		this.displayName = displayName;
 	}
 
-	@Column(name = "url", length = 500)
-	public String getUrl() {
-		return this.url;
+	@Column(name = "path", length = 500)
+	public String getPath() {
+		return this.path;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	@Column(name = "sort", length = 100)

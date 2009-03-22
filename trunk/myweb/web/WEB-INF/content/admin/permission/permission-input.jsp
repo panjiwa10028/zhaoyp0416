@@ -50,7 +50,7 @@
 	}
 
 	function cancel() {
-		top.mainWorkArea.location='role.action';
+		top.mainWorkArea.location='permission.action';
 	}
 
 	function setStatusBarInfo(info)
@@ -66,7 +66,7 @@
 
 	<body scroll="auto" style="overflow: auto" onload="initPage()">
 		<form id="inputForm" name="inputForm" action="permission!save.action"
-			method="post" onsubmit="">
+			method="post">
 			<input type="hidden" name="id" value="${id}" />
 			<input type="hidden" name="page.pageRequest"
 				value="${page.pageRequest}" />
@@ -143,7 +143,7 @@
 							
 							<TR>
 								<TD class="tdRightW30H40">
-									权限名:
+									权限名称:
 								</TD>
 								<TD class="tdLeftH40">
 									<input type="text" name="displayName" size="40" value="${displayName}"

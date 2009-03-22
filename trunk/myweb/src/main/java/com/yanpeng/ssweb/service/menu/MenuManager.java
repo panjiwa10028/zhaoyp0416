@@ -78,7 +78,7 @@ public class MenuManager extends EntityManager<Menus, String> {
 			}
 		}
 		String parms=strbf.substring(0, strbf.length()-1).toString();
-		return menuDao.createQuery("select m from Menus as m inner join m.roleses as r where r.id in ("+parms+") order by sort asc").list();
+		return menuDao.findMenusByRoleIds(parms);
 		
 	}
 	public void deleteMenus(Collection ids) {
@@ -102,7 +102,12 @@ public class MenuManager extends EntityManager<Menus, String> {
 	
 	@Transactional(readOnly = true)
 	public List<Menus> findFirstLevelMenus() {
-		return menuDao.findByCriteria(Restrictions.lt("parentId", "1"));
+		return menuDao.findByCriteria(Restrictions.in("parentId", new Object[]{"-1,1"}));
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Menus> findSubMenus() {
+		return menuDao.findByCriteria(Restrictions.not(Restrictions.in("parentId", new Object[]{"-1","0"})));
 	}
 
 	

@@ -13,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.web.struts2.Struts2Utils;
+import com.yanpeng.ssweb.entity.Menus;
 import com.yanpeng.ssweb.entity.Permissions;
 import com.yanpeng.ssweb.entity.Roles;
 import com.yanpeng.ssweb.exceptions.ServiceException;
+import com.yanpeng.ssweb.service.menu.MenuManager;
 import com.yanpeng.ssweb.service.permission.PermissionManager;
 import com.yanpeng.ssweb.service.role.RoleManager;
 import com.yanpeng.ssweb.service.user.UserManager;
@@ -46,12 +48,18 @@ public class RoleAction extends BaseAction<Roles> {
 	
 	@Autowired
 	private PermissionManager permissionManager;
+	
+	@Autowired
+	private MenuManager menuManager;
 
 	// 用户-角色 相关属性
 
 	private List<Permissions> allPermissions; //全部可选角色列表
 
 	private List<Serializable> checkedIds; //页面中钩选的角色id列表
+	
+	private List<Menus> allMenus;
+	private List<String> checkedMenuIds;
 	
 	
 
@@ -84,7 +92,7 @@ public class RoleAction extends BaseAction<Roles> {
 	public String input() throws Exception {
 		allPermissions = permissionManager.getAllPermissions();
 		checkedIds = entity.getPermissionIds();
-		
+		allMenus = menuManager.findSubMenus();
 		return INPUT;
 	}
 
@@ -160,14 +168,18 @@ public class RoleAction extends BaseAction<Roles> {
 		this.allPermissions = allPermissions;
 	}
 
-	public List getCheckedIds() {
-		return checkedIds;
+	public List<Menus> getAllMenus() {
+		return allMenus;
 	}
 
-	public void setCheckedIds(List checkedIds) {
+	public void setCheckedIds(List<Serializable> checkedIds) {
 		this.checkedIds = checkedIds;
 	}
-	
+
+	public void setCheckedMenuIds(List<String> checkedMenuIds) {
+		this.checkedMenuIds = checkedMenuIds;
+	}
+
 	
 	
 }
