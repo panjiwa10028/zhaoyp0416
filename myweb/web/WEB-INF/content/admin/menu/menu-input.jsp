@@ -23,28 +23,15 @@
 			$("#loginName").focus();
 			$("#inputForm").validate({
 				 rules: { 
-					loginName: { 
+					name: { 
 	        			required: true, 
-	        			remote: "user!checkLoginName.action?orgLoginName=${loginName}"
-	    			},
-	            	name: "required",
-	            	password: {
-	    				required: true,
-	    				minlength:3
-	    			}, 
-	    			passwordConfirm: {
-	    				required: true,
-	    				equalTo:"#password"
+	        			remote: "menu!checkName.action?orgName=${name}"
 	    			}
-	    			
 	           		
 				},
 				messages: {
-					loginName: {
+					name: {
 						remote: "用户登录名已存在"
-					},
-					passwordConfirm: {
-						equalTo: "输入与上面相同的密码"
 					}
 				}
 			});
@@ -63,7 +50,7 @@
 	}
 
 	function cancel() {
-		top.mainWorkArea.location='user.action';
+		top.mainWorkArea.location='menu.action';
 	}
 
 	function setStatusBarInfo(info)
@@ -78,8 +65,8 @@
 	</head>
 
 	<body scroll="auto" style="overflow: auto" onload="initPage()">
-		<form id="inputForm" name="inputForm" action="user!save.action"
-			method="post">
+		<form id="inputForm" name="inputForm" action="menu!save.action"
+			method="post" >
 			<input type="hidden" name="id" value="${id}" />
 			<input type="hidden" name="page.pageRequest"
 				value="${page.pageRequest}" />
@@ -90,11 +77,10 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">用户管理 > 用户设定 > 用户<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
+									<span id="Location">系统管理 > 菜单设定 > 菜单<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
 								</TD>
 								<TD class="tdTitle2"></TD>
-								<TD class="tdTitle3">
-									版面号：101005
+								<TD class="tdTitle3">									
 									<IMG alt="" src="${base}/images/title_06.gif">
 								</TD>
 							</TR>
@@ -122,7 +108,7 @@
 												&nbsp;
 											</td>
 											<td class=tdPanelSel_center>
-												<pre style="margin: 0px">用户设定</pre>
+												<pre style="margin: 0px">菜单设定</pre>
 											</td>
 											<td class=tdPanelSel_right>
 												&nbsp;
@@ -148,7 +134,7 @@
 						<TABLE class="tbBlock" id="Table1" cellSpacing="1" border="0">
 							<TR>
 								<TD class="tdPrompt">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户<s:if test="id == null">新增</s:if><s:else>修改</s:else>：
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;菜单<s:if test="id == null">新增</s:if><s:else>修改</s:else>：
 								</TD>
 							</TR>
 						</TABLE>
@@ -156,60 +142,48 @@
 						
 							<TR>
 								<TD class="tdRightW30H40">
-									用户组:
+									上级菜单:
 								</TD>
 								<TD class="tdLeftH40">
-									<s:select id="groupId" name="groupId" list="allGroups" listKey="id" listValue="name"/>
+									<s:select id="parentId" name="parentId" list="allMenus" listKey="id" listValue="displayName"/>
 								</TD>
 							</TR>
 							<TR>
 								<TD class="tdRightW30H40">
-									登录名:
+									菜单名称:
 								</TD>
 								<TD class="tdLeftH40">
-									<input type="text" name="loginName" size="40" id="loginName"
-										value="${loginName}" class="required" />
+									<input type="text" name="displayName" size="40" value="${displayName}"
+										class="required" />
 								</TD>
-							</TR>
+							</TR>	
 							<TR>
 								<TD class="tdRightW30H40">
-									用户名:
+									菜单唯一标识:
 								</TD>
 								<TD class="tdLeftH40">
 									<input type="text" name="name" size="40" value="${name}"
 										class="required" />
 								</TD>
 							</TR>
-							<tr>
+							<TR>
 								<TD class="tdRightW30H40">
-									密码:
-								</td>
+									菜单路径:
+								</TD>
 								<TD class="tdLeftH40">
-									<input type="password" id="password" name="password" size="40"
-										value="${password}" class="required" />
-								</td>
-							</tr>
-							<tr>
+									<input type="text" name="url" size="40" value="${url}"
+										class="required" />
+								</TD>
+							</TR>
+							<TR>
 								<TD class="tdRightW30H40">
-									确认密码:
-								</td>
+									是否可见:
+								</TD>
 								<TD class="tdLeftH40">
-									<input type="password" name="passwordConfirm" size="40"
-										value="${password}" class="required" />
-								</td>
-							</tr>
-							<tr>
-								<TD class="tdRightW30H40">
-									角色:
-								</td>
-								<TD class="tdLeftH40">
-									<div
-										style="word-break: break-all; width: 250px; overflow: auto;">
-										<s:checkboxlist name="checkedRoleIds" list="allRoles"
-											listKey="id" listValue="name" cssClass="button" />
-									</div>
-								</td>
-							</tr>
+									<input type="checkbox" name="disabled"/>
+								</TD>
+							</TR>								
+							
 						</TABLE>
 						<TABLE class="tbCommonColor" id="Table3" cellSpacing="1"
 							border="0">

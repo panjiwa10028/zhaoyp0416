@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+﻿<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/common/taglibs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" >
 <html>
@@ -20,20 +20,20 @@
 		}		
 		
 		function add() {			
-			var url = "user!input.action";
+			var url = "menu!input.action";
 			top.mainWorkArea.location = url;
 		}
 
 		function update() {		
 			var ids = getSelectedIds();
-			var url = "user!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
+			var url = "menu!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 		
 		function del() {		
 			var ids = getSelectedIds();
 
-			var url = "user!delete.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
+			var url = "menu!delete.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 
@@ -80,7 +80,7 @@
 		<div id="message" style="display: none;">
 			<s:actionmessage theme="simple" />
 		</div>
-		<form id="queryForm" name="queryForm" action="user.action"
+		<form id="queryForm" name="queryForm" action="menu.action"
 			method="post">
 			<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
 				<TR>
@@ -89,7 +89,7 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">用户管理 > 用户设定</span>&nbsp;&nbsp;&nbsp;
+									<span id="Location">系统管理 > 菜单设定</span>&nbsp;&nbsp;&nbsp;
 									<img src="${base}/images/ask.gif" id="BtnAsk"
 										style="CURSOR: hand" alt="账户管理提供账户余额查询、交易查询、修改密码、挂失等账户基本功能。"
 										height="23" width="24" align="absMiddle" />
@@ -123,7 +123,8 @@
 										<tr>
 											<td class=tdPanelHead>&nbsp;</td>
 											<td class=tdPanelSel_left>&nbsp;</td>
-											<td class=tdPanelSel_center><pre style="margin: 0px"><a href="#" class=lkPanelSel onclick="top.mainWorkArea.location='user.action'">用户设定</a></pre></td>
+											<td class=tdPanelSel_center><pre style="margin: 0px"><a href="#" class=lkPanelSel 
+											onclick="top.mainWorkArea.location='role.action'">菜单设定</a></pre></td>
 											<td class=tdPanelSel_right>&nbsp;</td>
 										</tr>
 									</table>
@@ -168,12 +169,9 @@
 								<td class="dgHeader">
 									<input type="checkbox" class="checkbox" name="ids"/>
 								</td>
-								<td class="dgHeader">
-									<a href="javascript:orderBy('loginName')"><b>登录名</b>
-									</a>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('name')"><b>姓名</b>
+									<a href="javascript:orderBy('name')"><b>名称</b>
 									</a>
 								</td>
 							</tr>
@@ -184,10 +182,7 @@
 											value="${id}" />
 									</td>
 									<td align="Left">
-										${loginName}
-									</td>
-									<td align="Left">
-										${name}
+										${displayName}
 									</td>
 								</tr>
 							</s:iterator>
