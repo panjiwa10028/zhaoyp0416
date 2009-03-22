@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.ExpectedException;
 
@@ -43,7 +44,7 @@ public class UserManagerTest extends SpringTransactionalTestCase {
 		entity.setGroups(gorup);
 		userManager.saveUser(entity);
 		flush();
-		assertNotNull(entity.getId());
+		Assert.assertNotNull(entity.getId());
 		//删除角色并验证
 		userManager.deleteUser(entity.getId());
 		flush();
@@ -70,7 +71,7 @@ public class UserManagerTest extends SpringTransactionalTestCase {
 //		userManager.saveUser(entity);
 		flush();
 		entity = userManager.getUser(entity.getId());
-		assertEquals(2, entity.getRoleses().size());
+		Assert.assertEquals(2, entity.getRoleses().size());
 //
 //		//删除角色并验证
 //		for(Iterator roles=roleList.iterator(); roles.hasNext();) {
@@ -96,7 +97,7 @@ public class UserManagerTest extends SpringTransactionalTestCase {
 		String loginName = "tt";
 		String orgLoginName = "";
 		boolean returnValue = userManager.isLoginNameUnique(loginName, orgLoginName);
-		this.assertEquals(true, returnValue);
+		Assert.assertEquals(true, returnValue);
 	}
 	
 }

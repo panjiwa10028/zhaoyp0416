@@ -37,7 +37,7 @@ import com.yanpeng.ssweb.web.BaseAction;
  * @author calvin
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = BaseAction.RELOAD, location = "user.action?page.pageParam=${page.pageParam}", type = "redirect") })
+@Results( { @Result(name = BaseAction.RELOAD, location = "user.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
 public class UserAction extends BaseAction<Users> {
 
 	// CRUD Action 基本属性
@@ -61,12 +61,13 @@ public class UserAction extends BaseAction<Users> {
 
 	private List<Roles> allRoles; //全部可选角色列表
 
-	private List checkedRoleIds; //页面中钩选的角色id列表
+	private List<Serializable> checkedRoleIds; //页面中钩选的角色id列表
 	
 	private List<Groups> allGroups;
 	
 	private List selectIds;
 
+	private String groupId;
 	
 
 
@@ -80,6 +81,7 @@ public class UserAction extends BaseAction<Users> {
 	protected void prepareModel() throws Exception {
 		if (id != null && !id.equals("")) {
 			entity = userManager.getUser(id);
+			groupId = entity.getGroups().getId();
 		} else {
 			entity = new Users();
 		}
@@ -100,6 +102,7 @@ public class UserAction extends BaseAction<Users> {
 		allRoles = roleManager.getAllRoles();
 		checkedRoleIds = entity.getRoleIds();
 		allGroups = groupManager.getAllGroup();
+		
 		return INPUT;
 	}
 
@@ -110,11 +113,18 @@ public class UserAction extends BaseAction<Users> {
 		if(entity != null && entity.getId().equals("")) {
 			entity.setId(null);
 		}
-		Groups group = groupManager.getGroupById("0");
+		Groups group = groupManager.getGroupById(groupId);
 		entity.setGroups(group);
-		userManager.saveUser(entity,checkedRoleIds);
-		addActionMessage("保存用户成功");
-		return RELOAD;
+		try{
+			userManager.saveUser(entity,checkedRoleIds);
+			addActionMessage("保存用户成功");
+			return RELOAD;
+		}catch(Exception e) {
+			e.printStackTrace();
+			addActionMessage("保存用户失败");
+			return INPUT;
+		}
+		
 	}
 
 	@Override
@@ -183,6 +193,14 @@ public class UserAction extends BaseAction<Users> {
 
 	public void setSelectIds(List selectIds) {
 		this.selectIds = selectIds;
+	}
+
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 	
 	

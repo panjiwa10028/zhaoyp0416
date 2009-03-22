@@ -1,9 +1,11 @@
 package com.yanpeng.ssweb.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,10 +18,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.yanpeng.core.utils.ReflectionUtils;
 
 /**
  * Roles entity. @author MyEclipse Persistence Tools
@@ -103,6 +108,12 @@ public class Roles extends BaseEntity implements java.io.Serializable {
 
 	public void setMenuses(Set<Menus> menuses) {
 		this.menuses = menuses;
+	}
+	
+	@Transient
+	@SuppressWarnings("unchecked")
+	public List<Serializable> getPermissionIds() throws Exception {
+		return ReflectionUtils.fetchElementPropertyToList(permissionses, "id");
 	}
 
 }

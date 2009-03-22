@@ -109,6 +109,14 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	 */
 	public T get(final PK id) {
 		Assert.notNull(id);
+		return (T) getSession().get(entityClass, id);
+	}
+	
+	/**
+	 * 按id获取对象.
+	 */
+	public T load(final PK id) {
+		Assert.notNull(id);
 		return (T) getSession().load(entityClass, id);
 	}
 

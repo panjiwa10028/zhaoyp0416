@@ -37,6 +37,8 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 	private Date updateDate;
 	private Set<Roles> roleses = new LinkedHashSet<Roles>(0);
 	private Set<Menus> menuses = new LinkedHashSet<Menus>(0);
+	
+	private String parentId;
 
 	// Constructors
 
@@ -110,7 +112,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 		return this.updateDate;
 	}
 
-	public void setUpdateDate(Timestamp updateDate) {
+	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
 
@@ -131,5 +133,19 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 	public void setMenuses(Set<Menus> menuses) {
 		this.menuses = menuses;
 	}
+
+
+	@Column(name = "parent_id")
+	public String getParentId() {
+		return parentId;
+	}
+
+
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+	
+	
 
 }
