@@ -80,7 +80,7 @@
 		<div id="message" style="display: none;">
 			<s:actionmessage theme="simple" />
 		</div>
-		<form id="queryForm" name="queryForm" action="user.action"
+		<form id="queryForm" name="queryForm" action="permission.action"
 			method="post">
 			<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
 				<TR>
@@ -171,7 +171,11 @@
 								</td>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('name')"><b>姓名</b>
+									<a href="javascript:orderBy('displayName')"><b>权限名称</b>
+									</a>
+								</td>
+								<td class="dgHeader">
+									<a href="javascript:orderBy('name')"><b>权限键值</b>
 									</a>
 								</td>
 							</tr>
@@ -180,6 +184,9 @@
 									<td align="center">
 										<input type="checkbox" class="checkbox" name="selectIds"
 											value="${id}" />
+									</td>
+									<td align="Left">
+										${displayName}
 									</td>
 									<td align="Left">
 										${name}

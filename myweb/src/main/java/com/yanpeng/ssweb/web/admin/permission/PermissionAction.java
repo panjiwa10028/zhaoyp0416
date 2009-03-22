@@ -66,6 +66,11 @@ public class PermissionAction extends BaseAction<Permissions> {
 
 	@Override
 	public String list() throws Exception {
+		if(page.getOrderBy() == null) {
+			page.setOrderBy("displayName");
+			page.setOrder("asc");
+		}
+		page = permissionManager.getPermissions(page);
 		return SUCCESS;
 	}
 
@@ -115,7 +120,7 @@ public class PermissionAction extends BaseAction<Permissions> {
 	/**
 	 * 支持使用Jquery.validate Ajax检验用户名是否重复.
 	 */
-	public String checkRoleName() throws Exception {
+	public String checkName() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String name = request.getParameter("name");
 		String orgName = request.getParameter("orgName");

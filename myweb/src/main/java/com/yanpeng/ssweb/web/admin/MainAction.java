@@ -115,7 +115,7 @@ public class MainAction extends BaseAction<Users> {
 		elementLI.setAttribute("id", "vmenu_" + cnt + "_" + menu.getSort());
 
 		Element elementLI_A = new Element("A");
-		elementLI_A.setAttribute("onclick", menu.getUrl()
+		elementLI_A.setAttribute("onclick", menu.getPath()
 				+ ";return false;window.focus();");
 		elementLI_A.setAttribute("href", "null");
 		elementLI_A.addContent(menu.getDisplayName());
