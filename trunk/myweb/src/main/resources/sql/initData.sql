@@ -2,35 +2,49 @@ ALTER TABLE groups DROP FOREIGN KEY FK_groups_groups;
 ALTER TABLE menus DROP FOREIGN KEY FK_menus_menus;
 
 insert into groups (id, name, parent_id, description, update_date)
-values('0', 'root','-1','root',now());
+values('0', 'root','-1','---',now());
 
 insert into users(id, name, group_id, login_name, password, disabled, expired, locked, update_date)
 values('1', 'administrator', '0', 'admin', 'ceb4f32325eda6142bd65215f4c0f371', 0, 0, 0, now());
 
 insert into roles(id, name, description, update_date)
 values('1', 'admin', 'admin', now());
-insert into roles(id, name, description, update_date)
-values('2', 'user', 'user', now());
 
 insert into users_roles (user_id, role_id)
 values('1', '1');
-insert into users_roles (user_id, role_id)
-values('1', '2');
 
 insert into permissions (id, name, display_name, path)
-values('1', 'PER_SAVE_USER', '保存用户', '/admin/user/user!save.action*');
+values('1', 'PER_ALL_ADMIN', '后台管理', '/admin/main.action*');
 insert into permissions (id, name, display_name, path)
-values('2', 'PER_VIEW_USER', '浏览用户', '/admin/user/user.action*');
+values('2', 'PER_SAVE_USER', '保存用户', '/admin/user/user!save.action*');
 insert into permissions (id, name, display_name, path)
-values('3', 'PER_DELETE_USER', '删除用户', '/admin/user/user!delete.action*');
+values('3', 'PER_VIEW_USER', '浏览用户', '/admin/user/user.action*');
 insert into permissions (id, name, display_name, path)
-values('4', 'PER_ALL_ADMIN', '后台管理', '/admin/main.action*');
+values('4', 'PER_DELETE_USER', '删除用户', '/admin/user/user!delete.action*');
 insert into permissions (id, name, display_name, path)
 values('5', 'PER_VIEW_NEWS', '浏览新闻', '/admin/news/news.action*');
 insert into permissions (id, name, display_name, path)
 values('6', 'PER_SAVE_NEWS', '保存新闻', '/admin/news/news!save.action*');
 insert into permissions (id, name, display_name, path)
 values('7', 'PER_DELETE_NEWS', '删除新闻', '/admin/news/news!delete.action*');
+insert into permissions (id, name, display_name, path)
+values('8', 'PER_VIEW_ROLE', '浏览角色', '/admin/role/role.action*');
+insert into permissions (id, name, display_name, path)
+values('9', 'PER_SAVE_ROLE', '保存角色', '/admin/role/role!save.action*');
+insert into permissions (id, name, display_name, path)
+values('10', 'PER_DELETE_ROLE', '删除角色', '/admin/role/role!delete.action*');
+insert into permissions (id, name, display_name, path)
+values('11', 'PER_VIEW_PERMISSION', '浏览权限', '/admin/permission/permission.action*');
+insert into permissions (id, name, display_name, path)
+values('12', 'PER_SAVE_PERMISSION', '保存权限', '/admin/permission/permission!save.action*');
+insert into permissions (id, name, display_name, path)
+values('13', 'PER_DELETE_PERMISSION', '删除权限', '/admin/permission/permission!delete.action*');
+insert into permissions (id, name, display_name, path)
+values('14', 'PER_VIEW_MENUS', '浏览菜单', '/admin/menu/menu.action*');
+insert into permissions (id, name, display_name, path)
+values('15', 'PER_SAVE_MENUS', '保存菜单', '/admin/menu/menu!save.action*');
+insert into permissions (id, name, display_name, path)
+values('16', 'PER_DELETE_MENUS', '删除菜单', '/admin/menu/menu!delete.action*');
 
 insert into roles_permissions (role_id, permission_id)
 values('1', '1');
@@ -46,33 +60,54 @@ insert into roles_permissions (role_id, permission_id)
 values('1', '6');
 insert into roles_permissions (role_id, permission_id)
 values('1', '7');
+insert into roles_permissions (role_id, permission_id)
+values('1', '8');
+insert into roles_permissions (role_id, permission_id)
+values('1', '9');
+insert into roles_permissions (role_id, permission_id)
+values('1', '10');
+insert into roles_permissions (role_id, permission_id)
+values('1', '11');
+insert into roles_permissions (role_id, permission_id)
+values('1', '12');
+insert into roles_permissions (role_id, permission_id)
+values('1', '13');
+insert into roles_permissions (role_id, permission_id)
+values('1', '14');
+insert into roles_permissions (role_id, permission_id)
+values('1', '15');
+insert into roles_permissions (role_id, permission_id)
+values('1', '16');
 
-insert into menus (id, name, parent_id, display_name, url, sort, disabled)
-values('0', 'root', '-1', 'root', '', '0_0', 0);
-insert into menus (id, name, parent_id, display_name, url, sort, disabled)
+insert into menus (id, name, parent_id, display_name, path, sort, disabled)
+values('0', 'root', '-1', '---', '', '0_0', 0);
+insert into menus (id, name, parent_id, display_name, path, sort, disabled)
 values('1', 'ADMIN_SYSTEM', '0', '系统管理', '', '0_1', 0);
-insert into menus (id, name, parent_id, display_name, url, sort, disabled)
+insert into menus (id, name, parent_id, display_name, path, sort, disabled)
 values('2', 'ADMIN_USERS', '0', '用户管理', '', '0_2', 0);
-insert into menus (id, name, parent_id, display_name, url, sort, disabled)
+insert into menus (id, name, parent_id, display_name, path, sort, disabled)
 values('3', 'ADMIN_NEWS', '0', '新闻管理', '', '0_3', 0);
-insert into menus (id, name, parent_id, display_name, url, sort, disabled)
+insert into menus (id, name, parent_id, display_name, path, sort, disabled)
 values('4', 'ADMIN_MOCK1', '0', '占位1', '', '0_4', 0);
-insert into menus (id, name, parent_id, display_name, url, sort, disabled)
+insert into menus (id, name, parent_id, display_name, path, sort, disabled)
 values('5', 'ADMIN_MOCK2', '0', '占位2', '', '0_5', 0);
-insert into menus (id, name, parent_id, display_name, url, sort, disabled)
+insert into menus (id, name, parent_id, display_name, path, sort, disabled)
 values('6', 'ADMIN_MOCK3', '0', '占位3', '', '0_6', 0);
 
-insert into menus (id, name, parent_id, display_name, url, sort, disabled)
-values('10', 'ADMIN_SYSTEM_MENU', '1', '菜单设定', 'mainWorkArea.location=''menu/menu.action''', '0_1_1', 0);
+insert into menus (id, name, parent_id, display_name, path, sort, disabled)
+values('10', 'ADMIN_SYSTEM_MENU', '1', '菜单设定', 'mainWorkArea.location=''menu/menu.action''', '0_1_', 0);
 
-insert into menus (id, name, parent_id, display_name, url, sort, disabled)
-values('11', 'ADMIN_USER_USER', '2', '用户设定', 'mainWorkArea.location=''user/user.action''', '0_2_1', 0);
+insert into menus (id, name, parent_id, display_name, path, sort, disabled)
+values('11', 'ADMIN_USER_USER', '2', '用户设定', 'mainWorkArea.location=''user/user.action''', '0_2_', 0);
 
-insert into menus (id, name, parent_id, display_name, url, sort, disabled)
-values('12', 'ADMIN_USER_ROLE', '2', '角色设定', 'mainWorkArea.location=''role/role.action''', '0_2_2', 0);
+insert into menus (id, name, parent_id, display_name, path, sort, disabled)
+values('12', 'ADMIN_USER_ROLE', '2', '角色设定', 'mainWorkArea.location=''role/role.action''', '0_2_', 0);
 
-insert into menus (id, name, parent_id, display_name, url, sort, disabled)
-values('13', 'ADMIN_NEWS_ROLE', '3', '新闻设定', 'mainWorkArea.location=''news/news.action''', '0_3_1', 0);
+insert into menus (id, name, parent_id, display_name, path, sort, disabled)
+values('13', 'ADMIN_USER_PERMISSION', '2', '权限设定', 'mainWorkArea.location=''permission/permission.action''', '0_2_', 0);
+
+insert into menus (id, name, parent_id, display_name, path, sort, disabled)
+values('14', 'ADMIN_NEWS_ROLE', '3', '新闻设定', 'mainWorkArea.location=''news/news.action''', '0_3_', 0);
 
 
 insert into roles_menus (role_id, menu_id)
@@ -89,4 +124,6 @@ insert into roles_menus (role_id, menu_id)
 values ('1', '12');
 insert into roles_menus (role_id, menu_id)
 values ('1', '13');
+insert into roles_menus (role_id, menu_id)
+values ('1', '14');
 
