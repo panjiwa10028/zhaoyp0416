@@ -2,6 +2,7 @@ package com.yanpeng.ssweb.service.group;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -62,8 +63,8 @@ public class GroupManager extends EntityManager<Groups, String> {
 	}
 	
 	@Transactional(readOnly=true)
-	public Page getAllGroup(Page page){
-		return groupDao.getAll(page);
+	public Page<Groups> getAllGroup(Page<Groups> page){		
+		return groupDao.findByCriteria(page, Restrictions.not(Restrictions.eq("id", "0")));
 	}
 	
 	@Transactional(readOnly=true)
@@ -80,6 +81,25 @@ public class GroupManager extends EntityManager<Groups, String> {
 		groupDao.delete(group);
 	}
 	
+
+	@Transactional(readOnly = true)
+	public boolean isNameUnique(String name, String orgName) {
+		return groupDao.isPropertyUnique("name", name, orgName);
+	}
+	
+	public void deleteGroups(Collection<String> ids) {
+		//为演示异常处理及用户行为日志而故意抛出的异常.
+		if (ids.contains("0")) {
+			logger.warn("不能删除root组", SpringSecurityUtils.getCurrentUserName());
+			throw new ServiceException("不能删除root组");
+		}
+		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
+			String id = (String) it.next();
+			Groups group = groupDao.get(id);
+			groupDao.delete(group);
+		}
+		
+	}
 	
 	
 }

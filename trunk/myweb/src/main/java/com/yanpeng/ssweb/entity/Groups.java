@@ -33,6 +33,7 @@ public class Groups extends BaseEntity implements java.io.Serializable {
 	private Set<Users> userses = new LinkedHashSet<Users>(0);
 	private Set<Groups> groupses = new LinkedHashSet<Groups>(0);
 
+	private String parentId;
 	// Constructors
 
 	/** default constructor */
@@ -100,4 +101,19 @@ public class Groups extends BaseEntity implements java.io.Serializable {
 		this.groupses = groupses;
 	}
 
+
+	@Column(name = "parent_id")
+	public String getParentId() {
+		return parentId;
+	}
+
+
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+
+	
+	
 }

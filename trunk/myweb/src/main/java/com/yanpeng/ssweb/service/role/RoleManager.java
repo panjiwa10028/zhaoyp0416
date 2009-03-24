@@ -1,6 +1,7 @@
 package com.yanpeng.ssweb.service.role;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -19,6 +20,7 @@ import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.orm.hibernate.EntityManager;
 import com.yanpeng.core.security.SpringSecurityUtils;
 import com.yanpeng.core.utils.BaseCodeUtils;
+import com.yanpeng.ssweb.dao.menu.MenuDao;
 import com.yanpeng.ssweb.dao.permission.PermissionDao;
 import com.yanpeng.ssweb.dao.role.RoleDao;
 import com.yanpeng.ssweb.dao.user.UserDao;
@@ -53,6 +55,9 @@ public class RoleManager extends EntityManager<Roles, String> {
 	@Autowired
 	private PermissionDao permissionDao;
 	
+	@Autowired
+	private MenuDao menuDao;
+	
 	@Override
 	protected RoleDao getEntityDao() {
 		return roleDao;
@@ -83,11 +88,23 @@ public class RoleManager extends EntityManager<Roles, String> {
 		return roleDao.get(id);
 	}
 
-	public void saveRole(Roles role, Collection<Serializable> ids) {
+	public void saveRole(Roles role, Collection<String> ids, Collection<String> menuIds) {
 		if(ids != null ) {
 			List<Permissions> list = permissionDao.findByCriteria(Restrictions.in("id", ids));
 			Set<Permissions> set = new LinkedHashSet<Permissions>(list); 
 			role.setPermissionses(set);
+			
+			List<Menus> menuList = menuDao.findByCriteria(Restrictions.in("id", menuIds));
+			Set<Menus> menuSet = new LinkedHashSet<Menus>(); 
+			menuSet.addAll(menuList);
+			for(Menus menu:menuList) {
+				Menus m = menu.getMenus();
+				if(!menuSet.contains(m)) {
+					menuSet.add(menu.getMenus());
+				}
+			}
+			
+			role.setMenuses(menuSet);
 		}
 		
 		roleDao.save(role);

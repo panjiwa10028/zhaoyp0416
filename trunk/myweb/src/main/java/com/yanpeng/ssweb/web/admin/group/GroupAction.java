@@ -1,4 +1,4 @@
-package com.yanpeng.ssweb.web.admin.role;
+package com.yanpeng.ssweb.web.admin.group;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -13,14 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.web.struts2.Struts2Utils;
+import com.yanpeng.ssweb.entity.Groups;
 import com.yanpeng.ssweb.entity.Menus;
 import com.yanpeng.ssweb.entity.Permissions;
 import com.yanpeng.ssweb.entity.Roles;
 import com.yanpeng.ssweb.exceptions.ServiceException;
+import com.yanpeng.ssweb.service.group.GroupManager;
 import com.yanpeng.ssweb.service.menu.MenuManager;
 import com.yanpeng.ssweb.service.permission.PermissionManager;
 import com.yanpeng.ssweb.service.role.RoleManager;
-import com.yanpeng.ssweb.service.user.UserManager;
 import com.yanpeng.ssweb.web.BaseAction;
 
 /**
@@ -31,50 +32,37 @@ import com.yanpeng.ssweb.web.BaseAction;
  * @author calvin
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = BaseAction.RELOAD, location = "role.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
-public class RoleAction extends BaseAction<Roles> {
+@Results( { @Result(name = BaseAction.RELOAD, location = "group.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
+public class GroupAction extends BaseAction<Groups> {
 
 	// CRUD Action 基本属性
 
-	private Page<Roles> page = new Page<Roles>(5);//每页5条记录
+	private Page<Groups> page = new Page<Groups>(5);//每页5条记录
 
-	private Roles entity;
+	private Groups entity;
 
 	private String id;
+	
 
 	
 	@Autowired
-	private RoleManager roleManager;
+	private GroupManager groupManager;
 	
-	@Autowired
-	private PermissionManager permissionManager;
-	
-	@Autowired
-	private MenuManager menuManager;
-
-	// 用户-角色 相关属性
-
-	private List<Permissions> allPermissions; //全部可选角色列表
-
-	private List<String> checkedIds; //页面中钩选的角色id列表
-	
-	private List<Menus> allMenus;
-	private List<String> checkedMenuIds;
 	
 	
 
 	// CRUD Action 属性访问函数
 
-	public Roles getModel() {
+	public Groups getModel() {
 		return entity;
 	}
 
 	@Override
 	protected void prepareModel() throws Exception {
 		if (id != null && !id.equals("")) {
-			entity = roleManager.getRoleById(id);
+			entity = groupManager.getGroupById(id);
 		} else {
-			entity = new Roles();
+			entity = new Groups();
 		}
 	}
 
@@ -84,34 +72,32 @@ public class RoleAction extends BaseAction<Roles> {
 
 	@Override
 	public String list() throws Exception {
-		page = roleManager.getAllRoles(page);
+		page = groupManager.getAllGroup(page);
 		return SUCCESS;
 	}
 
 	@Override
-	public String input() throws Exception {
-		allPermissions = permissionManager.getAllPermissions();
-		checkedIds = entity.getPermissionIds();
-		allMenus = menuManager.findSubMenus();
-		checkedMenuIds = entity.getMenuIds();
+	public String input() throws Exception {		
 		return INPUT;
 	}
 
 	@Override
 	public String save() throws Exception {
-		
+		//根据页面上的checkbox 整合entity的roles Set
 //		
 		if(entity != null && entity.getId().equals("")) {
 			entity.setId(null);
 		}
+//		暂不支持多级组
+		entity.setParentId("0");
 		
 		try{
-			roleManager.saveRole(entity,checkedIds,checkedMenuIds);
-			addActionMessage("保存角色成功");
+			groupManager.saveGroup(entity);
+			addActionMessage("保存用户组成功");
 			return RELOAD;
 		}catch(Exception e) {
 			e.printStackTrace();
-			addActionMessage("保存角色失败");
+			addActionMessage("保存用户组失败");
 			return INPUT;
 		}
 		
@@ -123,8 +109,8 @@ public class RoleAction extends BaseAction<Roles> {
 			String []ids = id.split(",");
 			List list = Arrays.asList(ids);   
 	
-			roleManager.deleteRoles(list);
-			addActionMessage("删除用户成功");
+			groupManager.deleteGroups(list);
+			addActionMessage("删除用户组成功");
 		} catch (ServiceException e) {
 			logger.error(e.getMessage(), e);
 			addActionMessage(e.getMessage());
@@ -138,12 +124,12 @@ public class RoleAction extends BaseAction<Roles> {
 	/**
 	 * 支持使用Jquery.validate Ajax检验用户名是否重复.
 	 */
-	public String checkRoleName() throws Exception {
+	public String checkName() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String name = request.getParameter("name");
 		String orgName = request.getParameter("orgName");
 		
-		if (roleManager.isNameUnique(name, orgName)) {
+		if (groupManager.isNameUnique(name, orgName)) {
 			Struts2Utils.renderText("true");
 		} else {
 			Struts2Utils.renderText("false");
@@ -157,38 +143,11 @@ public class RoleAction extends BaseAction<Roles> {
 		this.id = id;
 	}
 
-	public Page<Roles> getPage() {
+	public Page<Groups> getPage() {
 		return page;
 	}
 
-	public List<Permissions> getAllPermissions() {
-		return allPermissions;
-	}
-
-	public void setAllPermissions(List<Permissions> allPermissions) {
-		this.allPermissions = allPermissions;
-	}
-
-	public List<Menus> getAllMenus() {
-		return allMenus;
-	}
-
-	public void setCheckedIds(List<String> checkedIds) {
-		this.checkedIds = checkedIds;
-	}
-
-	public void setCheckedMenuIds(List<String> checkedMenuIds) {
-		this.checkedMenuIds = checkedMenuIds;
-	}
-
-	public List<String> getCheckedIds() {
-		return checkedIds;
-	}
-
-	public List<String> getCheckedMenuIds() {
-		return checkedMenuIds;
-	}
-
 	
+		
 	
 }
