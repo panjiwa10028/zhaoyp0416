@@ -2,8 +2,10 @@ package com.yanpeng.ssweb.dao.group;
 
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.orm.hibernate.HibernateDao;
 import com.yanpeng.ssweb.entity.Groups;
 import com.yanpeng.ssweb.entity.Menus;
@@ -20,5 +22,16 @@ import com.yanpeng.ssweb.entity.Roles;
 @Repository
 public class GroupDao extends HibernateDao<Groups, String> {
 
+	public List<Groups> getAll() {
+		return this.findByCriteria(Restrictions.not(Restrictions.eq("id", "0")));
+	}
+	
+	public Page<Groups> getAll(Page<Groups> page) {
+		return this.findByCriteria(page, Restrictions.not(Restrictions.eq("id", "0")));
+	}
+	
+	public boolean isNameUnique(Object newValue, Object orgValue) {
+		return this.isPropertyUnique("name", newValue, orgValue);
+	}
 	
 }

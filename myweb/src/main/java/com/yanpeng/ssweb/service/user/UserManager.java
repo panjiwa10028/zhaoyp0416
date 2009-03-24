@@ -75,7 +75,7 @@ public class UserManager extends EntityManager<Users, String>{
 		userDao.save(user);
 	}
 	
-	public void saveUser(Users user, Collection<Serializable> ids) {
+	public void saveUser(Users user, Collection<String> ids) {
 		if(ids != null ) {
 			List<Roles> list = roleDao.findByCriteria(Restrictions.in("id", ids));
 			Set<Roles> set = new LinkedHashSet<Roles>(list); 

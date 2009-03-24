@@ -61,7 +61,7 @@ public class UserAction extends BaseAction<Users> {
 
 	private List<Roles> allRoles; //全部可选角色列表
 
-	private List<Serializable> checkedRoleIds; //页面中钩选的角色id列表
+	private List<String> checkedRoleIds; //页面中钩选的角色id列表
 	
 	private List<Groups> allGroups;
 	
@@ -179,11 +179,11 @@ public class UserAction extends BaseAction<Users> {
 		return allGroups;
 	}
 
-	public List<Serializable> getCheckedRoleIds() {
+	public List<String> getCheckedRoleIds() {
 		return checkedRoleIds;
 	}
 
-	public void setCheckedRoleIds(List<Serializable> checkedRoleIds) {
+	public void setCheckedRoleIds(List<String> checkedRoleIds) {
 		this.checkedRoleIds = checkedRoleIds;
 	}
 

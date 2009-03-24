@@ -63,7 +63,7 @@ public class MainAction extends BaseAction<Users> {
 			user = new Users();
 		}
 
-		Collection<Serializable> roleIds = user.getRoleIds();
+		Collection<String> roleIds = user.getRoleIds();
 		List<Menus> menusList = menuManager.findMenusByRoleIds(roleIds);
 		leftMenuValue = listToLeftMenu(menusList);
 		return SUCCESS;

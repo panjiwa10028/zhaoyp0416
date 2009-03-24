@@ -3,11 +3,13 @@ package com.yanpeng.core.orm.hibernate;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.metadata.ClassMetadata;
 import org.slf4j.Logger;
@@ -15,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
+import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.utils.ReflectionUtils;
 
 /**
@@ -200,6 +203,47 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	 */
 	public List<T> findByCriteria(final Criterion... criterions) {
 		return createCriteria(criterions).list();
+	}
+	
+	/**
+	 * 按Criteria查询对象列表.
+	 * 
+	 * @param criterions 数量可变的Criterion.
+	 */
+	public List<T> findByCriteria(String alias, int joinType, Page page, final Criterion... criterions) {
+		return createCriteria(alias, joinType, page, criterions).list();
+	}
+	
+	public Criteria createCriteria(String alias, int joinType, Page page, final Criterion... criterions) {
+		Criteria criteria = getSession().createCriteria(entityClass);
+		
+		if(joinType == 0) {
+			criteria.createAlias(alias, "_" + alias, criteria.INNER_JOIN);
+		}else if(joinType == 1) {
+			criteria.createAlias(alias, "_" + alias, criteria.LEFT_JOIN);
+		}else if(joinType == 4) {
+			criteria.createAlias(alias, "_" + alias, criteria.FULL_JOIN);
+		}
+		
+		for (Criterion c : criterions) {
+			criteria.add(c);
+		}		
+		
+		if (page.isOrderBySetted()) {
+			String[] orderByArray = StringUtils.split(page.getOrderBy(), ',');
+			String[] orderArray = StringUtils.split(page.getOrder(), ',');
+
+			Assert.isTrue(orderByArray.length == orderArray.length, "多重排序参数中,排序字段与排序方向的个数不相等");
+
+			for (int i = 0; i < orderByArray.length; i++) {
+				if (Page.ASC.equals(orderArray[i])) {
+					criteria.addOrder(Order.asc(orderByArray[i]));
+				} else {
+					criteria.addOrder(Order.desc(orderByArray[i]));
+				}
+			}
+		}
+		return criteria;
 	}
 
 	/**
