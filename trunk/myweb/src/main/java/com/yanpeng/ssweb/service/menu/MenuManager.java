@@ -26,12 +26,9 @@ import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.exceptions.ServiceException;
 
 /**
- * 整个User模块的业务逻辑Facade类.
- 
- * 组合User,Role,Authority三者的DAO,DAO均直接使用泛型的SimpleHibernateTemplate.
- * 使用Spring annotation定义依赖注入和事务管理.
+ * 菜单管理
  * 
- * @author calvin
+ * @author Allen
  */
 @Service
 //默认将类中的所有函数纳入事务管理.
@@ -68,24 +65,15 @@ public class MenuManager extends EntityManager<Menus, String> {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<Menus> findMenusByRoleIds(Collection<Serializable> ids) {
-		StringBuffer strbf=new StringBuffer();
-		for(Serializable pk:ids){
-			if(pk instanceof String||pk instanceof Character){
-				strbf.append("'"+pk+"',");
-			}else{
-				strbf.append(pk+",");
-			}
-		}
-		String parms=strbf.substring(0, strbf.length()-1).toString();
-		return menuDao.findMenusByRoleIds(parms);
+	public List<Menus> findMenusByRoleIds(Collection<String> ids) {		
+		return menuDao.findByRoleIds(ids);
 		
 	}
-	public void deleteMenus(Collection ids) {
+	public void deleteMenus(Collection<String> ids) {
 		//为演示异常处理及用户行为日志而故意抛出的异常.
 		if (ids.contains("1")) {
-			logger.warn("操作员{}尝试删除超级管理员用户", SpringSecurityUtils.getCurrentUserName());
-			throw new ServiceException("不能删除超级管理员用户");
+			logger.warn("不能删除系统菜单", SpringSecurityUtils.getCurrentUserName());
+			throw new ServiceException("不能删除系统菜单");
 		}
 		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
 			String id = (String) it.next();
@@ -97,17 +85,17 @@ public class MenuManager extends EntityManager<Menus, String> {
 	
 	@Transactional(readOnly = true)
 	public boolean isNameUnique(String name, String orgName) {
-		return menuDao.isPropertyUnique("name", name, orgName);
+		return menuDao.isNameUnique(name, orgName);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<Menus> findFirstLevelMenus() {
-		return menuDao.findByCriteria(Restrictions.in("parentId", new Object[]{"-1,1"}));
+		return menuDao.findFirstLevel();
 	}
 	
 	@Transactional(readOnly = true)
 	public List<Menus> findSubMenus() {
-		return menuDao.findByCriteria(Restrictions.not(Restrictions.in("parentId", new Object[]{"-1","0"})));
+		return menuDao.findSub();
 	}
 
 	

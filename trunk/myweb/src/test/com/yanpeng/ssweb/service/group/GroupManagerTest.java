@@ -1,4 +1,4 @@
-package com.yanpeng.ssweb.service.menu;
+package com.yanpeng.ssweb.service.group;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.ExpectedException;
 
+import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.test.SpringTransactionalTestCase;
 import com.yanpeng.ssweb.entity.Groups;
 import com.yanpeng.ssweb.entity.Menus;
@@ -27,33 +28,32 @@ import com.yanpeng.ssweb.service.role.RoleManager;
  * 
  * @author calvin
  */
-public class MenuManagerTest extends SpringTransactionalTestCase {
+public class GroupManagerTest extends SpringTransactionalTestCase {
 
 	@Autowired
-	private MenuManager menuManager;
+	private GroupManager groupManager;
 
 
-	public void testFindFirstLevelMenus() {
-		List<Menus> list = menuManager.findFirstLevelMenus();
-		Assert.assertNotNull(list);
+	public void testGetAllGroup() {
+		List<Groups> groupList = groupManager.getAllGroup();
+		Assert.assertNotNull(groupList);
 	}
 	
-	
-	public void testFindMenusByRoleIds() {
-		Collection<String> ids = new ArrayList<String>();
-		ids.add("1");
-		List<Menus> list = menuManager.findMenusByRoleIds(ids);
-		Assert.assertNotNull(list);
+	public void testGetAllGroupByPage() {
+		Page<Groups> page = new Page<Groups>(5);
+		page = groupManager.getAllGroup(page);
+		Assert.assertEquals(1, page.getResult().size());
 	}
 	
 	public void testIsNameUnique() {
-		String name = "fd";
-		boolean condition = menuManager.isNameUnique(name, "");
-		Assert.assertTrue(condition);
+		String name = "ffff";
+		boolean returnValue = groupManager.isNameUnique(name, "");
+		Assert.assertTrue(returnValue);
 	}
 	
-	public void testFindSubMenus() {
-		List<Menus> list = menuManager.findFirstLevelMenus();
-		Assert.assertNotNull(list);
+	public void testDeleteByIds() {
+		Collection<String> ids = new ArrayList<String>();
+		ids.add("402888342037bf16012037d59c310003");
+		groupManager.deleteGroups(ids);
 	}
 }

@@ -28,19 +28,13 @@ import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.exceptions.ServiceException;
 
 /**
- * 整个User模块的业务逻辑Facade类.
- 
- * 组合User,Role,Authority三者的DAO,DAO均直接使用泛型的SimpleHibernateTemplate.
- * 使用Spring annotation定义依赖注入和事务管理.
- * 
- * @author calvin
+ * 用户组管理
+ * @author Allen
  */
 @Service
 //默认将类中的所有函数纳入事务管理.
 @Transactional
 public class GroupManager extends EntityManager<Groups, String> {
-
-	// 统一定义所有HQL
 
 	
 	private final Logger logger = LoggerFactory.getLogger(GroupManager.class);
@@ -59,12 +53,12 @@ public class GroupManager extends EntityManager<Groups, String> {
 	
 	@Transactional(readOnly=true)
 	public List<Groups> getAllGroup(){
-		return groupDao.findByCriteria(Restrictions.not(Restrictions.eq("id", "0")));
+		return groupDao.getAll();
 	}
 	
 	@Transactional(readOnly=true)
 	public Page<Groups> getAllGroup(Page<Groups> page){		
-		return groupDao.findByCriteria(page, Restrictions.not(Restrictions.eq("id", "0")));
+		return groupDao.getAll(page);
 	}
 	
 	@Transactional(readOnly=true)
@@ -76,29 +70,28 @@ public class GroupManager extends EntityManager<Groups, String> {
 		groupDao.save(group);
 	}
 
-	@SuppressWarnings("unchecked")
-	public void removeGroup(Groups group){
+	public void deleteGroup(Groups group){
 		groupDao.delete(group);
 	}
 	
 
 	@Transactional(readOnly = true)
 	public boolean isNameUnique(String name, String orgName) {
-		return groupDao.isPropertyUnique("name", name, orgName);
+		return groupDao.isNameUnique(name, orgName);
 	}
 	
 	public void deleteGroups(Collection<String> ids) {
-		//为演示异常处理及用户行为日志而故意抛出的异常.
 		if (ids.contains("0")) {
-			logger.warn("不能删除root组", SpringSecurityUtils.getCurrentUserName());
-			throw new ServiceException("不能删除root组");
+			logger.warn("不能删除root", SpringSecurityUtils.getCurrentUserName());
+			throw new ServiceException("不能删除root");
 		}
+
 		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
-			String id = (String) it.next();
+			String id = (String) it.next();			
 			Groups group = groupDao.get(id);
 			groupDao.delete(group);
 		}
-		
+
 	}
 	
 	
