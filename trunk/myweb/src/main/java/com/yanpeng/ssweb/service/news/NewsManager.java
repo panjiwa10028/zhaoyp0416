@@ -2,6 +2,7 @@ package com.yanpeng.ssweb.service.news;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -26,12 +27,9 @@ import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.exceptions.ServiceException;
 
 /**
- * 整个User模块的业务逻辑Facade类.
- 
- * 组合User,Role,Authority三者的DAO,DAO均直接使用泛型的SimpleHibernateTemplate.
- * 使用Spring annotation定义依赖注入和事务管理.
+ * 新闻管理
  * 
- * @author calvin
+ * @author Allen
  */
 @Service
 //默认将类中的所有函数纳入事务管理.
@@ -57,7 +55,7 @@ public class NewsManager extends EntityManager<News, String> {
 	
 	
 	@Transactional(readOnly=true)
-	public Page getAllNews(Page page){
+	public Page<News> getAllNews(Page<News> page){
 		return newsDao.getAll(page);
 	}
 	
@@ -70,9 +68,22 @@ public class NewsManager extends EntityManager<News, String> {
 		newsDao.save(news);
 	}
 
-	@SuppressWarnings("unchecked")
-	public void removeNews(News news){
+	public void deleteNews(News news){
 		newsDao.delete(news);
+	}
+	
+	public void deleteNews(Collection<String> ids) {
+
+		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
+			String id = (String) it.next();
+			News news = newsDao.get(id);
+			if(news != null) {
+				newsDao.delete(news);
+			}else {
+				logger.warn("ID=[" + id + "]的新闻不存在，无法删除");
+			}			
+		}
+		
 	}
 	
 	

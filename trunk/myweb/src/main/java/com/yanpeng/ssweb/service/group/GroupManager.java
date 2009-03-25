@@ -89,7 +89,12 @@ public class GroupManager extends EntityManager<Groups, String> {
 		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
 			String id = (String) it.next();			
 			Groups group = groupDao.get(id);
-			groupDao.delete(group);
+			if(group != null) {
+				groupDao.delete(group);
+			}else {
+				logger.warn("ID=[" + id + "]的用户组不存在，无法删除");
+			}
+			
 		}
 
 	}

@@ -100,7 +100,7 @@ public class UserManager extends EntityManager<Users, String>{
 
 	@Transactional(readOnly = true)
 	public Users getUserByLoginName(String loginName) {
-		return userDao.findUniqueByProperty("loginName", loginName);
+		return userDao.getByLoginName(loginName);
 	}
 
 	
@@ -111,7 +111,7 @@ public class UserManager extends EntityManager<Users, String>{
 	 */
 	@Transactional(readOnly = true)
 	public boolean isLoginNameUnique(String loginName, String orgLoginName) {
-		return userDao.isPropertyUnique("loginName", loginName, orgLoginName);
+		return userDao.isLoginNameUnique(loginName, orgLoginName);
 	}
 
 	
@@ -124,7 +124,12 @@ public class UserManager extends EntityManager<Users, String>{
 		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
 			String id = (String) it.next();
 			Users user = userDao.get(id);
-			userDao.delete(user);
+			if(user != null) {
+				userDao.delete(user);
+			}else {
+				logger.warn("ID=[" + id + "]的用户不存在，无法删除");
+			}
+			
 		}
 		
 	}

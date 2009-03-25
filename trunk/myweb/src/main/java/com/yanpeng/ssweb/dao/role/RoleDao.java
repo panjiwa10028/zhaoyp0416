@@ -1,7 +1,10 @@
 package com.yanpeng.ssweb.dao.role;
 
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.yanpeng.core.orm.hibernate.HibernateDao;
@@ -18,5 +21,11 @@ import com.yanpeng.ssweb.entity.Roles;
 @Repository
 public class RoleDao extends HibernateDao<Roles, String> {
 
+	public List<Roles> findByIds(Collection<String> ids) {
+		return findByCriteria(Restrictions.in("id", ids));
+	}
 	
+	public boolean isNameUnique(String newValue, String orgValue) {
+		return isPropertyUnique("name", newValue, orgValue);
+	}
 }

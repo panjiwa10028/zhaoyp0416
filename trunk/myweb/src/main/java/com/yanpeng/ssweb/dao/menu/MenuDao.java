@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.orm.hibernate.HibernateDao;
 import com.yanpeng.ssweb.entity.Menus;
+import com.yanpeng.ssweb.entity.Permissions;
 import com.yanpeng.ssweb.entity.Roles;
 
 /**
@@ -55,7 +56,11 @@ public class MenuDao extends HibernateDao<Menus, String> {
 		return findByCriteria(Restrictions.not(Restrictions.in("parentId", new Object[]{"-1","0"})));
 	}
 	
-	public boolean isNameUnique(Object newValue, Object orgValue) {
+	public boolean isNameUnique(String newValue, String orgValue) {
 		return isPropertyUnique("name", newValue, orgValue);
+	}
+	
+	public List<Menus> findByIds(Collection<String> ids) {
+		return findByCriteria(Restrictions.in("id", ids));
 	}
 }

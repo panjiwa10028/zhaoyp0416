@@ -78,7 +78,12 @@ public class MenuManager extends EntityManager<Menus, String> {
 		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
 			String id = (String) it.next();
 			Menus menu = menuDao.get(id);
-			menuDao.delete(menu);
+			if(menu != null) {
+				menuDao.delete(menu);
+			}else {
+				logger.warn("ID=[" + id + "]的菜单不存在，无法删除");
+			}
+			
 		}
 		
 	}
