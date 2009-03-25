@@ -1,6 +1,5 @@
 package com.yanpeng.ssweb.web.admin.group;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,18 +10,11 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.Groups;
-import com.yanpeng.ssweb.entity.Menus;
-import com.yanpeng.ssweb.entity.Permissions;
-import com.yanpeng.ssweb.entity.Roles;
 import com.yanpeng.ssweb.exceptions.ServiceException;
 import com.yanpeng.ssweb.service.group.GroupManager;
-import com.yanpeng.ssweb.service.menu.MenuManager;
-import com.yanpeng.ssweb.service.permission.PermissionManager;
-import com.yanpeng.ssweb.service.role.RoleManager;
-import com.yanpeng.ssweb.web.BaseAction;
+import com.yanpeng.ssweb.web.CURDBaseAction;
 
 /**
  * 用户管理Action.
@@ -32,30 +24,16 @@ import com.yanpeng.ssweb.web.BaseAction;
  * @author calvin
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = BaseAction.RELOAD, location = "group.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
-public class GroupAction extends BaseAction<Groups> {
+@Results( { @Result(name = CURDBaseAction.RELOAD, location = "group.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
+public class GroupAction extends CURDBaseAction<Groups> {
 
 	// CRUD Action 基本属性
-
-	private Page<Groups> page = new Page<Groups>(5);//每页5条记录
-
-	private Groups entity;
-
-	private String id;
-	
-
 	
 	@Autowired
 	private GroupManager groupManager;
-	
-	
-	
 
 	// CRUD Action 属性访问函数
 
-	public Groups getModel() {
-		return entity;
-	}
 
 	@Override
 	protected void prepareModel() throws Exception {
@@ -81,10 +59,10 @@ public class GroupAction extends BaseAction<Groups> {
 		return INPUT;
 	}
 
-	@Override
+	
 	public String save() throws Exception {
 		//根据页面上的checkbox 整合entity的roles Set
-//		
+		System.out.println("------------------ save()");
 		if(entity != null && entity.getId().equals("")) {
 			entity.setId(null);
 		}
@@ -107,7 +85,7 @@ public class GroupAction extends BaseAction<Groups> {
 	public String delete() throws Exception {
 		try {
 			String []ids = id.split(",");
-			List list = Arrays.asList(ids);   
+			List<String> list = Arrays.asList(ids);   
 	
 			groupManager.deleteGroups(list);
 			addActionMessage("删除用户组成功");
@@ -139,13 +117,9 @@ public class GroupAction extends BaseAction<Groups> {
 	}	
 
 	
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 
-	public Page<Groups> getPage() {
-		return page;
-	}
+	
 
 	
 		

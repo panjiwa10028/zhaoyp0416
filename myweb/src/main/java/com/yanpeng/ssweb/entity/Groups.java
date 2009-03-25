@@ -2,14 +2,12 @@ package com.yanpeng.ssweb.entity;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -18,18 +16,28 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.yanpeng.core.utils.DateUtils;
+
 /**
  * Groups entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name = "groups", catalog = "myweb", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Groups extends BaseEntity implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7629883492648218578L;
 	// Fields
 	private Groups groups;
 	private String name;
 	private String description;
-	private Date updateDate;
+	
 	private Set<Users> userses = new LinkedHashSet<Users>(0);
 	private Set<Groups> groupses = new LinkedHashSet<Groups>(0);
 
@@ -72,16 +80,7 @@ public class Groups extends BaseEntity implements java.io.Serializable {
 		this.description = description;
 	}
 
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "update_date", length = 19)
-	public Date getUpdateDate() {
-		return this.updateDate;
-	}
-
-	public void setUpdateDate(Timestamp updateDate) {
-		this.updateDate = updateDate;
-	}
+	
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "groups")
 	public Set<Users> getUserses() {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.6.0_11" class="java.beans.XMLDecoder">
+	<object class="com.yanpeng.ssweb.entity.config.Config">
+		<!-- 每页显示数量 -->
+		<void property="pageSize">
+			<int>10</int>
+		</void>		
+ </object> 
+</java> 

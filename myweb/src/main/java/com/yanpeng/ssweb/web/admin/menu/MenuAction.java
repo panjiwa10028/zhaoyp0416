@@ -1,6 +1,5 @@
 package com.yanpeng.ssweb.web.admin.menu;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,16 +10,11 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.Menus;
-import com.yanpeng.ssweb.entity.Permissions;
-import com.yanpeng.ssweb.entity.Roles;
 import com.yanpeng.ssweb.exceptions.ServiceException;
 import com.yanpeng.ssweb.service.menu.MenuManager;
-import com.yanpeng.ssweb.service.permission.PermissionManager;
-import com.yanpeng.ssweb.service.role.RoleManager;
-import com.yanpeng.ssweb.web.BaseAction;
+import com.yanpeng.ssweb.web.CURDBaseAction;
 
 /**
  * 用户管理Action.
@@ -30,16 +24,10 @@ import com.yanpeng.ssweb.web.BaseAction;
  * @author calvin
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = BaseAction.RELOAD, location = "menu.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
-public class MenuAction extends BaseAction<Menus> {
+@Results( { @Result(name = CURDBaseAction.RELOAD, location = "menu.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
+public class MenuAction extends CURDBaseAction<Menus> {
 
 	// CRUD Action 基本属性
-
-	private Page<Menus> page = new Page<Menus>(5);//每页5条记录
-
-	private Menus entity;
-
-	private String id;
 	
 	private List<Menus> allMenus;
 	
@@ -53,10 +41,6 @@ public class MenuAction extends BaseAction<Menus> {
 	
 
 	// CRUD Action 属性访问函数
-
-	public Menus getModel() {
-		return entity;
-	}
 
 	@Override
 	protected void prepareModel() throws Exception {
@@ -108,7 +92,7 @@ public class MenuAction extends BaseAction<Menus> {
 	public String delete() throws Exception {
 		try {
 			String []ids = id.split(",");
-			List list = Arrays.asList(ids);   
+			List<String> list = Arrays.asList(ids);   
 	
 			menuManager.deleteMenus(list);
 			addActionMessage("删除菜单成功");
@@ -139,14 +123,6 @@ public class MenuAction extends BaseAction<Menus> {
 		return null;
 	}	
 
-	
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public Page<Menus> getPage() {
-		return page;
-	}
 
 	public List<Menus> getAllMenus() {
 		return allMenus;

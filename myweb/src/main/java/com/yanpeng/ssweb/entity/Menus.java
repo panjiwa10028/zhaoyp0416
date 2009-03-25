@@ -1,6 +1,5 @@
 package com.yanpeng.ssweb.entity;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -17,6 +16,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
  * Menus entity. @author MyEclipse Persistence Tools
  */
@@ -24,6 +26,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "menus", catalog = "myweb", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "name"),
 		@UniqueConstraint(columnNames = "display_name") })
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Menus extends BaseEntity implements java.io.Serializable {
 
 	// Fields
@@ -34,7 +37,6 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 	private String path;
 	private String sort;
 	private Integer disabled;
-	private Date updateDate;
 	private Set<Roles> roleses = new LinkedHashSet<Roles>(0);
 	private Set<Menus> menuses = new LinkedHashSet<Menus>(0);
 	
@@ -106,16 +108,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 		this.disabled = disabled;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "update_date", length = 19)
-	public Date getUpdateDate() {
-		return this.updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-
+	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "menuses")
 	public Set<Roles> getRoleses() {
 		return this.roleses;

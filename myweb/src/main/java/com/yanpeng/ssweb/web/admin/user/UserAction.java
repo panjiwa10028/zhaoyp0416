@@ -27,7 +27,7 @@ import com.yanpeng.ssweb.exceptions.ServiceException;
 import com.yanpeng.ssweb.service.group.GroupManager;
 import com.yanpeng.ssweb.service.role.RoleManager;
 import com.yanpeng.ssweb.service.user.UserManager;
-import com.yanpeng.ssweb.web.BaseAction;
+import com.yanpeng.ssweb.web.CURDBaseAction;
 
 /**
  * 用户管理Action.
@@ -37,16 +37,10 @@ import com.yanpeng.ssweb.web.BaseAction;
  * @author calvin
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = BaseAction.RELOAD, location = "user.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
-public class UserAction extends BaseAction<Users> {
+@Results( { @Result(name = CURDBaseAction.RELOAD, location = "user.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
+public class UserAction extends CURDBaseAction<Users> {
 
 	// CRUD Action 基本属性
-
-	private Page<Users> page = new Page<Users>(5);//每页5条记录
-
-	private Users entity;
-
-	private String id;
 
 	@Autowired
 	private UserManager userManager;
@@ -65,17 +59,13 @@ public class UserAction extends BaseAction<Users> {
 	
 	private List<Groups> allGroups;
 	
-	private List selectIds;
+	private List<String> selectIds;
 
 	private String groupId;
 	
 
 
 	// CRUD Action 属性访问函数
-
-	public Users getModel() {
-		return entity;
-	}
 
 	@Override
 	protected void prepareModel() throws Exception {
@@ -131,7 +121,7 @@ public class UserAction extends BaseAction<Users> {
 	public String delete() throws Exception {
 		try {
 			String []ids = id.split(",");
-			List list = Arrays.asList(ids);   
+			List<String> list = Arrays.asList(ids);   
 	
 			userManager.deleteUsers(list);
 			addActionMessage("删除用户成功");
@@ -162,15 +152,7 @@ public class UserAction extends BaseAction<Users> {
 		return null;
 	}	
 
-	
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public Page<Users> getPage() {
-		return page;
-	}
-	
+		
 	public List<Roles> getAllRoles() {
 		return allRoles;
 	}
@@ -187,11 +169,11 @@ public class UserAction extends BaseAction<Users> {
 		this.checkedRoleIds = checkedRoleIds;
 	}
 
-	public List getSelectIds() {
+	public List<String> getSelectIds() {
 		return selectIds;
 	}
 
-	public void setSelectIds(List selectIds) {
+	public void setSelectIds(List<String> selectIds) {
 		this.selectIds = selectIds;
 	}
 

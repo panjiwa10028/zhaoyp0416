@@ -45,7 +45,6 @@ public class Users extends BaseEntity implements java.io.Serializable {
 	private Short disabled = 0;
 	private Short expired = 0;
 	private Short locked = 0;
-	private Date updateDate;
 	private Set<Roles> roleses = new LinkedHashSet<Roles>(0);
 
 	// Constructors
@@ -118,16 +117,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 		this.locked = locked;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "update_date", length = 19)
-	public Date getUpdateDate() {
-		return this.updateDate;
-	}
-
-	public void setUpdateDate(Timestamp updateDate) {
-		this.updateDate = updateDate;
-	}
-
+	
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "users_roles", catalog = "myweb", joinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) })
 	public Set<Roles> getRoleses() {
