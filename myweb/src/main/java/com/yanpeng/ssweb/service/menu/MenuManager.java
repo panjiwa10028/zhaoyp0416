@@ -57,7 +57,7 @@ public class MenuManager extends EntityManager<Menus, String> {
 
 	@Transactional(readOnly = true)
 	public Page<Menus> getAllMenus(Page<Menus> page) {
-		return menuDao.getAll(page);
+		return menuDao.getAllByPage(page);
 	}
 
 	public void saveMenu(Menus menu) {

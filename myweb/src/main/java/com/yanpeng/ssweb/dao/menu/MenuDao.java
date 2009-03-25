@@ -63,4 +63,8 @@ public class MenuDao extends HibernateDao<Menus, String> {
 	public List<Menus> findByIds(Collection<String> ids) {
 		return findByCriteria(Restrictions.in("id", ids));
 	}
+	
+	public Page<Menus> getAllByPage(Page<Menus> page) {
+		return findByCriteria(page, Restrictions.not(Restrictions.eq("id", "0")));
+	}
 }
