@@ -232,6 +232,10 @@
 		 	}
 			
 		}
+
+		function logout() {alert();
+			document.href = "logout.action";
+		}
 		</script>
 	</head>
 	<input id="leftMenuValue" name="leftMenuValue" type="hidden" value='<c:out value="${leftMenuValue}" escapeXml="true"/>'/>
@@ -267,7 +271,7 @@
 														<td height="62" align="right" style="PADDING-RIGHT:20px;padding-top:6px" valign=top>
 															<A onclick="CallFunc('CBANK_SHELL','Login/HomePage.aspx','FORM',null);" href="#null">
 																首页</A>&nbsp;|&nbsp;<A onclick="CallFunc('CBANK_SHELL','Service/WebSiteMap.aspx','FORM',null);" href="#null">功能地图</A>&nbsp;|&nbsp;<A onclick="CallFunc('CBANK_SHELL','Login/HP_QueryLog.aspx','FORM',null);" href="#null">日志查询</A>
-															|&nbsp;<A onclick="doRelogin();" href="#null">重登录</A>&nbsp;|&nbsp;<A onclick="doExit();" href="#null">退出</A>&nbsp;
+															|&nbsp;<A href="${base}/admin/logout.action">重登录</A>&nbsp;|&nbsp;<A  href="${base}/admin/logout.action">退出</A>&nbsp;
 														</td>
 													</tr>
 												</table>
