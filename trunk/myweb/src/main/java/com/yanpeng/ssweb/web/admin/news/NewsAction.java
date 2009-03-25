@@ -23,11 +23,11 @@ import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.service.news.NewsManager;
 import com.yanpeng.ssweb.util.CommUtil;
 import com.yanpeng.ssweb.util.HtmlGenerator;
-import com.yanpeng.ssweb.web.BaseAction;
+import com.yanpeng.ssweb.web.CURDBaseAction;
 
 @SuppressWarnings("serial")
-@Results( { @Result(name = BaseAction.RELOAD, location = "news.action?page.pageParam=${page.pageParam}", type = "redirect") })
-public class NewsAction extends BaseAction<News> {
+@Results( { @Result(name = CURDBaseAction.RELOAD, location = "news.action?page.pageParam=${page.pageParam}", type = "redirect") })
+public class NewsAction extends CURDBaseAction<News> {
 
 	@Autowired
 	private NewsManager newsManager;
@@ -78,7 +78,7 @@ public class NewsAction extends BaseAction<News> {
 				entity.setId(null);
 			}
 			
-			
+			entity.setUserId(getLoginUser().getId());
 			HtmlGenerator htmlGenerator = new HtmlGenerator();
 //			取服务器路径
 			String path = Struts2Utils.getRequest().getRealPath("");

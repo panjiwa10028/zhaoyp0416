@@ -20,11 +20,17 @@
 	<package name="crud-default" extends="convention-default">
 		<!-- 基于paramsPrepareParamsStack,增加store interceptor -->
 		<interceptors>
+		<!-- 初始化接口 -->
+			<interceptor name="sswebinit"
+				class="com.yanpeng.ssweb.interceptor.SSWebInterceptor" />
+				
 			<interceptor-stack name="crudStack">
+				<interceptor-ref name="fileUploadStack" />
 				<interceptor-ref name="store">
 					<param name="operationMode">AUTOMATIC</param>
 				</interceptor-ref>
 				<interceptor-ref name="paramsPrepareParamsStack" />
+				<interceptor-ref name="sswebinit" />
 			</interceptor-stack>
 		</interceptors>
 
@@ -35,27 +41,7 @@
 				<result name="error">/error.jsp</result>
 		</global-results>
 	</package>
-<package name="fileUpload" extends="struts-default">
-	
-		<interceptors>
-				<interceptor-stack name="crudStack">
-		                <interceptor-ref name="paramsPrepareParamsStack"/>
-						<interceptor-ref name="store">
-								<param name="operationMode">AUTOMATIC</param>
-						</interceptor-ref>
-						<interceptor-ref name="fileUploadStack"/>
-						<interceptor-ref name="exception"/>
-						<interceptor-ref name="conversionError"/>
-				</interceptor-stack>
-		</interceptors>
-		
-		<default-interceptor-ref name="crudStack"/>
-		
-		<global-results>
-				<result name="error">/error.jsp</result>
-		</global-results>
-		
-	</package>
+
 	<!-- 
 		使用ZeroConfig + CodeBehind插件,实现约定大于配置的零配置文件风格.
 	           特殊的Result路径在Action类中使用@Result设定. 

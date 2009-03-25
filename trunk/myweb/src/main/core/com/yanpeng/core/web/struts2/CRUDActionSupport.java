@@ -67,6 +67,7 @@ public abstract class CRUDActionSupport<T> extends ActionSupport implements Mode
 	 */
 	public void prepareSave() throws Exception {
 		prepareModel();
+		prepareModelAfter();
 	}
 
 	/**
@@ -80,4 +81,10 @@ public abstract class CRUDActionSupport<T> extends ActionSupport implements Mode
 	 * 等同于prepare()的内部函数,供prepardMethodName()函数调用. 
 	 */
 	protected abstract void prepareModel() throws Exception;
+	
+	/**
+	 * 调用prepareModel()之后执行
+	 * @throws Exception
+	 */
+	protected abstract void prepareModelAfter() throws Exception;
 }

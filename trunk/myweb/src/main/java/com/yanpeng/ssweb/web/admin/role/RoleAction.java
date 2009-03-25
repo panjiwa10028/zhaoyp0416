@@ -21,7 +21,7 @@ import com.yanpeng.ssweb.service.menu.MenuManager;
 import com.yanpeng.ssweb.service.permission.PermissionManager;
 import com.yanpeng.ssweb.service.role.RoleManager;
 import com.yanpeng.ssweb.service.user.UserManager;
-import com.yanpeng.ssweb.web.BaseAction;
+import com.yanpeng.ssweb.web.CURDBaseAction;
 
 /**
  * 用户管理Action.
@@ -31,18 +31,11 @@ import com.yanpeng.ssweb.web.BaseAction;
  * @author calvin
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = BaseAction.RELOAD, location = "role.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
-public class RoleAction extends BaseAction<Roles> {
+@Results( { @Result(name = CURDBaseAction.RELOAD, location = "role.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
+public class RoleAction extends CURDBaseAction<Roles> {
 
 	// CRUD Action 基本属性
 
-	private Page<Roles> page = new Page<Roles>(5);//每页5条记录
-
-	private Roles entity;
-
-	private String id;
-
-	
 	@Autowired
 	private RoleManager roleManager;
 	
@@ -64,10 +57,6 @@ public class RoleAction extends BaseAction<Roles> {
 	
 
 	// CRUD Action 属性访问函数
-
-	public Roles getModel() {
-		return entity;
-	}
 
 	@Override
 	protected void prepareModel() throws Exception {
@@ -121,7 +110,7 @@ public class RoleAction extends BaseAction<Roles> {
 	public String delete() throws Exception {
 		try {
 			String []ids = id.split(",");
-			List list = Arrays.asList(ids);   
+			List<String> list = Arrays.asList(ids);   
 	
 			roleManager.deleteRoles(list);
 			addActionMessage("删除用户成功");
@@ -151,15 +140,6 @@ public class RoleAction extends BaseAction<Roles> {
 		//因为直接输出而不经过Jsp,因此返回null.
 		return null;
 	}	
-
-	
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public Page<Roles> getPage() {
-		return page;
-	}
 
 	public List<Permissions> getAllPermissions() {
 		return allPermissions;

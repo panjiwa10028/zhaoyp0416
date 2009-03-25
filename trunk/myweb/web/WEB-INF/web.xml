@@ -97,6 +97,11 @@
   		<listener-class>org.springframework.security.ui.session.HttpSessionEventPublisher</listener-class>
 	</listener>
 	
+	<!-- 系统初始化配置文件 -->
+	<listener>
+  		<listener-class>com.yanpeng.ssweb.SystemInitListener</listener-class>
+	</listener>
+	
 
 	<!-- session超时定义,单位为分钟 -->
 	<session-config>

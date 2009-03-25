@@ -38,7 +38,6 @@ public class Roles extends BaseEntity implements java.io.Serializable {
 
 	private String name;
 	private String description;
-	private Date updateDate;
 	private Set<Permissions> permissionses = new LinkedHashSet<Permissions>(0);
 	private Set<Users> userses = new LinkedHashSet<Users>(0);
 	private Set<Menus> menuses = new LinkedHashSet<Menus>(0);
@@ -69,16 +68,6 @@ public class Roles extends BaseEntity implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "update_date", length = 19)
-	public Date getUpdateDate() {
-		return this.updateDate;
-	}
-
-	public void setUpdateDate(Timestamp updateDate) {
-		this.updateDate = updateDate;
 	}
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })

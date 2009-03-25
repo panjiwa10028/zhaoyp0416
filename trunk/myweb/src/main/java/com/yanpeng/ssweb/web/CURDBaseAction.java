@@ -6,7 +6,6 @@ import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.userdetails.UserDetails;
 
-import com.opensymphony.xwork2.ActionSupport;
 import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.utils.DateUtils;
 import com.yanpeng.core.web.struts2.CRUDActionSupport;
@@ -24,14 +23,20 @@ import com.yanpeng.ssweb.service.user.UserManager;
  *
  */
 
-public class BaseAction<T extends BaseEntity> extends ActionSupport implements ConfigAware{
+public abstract class CURDBaseAction<T extends BaseEntity> extends CRUDActionSupport<T> implements ConfigAware{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7357066429616621054L;
 
+	protected T entity;
+	
+	protected String id;
+	
 	protected Config config;
+	
+	protected Page<T> page = new Page<T>();
 	
 	@Autowired
 	private UserManager userManager;
@@ -60,8 +65,36 @@ public class BaseAction<T extends BaseEntity> extends ActionSupport implements C
 	
 
 	@Override
+	public T getModel() {
+		return entity;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public Page<T> getPage() {
+		return page;
+	}
+
+
+	@Override
+	protected void prepareModelAfter() {
+		
+		entity.setUpdateTime(DateUtils.getCurrentDateTime());
+		try {
+			entity.setUserId(getLoginUser().getId());
+		}catch(Exception exx) {
+			logger.error("获得当前登录用户失败");
+		}
+		
+	}
+
+
+	@Override
 	public void setConfig(Config config) {
-		this.config = config;		
+		this.config = config;
+		page.setPageSize(config.getPageSize());
 	}
 
 }

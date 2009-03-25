@@ -1,6 +1,5 @@
 package com.yanpeng.ssweb.web.admin.permission;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,15 +10,11 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.Permissions;
-import com.yanpeng.ssweb.entity.Roles;
 import com.yanpeng.ssweb.exceptions.ServiceException;
 import com.yanpeng.ssweb.service.permission.PermissionManager;
-import com.yanpeng.ssweb.service.role.RoleManager;
-import com.yanpeng.ssweb.service.user.UserManager;
-import com.yanpeng.ssweb.web.BaseAction;
+import com.yanpeng.ssweb.web.CURDBaseAction;
 
 /**
  * 用户管理Action.
@@ -29,27 +24,16 @@ import com.yanpeng.ssweb.web.BaseAction;
  * @author calvin
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = BaseAction.RELOAD, location = "permission.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
-public class PermissionAction extends BaseAction<Permissions> {
+@Results( { @Result(name = CURDBaseAction.RELOAD, location = "permission.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
+public class PermissionAction extends CURDBaseAction<Permissions> {
 
 	// CRUD Action 基本属性
-
-	private Page<Permissions> page = new Page<Permissions>(5);//每页5条记录
-
-	private Permissions entity;
-
-	private String id;
-
 		
 	@Autowired
 	private PermissionManager permissionManager;
 
 
 	// CRUD Action 属性访问函数
-
-	public Permissions getModel() {
-		return entity;
-	}
 
 	@Override
 	protected void prepareModel() throws Exception {
@@ -133,15 +117,6 @@ public class PermissionAction extends BaseAction<Permissions> {
 		//因为直接输出而不经过Jsp,因此返回null.
 		return null;
 	}	
-
-	
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public Page<Permissions> getPage() {
-		return page;
-	}
 
 	
 }

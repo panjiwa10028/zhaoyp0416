@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2009-3-22 17:06:00                           */
+/* Created on:     2009-3-25 11:42:02                           */
 /*==============================================================*/
 
 
@@ -69,7 +69,8 @@ create table groups
    name                 varchar(100)  not null,
    description          text,
    parent_id            varchar(36),
-   update_date          datetime,
+   update_time          datetime,
+   user_id              varchar(36),
    primary key (id),
    unique key AK_Key_t_groups_2 (name)
 )
@@ -103,7 +104,8 @@ create table menus
    path                 varchar(500),
    sort                 varchar(100),
    disabled             int default 0,
-   update_date          datetime,
+   update_time          datetime,
+   user_id              varchar(36),
    primary key (id)
 )
 type = InnoDB;
@@ -160,8 +162,10 @@ create table news
    picture              varchar(255),
    date                 datetime,
    user_id              varchar(36),
+   update_time          datetime,
    primary key (id)
-);
+)
+type = InnoDB;
 
 /*==============================================================*/
 /* Table: permissions                                           */
@@ -172,6 +176,8 @@ create table permissions
    name                 varchar(100) not null,
    display_name         varchar(100) not null,
    path                 varchar(255),
+   update_time          datetime,
+   user_id              varchar(36),
    primary key (id)
 )
 type = InnoDB;
@@ -200,7 +206,8 @@ create table roles
    id                   varchar(36) not null,
    name                 varchar(50) not null,
    description          text,
-   update_date          datetime,
+   update_time          datetime,
+   user_id              varchar(36),
    primary key (id)
 )
 type = InnoDB;
@@ -280,7 +287,8 @@ create table users
    disabled             smallint not null default 0,
    expired              smallint not null default 0,
    locked               smallint not null default 0,
-   update_date          datetime,
+   update_time          datetime,
+   user_id              varchar(36),
    primary key (id)
 )
 type = InnoDB;

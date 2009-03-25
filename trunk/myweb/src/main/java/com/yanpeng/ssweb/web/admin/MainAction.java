@@ -18,6 +18,7 @@ import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.service.menu.MenuManager;
 import com.yanpeng.ssweb.service.user.UserManager;
 import com.yanpeng.ssweb.web.BaseAction;
+import com.yanpeng.ssweb.web.CURDBaseAction;
 
 /**
  * 用户管理Action.
@@ -71,7 +72,7 @@ public class MainAction extends BaseAction<Users> {
 
 	
 
-	private String listToLeftMenu(List menuList) {
+	private String listToLeftMenu(List<Menus> menuList) {
 
 		Element root = new Element("DIV");
 		Document doc = new Document(root);
