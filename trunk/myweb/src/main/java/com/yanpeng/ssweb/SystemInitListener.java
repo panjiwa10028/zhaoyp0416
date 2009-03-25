@@ -13,7 +13,7 @@ import com.yanpeng.ssweb.entity.config.Config;
 
 
 /**
- * 加载全局配置文件并保存到Context范围内
+ * 启动加载全局配置文件并保存到Context范围内
  * 
  * @author Allen
  *

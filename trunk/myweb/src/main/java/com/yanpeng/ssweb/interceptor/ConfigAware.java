@@ -4,9 +4,8 @@ import com.yanpeng.ssweb.entity.config.Config;
 
 
 /**
- * Action如果想获得配置信息则实现本类
  * 
- * @author 黄磊
+ * @author Allen
  *
  */
 public interface ConfigAware {

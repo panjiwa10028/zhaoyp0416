@@ -11,11 +11,9 @@ import com.yanpeng.ssweb.config.ConfigLoader;
 import com.yanpeng.ssweb.entity.config.Config;
 
 /**
- * 初始化接口拦截器<br>
+ * Action拦截器
  * 
- * 用于初始化Action实现的自定义接口
- * 
- * @author 黄磊
+ * @author Allen
  *
  */
 public class SSWebInterceptor extends AbstractInterceptor implements StrutsStatics {

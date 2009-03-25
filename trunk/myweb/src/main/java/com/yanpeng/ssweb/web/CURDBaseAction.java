@@ -11,7 +11,6 @@ import com.yanpeng.core.utils.DateUtils;
 import com.yanpeng.core.web.struts2.CRUDActionSupport;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.BaseEntity;
-import com.yanpeng.ssweb.entity.Groups;
 import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.entity.config.Config;
 import com.yanpeng.ssweb.interceptor.ConfigAware;
@@ -19,6 +18,7 @@ import com.yanpeng.ssweb.service.user.UserManager;
 
 /**
  *
+ * CURD操作的基类Action
  * @author Allen
  *
  */

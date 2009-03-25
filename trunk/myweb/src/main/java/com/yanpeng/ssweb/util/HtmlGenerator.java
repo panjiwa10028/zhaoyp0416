@@ -18,7 +18,8 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 /**
- *
+ * html生成
+ * 
  * @author Allen
  *
  */

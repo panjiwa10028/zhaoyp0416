@@ -5,11 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.aspectj.util.FileUtil;
@@ -19,12 +17,17 @@ import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.utils.DateUtils;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.News;
-import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.service.news.NewsManager;
-import com.yanpeng.ssweb.util.CommUtil;
 import com.yanpeng.ssweb.util.HtmlGenerator;
 import com.yanpeng.ssweb.web.CURDBaseAction;
 
+/**
+ * 新闻管理Action.
+ * 
+ * 使用Struts2 convention-plugin annotation定义Action参数.
+ * 
+ * @author Allen
+ */
 @SuppressWarnings("serial")
 @Results( { @Result(name = CURDBaseAction.RELOAD, location = "news.action?page.pageParam=${page.pageParam}", type = "redirect") })
 public class NewsAction extends CURDBaseAction<News> {
@@ -66,9 +69,8 @@ public class NewsAction extends CURDBaseAction<News> {
 		}catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			addActionError("删除失败!");
-		}finally{
-			return RELOAD;
 		}
+		return RELOAD;
 	}
 
 	@Override
@@ -112,7 +114,7 @@ public class NewsAction extends CURDBaseAction<News> {
 			htmlGenerator.setTemplateFile("view.ftl");
 			htmlGenerator.setPreviewHtmlFileDir("html\\news\\" + dateString);
 			htmlGenerator.setRootDir(path);
-			Map map = new HashMap();
+			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("news", entity);
 			String returnValue = htmlGenerator.preview(map, rnadomString + ".html");
 			if(returnValue == null) {

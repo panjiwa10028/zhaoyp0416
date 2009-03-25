@@ -1,7 +1,5 @@
 package com.yanpeng.ssweb.entity;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -12,14 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.yanpeng.core.utils.DateUtils;
 
 /**
  * Groups entity. @author MyEclipse Persistence Tools

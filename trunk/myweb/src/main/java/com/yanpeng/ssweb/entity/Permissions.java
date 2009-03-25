@@ -1,13 +1,11 @@
 package com.yanpeng.ssweb.entity;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -25,6 +23,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)		
 public class Permissions extends BaseEntity implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6596873908207663947L;
 	// Fields
 	private String name;
 	private String displayName;

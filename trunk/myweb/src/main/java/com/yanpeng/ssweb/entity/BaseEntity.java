@@ -20,9 +20,9 @@ import com.yanpeng.core.utils.DateUtils;
 
 
 /**
- * 统一定义id的entity基类.
+ * entity基类.
  * 
- * @author caoyang
+ * @author Allen
  */
 @SuppressWarnings("unused")
 @MappedSuperclass

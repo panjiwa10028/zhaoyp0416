@@ -1,7 +1,7 @@
 package com.yanpeng.ssweb.exceptions;
 
 /**
- * 系统级异常
+ * web层异常
  * 
  * @author Allen
  * 

@@ -1,13 +1,9 @@
 package com.yanpeng.ssweb.entity;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,6 +16,10 @@ import javax.persistence.TemporalType;
 @Table(name = "news", catalog = "myweb")
 public class News extends BaseEntity implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8608865478448002981L;
 	// Fields
 
 	private String title;

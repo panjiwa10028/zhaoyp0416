@@ -17,11 +17,11 @@ import com.yanpeng.ssweb.service.permission.PermissionManager;
 import com.yanpeng.ssweb.web.CURDBaseAction;
 
 /**
- * 用户管理Action.
+ * 权限管理Action.
  * 
  * 使用Struts2 convention-plugin annotation定义Action参数.
  * 
- * @author calvin
+ * @author Allen
  */
 @SuppressWarnings("serial")
 @Results( { @Result(name = CURDBaseAction.RELOAD, location = "permission.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
