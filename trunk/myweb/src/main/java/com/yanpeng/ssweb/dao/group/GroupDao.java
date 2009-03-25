@@ -26,7 +26,7 @@ public class GroupDao extends HibernateDao<Groups, String> {
 		return this.findByCriteria(Restrictions.not(Restrictions.eq("id", "0")));
 	}
 	
-	public Page<Groups> getAll(Page<Groups> page) {
+	public Page<Groups> getAllByPage(Page<Groups> page) {
 		return this.findByCriteria(page, Restrictions.not(Restrictions.eq("id", "0")));
 	}
 	

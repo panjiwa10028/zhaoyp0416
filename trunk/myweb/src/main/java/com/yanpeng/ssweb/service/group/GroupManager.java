@@ -58,7 +58,7 @@ public class GroupManager extends EntityManager<Groups, String> {
 	
 	@Transactional(readOnly=true)
 	public Page<Groups> getAllGroup(Page<Groups> page){		
-		return groupDao.getAll(page);
+		return groupDao.getAllByPage(page);
 	}
 	
 	@Transactional(readOnly=true)
