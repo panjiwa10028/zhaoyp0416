@@ -60,7 +60,7 @@ public class NewsAction extends BaseAction<News> {
 				entity =newsManager.getNewsById(id);
 				String fileName=Struts2Utils.getRequest().getRealPath("")+ "\\upload\\" + entity.getPicture();
 				FileUtil.deleteContents(new File(fileName));
-				newsManager.removeNews(entity);
+				newsManager.deleteNews(entity);
 				addActionMessage("删除成功!");
 			
 		}catch (Exception e) {

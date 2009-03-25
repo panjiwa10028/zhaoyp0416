@@ -69,8 +69,8 @@ public class RoleManager extends EntityManager<Roles, String> {
 	
 	
 	@Transactional(readOnly = true)
-	public List<Roles> findRolesByIds(Collection<Serializable> ids) {
-		return roleDao.findByCriteria(Restrictions.in("id", ids));
+	public List<Roles> findRolesByIds(Collection<String> ids) {
+		return roleDao.findByIds(ids);
 	}
 
 	@Transactional(readOnly = true)
@@ -90,11 +90,11 @@ public class RoleManager extends EntityManager<Roles, String> {
 
 	public void saveRole(Roles role, Collection<String> ids, Collection<String> menuIds) {
 		if(ids != null ) {
-			List<Permissions> list = permissionDao.findByCriteria(Restrictions.in("id", ids));
+			List<Permissions> list = permissionDao.findByIds(ids);
 			Set<Permissions> set = new LinkedHashSet<Permissions>(list); 
 			role.setPermissionses(set);
 			
-			List<Menus> menuList = menuDao.findByCriteria(Restrictions.in("id", menuIds));
+			List<Menus> menuList = menuDao.findByIds(menuIds);
 			Set<Menus> menuSet = new LinkedHashSet<Menus>(); 
 			menuSet.addAll(menuList);
 			for(Menus menu:menuList) {
@@ -110,23 +110,28 @@ public class RoleManager extends EntityManager<Roles, String> {
 		roleDao.save(role);
 	}
 	
-	public void deleteRoles(Collection ids) {
+	public void deleteRoles(Collection<String> ids) {
 		//为演示异常处理及用户行为日志而故意抛出的异常.
 		if (ids.contains("1")) {
-			logger.warn("操作员{}尝试删除超级管理员用户", SpringSecurityUtils.getCurrentUserName());
-			throw new ServiceException("不能删除超级管理员用户");
+			logger.warn("不能删除系统角色", SpringSecurityUtils.getCurrentUserName());
+			throw new ServiceException("不能删除系统角色");
 		}
 		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
 			String id = (String) it.next();
 			Roles role = roleDao.get(id);
-			roleDao.delete(role);
+			if(role != null) {
+				roleDao.delete(role);
+			}else {
+				logger.warn("ID=[" + id + "]的角色不存在，无法删除");
+			}
+			
 		}
 		
 	}
 	
 	@Transactional(readOnly = true)
 	public boolean isNameUnique(String name, String orgName) {
-		return roleDao.isPropertyUnique("name", name, orgName);
+		return roleDao.isNameUnique(name, orgName);
 	}
 	
 }

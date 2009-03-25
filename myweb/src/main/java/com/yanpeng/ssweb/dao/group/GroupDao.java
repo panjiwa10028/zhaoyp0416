@@ -30,7 +30,7 @@ public class GroupDao extends HibernateDao<Groups, String> {
 		return this.findByCriteria(page, Restrictions.not(Restrictions.eq("id", "0")));
 	}
 	
-	public boolean isNameUnique(Object newValue, Object orgValue) {
+	public boolean isNameUnique(String newValue, String orgValue) {
 		return this.isPropertyUnique("name", newValue, orgValue);
 	}
 	

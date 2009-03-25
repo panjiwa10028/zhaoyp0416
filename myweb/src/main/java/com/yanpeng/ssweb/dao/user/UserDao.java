@@ -21,8 +21,13 @@ public class UserDao extends HibernateDao<Users, String> {
 	// 统一定义所有用户的HQL.
 	private static final String QUERY_BY_ROLE_HQL = "select user from User user join user.roles as role where role.name=?";
 
-	public Users loadByLoginName(String userName) {
-		return findUniqueByProperty("loginName", userName);
+	
+	public Users getByLoginName(String loginName) {
+		return findUniqueByProperty("loginName", loginName);
+	}
+	
+	public boolean isLoginNameUnique(String newValue, String orgValue) {
+		return isPropertyUnique("loginName", newValue, orgValue);
 	}
 
 	/**
