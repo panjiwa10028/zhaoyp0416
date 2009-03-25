@@ -17,11 +17,11 @@ import com.yanpeng.ssweb.service.menu.MenuManager;
 import com.yanpeng.ssweb.web.CURDBaseAction;
 
 /**
- * 用户管理Action.
+ * 菜单管理Action.
  * 
  * 使用Struts2 convention-plugin annotation定义Action参数.
  * 
- * @author calvin
+ * @author Allen
  */
 @SuppressWarnings("serial")
 @Results( { @Result(name = CURDBaseAction.RELOAD, location = "menu.action?page.pageRequest=${page.pageRequest}", type = "redirect") })

@@ -8,11 +8,8 @@ import com.yanpeng.core.orm.hibernate.HibernateDao;
 import com.yanpeng.ssweb.entity.Users;
 
 /**
- * 继承于HibernateDao的范型DAO子类.
- * 
- * 用于集中定义HQL,封装DAO细节,在Service间解耦并共享DAO操作.
- * 
- * @author calvin
+ * 用户DAO
+ * @author Allen
  */
 //Spring DAO Bean的标识
 @Repository

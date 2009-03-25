@@ -1,6 +1,5 @@
 package com.yanpeng.ssweb.entity;
 
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -12,8 +11,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
@@ -31,6 +28,10 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 982653934337815041L;
 	private Menus menus;
 	private String name;
 	private String displayName;

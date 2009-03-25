@@ -21,7 +21,7 @@ import com.yanpeng.ssweb.service.user.UserManager;
 /**
  * 实现SpringSecurity的UserDetailsService接口,获取用户Detail信息.
  * 
- * @author caoyang
+ * @author Allen
  */
 public class UserDetailServiceImpl implements UserDetailsService {
 

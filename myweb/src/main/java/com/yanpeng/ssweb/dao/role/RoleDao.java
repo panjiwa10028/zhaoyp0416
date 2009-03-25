@@ -1,6 +1,5 @@
 package com.yanpeng.ssweb.dao.role;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -11,9 +10,7 @@ import com.yanpeng.core.orm.hibernate.HibernateDao;
 import com.yanpeng.ssweb.entity.Roles;
 
 /**
- * 继承于HibernateDao的范型DAO子类.
- * 
- * 用于集中定义HQL,封装DAO细节,在Service间解耦并共享DAO操作.
+ * 角色DAO
  * 
  * @author calvin
  */

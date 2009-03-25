@@ -16,7 +16,11 @@ import org.springframework.security.util.UrlMatcher;
 
 import com.yanpeng.ssweb.entity.Permissions;
 
-
+/**
+ * spring security数据库验证的filter
+ * 
+ * @author Allen
+ */
 
 @SuppressWarnings("unchecked")
 public class DbFilterInvocationDefinitionSource implements FilterInvocationDefinitionSource, InitializingBean  {

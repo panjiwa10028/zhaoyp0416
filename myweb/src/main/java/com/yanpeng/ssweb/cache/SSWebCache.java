@@ -11,9 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * LForum缓存管理
+ * 缓存管理
  * 
- * @author 黄磊
+ * @author Allen
  *
  */
 public class SSWebCache {

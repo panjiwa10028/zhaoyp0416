@@ -1,9 +1,6 @@
 package com.yanpeng.ssweb.web.admin.user;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,13 +9,7 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.security.Authentication;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;
 
-import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.Groups;
 import com.yanpeng.ssweb.entity.Roles;
@@ -34,7 +25,7 @@ import com.yanpeng.ssweb.web.CURDBaseAction;
  * 
  * 使用Struts2 convention-plugin annotation定义Action参数.
  * 
- * @author calvin
+ * @author Allen
  */
 @SuppressWarnings("serial")
 @Results( { @Result(name = CURDBaseAction.RELOAD, location = "user.action?page.pageRequest=${page.pageRequest}", type = "redirect") })

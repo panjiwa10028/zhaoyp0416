@@ -1,7 +1,8 @@
 package com.yanpeng.ssweb.entity.config;
 
 /**
- *
+ * 配置文件Bean
+ * 
  * @author Allen
  *
  */

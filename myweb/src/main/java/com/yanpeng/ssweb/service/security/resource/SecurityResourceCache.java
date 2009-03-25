@@ -15,6 +15,11 @@ import org.springframework.security.GrantedAuthorityImpl;
 
 import com.yanpeng.ssweb.entity.Permissions;
 
+/**
+ * security的cache
+ * 
+ * @author Allen
+ */
 
 public class SecurityResourceCache {
 	

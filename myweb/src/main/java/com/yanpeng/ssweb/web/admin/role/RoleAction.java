@@ -1,6 +1,5 @@
 package com.yanpeng.ssweb.web.admin.role;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.Menus;
 import com.yanpeng.ssweb.entity.Permissions;
@@ -20,15 +18,14 @@ import com.yanpeng.ssweb.exceptions.ServiceException;
 import com.yanpeng.ssweb.service.menu.MenuManager;
 import com.yanpeng.ssweb.service.permission.PermissionManager;
 import com.yanpeng.ssweb.service.role.RoleManager;
-import com.yanpeng.ssweb.service.user.UserManager;
 import com.yanpeng.ssweb.web.CURDBaseAction;
 
 /**
- * 用户管理Action.
+ * 角色管理Action.
  * 
  * 使用Struts2 convention-plugin annotation定义Action参数.
  * 
- * @author calvin
+ * @author Allen
  */
 @SuppressWarnings("serial")
 @Results( { @Result(name = CURDBaseAction.RELOAD, location = "role.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
