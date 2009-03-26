@@ -7,7 +7,7 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 /**
  * 在Spring ApplicationContext中初始化Slf4对Java.util.logging的拦截.
  * 
- * @author calvin
+ * @author Allen
  */
 public class JulOverSlf4jProcessor {
 

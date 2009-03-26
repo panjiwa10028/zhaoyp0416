@@ -6,7 +6,7 @@ import org.springframework.test.context.junit38.AbstractJUnit38SpringContextTest
 /**
  * 支持Spring依赖注入的JUnit 3.8 TestCase基类的便捷简写.
  * 
- * @author calvin
+ * @author Allen
  */
 //默认载入applicationContext.xml,子类中的@ContextConfiguration定义将合并父类的定义.
 @ContextConfiguration(locations = { "/applicationContext.xml" })

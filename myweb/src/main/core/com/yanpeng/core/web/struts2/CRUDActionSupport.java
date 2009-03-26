@@ -14,7 +14,7 @@ import com.opensymphony.xwork2.Preparable;
  *
  * @param <T> CRUD所管理的对象类型.
  * 
- * @author calvin
+ * @author Allen
  */
 @SuppressWarnings("serial")
 public abstract class CRUDActionSupport<T> extends ActionSupport implements ModelDriven<T>, Preparable {

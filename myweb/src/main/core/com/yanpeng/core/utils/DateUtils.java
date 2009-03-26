@@ -11,11 +11,9 @@ import org.springframework.util.Assert;
 
 /**
  * 
- * <b>业务说明</b>:<br>
  * 日期工具类
- *<br><b>作  者</b>: Cao.Yang<br>
- * <b>建立日期</b>: May 14, 2008<br>
- * <b>建立时间</b>: 2:49:51 PM<br>
+ *
+ * @author Allen
  */
 public abstract class DateUtils extends org.apache.commons.lang.time.DateUtils {
     

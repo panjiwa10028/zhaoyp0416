@@ -3,6 +3,11 @@ package com.yanpeng.core.utils;
 import org.springframework.security.providers.encoding.Md5PasswordEncoder;
 
 
+/**
+ * md5加密
+ * 
+ * @author Allen
+ */
 public abstract class BaseCodeUtils {
 	
 	public static Md5PasswordEncoder md5coder=null;
