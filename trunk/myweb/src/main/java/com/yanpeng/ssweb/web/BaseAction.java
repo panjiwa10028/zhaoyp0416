@@ -21,7 +21,7 @@ import com.yanpeng.ssweb.service.user.UserManager;
  *
  */
 
-public class BaseAction<T extends BaseEntity> extends ActionSupport implements ConfigAware{
+public class BaseAction extends ActionSupport implements ConfigAware{
 
 	/**
 	 * 
