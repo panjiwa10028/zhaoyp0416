@@ -6,7 +6,7 @@ import org.springframework.security.context.SecurityContextHolder;
 /**
  * Spring Security的工具类.
  * 
- * @author calvin
+ * @author Allen
  */
 public class SpringSecurityUtils {
 

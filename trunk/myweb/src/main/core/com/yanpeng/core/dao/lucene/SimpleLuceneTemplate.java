@@ -17,6 +17,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
+/**
+ * lucene
+ * 
+ * @author Allen
+ *
+ */
 @SuppressWarnings("unchecked")
 public class SimpleLuceneTemplate<T, PK extends Serializable>{
 

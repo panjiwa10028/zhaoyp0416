@@ -19,7 +19,7 @@ import com.yanpeng.core.orm.PropertyFilter.MatchType;
 /**
  * Hibernate针对Web应用的Utils函数集合.
  * 
- * @author calvin
+ * @author Allen
  */
 public class HibernateWebUtils {
 

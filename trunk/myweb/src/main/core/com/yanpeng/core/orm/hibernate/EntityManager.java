@@ -19,7 +19,7 @@ import com.yanpeng.core.utils.ReflectionUtils;
  * @param <T> 领域对象类型
  * @param <PK> 领域对象的主键类型
  * 
- * @author calvin
+ * @author Allen
  */
 @Transactional
 public abstract class EntityManager<T, PK extends Serializable> {

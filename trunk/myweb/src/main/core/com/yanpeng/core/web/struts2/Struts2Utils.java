@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * 
  * 实现获取Request/Response/Session与绕过jsp/freemaker直接输出文本的简化函数.
  * 
- * @author calvin
+ * @author Allen
  */
 public class Struts2Utils {
 

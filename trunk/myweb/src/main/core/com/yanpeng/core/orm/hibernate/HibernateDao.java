@@ -26,7 +26,7 @@ import com.yanpeng.core.orm.PropertyFilter.MatchType;
 import com.yanpeng.core.utils.ReflectionUtils;
 
 /**
- * 封装SpringSide扩展功能的Hibernat范型基类.
+ * 封装扩展功能的Hibernat范型基类.
  * 
  * 扩展功能包括分页查询,按属性过滤条件列表查询等.
  * 可在Service层直接使用,也可以扩展范型DAO子类使用.
@@ -34,7 +34,7 @@ import com.yanpeng.core.utils.ReflectionUtils;
  * @param <T> DAO操作的对象类型
  * @param <PK> 主键类型
  * 
- * @author calvin
+ * @author Allen
  */
 public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao<T, PK> {
 	/**

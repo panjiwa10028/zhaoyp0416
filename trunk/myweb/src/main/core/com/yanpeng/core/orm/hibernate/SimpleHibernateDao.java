@@ -29,7 +29,7 @@ import com.yanpeng.core.utils.ReflectionUtils;
  * @param <T> DAO操作的对象类型
  * @param <PK> 主键类型
  * 
- * @author calvin
+ * @author Allen
  */
 @SuppressWarnings("unchecked")
 public class SimpleHibernateDao<T, PK extends Serializable> {

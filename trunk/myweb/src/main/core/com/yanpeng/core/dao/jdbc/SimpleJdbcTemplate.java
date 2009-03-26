@@ -12,7 +12,8 @@ import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.util.Assert;
 /**
  * jdbc模板
- * @author caoyang
+ * 
+ * @author Allen
  *
  */
 @SuppressWarnings("unchecked")
