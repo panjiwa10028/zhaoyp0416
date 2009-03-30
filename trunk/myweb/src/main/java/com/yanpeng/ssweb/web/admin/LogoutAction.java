@@ -3,7 +3,6 @@ package com.yanpeng.ssweb.web.admin;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 
-import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.web.BaseAction;
 
 /**
@@ -15,7 +14,7 @@ import com.yanpeng.ssweb.web.BaseAction;
  */
 @SuppressWarnings("serial")
 @Results( { @Result(name = "LOGOUT", location = "/j_spring_security_logout", type = "redirect") })
-public class LogoutAction extends BaseAction<Users> {
+public class LogoutAction extends BaseAction {
 
 	
 
