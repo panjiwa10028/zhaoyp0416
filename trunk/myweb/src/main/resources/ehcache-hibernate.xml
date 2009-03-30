@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+
+	<diskStore path="java.io.tmpdir/ssweb" />
+
+	<!-- Cluster localhost setting -->
+	<cacheManagerPeerListenerFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+		properties="hostName=localhost, port=40001,socketTimeoutMillis=2000" />
+
+	<!-- Cluster peer host setting -->
+	<cacheManagerPeerProviderFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+		properties="peerDiscovery=manual,
+ 		rmiUrls=//localhost:40002/com.yanpeng.ssweb.entity.Groups|//localhost:40002/sswebCaches" />
+
+
+	<!-- Special objects setting. -->
+	<cache name="com.yanpeng.ssweb.entity.Groups" maxElementsInMemory="500" overflowToDisk="true"
+		eternal="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+	<cache name="com.yanpeng.ssweb.entity.Users" maxElementsInMemory="500" overflowToDisk="true"
+		eternal="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+	<cache name="com.yanpeng.ssweb.entity.Roles" maxElementsInMemory="500" overflowToDisk="true"
+		eternal="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+	<cache name="com.yanpeng.ssweb.entity.Permissions" maxElementsInMemory="500" overflowToDisk="true"
+		eternal="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+	<cache name="com.yanpeng.ssweb.entity.Menus" maxElementsInMemory="500" overflowToDisk="true"
+		eternal="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+	
+	<cache name="sswebCaches" maxElementsInMemory="500" eternal="false"
+		timeToIdleSeconds="500" timeToLiveSeconds="500" overflowToDisk="true" />
+	
+	<cache name="security_resource" maxElementsInMemory="500" overflowToDisk="true"
+		eternal="true">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+
+	<!--
+		DefaultCache setting.
+		Modify ehcache-safe.xml for timeToIdleSeconds,timeToLiveSecond,diskExpiryThreadIntervalSeconds
+		Use ehcache-safe.xml default for maxElementsInMemory,maxElementsOnDisk,overflowToDisk,eternal Use ehcache default
+		for memoryStoreEvictionPolicy,diskPersistent,.
+	-->
+	<defaultCache maxElementsInMemory="10000" overflowToDisk="true" eternal="false"
+		memoryStoreEvictionPolicy="LRU" maxElementsOnDisk="10000000" diskExpiryThreadIntervalSeconds="600"
+		timeToIdleSeconds="3600" timeToLiveSeconds="100000" diskPersistent="false" />
+</ehcache>
