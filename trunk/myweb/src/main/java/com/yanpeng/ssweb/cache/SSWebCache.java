@@ -22,7 +22,7 @@ public class SSWebCache {
 	private static Object lockObject = new Object();
 	private static SSWebCache instance = null;
 
-	public static final String CACHE_NAME = "SSWebCaches";
+	public static final String CACHE_NAME = "sswebCaches";
 
 	private SSWebCache() {
 	}
@@ -48,7 +48,7 @@ public class SSWebCache {
 	 * @return 缓存管理类
 	 */
 	public CacheManager getCacheManager() {
-		URL url = getClass().getResource("/ehcache.xml");
+		URL url = getClass().getResource("/ehcache-hibernate-c1.xml");
 		return CacheManager.create(url);
 	}
 
