@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration>
-	<substitutionProperty name="log.base" value="../logs/ss3ex" />
+	<substitutionProperty name="log.base" value="../logs/ssweb" />
 
 	<jmxConfigurator />
 
@@ -39,7 +39,7 @@
 		<level value="DEBUG" />
 	</logger>
 		<logger name="org.hibernate.cache">
-		<level value="ERROR" />
+		<level value="DEBUG" />
 	</logger>
 	<logger name="org.apache.struts2">
 		<level value="WARN" />
