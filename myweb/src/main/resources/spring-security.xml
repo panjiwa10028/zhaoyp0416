@@ -15,7 +15,7 @@
 用户第二次登录时，前一次的登录信息都被清空。当exception-if-maximum-exceeded="true"时系统会拒
 绝第二次登录。
 		 -->
-		<concurrent-session-control max-sessions="1" exception-if-maximum-exceeded="false" expired-url="/login.action?error=3"/>
+		<concurrent-session-control max-sessions="1" exception-if-maximum-exceeded="true" expired-url="/login.action?error=3"/>
 	</http>
 
 	<authentication-provider user-service-ref="userDetailsService">
