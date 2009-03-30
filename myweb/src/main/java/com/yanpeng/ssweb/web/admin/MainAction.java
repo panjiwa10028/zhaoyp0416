@@ -22,7 +22,7 @@ import com.yanpeng.ssweb.web.BaseAction;
  * @author Allen
  */
 @SuppressWarnings("serial")
-public class MainAction extends BaseAction<Users> {
+public class MainAction extends BaseAction {
 
 	// 基本属性
 	private Users user;
@@ -57,7 +57,8 @@ public class MainAction extends BaseAction<Users> {
 		if (user == null) {
 			user = new Users();
 		}
-
+		
+		
 		Collection<String> roleIds = user.getRoleIds();
 		List<Menus> menusList = menuManager.findMenusByRoleIds(roleIds);
 		leftMenuValue = listToLeftMenu(menusList);
