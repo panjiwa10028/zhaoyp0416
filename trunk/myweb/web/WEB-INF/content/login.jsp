@@ -13,6 +13,7 @@
 		<script src="${base}/scripts/validate/messages_cn.js" type="text/javascript"></script>
   		<script>
   			$(document).ready(function(){
+  				$("#userName").focus();
     			$("#loginForm").validate();
  			 });
   		</script>
@@ -39,7 +40,7 @@
 							用户名:
 						</td>
 						<td>
-							<input type='text' name='j_username'
+							<input type='text' id="userName" name='j_username'
 								<s:if test="not empty param.error"> value='<%=session.getAttribute(AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY)%>'</s:if> class="required"/>
 						</td>
 					</tr>
@@ -48,7 +49,22 @@
 							密码:
 						</td>
 						<td>
-							<input type='password' name='j_password' class="required" />
+							<input type='password' id="password" name='j_password' class="required" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							验证码:
+						</td>
+						<td>
+							<input size="5" id="vcode"	onkeydown="if(event.keyCode==13)  document.getElementById('login').focus();"
+			type="text"  name="vcode" autocomplete="off"> 
+			<img id="vcodeimg" style="cursor: hand"	onclick="this.src='${base}/admin/verify-image.action?time=' + Math.random()"
+			title="点击刷新验证码" align="absMiddle" src="" /> 
+			<script	type="text/javascript">
+                document.getElementById('vcodeimg').src='${base}/admin/verify-image.action?id=${olid}&time=' + Math.random();
+				document.getElementById('vcode').value = "";
+			</script>
 						</td>
 					</tr>
 					<tr>
