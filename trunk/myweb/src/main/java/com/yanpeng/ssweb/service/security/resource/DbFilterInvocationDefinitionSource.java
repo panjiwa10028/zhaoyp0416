@@ -66,25 +66,28 @@ public class DbFilterInvocationDefinitionSource implements FilterInvocationDefin
 	        GrantedAuthority[] authorities = new GrantedAuthority[0];
 	        Permissions permission=null;
 	        Collection resources=SecurityResourceCache.getAllCache();
-	        for(Iterator it=resources.iterator();it.hasNext();){
-	        	permission=(Permissions)it.next();
-	        	String resPath=permission.getPath();
-	            boolean matched = urlMatcher.pathMatchesUrl(resPath, requestURI);
-	            if (matched) {
-					authorities = SecurityResourceCache.getAuthoritysInCache(resPath);
-					break;
-	            }
-	        }
-	        if (authorities!=null&&authorities.length > 0) {
-				String authoritiesStr = " ";
-				for (int i = 0; i < authorities.length; i++) {
-					authoritiesStr += authorities[i].getAuthority() + ",";
+	        if(resources != null) {
+	        	for(Iterator it=resources.iterator();it.hasNext();){
+		        	permission=(Permissions)it.next();
+		        	String resPath=permission.getPath();
+		            boolean matched = urlMatcher.pathMatchesUrl(resPath, requestURI);
+		            if (matched) {
+						authorities = SecurityResourceCache.getAuthoritysInCache(resPath);
+						break;
+		            }
+		        }
+		        if (authorities!=null&&authorities.length > 0) {
+					String authoritiesStr = " ";
+					for (int i = 0; i < authorities.length; i++) {
+						authoritiesStr += authorities[i].getAuthority() + ",";
+					}
+					String authStr = authoritiesStr.substring(0, authoritiesStr.length() - 1);
+					ConfigAttributeEditor configAttrEditor = new ConfigAttributeEditor();
+					configAttrEditor.setAsText(authStr.trim());
+					return (ConfigAttributeDefinition) configAttrEditor.getValue();
 				}
-				String authStr = authoritiesStr.substring(0, authoritiesStr.length() - 1);
-				ConfigAttributeEditor configAttrEditor = new ConfigAttributeEditor();
-				configAttrEditor.setAsText(authStr.trim());
-				return (ConfigAttributeDefinition) configAttrEditor.getValue();
-			}
+	        }
+	        
 	        return null;
 	}
 	

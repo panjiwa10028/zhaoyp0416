@@ -13,6 +13,7 @@ import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.GrantedAuthorityImpl;
 
+import com.yanpeng.ssweb.cache.SSWebCache;
 import com.yanpeng.ssweb.entity.Permissions;
 
 /**
@@ -27,7 +28,7 @@ public class SecurityResourceCache {
 	
 	static{
 		if(cache==null){
-			cache=CacheManager.getInstance().getCache("security_resource");
+			cache=SSWebCache.getInstance().getCacheManager().getCache("security_resource");
 		}
 	}
 	
@@ -57,10 +58,13 @@ public class SecurityResourceCache {
 
 	@SuppressWarnings("unchecked")
 	public synchronized static Collection<Permissions> getAllCache(){
-		List<String> resources;
+		List<String> resources = new ArrayList<String>();
 		List<Permissions> resclist = new ArrayList<Permissions>();
 		try {
-			resources = cache.getKeys();
+			if(cache != null) {
+				resources = cache.getKeys();
+			}
+			
 		} catch (IllegalStateException e) {
 			throw new IllegalStateException(e.getMessage(), e);
 		} catch (CacheException e) {
