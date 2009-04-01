@@ -40,9 +40,9 @@ public class Users extends BaseEntity implements java.io.Serializable {
 	private String name;
 	private String loginName;
 	private String password;
-	private Short disabled = 0;
-	private Short expired = 0;
-	private Short locked = 0;
+	private Short isDisabled = 0;
+	private Short isExpired = 0;
+	private Short isLocked = 0;
 	private Set<Roles> roleses = new LinkedHashSet<Roles>(0);
 
 	// Constructors
@@ -88,31 +88,31 @@ public class Users extends BaseEntity implements java.io.Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "disabled", nullable = false)
-	public Short getDisabled() {
-		return this.disabled;
+	@Column(name = "isDisabled", nullable = false)
+	public Short getIsDisabled() {
+		return isDisabled;
 	}
 
-	public void setDisabled(Short disabled) {
-		this.disabled = disabled;
+	public void setIsDisabled(Short isDisabled) {
+		this.isDisabled = isDisabled;
 	}
 
-	@Column(name = "expired", nullable = false)
-	public Short getExpired() {
-		return this.expired;
+	@Column(name = "isExpired", nullable = false)
+	public Short getIsExpired() {
+		return isExpired;
 	}
 
-	public void setExpired(Short expired) {
-		this.expired = expired;
+	public void setIsExpired(Short isExpired) {
+		this.isExpired = isExpired;
+	}
+	
+	@Column(name = "isLocked", nullable = false)
+	public Short getIsLocked() {
+		return isLocked;
 	}
 
-	@Column(name = "locked", nullable = false)
-	public Short getLocked() {
-		return this.locked;
-	}
-
-	public void setLocked(Short locked) {
-		this.locked = locked;
+	public void setIsLocked(Short isLocked) {
+		this.isLocked = isLocked;
 	}
 
 	
