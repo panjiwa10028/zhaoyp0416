@@ -37,7 +37,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 	private String displayName;
 	private String path;
 	private String sort;
-	private Integer disabled;
+	private Integer isDisabled;
 	private Set<Roles> roleses = new LinkedHashSet<Roles>(0);
 	private Set<Menus> menuses = new LinkedHashSet<Menus>(0);
 	
@@ -100,13 +100,15 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 		this.sort = sort;
 	}
 
-	@Column(name = "disabled")
-	public Integer getDisabled() {
-		return this.disabled;
+	@Column(name = "isDisabled")		
+	public Integer getIsDisabled() {
+		return isDisabled;
 	}
 
-	public void setDisabled(Integer disabled) {
-		this.disabled = disabled;
+
+
+	public void setIsDisabled(Integer isDisabled) {
+		this.isDisabled = isDisabled;
 	}
 
 	
