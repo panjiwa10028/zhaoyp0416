@@ -88,7 +88,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "isDisabled", nullable = false)
+	@Column(name = "isdisabled", nullable = false)
 	public Short getIsDisabled() {
 		return this.isDisabled;
 	}
