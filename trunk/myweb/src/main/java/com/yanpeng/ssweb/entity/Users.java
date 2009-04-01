@@ -90,7 +90,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "isDisabled", nullable = false)
 	public Short getIsDisabled() {
-		return isDisabled;
+		return this.isDisabled;
 	}
 
 	public void setIsDisabled(Short isDisabled) {
@@ -99,7 +99,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "isExpired", nullable = false)
 	public Short getIsExpired() {
-		return isExpired;
+		return this.isExpired;
 	}
 
 	public void setIsExpired(Short isExpired) {
@@ -108,7 +108,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 	
 	@Column(name = "isLocked", nullable = false)
 	public Short getIsLocked() {
-		return isLocked;
+		return this.isLocked;
 	}
 
 	public void setIsLocked(Short isLocked) {
