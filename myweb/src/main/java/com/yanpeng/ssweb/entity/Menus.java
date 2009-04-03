@@ -1,6 +1,7 @@
 package com.yanpeng.ssweb.entity;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,10 +12,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.yanpeng.core.utils.ReflectionUtils;
 
 /**
  * Menus entity. @author MyEclipse Persistence Tools
@@ -102,7 +106,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "isDisabled")		
 	public Integer getIsDisabled() {
-		return isDisabled;
+		return this.isDisabled;
 	}
 
 
@@ -112,7 +116,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 	}
 
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "menuses")
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "menuses")
 	public Set<Roles> getRoleses() {
 		return this.roleses;
 	}
@@ -121,7 +125,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 		this.roleses = roleses;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "menuses")
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "menus")
 	public Set<Menus> getMenuses() {
 		return this.menuses;
 	}
@@ -141,7 +145,6 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
-	
-	
+
 
 }

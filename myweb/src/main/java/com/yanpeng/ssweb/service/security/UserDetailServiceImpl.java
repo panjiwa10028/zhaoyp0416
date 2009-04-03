@@ -43,8 +43,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
 			}
 		}
 		org.springframework.security.userdetails.User userdetail=new org.springframework.security.userdetails.User(user.getLoginName()
-				,user.getPassword(),user.getDisabled()==1?false:true, user.getExpired()==1?false:true,
-				true,user.getLocked()==1?false:true,
+				,user.getPassword(),user.getIsDisabled()==1?false:true, user.getIsExpired()==1?false:true,
+				true,user.getIsLocked()==1?false:true,
 				authsList.toArray(new GrantedAuthority[authsList.size()]));
 		return userdetail;
 	}

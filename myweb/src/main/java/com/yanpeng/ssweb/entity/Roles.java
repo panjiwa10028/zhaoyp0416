@@ -77,7 +77,7 @@ public class Roles extends BaseEntity implements java.io.Serializable {
 		this.permissionses = permissionses;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "roleses")
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "roleses")
 	public Set<Users> getUserses() {
 		return this.userses;
 	}

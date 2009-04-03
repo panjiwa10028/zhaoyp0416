@@ -4,7 +4,7 @@ ALTER TABLE menus DROP FOREIGN KEY FK_menus_menus;
 insert into groups (id, name, parent_id, description, update_time, user_id)
 values('0', 'root','-1','---',now(), '1');
 
-insert into users(id, name, group_id, login_name, password, disabled, expired, locked, update_time, user_id)
+insert into users(id, name, group_id, login_name, password, is_disabled, is_expired, is_locked, update_time, user_id)
 values('1', 'administrator', '0', 'admin', 'ceb4f32325eda6142bd65215f4c0f371', 0, 0, 0, now(), '1');
 
 insert into roles(id, name, description, update_time, user_id)
@@ -91,37 +91,37 @@ values('1', '18');
 insert into roles_permissions (role_id, permission_id)
 values('1', '19');
 
-insert into menus (id, name, parent_id, display_name, path, sort, disabled, update_time, user_id)
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values('0', 'root', '-1', '---', '', '0_0', 0, now(), '1');
-insert into menus (id, name, parent_id, display_name, path, sort, disabled, update_time, user_id)
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values('1', 'ADMIN_SYSTEM', '0', '系统管理', '', '0_1', 0, now(), '1');
-insert into menus (id, name, parent_id, display_name, path, sort, disabled, update_time, user_id)
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values('2', 'ADMIN_USERS', '0', '用户管理', '', '0_2', 0, now(), '1');
-insert into menus (id, name, parent_id, display_name, path, sort, disabled, update_time, user_id)
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values('3', 'ADMIN_NEWS', '0', '新闻管理', '', '0_3', 0, now(), '1');
-insert into menus (id, name, parent_id, display_name, path, sort, disabled, update_time, user_id)
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values('4', 'ADMIN_MOCK1', '0', '占位1', '', '0_4', 0, now(), '1');
-insert into menus (id, name, parent_id, display_name, path, sort, disabled, update_time, user_id)
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values('5', 'ADMIN_MOCK2', '0', '占位2', '', '0_5', 0, now(), '1');
-insert into menus (id, name, parent_id, display_name, path, sort, disabled, update_time, user_id)
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values('6', 'ADMIN_MOCK3', '0', '占位3', '', '0_6', 0, now(), '1');
 
-insert into menus (id, name, parent_id, display_name, path, sort, disabled, update_time, user_id)
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values('10', 'ADMIN_SYSTEM_MENU', '1', '菜单设定', 'mainWorkArea.location=''menu/menu.action''', '0_1_', 0, now(), '1');
 
-insert into menus (id, name, parent_id, display_name, path, sort, disabled, update_time, user_id)
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values('11', 'ADMIN_USER_GROUP', '2', '用户组设定', 'mainWorkArea.location=''group/group.action''', '0_2_', 0, now(), '1');
 
-insert into menus (id, name, parent_id, display_name, path, sort, disabled, update_time, user_id)
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values('12', 'ADMIN_USER_USER', '2', '用户设定', 'mainWorkArea.location=''user/user.action''', '0_2_', 0, now(), '1');
 
-insert into menus (id, name, parent_id, display_name, path, sort, disabled, update_time, user_id)
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values('13', 'ADMIN_USER_ROLE', '2', '角色设定', 'mainWorkArea.location=''role/role.action''', '0_2_', 0, now(), '1');
 
-insert into menus (id, name, parent_id, display_name, path, sort, disabled, update_time, user_id)
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values('14', 'ADMIN_USER_PERMISSION', '2', '权限设定', 'mainWorkArea.location=''permission/permission.action''', '0_2_', 0, now(), '1');
 
-insert into menus (id, name, parent_id, display_name, path, sort, disabled, update_time, user_id)
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values('15', 'ADMIN_NEWS_ROLE', '3', '新闻设定', 'mainWorkArea.location=''news/news.action''', '0_3_', 0, now(), '1');
 
 

@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2009-3-25 11:42:02                           */
+/* Created on:     2009-4-1 17:40:46                            */
 /*==============================================================*/
 
 
@@ -103,7 +103,7 @@ create table menus
    display_name         varchar(100) not null,
    path                 varchar(500),
    sort                 varchar(100),
-   disabled             int default 0,
+   is_disabled          int default 0,
    update_time          datetime,
    user_id              varchar(36),
    primary key (id)
@@ -115,7 +115,7 @@ type = InnoDB;
 /*==============================================================*/
 create index Index_t_menu_1 on menus
 (
-   disabled
+   is_disabled
 );
 
 /*==============================================================*/
@@ -284,9 +284,9 @@ create table users
    group_id             varchar(36) not null,
    login_name           varchar(100) binary not null,
    password             varchar(255) not null,
-   disabled             smallint not null default 0,
-   expired              smallint not null default 0,
-   locked               smallint not null default 0,
+   is_disabled          smallint not null default 0,
+   is_expired           smallint not null default 0,
+   is_locked            smallint not null default 0,
    update_time          datetime,
    user_id              varchar(36),
    primary key (id)

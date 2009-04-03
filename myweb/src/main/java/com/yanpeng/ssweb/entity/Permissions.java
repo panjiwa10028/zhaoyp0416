@@ -71,7 +71,7 @@ public class Permissions extends BaseEntity implements java.io.Serializable {
 		this.path = path;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "permissionses")
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "permissionses")
 	public Set<Roles> getRoleses() {
 		return this.roleses;
 	}

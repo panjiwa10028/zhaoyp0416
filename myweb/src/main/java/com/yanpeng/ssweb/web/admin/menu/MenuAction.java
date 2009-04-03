@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.Menus;
 import com.yanpeng.ssweb.exceptions.ServiceException;
+import com.yanpeng.ssweb.interceptor.annotations.Token;
 import com.yanpeng.ssweb.service.menu.MenuManager;
 import com.yanpeng.ssweb.web.CURDBaseAction;
 
@@ -24,7 +25,8 @@ import com.yanpeng.ssweb.web.CURDBaseAction;
  * @author Allen
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = CURDBaseAction.RELOAD, location = "menu.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
+@Results( { @Result(name = CURDBaseAction.RELOAD, location = "menu.action?page.pageRequest=${page.pageRequest}", type = "redirect") 
+	, @Result(name = "errorss", location = "/error.jsp", type = "redirect") })
 public class MenuAction extends CURDBaseAction<Menus> {
 
 	// CRUD Action 基本属性
@@ -58,25 +60,36 @@ public class MenuAction extends CURDBaseAction<Menus> {
 
 	@Override
 	public String list() throws Exception {
+		
+		if(page.getOrderBy() == null || page.getOrderBy().equals("")) {
+			page.setOrderBy("updateTime");
+			page.setOrder("desc");
+		}
 		page = menuManager.getAllMenus(page);		
 		return SUCCESS;
 	}
 
 	@Override
-	public String input() throws Exception {		
-		allMenus = menuManager.findFirstLevelMenus();
+	public String input() throws Exception {	
+		allMenus = menuManager.findFirstLevelMenusNotId(id);
 		return INPUT;
 	}
 
 	@Override
+	@Token
 	public String save() throws Exception {
 		//根据页面上的checkbox 整合entity的roles Set
-//		
+		
 		if(entity != null && entity.getId().equals("")) {
 			entity.setId(null);
 		}
 		
+		String isDisabled = Struts2Utils.getRequest().getParameter("isDisabled");
+		if(isDisabled == null || isDisabled.equals("")) {
+			entity.setIsDisabled(0);
+		}
 		try{
+			entity.setName(entity.getName().toUpperCase());
 			menuManager.saveMenu(entity);
 			addActionMessage("保存角色成功");
 			return RELOAD;
@@ -110,11 +123,23 @@ public class MenuAction extends CURDBaseAction<Menus> {
 	 * 支持使用Jquery.validate Ajax检验用户名是否重复.
 	 */
 	public String checkName() throws Exception {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		String name = request.getParameter("name");
-		String orgName = request.getParameter("orgName");
+		String name = Struts2Utils.getRequest().getParameter("name");
+		String orgName = Struts2Utils.getRequest().getParameter("orgName");
 		
-		if (menuManager.isNameUnique(name, orgName)) {
+		if (menuManager.isNameUnique(name.toUpperCase(), orgName)) {
+			Struts2Utils.renderText("true");
+		} else {
+			Struts2Utils.renderText("false");
+		}
+		//因为直接输出而不经过Jsp,因此返回null.
+		return null;
+	}	
+	
+	public String checkDisplayName() throws Exception {
+		String name = Struts2Utils.getRequest().getParameter("displayName");
+		String orgName = Struts2Utils.getRequest().getParameter("orgName");
+		
+		if (menuManager.isDisplayNameUnique(name, orgName)) {
 			Struts2Utils.renderText("true");
 		} else {
 			Struts2Utils.renderText("false");

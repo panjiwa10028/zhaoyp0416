@@ -17,6 +17,7 @@ import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.utils.DateUtils;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.News;
+import com.yanpeng.ssweb.interceptor.annotations.Token;
 import com.yanpeng.ssweb.service.news.NewsManager;
 import com.yanpeng.ssweb.util.HtmlGenerator;
 import com.yanpeng.ssweb.web.CURDBaseAction;
@@ -74,6 +75,7 @@ public class NewsAction extends CURDBaseAction<News> {
 	}
 
 	@Override
+	@Token
 	public String save() throws Exception {
 		try{
 			if(entity != null && entity.getId().equals("")) {

@@ -98,14 +98,17 @@ public class RoleManager extends EntityManager<Roles, String> {
 	
 	public void deleteRoles(Collection<String> ids) {
 		//为演示异常处理及用户行为日志而故意抛出的异常.
-		if (ids.contains("1")) {
-			logger.warn("不能删除系统角色", SpringSecurityUtils.getCurrentUserName());
-			throw new ServiceException("不能删除系统角色");
-		}
+//		if (ids.contains("1")) {
+//			logger.warn("不能删除系统角色", SpringSecurityUtils.getCurrentUserName());
+//			throw new ServiceException("不能删除系统角色");
+//		}
 		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
 			String id = (String) it.next();
 			Roles role = roleDao.get(id);
 			if(role != null) {
+				if(role.getUserses().size() > 0) {
+					throw new ServiceException("删除["+role.getName()+"]角色失败。原因：还有拥有该角色的用户");
+				}
 				roleDao.delete(role);
 			}else {
 				logger.warn("ID=[" + id + "]的角色不存在，无法删除");

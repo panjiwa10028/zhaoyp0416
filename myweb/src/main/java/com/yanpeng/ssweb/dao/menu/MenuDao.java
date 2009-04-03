@@ -3,6 +3,7 @@ package com.yanpeng.ssweb.dao.menu;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -42,8 +43,14 @@ public class MenuDao extends HibernateDao<Menus, String> {
 		return findByCriteria("roleses", 0, page, Restrictions.in("_roleses.id", ids) );
 	}
 	
-	public List<Menus> findFirstLevel() {
-		return findByCriteria(Restrictions.in("parentId", new Object[]{"-1,1"}));
+	public List<Menus> findFirstLevelNotId(String id) {
+		Criterion criteria;
+		if(id != null && !id.equals("")) {
+			criteria = Restrictions.and(Restrictions.in("parentId", new Object[]{"-1","0"}), Restrictions.not(Restrictions.eq("id", id)));
+		}else {
+			criteria = Restrictions.in("parentId", new Object[]{"-1","0"});
+		}
+		return findByCriteria(criteria);
 	}
 	
 	public List<Menus> findSub() {
@@ -52,6 +59,10 @@ public class MenuDao extends HibernateDao<Menus, String> {
 	
 	public boolean isNameUnique(String newValue, String orgValue) {
 		return isPropertyUnique("name", newValue, orgValue);
+	}
+	
+	public boolean isDisplayNameUnique(String newValue, String orgValue) {
+		return isPropertyUnique("displayName", newValue, orgValue);
 	}
 	
 	public List<Menus> findByIds(Collection<String> ids) {

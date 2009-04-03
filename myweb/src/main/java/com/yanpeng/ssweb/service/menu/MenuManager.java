@@ -62,15 +62,18 @@ public class MenuManager extends EntityManager<Menus, String> {
 		
 	}
 	public void deleteMenus(Collection<String> ids) {
-		//为演示异常处理及用户行为日志而故意抛出的异常.
-		if (ids.contains("1")) {
-			logger.warn("不能删除系统菜单", SpringSecurityUtils.getCurrentUserName());
-			throw new ServiceException("不能删除系统菜单");
-		}
+		
+//		if (ids.contains("1")) {
+//			logger.warn("不能删除系统菜单", SpringSecurityUtils.getCurrentUserName());
+//			throw new ServiceException("删除失败。原因：不能删除系统菜单");
+//		}
 		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
 			String id = (String) it.next();
 			Menus menu = menuDao.get(id);
-			if(menu != null) {
+			if(menu != null) {				
+				if(menu.getMenuses().size() > 0) {
+					throw new ServiceException("删除菜单"+menu.getName()+"失败。原因：有下级菜单存在");
+				}
 				menuDao.delete(menu);
 			}else {
 				logger.warn("ID=[" + id + "]的菜单不存在，无法删除");
@@ -86,8 +89,13 @@ public class MenuManager extends EntityManager<Menus, String> {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<Menus> findFirstLevelMenus() {
-		return menuDao.findFirstLevel();
+	public boolean isDisplayNameUnique(String name, String orgName) {
+		return menuDao.isDisplayNameUnique(name, orgName);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Menus> findFirstLevelMenusNotId(String id) {
+		return menuDao.findFirstLevelNotId(id);
 	}
 	
 	@Transactional(readOnly = true)

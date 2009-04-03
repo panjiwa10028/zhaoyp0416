@@ -4,7 +4,6 @@
 <struts>
 	<constant name="struts.convention.default.parent.package" value="crud-default" />
 	<constant name="struts.convention.package.locators" value="web" />
-	<constant name="struts.devMode" value="false"/>
 	<constant name="struts.enable.DynamicMethodInvocation" value="true"/>
 	<constant name="struts.i18n.reload" value="true"/>
 	<constant name="struts.ui.theme" value="simple"/>
@@ -15,7 +14,13 @@
 	<constant name="struts.serve.static.browserCache" value="false"/>
 	<constant name="struts.url.includeParams" value="none"/>
 	<constant name="struts.multipart.maxSize" value="209715200"/>
-	<constant name="struts.multipart.saveDir" value="c:\\temp"/>
+	<constant name="struts.multipart.saveDir" value="java.io.tmpdir/temp"/>
+	
+	<!-- 是否是开发模式 -->
+	<constant name="struts.devMode" value="true"/>
+	
+	<constant name="struts.convention.classes.reload" value="true" />
+		
 
 	<package name="crud-default" extends="convention-default">
 		<!-- 基于paramsPrepareParamsStack,增加store interceptor -->
@@ -23,12 +28,14 @@
 		<!-- 初始化接口 -->
 			<interceptor name="sswebinit"
 				class="com.yanpeng.ssweb.interceptor.SSWebInterceptor" />
+			<interceptor name="token" class="com.yanpeng.ssweb.interceptor.TokenInterceptor"/>
 				
 			<interceptor-stack name="crudStack">
-				<interceptor-ref name="fileUploadStack" />
+				
 				<interceptor-ref name="store">
 					<param name="operationMode">AUTOMATIC</param>
 				</interceptor-ref>
+				 <interceptor-ref name="token"/>				
 				<interceptor-ref name="paramsPrepareParamsStack" />
 				<interceptor-ref name="sswebinit" />
 			</interceptor-stack>
@@ -38,7 +45,8 @@
 		
 				
 		<global-results>
-				<result name="error">/error.jsp</result>
+				<result name="globalError">/common/error.jsp</result>
+				<result name="invalid.token">/common/error.jsp</result>
 		</global-results>
 	</package>
 
