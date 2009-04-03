@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="myweb"
+  name="ssweb"
   id="myeclipse.1236154835265"
-  context-root="/myweb"
+  context-root="/ssweb"
   j2ee-spec="5.0"
-  archive="myweb.war">
+  archive="ssweb.war">
   <attributes>
-    <attribute name="webrootdir" value="web" />
+    <attribute name="webrootdir" value="/web" />
   </attributes>
 </project-module>
 
