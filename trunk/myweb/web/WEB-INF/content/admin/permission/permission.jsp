@@ -25,45 +25,19 @@
 		}
 
 		function update() {		
-			var ids = getSelectedIds();
+			var ids = getSelectedCheckBoxIds('selectIds');
 			var url = "permission!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 		
 		function del() {		
-			var ids = getSelectedIds();
+			var ids = getSelectedCheckBoxIds('selectIds');
 
 			var url = "permission!delete.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
-			top.mainWorkArea.location = url;
-		}
-
-		function getSelectedIds()
-		{
-			var checkList = document.getElementsByName("selectIds");
-				
-			if(checkList==null)
-			{
-				return "";
+			if(confirm("确定删除")) {
+				top.mainWorkArea.location = url;
 			}
-				
-			var strSelectedIds = "";
-			
-			for(var i=0; i<checkList.length; i++)
-			{
-				
-				if(checkList[i].checked==true)
-				{
-					if(i > 0 && strSelectedIds != "") {
-						strSelectedIds += ",";
-					}
-					strSelectedIds += checkList[i].value;
-				}
-			}
-
-			return strSelectedIds;
 		}
-
-		
 
 		function query() {
 			submitForm();
@@ -91,7 +65,7 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
 									<span id="Location">用户管理 > 权限设定</span>&nbsp;&nbsp;&nbsp;
 									<img src="${base}/images/ask.gif" id="BtnAsk"
-										style="CURSOR: hand" alt="账户管理提供账户余额查询、交易查询、修改密码、挂失等账户基本功能。"
+										style="CURSOR: hand" alt="..."
 										height="23" width="24" align="absMiddle" />
 								</TD>
 								<TD class="tdTitle2">
@@ -123,8 +97,7 @@
 										<tr>
 											<td class=tdPanelHead>&nbsp;</td>
 											<td class=tdPanelSel_left>&nbsp;</td>
-											<td class=tdPanelSel_center><pre style="margin: 0px"><a href="#" class=lkPanelSel 
-											onclick="top.mainWorkArea.location='permission.action'">权限设定</a></pre></td>
+											<td class=tdPanelSel_center><pre style="margin: 0px">权限设定</pre></td>
 											<td class=tdPanelSel_right>&nbsp;</td>
 										</tr>
 									</table>
@@ -157,7 +130,7 @@
 						<TABLE class="tbBlock" id="Table8" cellSpacing="1" border="0">
 							<TR>
 								<TD class="tdPrompt">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;权限列表
 								</TD>
 							</TR>
 						</TABLE>
@@ -167,7 +140,7 @@
 							style="border-color: #9FD6FF; border-width: 1px; border-style: solid; border-collapse: collapse;">
 							<tr class="dgHeader" align="Center">
 								<td class="dgHeader">
-									<input type="checkbox" class="checkbox" name="ids"/>
+									<input type="checkbox" class="checkbox" name="ids" onclick="selectAllCheckBox(this,'selectIds')"/>
 								</td>
 								</td>
 								<td class="dgHeader">

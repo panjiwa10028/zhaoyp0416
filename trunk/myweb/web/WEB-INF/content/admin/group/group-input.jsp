@@ -19,19 +19,19 @@
 			type="text/javascript"></script>
 
 		<script>
-		$(document).ready(function(){
-			$("#loginName").focus();
+		$().ready(function(){
+			$("#name").focus();
 			$("#inputForm").validate({
 				 rules: { 
 					name: { 
 	        			required: true, 
-	        			remote: "group!checkName.action?orgName=${name}"
+	        			remote: encodeURI("group!checkName.action?orgName=${name}")
 	    			}
 	           		
 				},
 				messages: {
 					name: {
-						remote: "名称已存在"
+						remote: "用户组名称已存在"
 					}
 				}
 			});
@@ -67,6 +67,7 @@
 	<body scroll="auto" style="overflow: auto" onload="initPage()">
 		<form id="inputForm" name="inputForm" action="group!save.action"
 			method="post" >
+			<s:token/>
 			<input type="hidden" name="id" value="${id}" />
 			<input type="hidden" name="page.pageRequest"
 				value="${page.pageRequest}" />
@@ -77,7 +78,7 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">用户管理 > 用户组设定 > 用户组<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
+									<span id="Location">用户管理 > <a href='#' onclick="cancel()">用户组设定</a> > 用户组<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
 								</TD>
 								<TD class="tdTitle2"></TD>
 								<TD class="tdTitle3">									
@@ -146,8 +147,7 @@
 									用户组名称:
 								</TD>
 								<TD class="tdLeftH40">
-									<input type="text" name="name" size="40" value="${name}"
-										class="required" />
+									<input type="text" id="name" name="name" size="40" value="${name}"/>
 								</TD>
 							</TR>	
 							<TR>
@@ -155,7 +155,7 @@
 									用户组描述:
 								</TD>
 								<TD class="tdLeftH40">
-									<textarea name="description" rows="5" cols="5">${description}</textarea>
+									<textarea id="description" name="description" rows="5" cols="30">${description}</textarea>
 								</TD>
 							</TR>							
 						</TABLE>

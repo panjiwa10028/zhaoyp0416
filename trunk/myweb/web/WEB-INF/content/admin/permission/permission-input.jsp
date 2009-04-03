@@ -20,18 +20,31 @@
 
 		<script>
 		$(document).ready(function(){
-			$("#loginName").focus();
+			$("#displayName").focus();
+
+			jQuery.validator.addMethod("letters_numbers_underscores", function(value, element) {  
+			    //alert(/^PER/g.test(value)); 
+			  return this.optional(element) || /^PER_[0-9A-Za-z_]+$/g.test(value);     
+			}, "必须以PER_开头并且只能输入包括英文字母、数字和下划线");
 			$("#inputForm").validate({
 				 rules: { 
+					displayName: { 
+		    			required: true, 
+		    			remote: encodeURI("permission!checkDisplayName.action?orgName=${displayName}")
+					},
 					name: { 
 	        			required: true, 
-	        			remote: "permission!checkName.action?orgName=${name}"
+	        			letters_numbers_underscores: true,
+	        			remote: encodeURI("permission!checkName.action?orgName=${name}")
 	    			}
 	           		
 				},
 				messages: {
+					displayName: {
+						remote: "权限名称已存在"
+					},
 					name: {
-						remote: "用户登录名已存在"
+						remote: "权限唯一标识已存在"
 					}
 				}
 			});
@@ -67,6 +80,7 @@
 	<body scroll="auto" style="overflow: auto" onload="initPage()">
 		<form id="inputForm" name="inputForm" action="permission!save.action"
 			method="post">
+			<s:token/>
 			<input type="hidden" name="id" value="${id}" />
 			<input type="hidden" name="page.pageRequest"
 				value="${page.pageRequest}" />
@@ -77,7 +91,7 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">用户管理 > 权限设定 > 权限<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
+									<span id="Location">用户管理 > <a href='#' onclick="cancel()">权限设定</a> > 权限<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
 								</TD>
 								<TD class="tdTitle2"></TD>
 								<TD class="tdTitle3">									
@@ -146,8 +160,7 @@
 									权限名称:
 								</TD>
 								<TD class="tdLeftH40">
-									<input type="text" name="displayName" size="40" value="${displayName}"
-										class="required" />
+									<input type="text" id="displayName" name="displayName" size="40" value="${displayName}"/>
 								</TD>
 							</TR>							
 							<tr>
@@ -155,8 +168,7 @@
 									权限键值:
 								</td>
 								<TD class="tdLeftH40">
-									<input type="text" name="name" size="40" value="${name}"
-										class="required" />
+									<input type="text" id="name" name="name" size="40" value="${name}"/>
 								</td>
 							</tr>							
 							<tr>
@@ -164,8 +176,7 @@
 									权限路径:
 								</td>
 								<TD class="tdLeftH40">
-									<input type="text" name="path" size="40" value="${path}"
-										class="required" />
+									<input type="text" id="path" name="path" size="40" value="${path}"/>
 								</td>
 							</tr>
 						</TABLE>

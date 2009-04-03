@@ -15,8 +15,6 @@
 			if($("#message").text() != '') {
 				top.setStatusBarInfo($("#message").text());
 			}
-			
-			body.style.cursor = "";
 		}		
 		
 		function add() {			
@@ -25,45 +23,20 @@
 		}
 
 		function update() {		
-			var ids = getSelectedIds();
+			var ids = getSelectedCheckBoxIds('selectIds');
 			var url = "user!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 		
 		function del() {		
-			var ids = getSelectedIds();
+			var ids = getSelectedCheckBoxIds('selectIds');
 
 			var url = "user!delete.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
-			top.mainWorkArea.location = url;
+			if(confirm("确定删除")) {
+				top.mainWorkArea.location = url;
+			}
 		}
 
-		function getSelectedIds()
-		{
-			var checkList = document.getElementsByName("selectIds");
-				
-			if(checkList==null)
-			{
-				return "";
-			}
-				
-			var strSelectedIds = "";
-			
-			for(var i=0; i<checkList.length; i++)
-			{
-				
-				if(checkList[i].checked==true)
-				{
-					if(i > 0 && strSelectedIds != "") {
-						strSelectedIds += ",";
-					}
-					strSelectedIds += checkList[i].value;
-				}
-			}
-
-			return strSelectedIds;
-		}
-
-		
 
 		function query() {
 			submitForm();
@@ -91,7 +64,7 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
 									<span id="Location">用户管理 > 用户设定</span>&nbsp;&nbsp;&nbsp;
 									<img src="${base}/images/ask.gif" id="BtnAsk"
-										style="CURSOR: hand" alt="账户管理提供账户余额查询、交易查询、修改密码、挂失等账户基本功能。"
+										style="CURSOR: hand" alt="..."
 										height="23" width="24" align="absMiddle" />
 								</TD>
 								<TD class="tdTitle2">
@@ -123,7 +96,7 @@
 										<tr>
 											<td class=tdPanelHead>&nbsp;</td>
 											<td class=tdPanelSel_left>&nbsp;</td>
-											<td class=tdPanelSel_center><pre style="margin: 0px"><a href="#" class=lkPanelSel onclick="top.mainWorkArea.location='user.action'">用户设定</a></pre></td>
+											<td class=tdPanelSel_center><pre style="margin: 0px">用户设定</pre></td>
 											<td class=tdPanelSel_right>&nbsp;</td>
 										</tr>
 									</table>
@@ -166,7 +139,7 @@
 							style="border-color: #9FD6FF; border-width: 1px; border-style: solid; border-collapse: collapse;">
 							<tr class="dgHeader" align="Center">
 								<td class="dgHeader">
-									<input type="checkbox" class="checkbox" name="ids"/>
+									<input type="checkbox" class="checkbox" name="ids" onclick="selectAllCheckBox(this,'selectIds')"/>
 								</td>
 								<td class="dgHeader">
 									<a href="javascript:orderBy('loginName')"><b>登录名</b>
@@ -175,6 +148,10 @@
 								<td class="dgHeader">
 									<a href="javascript:orderBy('name')"><b>姓名</b>
 									</a>
+								</td>
+								<td class="dgHeader">
+									<b>角色</b>
+									
 								</td>
 							</tr>
 							<s:iterator value="page.result">
@@ -188,6 +165,9 @@
 									</td>
 									<td align="Left">
 										${name}
+									</td>
+									<td align="Left">
+										${roleNames}
 									</td>
 								</tr>
 							</s:iterator>

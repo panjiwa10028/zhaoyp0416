@@ -20,18 +20,18 @@
 
 		<script>
 		$(document).ready(function(){
-			$("#loginName").focus();
+			$("#name").focus();
 			$("#inputForm").validate({
 				 rules: { 
 					name: { 
 	        			required: true, 
-	        			remote: "role!checkRoleName.action?orgName=${name}"
+	        			remote: encodeURI("role!checkRoleName.action?orgName=${name}")
 	    			}
 	           		
 				},
 				messages: {
 					name: {
-						remote: "用户登录名已存在"
+						remote: "角色名称已存在"
 					}
 				}
 			});
@@ -67,6 +67,7 @@
 	<body scroll="auto" style="overflow: auto" onload="initPage()">
 		<form id="inputForm" name="inputForm" action="role!save.action"
 			method="post" onsubmit="">
+			<s:token/>
 			<input type="hidden" name="id" value="${id}" />
 			<input type="hidden" name="page.pageRequest"
 				value="${page.pageRequest}" />
@@ -77,7 +78,7 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">用户管理 > 角色设定 > 角色<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
+									<span id="Location">用户管理 > <a href='#' onclick="cancel()">角色设定</a> > 角色<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
 								</TD>
 								<TD class="tdTitle2"></TD>
 								<TD class="tdTitle3">									
@@ -146,7 +147,7 @@
 									角色名:
 								</TD>
 								<TD class="tdLeftH40">
-									<input type="text" name="name" size="40" value="${name}"
+									<input type="text" id="name" name="name" size="40" value="${name}"
 										class="required" />
 								</TD>
 							</TR>							
@@ -156,8 +157,8 @@
 								</td>
 								<TD class="tdLeftH40">
 									<div
-										style="word-break: break-all; width: 320px; overflow: auto;">
-										<s:checkboxlist name="checkedIds" list="allPermissions"
+										style="word-break: break-all; width: 400px; overflow: auto;">
+										<s:checkboxlist id="checkedIds" name="checkedIds" list="allPermissions"
 											listKey="id" listValue="displayName" cssClass="button" />
 									</div>
 								</td>
@@ -168,8 +169,8 @@
 								</td>
 								<TD class="tdLeftH40">
 									<div
-										style="word-break: break-all; width: 320px; overflow: auto;">
-										<s:checkboxlist name="checkedMenuIds" list="allMenus"
+										style="word-break: break-all; width: 400px; overflow: auto;">
+										<s:checkboxlist id="checkedMenuIds" name="checkedMenuIds" list="allMenus"
 											listKey="id" listValue="displayName" cssClass="button" />
 									</div>
 								</td>
@@ -179,7 +180,7 @@
 									描述:
 								</td>
 								<TD class="tdLeftH40">
-									<textarea name="description" rows="3" cols="5">${description}</textarea>
+									<textarea id="description" name="description" rows="5" cols="30">${description}</textarea>
 								</td>
 							</tr>
 						</TABLE>

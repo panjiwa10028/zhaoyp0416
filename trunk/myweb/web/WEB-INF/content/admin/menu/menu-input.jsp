@@ -20,18 +20,32 @@
 
 		<script>
 		$(document).ready(function(){
-			$("#loginName").focus();
+			// 字符验证     
+			jQuery.validator.addMethod("letters_numbers_underscores", function(value, element) {  
+			    //alert(!/[^\w+$]/g.test(value)); 
+			  return this.optional(element) || !/[^\w+$]/g.test(value);     
+			}, "只能输入包括英文字母、数字和下划线");
+						
+			$("#parentId").focus();
 			$("#inputForm").validate({
 				 rules: { 
+					displayName: { 
+		    			required: true, 
+		    			remote: encodeURI("menu!checkDisplayName.action?orgName=${displayName}")
+					},
 					name: { 
 	        			required: true, 
-	        			remote: "menu!checkName.action?orgName=${name}"
+	        			letters_numbers_underscores: true,
+	        			remote: encodeURI("menu!checkName.action?orgName=${name}")
 	    			}
 	           		
 				},
 				messages: {
+					displayName: {
+						remote: "菜单名称已存在！"
+					},
 					name: {
-						remote: "用户登录名已存在"
+						remote: "菜单唯一标识已存在"
 					}
 				}
 			});
@@ -65,8 +79,10 @@
 	</head>
 
 	<body scroll="auto" style="overflow: auto" onload="initPage()">
+	<s:actionmessage theme="simple" />
 		<form id="inputForm" name="inputForm" action="menu!save.action"
 			method="post" >
+			<s:token/>
 			<input type="hidden" name="id" value="${id}" />
 			<input type="hidden" name="page.pageRequest"
 				value="${page.pageRequest}" />
@@ -77,7 +93,7 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">系统管理 > 菜单设定 > 菜单<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
+									<span id="Location">系统管理 > <a href='#' onclick="cancel()">菜单设定</a> > 菜单<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
 								</TD>
 								<TD class="tdTitle2"></TD>
 								<TD class="tdTitle3">									
@@ -97,7 +113,6 @@
 							border="0">
 							<TR>
 								<TD class="tdPanelContent" colSpan="1" rowSpan="1">
-									<!-- 修改密码标签 -->
 									<table border="0" cellpadding="0" cellspacing="0"
 										class=tbPanelContent>
 										<tr>
@@ -115,7 +130,6 @@
 											</td>
 										</tr>
 									</table>
-									<!-- END 修改密码标签 -->
 								</TD>
 								<TD class="tdPanelTrail"></TD>
 							</TR>
@@ -153,8 +167,7 @@
 									菜单名称:
 								</TD>
 								<TD class="tdLeftH40">
-									<input type="text" name="displayName" size="40" value="${displayName}"
-										class="required" />
+									<input type="text" id="displayName" name="displayName" size="40" value="${displayName}"/>
 								</TD>
 							</TR>	
 							<TR>
@@ -162,8 +175,7 @@
 									菜单唯一标识:
 								</TD>
 								<TD class="tdLeftH40">
-									<input type="text" name="name" size="40" value="${name}"
-										class="required" />
+									<input type="text" id="name" name="name" size="40" value="${name}"/>
 								</TD>
 							</TR>
 							<TR>
@@ -171,16 +183,15 @@
 									菜单路径:
 								</TD>
 								<TD class="tdLeftH40">
-									<input type="text" name="url" size="40" value="${url}"
-										class="required" />
+									<input type="text" id="path" name="path" size="40" value="${path}" />
 								</TD>
 							</TR>
 							<TR>
 								<TD class="tdRightW30H40">
-									是否可见:
+									无效:
 								</TD>
 								<TD class="tdLeftH40">
-									<input type="checkbox" name="disabled"/>
+									<input type="checkbox" id="isDisabled" name="isDisabled" value="1" <c:if test="${isDisabled == 1}">checked</c:if>/>
 								</TD>
 							</TR>								
 							
@@ -222,9 +233,8 @@
 				</TR>
 
 			</TABLE>
-			<div id="message" style="display: none;">
-				<s:actionmessage theme="simple" />
-			</div>
+				
+			
 		</form>
 
 	</body>
