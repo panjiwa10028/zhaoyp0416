@@ -57,14 +57,17 @@ public class PermissionManager extends EntityManager<Permissions, String> {
 	}
 	
 	public void deletePermissions(Collection<String> ids) {
-		if (ids.contains("1")) {
-			logger.warn("不能删除系统权限", SpringSecurityUtils.getCurrentUserName());
-			throw new ServiceException("不能删除系统权限");
-		}
+//		if (ids.contains("1")) {
+//			logger.warn("不能删除系统权限", SpringSecurityUtils.getCurrentUserName());
+//			throw new ServiceException("不能删除系统权限");
+//		}
 		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
 			String id = (String) it.next();
 			Permissions per = permissionsDao.get(id);
 			if(per != null) {
+				if(per.getRoleses().size() > 0) {
+					throw new ServiceException("删除["+per.getDisplayName()+"]权限失败。原因：还有拥有该权限的角色");
+				}
 				permissionsDao.delete(per);
 			}else {
 				logger.warn("ID=[" + id + "]的权限不存在，无法删除");
@@ -76,6 +79,11 @@ public class PermissionManager extends EntityManager<Permissions, String> {
 	@Transactional(readOnly = true)
 	public boolean isNameUnique(String name, String orgName) {
 		return permissionsDao.isNameUnique(name, orgName);
+	}
+	
+	@Transactional(readOnly = true)
+	public boolean isDisplayNameUnique(String name, String orgName) {
+		return permissionsDao.isDisplayNameUnique(name, orgName);
 	}
 	
 	@Transactional(readOnly = true)

@@ -15,6 +15,7 @@ import com.yanpeng.ssweb.entity.Groups;
 import com.yanpeng.ssweb.entity.Roles;
 import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.exceptions.ServiceException;
+import com.yanpeng.ssweb.interceptor.annotations.Token;
 import com.yanpeng.ssweb.service.group.GroupManager;
 import com.yanpeng.ssweb.service.role.RoleManager;
 import com.yanpeng.ssweb.service.user.UserManager;
@@ -88,6 +89,7 @@ public class UserAction extends CURDBaseAction<Users> {
 	}
 
 	@Override
+	@Token
 	public String save() throws Exception {
 		//根据页面上的checkbox 整合entity的roles Set
 //		

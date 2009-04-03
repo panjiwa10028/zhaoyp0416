@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.Permissions;
 import com.yanpeng.ssweb.exceptions.ServiceException;
+import com.yanpeng.ssweb.interceptor.annotations.Token;
 import com.yanpeng.ssweb.service.permission.PermissionManager;
 import com.yanpeng.ssweb.web.CURDBaseAction;
 
@@ -64,6 +65,7 @@ public class PermissionAction extends CURDBaseAction<Permissions> {
 	}
 
 	@Override
+	@Token
 	public String save() throws Exception {
 		//根据页面上的checkbox 整合entity的roles Set
 //		
@@ -105,11 +107,10 @@ public class PermissionAction extends CURDBaseAction<Permissions> {
 	 * 支持使用Jquery.validate Ajax检验用户名是否重复.
 	 */
 	public String checkName() throws Exception {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		String name = request.getParameter("name");
-		String orgName = request.getParameter("orgName");
+		String name = Struts2Utils.getRequest().getParameter("name");
+		String orgName = Struts2Utils.getRequest().getParameter("orgName");
 		
-		if (permissionManager.isNameUnique(name, orgName)) {
+		if (permissionManager.isNameUnique(name.toUpperCase(), orgName)) {
 			Struts2Utils.renderText("true");
 		} else {
 			Struts2Utils.renderText("false");
@@ -117,6 +118,18 @@ public class PermissionAction extends CURDBaseAction<Permissions> {
 		//因为直接输出而不经过Jsp,因此返回null.
 		return null;
 	}	
-
+	
+	public String checkDisplayName() throws Exception {
+		String displayName = Struts2Utils.getRequest().getParameter("displayName");
+		String orgName = Struts2Utils.getRequest().getParameter("orgName");
+		
+		if (permissionManager.isDisplayNameUnique(displayName, orgName)) {
+			Struts2Utils.renderText("true");
+		} else {
+			Struts2Utils.renderText("false");
+		}
+		//因为直接输出而不经过Jsp,因此返回null.
+		return null;
+	}	
 	
 }

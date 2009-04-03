@@ -21,6 +21,10 @@ public class PermissionDao extends HibernateDao<Permissions, String> {
 		return isPropertyUnique("name", newValue, orgValue);
 	}
 	
+	public boolean isDisplayNameUnique(String newValue, String orgValue) {
+		return isPropertyUnique("displayName", newValue, orgValue);
+	}
+	
 	public List<Permissions> findByIds(Collection<String> ids) {
 		return findByCriteria(Restrictions.in("id", ids));
 	}

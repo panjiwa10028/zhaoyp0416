@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.Groups;
 import com.yanpeng.ssweb.exceptions.ServiceException;
+import com.yanpeng.ssweb.interceptor.annotations.Token;
 import com.yanpeng.ssweb.service.group.GroupManager;
 import com.yanpeng.ssweb.web.CURDBaseAction;
 
@@ -59,10 +60,10 @@ public class GroupAction extends CURDBaseAction<Groups> {
 		return INPUT;
 	}
 
-	
+	@Override
+	@Token
 	public String save() throws Exception {
 		//根据页面上的checkbox 整合entity的roles Set
-		System.out.println("------------------ save()");
 		if(entity != null && entity.getId().equals("")) {
 			entity.setId(null);
 		}
@@ -103,9 +104,8 @@ public class GroupAction extends CURDBaseAction<Groups> {
 	 * 支持使用Jquery.validate Ajax检验用户名是否重复.
 	 */
 	public String checkName() throws Exception {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		String name = request.getParameter("name");
-		String orgName = request.getParameter("orgName");
+		String name = Struts2Utils.getRequest().getParameter("name");
+		String orgName = Struts2Utils.getRequest().getParameter("orgName");
 		
 		if (groupManager.isNameUnique(name, orgName)) {
 			Struts2Utils.renderText("true");

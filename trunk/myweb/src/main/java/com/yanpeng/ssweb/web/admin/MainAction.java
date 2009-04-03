@@ -60,8 +60,11 @@ public class MainAction extends BaseAction {
 		
 		
 		Collection<String> roleIds = user.getRoleIds();
-		List<Menus> menusList = menuManager.findMenusByRoleIds(roleIds);
-		leftMenuValue = listToLeftMenu(menusList);
+		if(roleIds != null && roleIds.size() > 0) {
+			List<Menus> menusList = menuManager.findMenusByRoleIds(roleIds);
+			leftMenuValue = listToLeftMenu(menusList);
+		}
+		
 		return SUCCESS;
 	}
 
@@ -91,7 +94,7 @@ public class MainAction extends BaseAction {
 
 			} else {
 
-				if (menu.getDisabled() == 1) {
+				if (menu.getIsDisabled() == 1) {
 					continue;
 				}
 				value = setChildMenu(menu, cnt);

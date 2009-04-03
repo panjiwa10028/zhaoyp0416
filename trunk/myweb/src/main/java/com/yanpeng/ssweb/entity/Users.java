@@ -51,7 +51,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 	public Users() {
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "group_id", nullable = false)
 	public Groups getGroups() {
 		return this.groups;
@@ -88,7 +88,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "isdisabled", nullable = false)
+	@Column(name = "isDisabled", nullable = false)
 	public Short getIsDisabled() {
 		return this.isDisabled;
 	}

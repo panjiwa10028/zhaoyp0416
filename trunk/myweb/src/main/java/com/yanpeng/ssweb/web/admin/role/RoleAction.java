@@ -15,6 +15,7 @@ import com.yanpeng.ssweb.entity.Menus;
 import com.yanpeng.ssweb.entity.Permissions;
 import com.yanpeng.ssweb.entity.Roles;
 import com.yanpeng.ssweb.exceptions.ServiceException;
+import com.yanpeng.ssweb.interceptor.annotations.Token;
 import com.yanpeng.ssweb.service.menu.MenuManager;
 import com.yanpeng.ssweb.service.permission.PermissionManager;
 import com.yanpeng.ssweb.service.role.RoleManager;
@@ -84,6 +85,7 @@ public class RoleAction extends CURDBaseAction<Roles> {
 	}
 
 	@Override
+	@Token
 	public String save() throws Exception {
 		
 //		

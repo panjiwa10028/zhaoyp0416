@@ -71,15 +71,18 @@ public class GroupManager extends EntityManager<Groups, String> {
 	}
 	
 	public void deleteGroups(Collection<String> ids) {
-		if (ids.contains("0")) {
-			logger.warn("不能删除root", SpringSecurityUtils.getCurrentUserName());
-			throw new ServiceException("不能删除root");
-		}
+//		if (ids.contains("0")) {
+//			logger.warn("不能删除root", SpringSecurityUtils.getCurrentUserName());
+//			throw new ServiceException("不能删除root");
+//		}
 
 		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
 			String id = (String) it.next();			
 			Groups group = groupDao.get(id);
 			if(group != null) {
+				if(group.getUserses().size() > 0) {
+					throw new ServiceException("删除失败。原因："+group.getName()+"部门下有用户");
+				}
 				groupDao.delete(group);
 			}else {
 				logger.warn("ID=[" + id + "]的用户组不存在，无法删除");

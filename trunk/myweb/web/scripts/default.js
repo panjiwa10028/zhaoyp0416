@@ -67,208 +67,6 @@ function OpenWnd(url, w, h, n, s, loc)
 
 var dialogFeatures = "";
 var newwinFeatures = "";
-function triggerFunc(actionName, openType, targetName)
-{
-	/*add history op*/
-	try{
-		if( typeof(window.top.TryAddHistoryOpFromTriggerFunc) == "function" )
-		{
-			if(window != window.top)
-				window.top.TryAddHistoryOpFromTriggerFunc(arguments,window.name);
-			else
-				window.top.TryAddHistoryOpFromTriggerFunc(arguments,null);
-		}
-	}catch(e)
-	{}
-
-	var funcTrigger = new FuncTrigger(actionName);
-
-	if (dialogFeatures.length > 0)
-	{
-		funcTrigger.setDialogFeatures(dialogFeatures);
-	}
-
-	if (newwinFeatures.length > 0)
-	{
-		funcTrigger.setNewWindowFeatures(newwinFeatures);
-	}
-
-	funcTrigger.funcUrl = actionName;
-	funcTrigger.setHelperDialog("https://pbnj.ebank.cmbchina.com/CmbBank_GenShell/UI/GenShellPC//Base/DialogHelper.aspx");
-
-	var ClientNo = document.getElementById("ClientNo");
-	funcTrigger.addFormParam("ClientNo",ClientNo.value);
-
-	if(arguments.length >= 4)
-	{
-		for(var i=3; i<arguments.length; i++)
-		{
-			var args = arguments[i].split("=");
-			funcTrigger.addFormParam(args[0],args[1]);
-
-		}
-	}
-
-	funcTrigger.setOpenType(openType);
-	funcTrigger.setFormTarget(targetName);
-	//funcTrigger.enableDebug();
-	funcTrigger.trigger();
-	
-	
-}
-
-
-function triggerFuncEx(actionName, openType, targetName)
-{
-	/*add history op*/
-	try{
-		if( typeof(window.top.TryAddHistoryOpFromTriggerFunc) == "function" )
-		{
-			if(window != window.top)
-				window.top.TryAddHistoryOpFromTriggerFunc(arguments,window.name);
-			else
-				window.top.TryAddHistoryOpFromTriggerFunc(arguments,null);
-		}
-	}catch(e)
-	{}
-	var funcTrigger = new FuncTrigger(actionName);
-
-	if (dialogFeatures.length > 0)
-	{
-		funcTrigger.setDialogFeatures(dialogFeatures);
-	}
-
-	if (newwinFeatures.length > 0)
-	{
-		funcTrigger.setNewWindowFeatures(newwinFeatures);
-	}
-
-	funcTrigger.funcUrl = actionName;
-	funcTrigger.setHelperDialog("../Base/DialogHelper.aspx");
-
-	var ClientNo = document.getElementById("ClientNo");
-	funcTrigger.addFormParam("ClientNo",ClientNo.value);
-
-	if(arguments.length >= 4)
-	{
-		for(var i=3; i<arguments.length; i++)
-		{
-			var args = arguments[i].split("=");
-			funcTrigger.addFormParam(args[0],args[1]);
-
-		}
-	}
-
-	funcTrigger.setOpenType(openType);
-	funcTrigger.setFormTarget(targetName);
-	//funcTrigger.enableDebug();
-	var returnValue = funcTrigger.trigger();
-	if (returnValue) RefreshPage();
-}
-
-function triggerFuncEx2(actionName, openType, targetName)
-{
-	/*add history op*/
-	try{
-		if( typeof(window.top.TryAddHistoryOpFromTriggerFunc) == "function" )
-		{
-			if(window != window.top)
-				window.top.TryAddHistoryOpFromTriggerFunc(arguments,window.name);
-			else
-				window.top.TryAddHistoryOpFromTriggerFunc(arguments,null);
-		}
-	}catch(e)
-	{}
-	var funcTrigger = new FuncTrigger(actionName);
-
-	if (dialogFeatures.length > 0)
-	{
-		funcTrigger.setDialogFeatures(dialogFeatures);
-	}
-
-	if (newwinFeatures.length > 0)
-	{
-		funcTrigger.setNewWindowFeatures(newwinFeatures);
-	}
-
-	funcTrigger.funcUrl = actionName;
-	funcTrigger.setHelperDialog("../Base/DialogHelper.aspx");
-
-	var ClientNo = document.getElementById("ClientNo");
-	funcTrigger.addFormParam("ClientNo",ClientNo.value);
-
-	if(arguments.length >= 4)
-	{
-		for(var i=3; i<arguments.length; i++)
-		{
-			var args = arguments[i].split("=");
-			funcTrigger.addFormParam(args[0],args[1]);
-
-		}
-	}
-
-	funcTrigger.setOpenType(openType);
-	funcTrigger.setFormTarget(targetName);
-	//funcTrigger.enableDebug();
-	var returnValue = funcTrigger.trigger();
-	RefreshPage();
-}
-
-//add by tianchao,20070905
-//support the arguments having "="
-function triggerFuncEq(actionName, openType, targetName)
-{
-	/*add history op*/
-	try{
-		if( typeof(window.top.TryAddHistoryOpFromTriggerFunc) == "function" )
-		{
-			if(window != window.top)
-				window.top.TryAddHistoryOpFromTriggerFunc(arguments,window.name);
-			else
-				window.top.TryAddHistoryOpFromTriggerFunc(arguments,null);
-		}
-	}catch(e)
-	{}
-	var funcTrigger = new FuncTrigger(actionName);
-
-	if (dialogFeatures.length > 0)
-	{
-		funcTrigger.setDialogFeatures(dialogFeatures);
-	}
-
-	if (newwinFeatures.length > 0)
-	{
-		funcTrigger.setNewWindowFeatures(newwinFeatures);
-	}
-
-	funcTrigger.funcUrl = actionName;
-	funcTrigger.setHelperDialog("../Base/DialogHelper.aspx");
-
-	var ClientNo = document.getElementById("ClientNo");
-	funcTrigger.addFormParam("ClientNo",ClientNo.value);
-
-	if(arguments.length >= 4)
-	{
-		for(var i=3; i<arguments.length; i++)
-		{
-			var args = arguments[i].split("=");
-			var key = args[0];
-			var value = args[1];
-			for(var j=2;j<args.length;j++)
-			{
-				value = value + "=" + args[j];
-			}
-			funcTrigger.addFormParam(key,value);
-
-		}
-	}
-
-	funcTrigger.setOpenType(openType);
-	funcTrigger.setFormTarget(targetName);
-	//funcTrigger.enableDebug();
-	funcTrigger.trigger();
-}
-
 function Trim(s)
 {
 	return s.replace( /^\s*/, "" ).replace( /\s*$/, "" );
@@ -605,5 +403,45 @@ function MyAlert(theText,notice)
 
 function hideDiv(divId) {
 	document.getElementById(divId).style.display = "none";
+}
+
+function selectAllCheckBox(obj, id) {
+	if(id == undefined) {
+		id = "'selectIds'";
+	}
+	var checkList = document.getElementsByName(id);
+	if(checkList==null) {
+		return "";
+	}
+	for(var i=0; i<checkList.length; i++) {	
+		if(obj.checked == true) {
+			checkList[i].checked = true;
+		}else {
+			checkList[i].checked = false;
+		}
+		
+	}
+}
+
+function getSelectedCheckBoxIds(id) {
+	if(id == undefined) {
+		id = "'selectIds'";
+	}
+	var checkList = document.getElementsByName(id);
+		
+	if(checkList==null) {
+		return "";
+	}
+		
+	var strSelectedIds = "";			
+	for(var i=0; i<checkList.length; i++) {				
+		if(checkList[i].checked==true) {
+			if(i > 0 && strSelectedIds != "") {
+				strSelectedIds += ",";
+			}
+			strSelectedIds += checkList[i].value;
+		}
+	}
+	return strSelectedIds;
 }
 
