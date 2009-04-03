@@ -25,45 +25,20 @@
 		}
 
 		function update() {		
-			var ids = getSelectedIds();
+			var ids = getSelectedCheckBoxIds('selectIds');
 			var url = "group!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 		
 		function del() {		
-			var ids = getSelectedIds();
-
+			var ids = getSelectedCheckBoxIds('selectIds');
 			var url = "group!delete.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
-			top.mainWorkArea.location = url;
-		}
-
-		function getSelectedIds()
-		{
-			var checkList = document.getElementsByName("selectIds");
-				
-			if(checkList==null)
-			{
-				return "";
-			}
-				
-			var strSelectedIds = "";
 			
-			for(var i=0; i<checkList.length; i++)
-			{
-				
-				if(checkList[i].checked==true)
-				{
-					if(i > 0 && strSelectedIds != "") {
-						strSelectedIds += ",";
-					}
-					strSelectedIds += checkList[i].value;
-				}
+			if(confirm("确定删除")) {
+				top.mainWorkArea.location = url;
 			}
-
-			return strSelectedIds;
-		}
-
-		
+			
+		}		
 
 		function query() {
 			submitForm();
@@ -91,7 +66,7 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
 									<span id="Location">用户管理 > 用户组设定</span>&nbsp;&nbsp;&nbsp;
 									<img src="${base}/images/ask.gif" id="BtnAsk"
-										style="CURSOR: hand" alt=""
+										style="CURSOR: hand" alt="..."
 										height="23" width="24" align="absMiddle" />
 								</TD>
 								<TD class="tdTitle2">
@@ -123,8 +98,7 @@
 										<tr>
 											<td class=tdPanelHead>&nbsp;</td>
 											<td class=tdPanelSel_left>&nbsp;</td>
-											<td class=tdPanelSel_center><pre style="margin: 0px"><a href="#" class=lkPanelSel 
-											onclick="top.mainWorkArea.location='group.action'">用户组设定</a></pre></td>
+											<td class=tdPanelSel_center><pre style="margin: 0px">用户组设定</pre></td>
 											<td class=tdPanelSel_right>&nbsp;</td>
 										</tr>
 									</table>
@@ -167,7 +141,7 @@
 							style="border-color: #9FD6FF; border-width: 1px; border-style: solid; border-collapse: collapse;">
 							<tr class="dgHeader" align="Center">
 								<td class="dgHeader">
-									<input type="checkbox" class="checkbox" name="ids"/>
+									<input type="checkbox" class="checkbox" name="ids" onclick="selectAllCheckBox(this,'selectIds')"/>
 								</td>
 								</td>
 								<td class="dgHeader">

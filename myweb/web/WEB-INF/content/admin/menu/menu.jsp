@@ -16,52 +16,28 @@
 				top.setStatusBarInfo($("#message").text());
 			}
 			
-			body.style.cursor = "";
 		}		
 		
 		function add() {			
-			var url = "menu!input.action";
+			var url = "menu!input.action?page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 
 		function update() {		
-			var ids = getSelectedIds();
+			var ids = getSelectedCheckBoxIds('selectIds');
 			var url = "menu!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 		
 		function del() {		
-			var ids = getSelectedIds();
-
+			var ids = getSelectedCheckBoxIds('selectIds');
 			var url = "menu!delete.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
-			top.mainWorkArea.location = url;
+			if(confirm("确定删除")) {
+				top.mainWorkArea.location = url;
+			}
 		}
 
-		function getSelectedIds()
-		{
-			var checkList = document.getElementsByName("selectIds");
-				
-			if(checkList==null)
-			{
-				return "";
-			}
-				
-			var strSelectedIds = "";
-			
-			for(var i=0; i<checkList.length; i++)
-			{
-				
-				if(checkList[i].checked==true)
-				{
-					if(i > 0 && strSelectedIds != "") {
-						strSelectedIds += ",";
-					}
-					strSelectedIds += checkList[i].value;
-				}
-			}
-
-			return strSelectedIds;
-		}
+		
 
 		
 
@@ -91,7 +67,7 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
 									<span id="Location">系统管理 > 菜单设定</span>&nbsp;&nbsp;&nbsp;
 									<img src="${base}/images/ask.gif" id="BtnAsk"
-										style="CURSOR: hand" alt="账户管理提供账户余额查询、交易查询、修改密码、挂失等账户基本功能。"
+										style="CURSOR: hand" alt="..."
 										height="23" width="24" align="absMiddle" />
 								</TD>
 								<TD class="tdTitle2">
@@ -117,18 +93,15 @@
 							border="0">
 							<TR>
 								<TD class="tdPanelContent">
-									<!-- 账户管理首页标签 -->
 									<table border="0" cellpadding="0" cellspacing="0"
 										class=tbPanelContent>
 										<tr>
 											<td class=tdPanelHead>&nbsp;</td>
 											<td class=tdPanelSel_left>&nbsp;</td>
-											<td class=tdPanelSel_center><pre style="margin: 0px"><a href="#" class=lkPanelSel 
-											onclick="top.mainWorkArea.location='role.action'">菜单设定</a></pre></td>
+											<td class=tdPanelSel_center><pre style="margin: 0px">菜单设定</pre></td>
 											<td class=tdPanelSel_right>&nbsp;</td>
 										</tr>
 									</table>
-									<!-- END 账户管理首页标签 -->
 								</TD>
 								<TD class="tdPanelTrail">
 									<table border="0" cellpadding="0" cellspacing="0"
@@ -157,7 +130,7 @@
 						<TABLE class="tbBlock" id="Table8" cellSpacing="1" border="0">
 							<TR>
 								<TD class="tdPrompt">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;菜单列表
 								</TD>
 							</TR>
 						</TABLE>
@@ -167,11 +140,23 @@
 							style="border-color: #9FD6FF; border-width: 1px; border-style: solid; border-collapse: collapse;">
 							<tr class="dgHeader" align="Center">
 								<td class="dgHeader">
-									<input type="checkbox" class="checkbox" name="ids"/>
+									<input type="checkbox" class="checkbox" name="ids" onclick="selectAllCheckBox(this,'selectIds')"/>
 								</td>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('name')"><b>名称</b>
+									<a href="javascript:orderBy('displayName')"><b>显示名称</b>
+									</a>
+								</td>
+								<td class="dgHeader">
+									<a href="javascript:orderBy('name')"><b>标识</b>
+									</a>
+								</td>
+								<td class="dgHeader">
+									<a href="javascript:orderBy('isDisabled')"><b>状态</b>
+									</a>
+								</td>
+								<td class="dgHeader">
+									<a href="javascript:orderBy('path')"><b>路径</b>
 									</a>
 								</td>
 							</tr>
@@ -183,6 +168,16 @@
 									</td>
 									<td align="Left">
 										${displayName}
+									</td>
+									<td align="Left">
+										${name}
+									</td>
+									<td align="Left">
+										<s:if test="isDisabled == 0">有效</s:if>
+										<s:elseif test="isDisabled == 1">无效</s:elseif>
+									</td>
+									<td align="Left">
+										${path}
 									</td>
 								</tr>
 							</s:iterator>

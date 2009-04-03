@@ -23,14 +23,17 @@
 			$("#loginName").focus();
 			$("#inputForm").validate({
 				 rules: { 
+					groupId: {
+						required: true
+		 			},
 					loginName: { 
 	        			required: true, 
-	        			remote: "user!checkLoginName.action?orgLoginName=${loginName}"
+	        			remote: encodeURI("user!checkLoginName.action?orgLoginName=${loginName}")
 	    			},
 	            	name: "required",
 	            	password: {
 	    				required: true,
-	    				minlength:3
+	    				rangelength:[6,12]
 	    			}, 
 	    			passwordConfirm: {
 	    				required: true,
@@ -80,6 +83,7 @@
 	<body scroll="auto" style="overflow: auto" onload="initPage()">
 		<form id="inputForm" name="inputForm" action="user!save.action"
 			method="post">
+			<s:token/>
 			<input type="hidden" name="id" value="${id}" />
 			<input type="hidden" name="page.pageRequest"
 				value="${page.pageRequest}" />
@@ -90,7 +94,7 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">用户管理 > 用户设定 > 用户<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
+									<span id="Location">用户管理 > <a href='#' onclick="cancel()">用户设定</a> > 用户<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
 								</TD>
 								<TD class="tdTitle2"></TD>
 								<TD class="tdTitle3">
