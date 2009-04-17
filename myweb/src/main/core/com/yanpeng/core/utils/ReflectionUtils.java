@@ -34,8 +34,9 @@ public class ReflectionUtils {
 	public static Object getFieldValue(final Object object, final String fieldName) {
 		Field field = getDeclaredField(object, fieldName);
 
-		if (field == null)
+		if (field == null) {
 			throw new IllegalArgumentException("Could not find field [" + fieldName + "] on target [" + object + "]");
+		}
 
 		makeAccessible(field);
 
@@ -54,8 +55,9 @@ public class ReflectionUtils {
 	public static void setFieldValue(final Object object, final String fieldName, final Object value) {
 		Field field = getDeclaredField(object, fieldName);
 
-		if (field == null)
+		if (field == null) {
 			throw new IllegalArgumentException("Could not find field [" + fieldName + "] on target [" + object + "]");
+		}
 
 		makeAccessible(field);
 

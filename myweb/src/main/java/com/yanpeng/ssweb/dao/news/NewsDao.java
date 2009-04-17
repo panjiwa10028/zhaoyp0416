@@ -1,12 +1,9 @@
 package com.yanpeng.ssweb.dao.news;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 import com.yanpeng.core.orm.hibernate.HibernateDao;
 import com.yanpeng.ssweb.entity.News;
-import com.yanpeng.ssweb.entity.Users;
 
 /**
  * 继承于HibernateDao的范型DAO子类.
@@ -18,6 +15,5 @@ import com.yanpeng.ssweb.entity.Users;
 //Spring DAO Bean的标识
 @Repository
 public class NewsDao extends HibernateDao<News, String> {
-
 
 }

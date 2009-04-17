@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.yanpeng.ssweb.entity.Menus;
 import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.service.menu.MenuManager;
-import com.yanpeng.ssweb.service.user.UserManager;
 import com.yanpeng.ssweb.web.BaseAction;
 
 /**
@@ -30,18 +29,7 @@ public class MainAction extends BaseAction {
 	private String leftMenuValue;
 
 	@Autowired
-	public UserManager userManager;
-
-	@Autowired
-	public MenuManager menuManager;
-
-	public void setUserManager(UserManager userManager) {
-		this.userManager = userManager;
-	}
-
-	public MenuManager getMenuManager() {
-		return menuManager;
-	}
+	private MenuManager menuManager;
 
 	public String getLeftMenuValue() {
 		return leftMenuValue;
@@ -57,18 +45,15 @@ public class MainAction extends BaseAction {
 		if (user == null) {
 			user = new Users();
 		}
-		
-		
+
 		Collection<String> roleIds = user.getRoleIds();
-		if(roleIds != null && roleIds.size() > 0) {
+		if (roleIds != null && roleIds.size() > 0) {
 			List<Menus> menusList = menuManager.findMenusByRoleIds(roleIds);
 			leftMenuValue = listToLeftMenu(menusList);
 		}
-		
+
 		return SUCCESS;
 	}
-
-	
 
 	private String listToLeftMenu(List<Menus> menuList) {
 
@@ -82,7 +67,7 @@ public class MainAction extends BaseAction {
 		String value = "";
 		for (int i = 0; i < menuList.size(); i++) {
 
-			Menus menu = (Menus) menuList.get(i);
+			Menus menu = menuList.get(i);
 			if ("0".equals(menu.getMenus().getId())) {
 				// 创建节点 user;
 				if (!"".equals(returnValue)) {
@@ -114,16 +99,14 @@ public class MainAction extends BaseAction {
 		elementLI.setAttribute("id", "vmenu_" + cnt + "_" + menu.getSort());
 
 		Element elementLI_A = new Element("A");
-		elementLI_A.setAttribute("onclick", menu.getPath()
-				+ ";return false;window.focus();");
+		elementLI_A.setAttribute("onclick", menu.getPath() + ";return false;window.focus();");
 		elementLI_A.setAttribute("href", "null");
 		elementLI_A.addContent(menu.getDisplayName());
 
 		elementLI.addContent(elementLI_A);
 
 		XMLOutputter XMLOut = new XMLOutputter();
-		return XMLOut.outputString(doc).replaceAll(
-				"<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "");
+		return XMLOut.outputString(doc).replaceAll("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "");
 	}
 
 }

@@ -7,12 +7,11 @@ package com.yanpeng.ssweb.entity.config;
  *
  */
 public class Config {
-	
+
 	private String appPath;
-	
+
 	private int pageSize;//每页显示数量
 
-	
 	public String getAppPath() {
 		return appPath;
 	}
@@ -28,7 +27,5 @@ public class Config {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-
-	
 
 }

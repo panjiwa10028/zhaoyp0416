@@ -32,14 +32,11 @@ public class SSWebInterceptor extends AbstractInterceptor implements StrutsStati
 				+ ServletActionContext.getRequest().getContextPath() + "/";
 		ServletActionContext.getRequest().setAttribute("SSWEBPATH", basePath);
 
-		
-
 		if (action instanceof ConfigAware) { // 初始化配置信息
 			Config config = ConfigLoader.getConfig();
-			((ConfigAware) action).setConfig(config);			
+			((ConfigAware) action).setConfig(config);
 		}
 
-		
 		return invocation.invoke();
 	}
 }

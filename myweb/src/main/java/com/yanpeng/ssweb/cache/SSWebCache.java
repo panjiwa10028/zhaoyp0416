@@ -88,7 +88,7 @@ public class SSWebCache {
 		if (logger.isDebugEnabled()) {
 			logger.debug("获取KEY为{}的缓存对象", key);
 		}
-		return (Object) element.getValue();
+		return element.getValue();
 
 	}
 

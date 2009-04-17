@@ -20,55 +20,56 @@ import com.yanpeng.ssweb.entity.Menus;
 @Repository
 public class MenuDao extends HibernateDao<Menus, String> {
 
-//	public List<Menus> findByRoleIds(Collection<String> ids) {
-//		
-//		StringBuffer strbf=new StringBuffer();
-//		for(Serializable pk:ids){
-//			if(pk instanceof String||pk instanceof Character){
-//				strbf.append("'"+pk+"',");
-//			}else{
-//				strbf.append(pk+",");
-//			}
-//		}
-//		String parms=strbf.substring(0, strbf.length()-1).toString();
-//		String queryString = "select m from Menus as m inner join m.roleses as r where r.id in ("+parms+") order by m.sort asc,m.id asc";
-//		
-//		return this.createQuery(queryString).list();
-//	}
-	
+	//	public List<Menus> findByRoleIds(Collection<String> ids) {
+	//		
+	//		StringBuffer strbf=new StringBuffer();
+	//		for(Serializable pk:ids){
+	//			if(pk instanceof String||pk instanceof Character){
+	//				strbf.append("'"+pk+"',");
+	//			}else{
+	//				strbf.append(pk+",");
+	//			}
+	//		}
+	//		String parms=strbf.substring(0, strbf.length()-1).toString();
+	//		String queryString = "select m from Menus as m inner join m.roleses as r where r.id in ("+parms+") order by m.sort asc,m.id asc";
+	//		
+	//		return this.createQuery(queryString).list();
+	//	}
+
 	public List<Menus> findByRoleIds(Collection<String> ids) {
 		Page page = new Page();
 		page.setOrder("asc,asc");
 		page.setOrderBy("sort,id");
-		return findByCriteria("roleses", 0, page, Restrictions.in("_roleses.id", ids) );
+		return findByCriteria("roleses", 0, page, Restrictions.in("_roleses.id", ids));
 	}
-	
+
 	public List<Menus> findFirstLevelNotId(String id) {
 		Criterion criteria;
-		if(id != null && !id.equals("")) {
-			criteria = Restrictions.and(Restrictions.in("parentId", new Object[]{"-1","0"}), Restrictions.not(Restrictions.eq("id", id)));
-		}else {
-			criteria = Restrictions.in("parentId", new Object[]{"-1","0"});
+		if (id != null && !id.equals("")) {
+			criteria = Restrictions.and(Restrictions.in("parentId", new Object[] { "-1", "0" }), Restrictions
+					.not(Restrictions.eq("id", id)));
+		} else {
+			criteria = Restrictions.in("parentId", new Object[] { "-1", "0" });
 		}
 		return findByCriteria(criteria);
 	}
-	
+
 	public List<Menus> findSub() {
-		return findByCriteria(Restrictions.not(Restrictions.in("parentId", new Object[]{"-1","0"})));
+		return findByCriteria(Restrictions.not(Restrictions.in("parentId", new Object[] { "-1", "0" })));
 	}
-	
+
 	public boolean isNameUnique(String newValue, String orgValue) {
 		return isPropertyUnique("name", newValue, orgValue);
 	}
-	
+
 	public boolean isDisplayNameUnique(String newValue, String orgValue) {
 		return isPropertyUnique("displayName", newValue, orgValue);
 	}
-	
+
 	public List<Menus> findByIds(Collection<String> ids) {
 		return findByCriteria(Restrictions.in("id", ids));
 	}
-	
+
 	public Page<Menus> getAllByPage(Page<Menus> page) {
 		return findByCriteria(page, Restrictions.not(Restrictions.eq("id", "0")));
 	}

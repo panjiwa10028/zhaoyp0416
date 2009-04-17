@@ -21,7 +21,7 @@ public class RoleDao extends HibernateDao<Roles, String> {
 	public List<Roles> findByIds(Collection<String> ids) {
 		return findByCriteria(Restrictions.in("id", ids));
 	}
-	
+
 	public boolean isNameUnique(String newValue, String orgValue) {
 		return isPropertyUnique("name", newValue, orgValue);
 	}

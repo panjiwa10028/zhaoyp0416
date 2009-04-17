@@ -1,8 +1,6 @@
 package com.yanpeng.ssweb.service.user;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -12,10 +10,9 @@ import org.springframework.test.annotation.ExpectedException;
 
 import com.yanpeng.core.test.SpringTransactionalTestCase;
 import com.yanpeng.ssweb.entity.Groups;
-import com.yanpeng.ssweb.entity.Roles;
 import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.service.group.GroupManager;
-import com.yanpeng.ssweb.service.role.RoleManager;
+
 /**
  * UserManager的集成测试用例.
  * 
@@ -30,7 +27,6 @@ public class UserManagerTest extends SpringTransactionalTestCase {
 	@Autowired
 	private GroupManager groupManager;
 
-
 	public void testCRUD() {
 		//保存角色并验证.
 		Users entity = new Users();
@@ -38,7 +34,7 @@ public class UserManagerTest extends SpringTransactionalTestCase {
 		entity.setLoginName("tester" + RandomStringUtils.randomAlphabetic(5));
 		entity.setName("foo");
 		entity.setPassword("foo");
-		
+
 		Groups gorup = groupManager.getGroupById("0");
 
 		entity.setGroups(gorup);
@@ -56,32 +52,32 @@ public class UserManagerTest extends SpringTransactionalTestCase {
 		entity.setLoginName("tester" + RandomStringUtils.randomAlphabetic(5));
 		entity.setName("tester" + RandomStringUtils.randomAlphabetic(5));
 		entity.setPassword("tester" + RandomStringUtils.randomAlphabetic(5));
-		
-//		List roleList = roleManager.getAllRoles();
-//		for(Iterator roles=roleList.iterator(); roles.hasNext();) {
-//			Roles r = (Roles) roles.next();
-//			entity.getRoleses().add(r);
-//		}
+
+		//		List roleList = roleManager.getAllRoles();
+		//		for(Iterator roles=roleList.iterator(); roles.hasNext();) {
+		//			Roles r = (Roles) roles.next();
+		//			entity.getRoleses().add(r);
+		//		}
 		Groups gorup = groupManager.getGroupById("0");
 		entity.setGroups(gorup);
 		List list = new ArrayList();
 		list.add("1");
 		list.add("2");
 		userManager.saveUser(entity, list);
-//		userManager.saveUser(entity);
+		//		userManager.saveUser(entity);
 		flush();
 		entity = userManager.getUser(entity.getId());
 		Assert.assertEquals(2, entity.getRoleses().size());
-//
-//		//删除角色并验证
-//		for(Iterator roles=roleList.iterator(); roles.hasNext();) {
-//			Roles r = (Roles) roles.next();
-//			entity.getRoleses().remove(r);
-//		}
-//		
-//		flush();
-//		entity = userManager.getUser(entity.getId());
-//		assertEquals(0, entity.getRoleses().size());
+		//
+		//		//删除角色并验证
+		//		for(Iterator roles=roleList.iterator(); roles.hasNext();) {
+		//			Roles r = (Roles) roles.next();
+		//			entity.getRoleses().remove(r);
+		//		}
+		//		
+		//		flush();
+		//		entity = userManager.getUser(entity.getId());
+		//		assertEquals(0, entity.getRoleses().size());
 	}
 
 	//期望抛出ConstraintViolationException的异常.
@@ -99,5 +95,5 @@ public class UserManagerTest extends SpringTransactionalTestCase {
 		boolean returnValue = userManager.isLoginNameUnique(loginName, orgLoginName);
 		Assert.assertEquals(true, returnValue);
 	}
-	
+
 }

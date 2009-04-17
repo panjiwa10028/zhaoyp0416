@@ -7,9 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -25,21 +23,19 @@ import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 
-
-
 public class CommUtil {
-	
+
 	public static void ObjToMap(Object obj, Map map) {
-		if (map == null)
+		if (map == null) {
 			map = new HashMap();
-		PropertyDescriptor descriptors[] = BeanUtilsBean.getInstance()
-				.getPropertyUtils().getPropertyDescriptors(obj);
-		for (int i = 0; i < descriptors.length; i++) {
-			String name = descriptors[i].getName();
+		}
+		PropertyDescriptor descriptors[] = BeanUtilsBean.getInstance().getPropertyUtils().getPropertyDescriptors(obj);
+		for (PropertyDescriptor descriptor : descriptors) {
+			String name = descriptor.getName();
 			try {
-				if (descriptors[i].getReadMethod() != null)
-					map.put(name, BeanUtilsBean.getInstance()
-							.getPropertyUtils().getProperty(obj, name));
+				if (descriptor.getReadMethod() != null) {
+					map.put(name, BeanUtilsBean.getInstance().getPropertyUtils().getProperty(obj, name));
+				}
 			} catch (Exception e) {
 				System.out.println(name + ":" + e);
 			}
@@ -50,8 +46,7 @@ public class CommUtil {
 	public static void MapToObj(Map map, Object obj) {
 		for (Iterator names = map.keySet().iterator(); names.hasNext();) {
 			String name = (String) names.next();
-			if (BeanUtilsBean.getInstance().getPropertyUtils().isWriteable(obj,
-					name)) {
+			if (BeanUtilsBean.getInstance().getPropertyUtils().isWriteable(obj, name)) {
 				Object value = map.get(name);
 				try {
 					BeanUtilsBean.getInstance().copyProperty(obj, name, value);
@@ -62,7 +57,7 @@ public class CommUtil {
 		}
 
 	}
-	
+
 	/**
 	 * 判断是否为INT
 	 * @param expression
@@ -127,7 +122,6 @@ public class CommUtil {
 		return htmlText.replaceAll(reg, "");
 	}
 
-
 	/**
 	 * 格式化内容，只保留前n个字符，并进一步确认是否要在后面加上...
 	 * 
@@ -141,12 +135,12 @@ public class CommUtil {
 	 */
 
 	public static String format(String str, int num, boolean hasDot) {
-		if (str == null)
+		if (str == null) {
 			return "";
-		else {
-			if (str.getBytes().length < num * 2)
+		} else {
+			if (str.getBytes().length < num * 2) {
 				return str;
-			else {
+			} else {
 				byte[] ss = str.getBytes();
 				byte[] bs = new byte[num * 2];
 				for (int i = 0; i < bs.length; i++) {
@@ -171,11 +165,12 @@ public class CommUtil {
 	 * @return
 	 */
 	public static String substring(String s, int maxLength) {
-		if (s.getBytes().length <= maxLength)
+		if (s.getBytes().length <= maxLength) {
 			return s;
+		}
 		int i = 0;
 		for (int k = 0; k < maxLength && i < s.length(); i++, k++) {
-			if (s.charAt(i) > '一') {
+			if (s.charAt(i) > '　') {
 				k++;
 			}
 		}
@@ -377,7 +372,6 @@ public class CommUtil {
 		return new Date();
 	}
 
-	
 	/**
 	 * 判断时间格式
 	 * 
@@ -396,9 +390,6 @@ public class CommUtil {
 		return true;
 	}
 
-	
-
-
 	/**
 	 * 检测邮件格式
 	 * 
@@ -408,8 +399,9 @@ public class CommUtil {
 	public static boolean checkEmail(String email) {
 		Pattern pattern = Pattern.compile("\\w+(\\.\\w+)*@\\w+(\\.\\w+)+");
 		Matcher matcher = pattern.matcher(email);
-		if (matcher.matches())
+		if (matcher.matches()) {
 			return true;
+		}
 		return false;
 	}
 
@@ -492,8 +484,8 @@ public class CommUtil {
 	 */
 	public static boolean inIPArray(String ip, String[] ipArry) {
 		String[] userip = ip.split("\\.");
-		for (int ipIndex = 0; ipIndex < ipArry.length; ipIndex++) {
-			String[] tempip = ipArry[ipIndex].split("\\.");
+		for (String element : ipArry) {
+			String[] tempip = element.split("\\.");
 			int r = 0;
 			for (int i = 0; i < tempip.length; i++) {
 				if (tempip[i].equals("*")) {
@@ -811,5 +803,4 @@ public class CommUtil {
 		return flag;
 	}
 
-	
 }

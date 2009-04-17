@@ -8,7 +8,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 /**
  * News entity. @author MyEclipse Persistence Tools
  */
@@ -27,22 +26,18 @@ public class News extends BaseEntity implements java.io.Serializable {
 	private String content;
 	private String picture;
 	private Date date;
-	
-	
+
 	// Constructors
 
 	/** default constructor */
 	public News() {
 	}
 
-
-
 	// Property accessors
-
 
 	@Column(name = "title", length = 100)
 	public String getTitle() {
-		return this.title;
+		return title;
 	}
 
 	public void setTitle(String title) {
@@ -51,7 +46,7 @@ public class News extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "auth", length = 50)
 	public String getAuth() {
-		return this.auth;
+		return auth;
 	}
 
 	public void setAuth(String auth) {
@@ -60,7 +55,7 @@ public class News extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "content", length = 65535)
 	public String getContent() {
-		return this.content;
+		return content;
 	}
 
 	public void setContent(String content) {
@@ -69,7 +64,7 @@ public class News extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "picture")
 	public String getPicture() {
-		return this.picture;
+		return picture;
 	}
 
 	public void setPicture(String picture) {
@@ -79,7 +74,7 @@ public class News extends BaseEntity implements java.io.Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "date", length = 19)
 	public Date getDate() {
-		return this.date;
+		return date;
 	}
 
 	public void setDate(Date date) {

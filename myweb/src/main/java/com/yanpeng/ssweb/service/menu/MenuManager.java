@@ -1,7 +1,6 @@
 package com.yanpeng.ssweb.service.menu;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.orm.hibernate.EntityManager;
-import com.yanpeng.core.security.SpringSecurityUtils;
 import com.yanpeng.ssweb.dao.menu.MenuDao;
 import com.yanpeng.ssweb.entity.Menus;
 import com.yanpeng.ssweb.exceptions.ServiceException;
@@ -33,7 +31,7 @@ public class MenuManager extends EntityManager<Menus, String> {
 
 	@Autowired
 	private MenuDao menuDao;
-	
+
 	@Override
 	protected MenuDao getEntityDao() {
 		return menuDao;
@@ -55,53 +53,53 @@ public class MenuManager extends EntityManager<Menus, String> {
 	public void saveMenu(Menus menu) {
 		menuDao.save(menu);
 	}
-	
+
 	@Transactional(readOnly = true)
-	public List<Menus> findMenusByRoleIds(Collection<String> ids) {		
+	public List<Menus> findMenusByRoleIds(Collection<String> ids) {
 		return menuDao.findByRoleIds(ids);
-		
+
 	}
+
 	public void deleteMenus(Collection<String> ids) {
-		
-//		if (ids.contains("1")) {
-//			logger.warn("不能删除系统菜单", SpringSecurityUtils.getCurrentUserName());
-//			throw new ServiceException("删除失败。原因：不能删除系统菜单");
-//		}
-		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
-			String id = (String) it.next();
+
+		//		if (ids.contains("1")) {
+		//			logger.warn("不能删除系统菜单", SpringSecurityUtils.getCurrentUserName());
+		//			throw new ServiceException("删除失败。原因：不能删除系统菜单");
+		//		}
+		for (String string : ids) {
+			String id = string;
 			Menus menu = menuDao.get(id);
-			if(menu != null) {				
-				if(menu.getMenuses().size() > 0) {
-					throw new ServiceException("删除菜单"+menu.getName()+"失败。原因：有下级菜单存在");
+			if (menu != null) {
+				if (menu.getMenuses().size() > 0) {
+					throw new ServiceException("删除菜单" + menu.getName() + "失败。原因：有下级菜单存在");
 				}
 				menuDao.delete(menu);
-			}else {
+			} else {
 				logger.warn("ID=[" + id + "]的菜单不存在，无法删除");
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	@Transactional(readOnly = true)
 	public boolean isNameUnique(String name, String orgName) {
 		return menuDao.isNameUnique(name, orgName);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public boolean isDisplayNameUnique(String name, String orgName) {
 		return menuDao.isDisplayNameUnique(name, orgName);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public List<Menus> findFirstLevelMenusNotId(String id) {
 		return menuDao.findFirstLevelNotId(id);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public List<Menus> findSubMenus() {
 		return menuDao.findSub();
 	}
 
-	
 }

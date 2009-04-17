@@ -16,8 +16,6 @@ import com.yanpeng.ssweb.entity.Roles;
 import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.service.user.UserManager;
 
-
-
 /**
  * 实现SpringSecurity的UserDetailsService接口,获取用户Detail信息.
  * 
@@ -30,22 +28,22 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException, DataAccessException {
 		Users user = userManager.getUserByLoginName(userName);
-		if (user == null){
+		if (user == null) {
 			throw new UsernameNotFoundException(userName + " 不存在");
 		}
 		List<GrantedAuthority> authsList = new ArrayList<GrantedAuthority>();
-		GrantedAuthority ag=null;
+		GrantedAuthority ag = null;
 		for (Roles role : user.getRoleses()) {
-			for(Permissions per:role.getPermissionses()){
-				ag=new GrantedAuthorityImpl(per.getName());
+			for (Permissions per : role.getPermissionses()) {
+				ag = new GrantedAuthorityImpl(per.getName());
 				authsList.add(ag);
-				ag=null;
+				ag = null;
 			}
 		}
-		org.springframework.security.userdetails.User userdetail=new org.springframework.security.userdetails.User(user.getLoginName()
-				,user.getPassword(),user.getIsDisabled()==1?false:true, user.getIsExpired()==1?false:true,
-				true,user.getIsLocked()==1?false:true,
-				authsList.toArray(new GrantedAuthority[authsList.size()]));
+		org.springframework.security.userdetails.User userdetail = new org.springframework.security.userdetails.User(
+				user.getLoginName(), user.getPassword(), user.getIsDisabled() == 1 ? false : true,
+				user.getIsExpired() == 1 ? false : true, true, user.getIsLocked() == 1 ? false : true, authsList
+						.toArray(new GrantedAuthority[authsList.size()]));
 		return userdetail;
 	}
 

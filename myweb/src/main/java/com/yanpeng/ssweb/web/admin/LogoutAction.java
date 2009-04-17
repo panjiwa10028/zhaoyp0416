@@ -16,12 +16,9 @@ import com.yanpeng.ssweb.web.BaseAction;
 @Results( { @Result(name = "LOGOUT", location = "/j_spring_security_logout", type = "redirect") })
 public class LogoutAction extends BaseAction {
 
-	
-
 	@Override
-	public String execute() throws Exception {		
+	public String execute() throws Exception {
 		return "LOGOUT";
 	}
 
-	
 }

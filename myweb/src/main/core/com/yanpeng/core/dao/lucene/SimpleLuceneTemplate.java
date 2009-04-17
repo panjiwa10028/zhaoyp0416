@@ -24,12 +24,12 @@ import org.springframework.util.Assert;
  *
  */
 @SuppressWarnings("unchecked")
-public class SimpleLuceneTemplate<T, PK extends Serializable>{
+public class SimpleLuceneTemplate<T, PK extends Serializable> {
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	protected SessionFactory sessionFactory;
-	
+
 	protected Class<T> entityClass;
 
 	protected Session getSession() {
@@ -39,16 +39,16 @@ public class SimpleLuceneTemplate<T, PK extends Serializable>{
 	protected SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-	
+
 	protected void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	public SimpleLuceneTemplate(final SessionFactory sessionFactory, final Class<T> entityClass) {
-		this.sessionFactory=sessionFactory;
+		this.sessionFactory = sessionFactory;
 		this.entityClass = entityClass;
 	}
-	
+
 	/**
 	 * 通过关键字搜索
 	 * @param field索引字段名
@@ -56,28 +56,28 @@ public class SimpleLuceneTemplate<T, PK extends Serializable>{
 	 * @return
 	 * @throws ParseException
 	 */
-	public List findByFullText(String field,String text){
-		try{
-			Assert.notNull(field,"搜索字段为空");
-			Assert.hasText(field,"搜索字段不是文本");
-			Assert.hasText(text,"搜索内容不是文本");
+	public List findByFullText(String field, String text) {
+		try {
+			Assert.notNull(field, "搜索字段为空");
+			Assert.hasText(field, "搜索字段不是文本");
+			Assert.hasText(text, "搜索内容不是文本");
 			FullTextSession fullTextSession = Search.getFullTextSession(getSession());
 			org.apache.lucene.queryParser.QueryParser parser = new QueryParser(field, new StopAnalyzer());
 			//parser.setAllowLeadingWildcard(true);
 			org.apache.lucene.search.Query luceneQuery = parser.parse(text);
 			org.hibernate.Query fullTextQuery = null;
-			if(entityClass != null){
-				fullTextQuery=fullTextSession.createFullTextQuery(luceneQuery,entityClass);
-			}else{
-				fullTextQuery=fullTextSession.createFullTextQuery(luceneQuery);
+			if (entityClass != null) {
+				fullTextQuery = fullTextSession.createFullTextQuery(luceneQuery, entityClass);
+			} else {
+				fullTextQuery = fullTextSession.createFullTextQuery(luceneQuery);
 			}
-			logger.info("find '"+text+"' on field:"+field);
+			logger.info("find '" + text + "' on field:" + field);
 			return fullTextQuery.list();
-		}catch (ParseException e) {
-			logger.error("not find '"+text+"' on field:"+field,e.fillInStackTrace());
+		} catch (ParseException e) {
+			logger.error("not find '" + text + "' on field:" + field, e.fillInStackTrace());
 			return null;
-		}catch (Exception e) {
-			logger.error("find '"+text+"' on field:"+field+" having error!",e.fillInStackTrace());
+		} catch (Exception e) {
+			logger.error("find '" + text + "' on field:" + field + " having error!", e.fillInStackTrace());
 			return null;
 		}
 	}
@@ -89,33 +89,33 @@ public class SimpleLuceneTemplate<T, PK extends Serializable>{
 	 * @return
 	 * @throws ParseException
 	 */
-	public List findByFullText(String[] field,String text){
-		try{
-			Assert.notNull(field,"搜索字段为空");
-			Assert.notEmpty(field,"搜索字段数目为0");
-			Assert.hasText(text,"搜索内容不是文本");
+	public List findByFullText(String[] field, String text) {
+		try {
+			Assert.notNull(field, "搜索字段为空");
+			Assert.notEmpty(field, "搜索字段数目为0");
+			Assert.hasText(text, "搜索内容不是文本");
 			FullTextSession fullTextSession = Search.getFullTextSession(getSession());
 			BooleanClause.Occur[] flags = new BooleanClause.Occur[field.length];
-			for(int i=0;i<field.length;i++){
-				flags[i]=BooleanClause.Occur.SHOULD;
+			for (int i = 0; i < field.length; i++) {
+				flags[i] = BooleanClause.Occur.SHOULD;
 			}
-			org.apache.lucene.search.Query luceneQuery = MultiFieldQueryParser.parse(text, field,flags, new StandardAnalyzer());
+			org.apache.lucene.search.Query luceneQuery = MultiFieldQueryParser.parse(text, field, flags,
+					new StandardAnalyzer());
 			org.hibernate.Query fullTextQuery = null;
-			if(entityClass != null){
-				fullTextQuery=fullTextSession.createFullTextQuery(luceneQuery,entityClass);
-			}else{
-				fullTextQuery=fullTextSession.createFullTextQuery(luceneQuery);
+			if (entityClass != null) {
+				fullTextQuery = fullTextSession.createFullTextQuery(luceneQuery, entityClass);
+			} else {
+				fullTextQuery = fullTextSession.createFullTextQuery(luceneQuery);
 			}
-			logger.info("find '"+text+"' on field:"+field);
+			logger.info("find '" + text + "' on field:" + field);
 			return fullTextQuery.list();
-		}catch (ParseException e) {
-			logger.error("not find '"+text+"' on field:"+field,e.fillInStackTrace());
+		} catch (ParseException e) {
+			logger.error("not find '" + text + "' on field:" + field, e.fillInStackTrace());
 			return null;
-		}catch (Exception e) {
-			logger.error("find '"+text+"' on field:"+field+" having error!",e.fillInStackTrace());
+		} catch (Exception e) {
+			logger.error("find '" + text + "' on field:" + field + " having error!", e.fillInStackTrace());
 			return null;
 		}
 	}
-	
-	
+
 }

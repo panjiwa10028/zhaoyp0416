@@ -11,7 +11,6 @@ import com.yanpeng.ssweb.commons.Constants;
 import com.yanpeng.ssweb.config.ConfigLoader;
 import com.yanpeng.ssweb.entity.config.Config;
 
-
 /**
  * 启动加载全局配置文件并保存到Context范围内
  * 

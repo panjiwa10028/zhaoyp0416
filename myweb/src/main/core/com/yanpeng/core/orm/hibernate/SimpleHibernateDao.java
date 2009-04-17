@@ -8,6 +8,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -114,7 +115,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 		Assert.notNull(id);
 		return (T) getSession().get(entityClass, id);
 	}
-	
+
 	/**
 	 * 按id获取对象.
 	 */
@@ -204,7 +205,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	public List<T> findByCriteria(final Criterion... criterions) {
 		return createCriteria(criterions).list();
 	}
-	
+
 	/**
 	 * 按Criteria查询对象列表.
 	 * 
@@ -213,22 +214,22 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	public List<T> findByCriteria(String alias, int joinType, Page page, final Criterion... criterions) {
 		return createCriteria(alias, joinType, page, criterions).list();
 	}
-	
+
 	public Criteria createCriteria(String alias, int joinType, Page page, final Criterion... criterions) {
 		Criteria criteria = getSession().createCriteria(entityClass);
-		
-		if(joinType == 0) {
-			criteria.createAlias(alias, "_" + alias, criteria.INNER_JOIN);
-		}else if(joinType == 1) {
-			criteria.createAlias(alias, "_" + alias, criteria.LEFT_JOIN);
-		}else if(joinType == 4) {
-			criteria.createAlias(alias, "_" + alias, criteria.FULL_JOIN);
+
+		if (joinType == 0) {
+			criteria.createAlias(alias, "_" + alias, CriteriaSpecification.INNER_JOIN);
+		} else if (joinType == 1) {
+			criteria.createAlias(alias, "_" + alias, CriteriaSpecification.LEFT_JOIN);
+		} else if (joinType == 4) {
+			criteria.createAlias(alias, "_" + alias, CriteriaSpecification.FULL_JOIN);
 		}
-		
+
 		for (Criterion c : criterions) {
 			criteria.add(c);
-		}		
-		
+		}
+
 		if (page.isOrderBySetted()) {
 			String[] orderByArray = StringUtils.split(page.getOrderBy(), ',');
 			String[] orderArray = StringUtils.split(page.getOrder(), ',');
@@ -267,8 +268,9 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	 * 在修改对象的情景下,如果属性新修改的值(value)等于属性原来的值(orgValue)则不作比较.
 	 */
 	public boolean isPropertyUnique(final String propertyName, final Object newValue, final Object orgValue) {
-		if (newValue == null || newValue.equals(orgValue))
+		if (newValue == null || newValue.equals(orgValue)) {
 			return true;
+		}
 		Object object = findUniqueByProperty(propertyName, newValue);
 		return (object == null);
 	}

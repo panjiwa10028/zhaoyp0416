@@ -1,7 +1,6 @@
 package com.yanpeng.ssweb.service.news;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +25,11 @@ public class NewsManager extends EntityManager<News, String> {
 
 	// 统一定义所有HQL
 
-	
 	private final Logger logger = LoggerFactory.getLogger(NewsManager.class);
 
 	@Autowired
 	private NewsDao newsDao;
-	
+
 	@Override
 	protected NewsDao getEntityDao() {
 		return newsDao;
@@ -40,39 +38,37 @@ public class NewsManager extends EntityManager<News, String> {
 	// 用户业务函数
 
 	//不更新数据库的函数重新定义readOnly属性以加强性能.
-	
-	
-	@Transactional(readOnly=true)
-	public Page<News> getAllNews(Page<News> page){
+
+	@Transactional(readOnly = true)
+	public Page<News> getAllNews(Page<News> page) {
 		return newsDao.getAll(page);
 	}
-	
-	@Transactional(readOnly=true)
-	public News getNewsById(String id){
-		return (News)newsDao.get(id);
+
+	@Transactional(readOnly = true)
+	public News getNewsById(String id) {
+		return newsDao.get(id);
 	}
-	
-	public void saveNews(News news){
+
+	public void saveNews(News news) {
 		newsDao.save(news);
 	}
 
-	public void deleteNews(News news){
+	public void deleteNews(News news) {
 		newsDao.delete(news);
 	}
-	
+
 	public void deleteNews(Collection<String> ids) {
 
-		for(Iterator<String> it =  ids.iterator();it.hasNext();) {
-			String id = (String) it.next();
+		for (String string : ids) {
+			String id = string;
 			News news = newsDao.get(id);
-			if(news != null) {
+			if (news != null) {
 				newsDao.delete(news);
-			}else {
+			} else {
 				logger.warn("ID=[" + id + "]的新闻不存在，无法删除");
-			}			
+			}
 		}
-		
+
 	}
-	
-	
+
 }
