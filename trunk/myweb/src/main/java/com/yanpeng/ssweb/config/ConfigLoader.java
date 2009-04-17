@@ -15,7 +15,6 @@ import com.yanpeng.ssweb.commons.Constants;
 import com.yanpeng.ssweb.entity.config.Config;
 import com.yanpeng.ssweb.exceptions.WebException;
 
-
 /**
  * 系统配置加载
  * 
@@ -84,7 +83,6 @@ public class ConfigLoader {
 			throw new WebException("保存配置文件失败：" + e.getMessage());
 		}
 	}
-
 
 	/**
 	 * 获取配置对象

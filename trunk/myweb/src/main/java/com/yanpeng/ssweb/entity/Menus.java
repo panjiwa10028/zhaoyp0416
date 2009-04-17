@@ -1,8 +1,8 @@
 package com.yanpeng.ssweb.entity;
 
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,20 +12,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.yanpeng.core.utils.ReflectionUtils;
-
 /**
  * Menus entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "menus", catalog = "myweb", uniqueConstraints = {
-		@UniqueConstraint(columnNames = "name"),
+@Table(name = "menus", catalog = "myweb", uniqueConstraints = { @UniqueConstraint(columnNames = "name"),
 		@UniqueConstraint(columnNames = "display_name") })
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Menus extends BaseEntity implements java.io.Serializable {
@@ -44,7 +40,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 	private Integer isDisabled;
 	private Set<Roles> roleses = new LinkedHashSet<Roles>(0);
 	private Set<Menus> menuses = new LinkedHashSet<Menus>(0);
-	
+
 	private String parentId;
 
 	// Constructors
@@ -53,15 +49,12 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 	public Menus() {
 	}
 
-	
-
 	// Property accessors
-	
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id", unique = true, nullable = false, insertable = false, updatable = false)
 	public Menus getMenus() {
-		return this.menus;
+		return menus;
 	}
 
 	public void setMenus(Menus menus) {
@@ -70,7 +63,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "name", unique = true, nullable = false, length = 50)
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public void setName(String name) {
@@ -79,7 +72,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "display_name", unique = true, nullable = false, length = 100)
 	public String getDisplayName() {
-		return this.displayName;
+		return displayName;
 	}
 
 	public void setDisplayName(String displayName) {
@@ -88,7 +81,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "path", length = 500)
 	public String getPath() {
-		return this.path;
+		return path;
 	}
 
 	public void setPath(String path) {
@@ -97,28 +90,25 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "sort", length = 100)
 	public String getSort() {
-		return this.sort;
+		return sort;
 	}
 
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
 
-	@Column(name = "isDisabled")		
+	@Column(name = "isDisabled")
 	public Integer getIsDisabled() {
-		return this.isDisabled;
+		return isDisabled;
 	}
-
-
 
 	public void setIsDisabled(Integer isDisabled) {
 		this.isDisabled = isDisabled;
 	}
 
-	
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "menuses")
 	public Set<Roles> getRoleses() {
-		return this.roleses;
+		return roleses;
 	}
 
 	public void setRoleses(Set<Roles> roleses) {
@@ -127,24 +117,20 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "menus")
 	public Set<Menus> getMenuses() {
-		return this.menuses;
+		return menuses;
 	}
 
 	public void setMenuses(Set<Menus> menuses) {
 		this.menuses = menuses;
 	}
 
-
 	@Column(name = "parent_id")
 	public String getParentId() {
 		return parentId;
 	}
 
-
-
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
-
 
 }

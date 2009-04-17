@@ -2,10 +2,10 @@ package com.yanpeng.ssweb.entity;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -17,10 +17,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * Permissions entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "permissions", catalog = "myweb", uniqueConstraints = {
-		@UniqueConstraint(columnNames = "name"),
+@Table(name = "permissions", catalog = "myweb", uniqueConstraints = { @UniqueConstraint(columnNames = "name"),
 		@UniqueConstraint(columnNames = "display_name") })
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)		
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Permissions extends BaseEntity implements java.io.Serializable {
 
 	/**
@@ -39,14 +38,11 @@ public class Permissions extends BaseEntity implements java.io.Serializable {
 	public Permissions() {
 	}
 
-	
-
 	// Property accessors
-	
 
 	@Column(name = "name", unique = true, nullable = false, length = 100)
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public void setName(String name) {
@@ -55,7 +51,7 @@ public class Permissions extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "display_name", unique = true, nullable = false, length = 100)
 	public String getDisplayName() {
-		return this.displayName;
+		return displayName;
 	}
 
 	public void setDisplayName(String displayName) {
@@ -64,7 +60,7 @@ public class Permissions extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "path")
 	public String getPath() {
-		return this.path;
+		return path;
 	}
 
 	public void setPath(String path) {
@@ -73,7 +69,7 @@ public class Permissions extends BaseEntity implements java.io.Serializable {
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "permissionses")
 	public Set<Roles> getRoleses() {
-		return this.roleses;
+		return roleses;
 	}
 
 	public void setRoleses(Set<Roles> roleses) {

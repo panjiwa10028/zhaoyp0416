@@ -18,16 +18,17 @@ import com.yanpeng.ssweb.entity.Groups;
 @Repository
 public class GroupDao extends HibernateDao<Groups, String> {
 
+	@Override
 	public List<Groups> getAll() {
 		return this.findByCriteria(Restrictions.not(Restrictions.eq("id", "0")));
 	}
-	
+
 	public Page<Groups> getAllByPage(Page<Groups> page) {
 		return this.findByCriteria(page, Restrictions.not(Restrictions.eq("id", "0")));
 	}
-	
+
 	public boolean isNameUnique(String newValue, String orgValue) {
-		return this.isPropertyUnique("name", newValue, orgValue);
+		return isPropertyUnique("name", newValue, orgValue);
 	}
-	
+
 }

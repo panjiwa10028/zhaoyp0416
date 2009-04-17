@@ -3,10 +3,10 @@ package com.yanpeng.ssweb.entity;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -45,13 +45,11 @@ public class Roles extends BaseEntity implements java.io.Serializable {
 	public Roles() {
 	}
 
-
 	// Property accessors
-	
 
 	@Column(name = "name", unique = true, nullable = false, length = 50)
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public void setName(String name) {
@@ -60,7 +58,7 @@ public class Roles extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "description", nullable = false, length = 65535)
 	public String getDescription() {
-		return this.description;
+		return description;
 	}
 
 	public void setDescription(String description) {
@@ -70,7 +68,7 @@ public class Roles extends BaseEntity implements java.io.Serializable {
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "roles_permissions", catalog = "myweb", joinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "permission_id", nullable = false, updatable = false) })
 	public Set<Permissions> getPermissionses() {
-		return this.permissionses;
+		return permissionses;
 	}
 
 	public void setPermissionses(Set<Permissions> permissionses) {
@@ -79,29 +77,29 @@ public class Roles extends BaseEntity implements java.io.Serializable {
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "roleses")
 	public Set<Users> getUserses() {
-		return this.userses;
+		return userses;
 	}
 
 	public void setUserses(Set<Users> userses) {
 		this.userses = userses;
 	}
-	
+
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "roles_menus", catalog = "myweb", joinColumns = { @JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "menu_id", nullable = false, updatable = false) })
 	public Set<Menus> getMenuses() {
-		return this.menuses;
+		return menuses;
 	}
 
 	public void setMenuses(Set<Menus> menuses) {
 		this.menuses = menuses;
 	}
-	
+
 	@Transient
 	@SuppressWarnings("unchecked")
 	public List<String> getPermissionIds() throws Exception {
 		return ReflectionUtils.fetchElementPropertyToList(permissionses, "id");
 	}
-	
+
 	@Transient
 	@SuppressWarnings("unchecked")
 	public List<String> getMenuIds() throws Exception {

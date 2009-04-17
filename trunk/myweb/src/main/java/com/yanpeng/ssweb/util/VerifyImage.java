@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.yanpeng.ssweb.entity.global.VerifyImageInfo;
 
-
 /**
  * 验证码图片类
  * 
@@ -20,7 +19,8 @@ import com.yanpeng.ssweb.entity.global.VerifyImageInfo;
 public class VerifyImage {
 
 	private static Font[] fonts = { new Font("Times New Roman", Font.ROMAN_BASELINE, 16 + next(3)),
-			new Font("Georgia", Font.ROMAN_BASELINE, 16 + next(3)), new Font("Arial", Font.ROMAN_BASELINE, 16 + next(3)),
+			new Font("Georgia", Font.ROMAN_BASELINE, 16 + next(3)),
+			new Font("Arial", Font.ROMAN_BASELINE, 16 + next(3)),
 			new Font("Comic Sans MS", Font.ROMAN_BASELINE, 16 + next(3)) };
 
 	/**
@@ -52,20 +52,20 @@ public class VerifyImage {
 		int fixedNumber = textcolor == 2 ? 60 : 0;
 		BufferedImage bitmap = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		bitmap.setRGB(0, 0, bgcolor.getRGB());
-		
+
 		Graphics g = bitmap.getGraphics();
 		g.fillRect(0, 0, width, height);
 		g.setColor(new Color(next(50) + fixedNumber, next(50) + fixedNumber, next(50) + fixedNumber));
 
 		// 画弧线
 		for (int i = 0; i < 3; i++) {
-			g.drawArc(next(20) - 10, next(20) - 10, next(width) + 10, next(height) + 10, CommUtil.getRandomInt(200, -100,
-					100), CommUtil.getRandomInt(300, -200, 200));
+			g.drawArc(next(20) - 10, next(20) - 10, next(width) + 10, next(height) + 10, CommUtil.getRandomInt(200,
+					-100, 100), CommUtil.getRandomInt(300, -200, 200));
 		}
 
 		// 获取随机的颜色
 		g.setColor(new Color(next(100), next(100), next(100)));
-		
+
 		// 画验证码
 		int charx = -5;
 		for (int i = 0; i < code.length(); i++) {

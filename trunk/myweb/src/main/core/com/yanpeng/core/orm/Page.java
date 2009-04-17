@@ -132,8 +132,9 @@ public class Page<T> {
 		//检查order字符串的合法值
 		String[] orders = StringUtils.split(order, ',');
 		for (String orderStr : orders) {
-			if (!StringUtils.equalsIgnoreCase(DESC, orderStr) && !StringUtils.equalsIgnoreCase(ASC, orderStr))
+			if (!StringUtils.equalsIgnoreCase(DESC, orderStr) && !StringUtils.equalsIgnoreCase(ASC, orderStr)) {
 				throw new IllegalArgumentException("排序方向" + orderStr + "不是合法值");
+			}
 		}
 
 		this.order = order.toLowerCase();
@@ -153,8 +154,9 @@ public class Page<T> {
 	 */
 	public void setPageRequest(final String pageRequest) {
 
-		if (StringUtils.isBlank(pageRequest))
+		if (StringUtils.isBlank(pageRequest)) {
 			return;
+		}
 
 		String[] params = StringUtils.splitPreserveAllTokens(pageRequest, '|');
 
@@ -191,8 +193,9 @@ public class Page<T> {
 	 * 取得页内的记录列表.
 	 */
 	public List<T> getResult() {
-		if (result == null)
+		if (result == null) {
 			return Collections.emptyList();
+		}
 		return result;
 	}
 
@@ -215,8 +218,9 @@ public class Page<T> {
 	 * 根据pageSize与totalCount计算总页数,默认值为-1.
 	 */
 	public int getTotalPages() {
-		if (totalCount < 0)
+		if (totalCount < 0) {
 			return -1;
+		}
 
 		int count = totalCount / pageSize;
 		if (totalCount % pageSize > 0) {
@@ -236,10 +240,11 @@ public class Page<T> {
 	 * 取得下页的页号,序号从1开始.
 	 */
 	public int getNextPage() {
-		if (isHasNext())
+		if (isHasNext()) {
 			return pageNo + 1;
-		else
+		} else {
 			return pageNo;
+		}
 	}
 
 	/**
@@ -253,10 +258,11 @@ public class Page<T> {
 	 * 取得上页的页号,序号从1开始.
 	 */
 	public int getPrePage() {
-		if (isHasPre())
+		if (isHasPre()) {
 			return pageNo - 1;
-		else
+		} else {
 			return pageNo;
+		}
 	}
 
 	/**

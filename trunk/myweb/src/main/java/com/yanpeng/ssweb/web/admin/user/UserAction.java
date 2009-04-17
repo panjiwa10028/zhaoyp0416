@@ -10,6 +10,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yanpeng.core.web.struts2.CRUDActionSupport;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.Groups;
 import com.yanpeng.ssweb.entity.Roles;
@@ -29,17 +30,17 @@ import com.yanpeng.ssweb.web.CURDBaseAction;
  * @author Allen
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = CURDBaseAction.RELOAD, location = "user.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
+@Results( { @Result(name = CRUDActionSupport.RELOAD, location = "user.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
 public class UserAction extends CURDBaseAction<Users> {
 
 	// CRUD Action 基本属性
 
 	@Autowired
 	private UserManager userManager;
-	
+
 	@Autowired
 	private RoleManager roleManager;
-	
+
 	@Autowired
 	private GroupManager groupManager;
 
@@ -48,14 +49,12 @@ public class UserAction extends CURDBaseAction<Users> {
 	private List<Roles> allRoles; //全部可选角色列表
 
 	private List<String> checkedRoleIds; //页面中钩选的角色id列表
-	
+
 	private List<Groups> allGroups;
-	
+
 	private List<String> selectIds;
 
 	private String groupId;
-	
-
 
 	// CRUD Action 属性访问函数
 
@@ -68,8 +67,6 @@ public class UserAction extends CURDBaseAction<Users> {
 			entity = new Users();
 		}
 	}
-
-	
 
 	// CRUD Action 函数
 
@@ -84,7 +81,7 @@ public class UserAction extends CURDBaseAction<Users> {
 		allRoles = roleManager.getAllRoles();
 		checkedRoleIds = entity.getRoleIds();
 		allGroups = groupManager.getAllGroup();
-		
+
 		return INPUT;
 	}
 
@@ -92,30 +89,30 @@ public class UserAction extends CURDBaseAction<Users> {
 	@Token
 	public String save() throws Exception {
 		//根据页面上的checkbox 整合entity的roles Set
-//		
-		if(entity != null && entity.getId().equals("")) {
+		//		
+		if (entity != null && entity.getId().equals("")) {
 			entity.setId(null);
 		}
 		Groups group = groupManager.getGroupById(groupId);
 		entity.setGroups(group);
-		try{
-			userManager.saveUser(entity,checkedRoleIds);
+		try {
+			userManager.saveUser(entity, checkedRoleIds);
 			addActionMessage("保存用户成功");
 			return RELOAD;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			addActionMessage("保存用户失败");
 			return INPUT;
 		}
-		
+
 	}
 
 	@Override
 	public String delete() throws Exception {
 		try {
-			String []ids = id.split(",");
-			List<String> list = Arrays.asList(ids);   
-	
+			String[] ids = id.split(",");
+			List<String> list = Arrays.asList(ids);
+
 			userManager.deleteUsers(list);
 			addActionMessage("删除用户成功");
 		} catch (ServiceException e) {
@@ -127,7 +124,6 @@ public class UserAction extends CURDBaseAction<Users> {
 
 	// 其他属性访问函数及Action函数
 
-	
 	/**
 	 * 支持使用Jquery.validate Ajax检验用户名是否重复.
 	 */
@@ -135,7 +131,7 @@ public class UserAction extends CURDBaseAction<Users> {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String loginName = request.getParameter("loginName");
 		String orgLoginName = request.getParameter("orgLoginName");
-		
+
 		if (userManager.isLoginNameUnique(loginName, orgLoginName)) {
 			Struts2Utils.renderText("true");
 		} else {
@@ -143,9 +139,8 @@ public class UserAction extends CURDBaseAction<Users> {
 		}
 		//因为直接输出而不经过Jsp,因此返回null.
 		return null;
-	}	
+	}
 
-		
 	public List<Roles> getAllRoles() {
 		return allRoles;
 	}
@@ -177,6 +172,5 @@ public class UserAction extends CURDBaseAction<Users> {
 	public void setGroupId(String groupId) {
 		this.groupId = groupId;
 	}
-	
-	
+
 }

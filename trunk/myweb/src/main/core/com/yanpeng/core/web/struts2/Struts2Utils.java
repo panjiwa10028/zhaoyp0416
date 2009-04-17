@@ -82,8 +82,9 @@ public class Struts2Utils {
 					encoding = headerValue;
 				} else if (StringUtils.equalsIgnoreCase(headerName, NOCACHE_PREFIX)) {
 					noCache = Boolean.parseBoolean(headerValue);
-				} else
+				} else {
 					throw new IllegalArgumentException(headerName + "不是一个合法的header类型");
+				}
 			}
 
 			HttpServletResponse response = ServletActionContext.getResponse();

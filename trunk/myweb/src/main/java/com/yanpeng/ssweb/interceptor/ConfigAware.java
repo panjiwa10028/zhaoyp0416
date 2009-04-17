@@ -2,7 +2,6 @@ package com.yanpeng.ssweb.interceptor;
 
 import com.yanpeng.ssweb.entity.config.Config;
 
-
 /**
  * 
  * @author Allen
