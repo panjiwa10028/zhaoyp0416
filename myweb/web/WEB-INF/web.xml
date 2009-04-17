@@ -42,6 +42,7 @@
 		<filter-name>osivFilter</filter-name>
 		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
 	</filter>
+
 	
 	 <!-- ################# mapping ################# -->
 	
@@ -54,7 +55,7 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -101,6 +102,15 @@
 	<listener>
   		<listener-class>com.yanpeng.ssweb.SystemInitListener</listener-class>
 	</listener>
+  <servlet>
+    <servlet-name>CaptchaServlet</servlet-name>
+    <servlet-class>com.yanpeng.ssweb.servlet.CaptchaServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>CaptchaServlet</servlet-name>
+    <url-pattern>/captcha.jpg</url-pattern>
+  </servlet-mapping>
 	
 
 	<!-- session超时定义,单位为分钟 -->
