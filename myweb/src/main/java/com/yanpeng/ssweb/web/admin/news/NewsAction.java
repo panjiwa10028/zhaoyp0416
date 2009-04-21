@@ -3,8 +3,10 @@ package com.yanpeng.ssweb.web.admin.news;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -13,13 +15,14 @@ import org.apache.struts2.convention.annotation.Results;
 import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.utils.DateUtils;
 import com.yanpeng.core.web.struts2.CRUDActionSupport;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.News;
+import com.yanpeng.ssweb.entity.NewsCategory;
 import com.yanpeng.ssweb.interceptor.annotations.Token;
 import com.yanpeng.ssweb.service.news.NewsManager;
+import com.yanpeng.ssweb.service.newsCategory.NewsCategoryManager;
 import com.yanpeng.ssweb.util.HtmlGenerator;
 import com.yanpeng.ssweb.web.CURDBaseAction;
 
@@ -31,19 +34,30 @@ import com.yanpeng.ssweb.web.CURDBaseAction;
  * @author Allen
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = CRUDActionSupport.RELOAD, location = "news.action?page.pageParam=${page.pageParam}", type = "redirect") })
+@Results( { @Result(name = CRUDActionSupport.RELOAD, location = "news.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
 public class NewsAction extends CURDBaseAction<News> {
 
 	@Autowired
 	private NewsManager newsManager;
-
-	private Page<News> page = new Page<News>(5);
-	private News entity;
-	private String id;
+	
+	@Autowired
+	private NewsCategoryManager newsCategoryManager;
 
 	private File upload;
 	private String uploadFileName;
+	
+	private List<NewsCategory> allNewsCategory;
 
+	@Override
+	protected void prepareModel() throws Exception {
+		// TODO Auto-generated method stub
+		if (id != null && !id.equals("")) {
+			entity = newsManager.getNewsById(id);
+		} else {
+			entity = new News();
+		}
+	}
+	
 	@Override
 	public String list() throws Exception {
 		page = newsManager.getAllNews(page);
@@ -52,17 +66,16 @@ public class NewsAction extends CURDBaseAction<News> {
 
 	@Override
 	public String input() throws Exception {
+		allNewsCategory = newsCategoryManager.getAllNewsCategory();
 		return INPUT;
 	}
 
 	@Override
 	public String delete() throws Exception {
 		try {
-
-			entity = newsManager.getNewsById(id);
-			String fileName = Struts2Utils.getRequest().getRealPath("") + "\\upload\\" + entity.getPicture();
-			FileUtil.deleteContents(new File(fileName));
-			newsManager.deleteNews(entity);
+			String[] ids = id.split(",");
+			List<String> list = Arrays.asList(ids);
+			newsManager.deleteNews(list);			
 			addActionMessage("删除成功!");
 
 		} catch (Exception e) {
@@ -82,45 +95,58 @@ public class NewsAction extends CURDBaseAction<News> {
 
 			entity.setUserId(getLoginUser().getId());
 			HtmlGenerator htmlGenerator = new HtmlGenerator();
-			//			取服务器路径
-			String path = Struts2Utils.getRequest().getRealPath("");
-			//			生成随机的字符串
-			String rnadomString = RandomStringUtils.randomAlphabetic(9).toLowerCase();
+//			取服务器路径
+			String path = (String)Struts2Utils.getRequest().getAttribute("SSWEBPATH");
+//			生成随机的字符串
+			String rnadomString = RandomStringUtils.randomAlphabetic(4).toLowerCase();
 			Date date = new Date();
-			//			取当前日期
+//			取当前日期
 			String dateString = DateUtils.convertDateToString(date, "yyyy-MM-dd");
 			if (upload != null) {
-				String newFileName = rnadomString;
+//				删除旧的上传文件
+				String oldPic = path + entity.getPicPath() + File.separator + entity.getPicName();
+				FileUtil.deleteContents(new File(oldPic));
+				
+				String newPicName = rnadomString;
 				if (uploadFileName.indexOf(".") != -1) {
-					newFileName += uploadFileName.substring(uploadFileName.lastIndexOf("."));
+					newPicName += uploadFileName.substring(uploadFileName.lastIndexOf("."));
 				}
-				//				创建日期文件夹
-				htmlGenerator.creatDirs(path, "\\upload\\news\\" + dateString);
-				//				上传文件的路径
-				String newPath = path + "\\upload\\news\\" + dateString + "\\" + newFileName;
-				//				上传
-				copy(upload, newPath);
-				//				删除旧的上传文件
-				String fileName = path + "\\upload\\news\\" + dateString + "\\" + entity.getPicture();
-				FileUtil.deleteContents(new File(fileName));
-
-				entity.setPicture(newFileName);
+				
+				
+				String picPath = config.getNewsPicPath() + File.separator + dateString;
+//				创建日期文件夹
+				htmlGenerator.creatDirs(path, picPath);
+				
+				entity.setPicPath(picPath);
+				entity.setPicName(newPicName);
+//				上传
+				copy(upload, path + picPath, newPicName);
 			}
 
-			newsManager.saveNews(entity);
-
+			
+//			删除旧的生成文件
+			String oldHtml = path + entity.getHtmlPath() + File.separator + entity.getHtmlName();
+			FileUtil.deleteContents(new File(oldHtml));
+			
 			htmlGenerator.setEncode("utf-8");
 			htmlGenerator.setTemplateDir("/htmlskin/");
-			htmlGenerator.setTemplateFile("view.ftl");
-			htmlGenerator.setPreviewHtmlFileDir("html\\news\\" + dateString);
+			htmlGenerator.setTemplateFile("view.ftl");			
 			htmlGenerator.setRootDir(path);
+			
+			String htmlPath = config.getNewsHtmlPath() + File.separator + dateString;
+			entity.setHtmlPath(htmlPath);
+			entity.setHtmlName(rnadomString + ".html");
+			
+			htmlGenerator.setPreviewHtmlFileDir(htmlPath);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("news", entity);
-			String returnValue = htmlGenerator.preview(map, rnadomString + ".html");
+			String returnValue = htmlGenerator.preview(map, entity.getHtmlName());
 			if (returnValue == null) {
 				addActionError("保存失败!");
 				return INPUT;
 			}
+			
+			newsManager.saveNews(entity);
 			addActionMessage("保存成功!");
 			return RELOAD;
 		} catch (Exception e) {
@@ -132,30 +158,16 @@ public class NewsAction extends CURDBaseAction<News> {
 		}
 	}
 
-	@Override
-	protected void prepareModel() throws Exception {
-		// TODO Auto-generated method stub
-		if (id != null && !id.equals("")) {
-			entity = newsManager.getNewsById(id);
-		} else {
-			entity = new News();
-		}
-	}
-
-	@Override
-	public News getModel() {
-		// TODO Auto-generated method stub
-		return entity;
-	}
-
+	
 	/**
 	 * 拷贝文件
-	 * @param upload文件流
-	 * @param newPath新文件路径和名称
+	 * @param upload 文件流
+	 * @param filePath 新文件路径
+	 * @param fileName 文件名
 	 * @throws Exception
 	 */
-	private void copy(File upload, String newPath) throws Exception {
-		FileOutputStream fos = new FileOutputStream(newPath);
+	private void copy(File upload, String filePath, String fileName) throws Exception {
+		FileOutputStream fos = new FileOutputStream(filePath + File.separator + fileName);
 		FileInputStream fis = new FileInputStream(upload);
 		byte[] buffer = new byte[1024];
 		int len = 0;
@@ -168,15 +180,6 @@ public class NewsAction extends CURDBaseAction<News> {
 
 	// ==================================================
 
-	@Override
-	public Page<News> getPage() {
-		return page;
-	}
-
-	@Override
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public File getUpload() {
 		return upload;
@@ -194,4 +197,13 @@ public class NewsAction extends CURDBaseAction<News> {
 		this.uploadFileName = uploadFileName;
 	}
 
+	public List<NewsCategory> getAllNewsCategory() {
+		return allNewsCategory;
+	}
+
+	public void setAllNewsCategory(List<NewsCategory> allNewsCategory) {
+		this.allNewsCategory = allNewsCategory;
+	}
+
+	
 }
