@@ -1,7 +1,9 @@
 package com.yanpeng.ssweb.service.news;
 
+import java.io.File;
 import java.util.Collection;
 
+import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.orm.hibernate.EntityManager;
+import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.dao.news.NewsDao;
 import com.yanpeng.ssweb.entity.News;
 
@@ -63,6 +66,11 @@ public class NewsManager extends EntityManager<News, String> {
 			String id = string;
 			News news = newsDao.get(id);
 			if (news != null) {
+				String path = Struts2Utils.getRequest().getRealPath("");
+				String oldPic = path + news.getPicPath() + File.separator + news.getPicName();
+				FileUtil.deleteContents(new File(oldPic));
+				String oldHtml = path + news.getHtmlPath() + File.separator + news.getHtmlName();
+				FileUtil.deleteContents(new File(oldHtml));
 				newsDao.delete(news);
 			} else {
 				logger.warn("ID=[" + id + "]的新闻不存在，无法删除");
