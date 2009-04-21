@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.yanpeng.ssweb.config.ConfigLoader;
 import com.yanpeng.ssweb.entity.config.Config;
+import com.yanpeng.ssweb.service.config.ConfigLoader;
 
 /**
  * Action拦截器
