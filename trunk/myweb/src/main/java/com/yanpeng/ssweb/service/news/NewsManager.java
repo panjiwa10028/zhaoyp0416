@@ -61,12 +61,12 @@ public class NewsManager extends EntityManager<News, String> {
 	}
 
 	public void deleteNews(Collection<String> ids) {
-
+		String path = (String) Struts2Utils.getRequest().getAttribute("SSWEBPATH");
 		for (String string : ids) {
 			String id = string;
 			News news = newsDao.get(id);
 			if (news != null) {
-				String path = Struts2Utils.getRequest().getRealPath("");
+
 				String oldPic = path + news.getPicPath() + File.separator + news.getPicName();
 				FileUtil.deleteContents(new File(oldPic));
 				String oldHtml = path + news.getHtmlPath() + File.separator + news.getHtmlName();
