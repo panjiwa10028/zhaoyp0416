@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2009-4-1 17:40:46                            */
+/* Created on:     2009-4-21 16:24:28                           */
 /*==============================================================*/
 
 
@@ -23,6 +23,10 @@ drop index Index_t_menu_1 on menus;
 drop table if exists menus;
 
 drop table if exists news;
+
+drop table if exists news_category;
+
+drop table if exists news_message;
 
 drop index Index_t_permissions_3 on permissions;
 
@@ -156,13 +160,47 @@ create index Index_t_menu_5 on menus
 create table news
 (
    id                   varchar(36) not null,
+   category_id          varchar(36),
    title                varchar(100),
    auth                 varchar(50),
    content              text,
-   picture              varchar(255),
    date                 datetime,
-   user_id              varchar(36),
    update_time          datetime,
+   html_path            varchar(512),
+   pic_path             varchar(512),
+   html_name            varchar(255),
+   pic_name             varchar(255),
+   user_id              varchar(36),
+   primary key (id)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Table: news_category                                         */
+/*==============================================================*/
+create table news_category
+(
+   id                   varchar(36) not null,
+   name                 varchar(50),
+   description          text,
+   update_time          datetime,
+   user_id              varchar(36),
+   primary key (id),
+   key AK_Key_2 (name)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Table: news_message                                          */
+/*==============================================================*/
+create table news_message
+(
+   id                   varchar(36) not null,
+   news_id              varchar(36) not null,
+   title                varchar(255),
+   content              text,
+   update_time          datetime,
+   user_id              varchar(36),
    primary key (id)
 )
 type = InnoDB;
@@ -350,8 +388,11 @@ alter table groups add constraint FK_groups_groups foreign key (parent_id)
 alter table menus add constraint FK_menus_menus foreign key (parent_id)
       references menus (id);
 
-alter table news add constraint FK_users_news foreign key (user_id)
-      references users (id);
+alter table news add constraint FK_news_category_news foreign key (category_id)
+      references news_category (id);
+
+alter table news_message add constraint FK_news_news_message foreign key (news_id)
+      references news (id);
 
 alter table roles_menus add constraint FK_menus_rolesmenus foreign key (menu_id)
       references menus (id);
