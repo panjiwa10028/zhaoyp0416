@@ -8,8 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.yanpeng.ssweb.commons.Constants;
-import com.yanpeng.ssweb.config.ConfigLoader;
 import com.yanpeng.ssweb.entity.config.Config;
+import com.yanpeng.ssweb.service.config.ConfigLoader;
 
 /**
  * 启动加载全局配置文件并保存到Context范围内
