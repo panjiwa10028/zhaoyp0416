@@ -11,6 +11,10 @@ public class Config {
 	private String appPath;
 
 	private int pageSize;//每页显示数量
+	
+	private String newsPicPath;
+	
+	private String newsHtmlPath;
 
 	public String getAppPath() {
 		return appPath;
@@ -26,6 +30,22 @@ public class Config {
 
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public String getNewsPicPath() {
+		return newsPicPath;
+	}
+
+	public void setNewsPicPath(String newsPicPath) {
+		this.newsPicPath = newsPicPath;
+	}
+
+	public String getNewsHtmlPath() {
+		return newsHtmlPath;
+	}
+
+	public void setNewsHtmlPath(String newsHtmlPath) {
+		this.newsHtmlPath = newsHtmlPath;
 	}
 
 }
