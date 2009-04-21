@@ -4,6 +4,14 @@
 		<!-- 每页显示数量 -->
 		<void property="pageSize">
 			<int>10</int>
-		</void>		
+		</void>
+		<!-- 新闻上传图片路径 -->
+		<void property="newsPicPath">
+			<string>/upload/news/pic</string>
+		</void>	
+		<!-- 新闻生成静态页路径 -->
+		<void property="newsHtmlPath">
+			<string>/upload/news/html</string>
+		</void>			
  </object> 
 </java> 

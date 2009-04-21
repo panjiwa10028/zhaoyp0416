@@ -14,7 +14,7 @@
 	<constant name="struts.serve.static.browserCache" value="false"/>
 	<constant name="struts.url.includeParams" value="none"/>
 	<constant name="struts.multipart.maxSize" value="209715200"/>
-	<constant name="struts.multipart.saveDir" value="java.io.tmpdir/temp"/>
+	<constant name="struts.multipart.saveDir" value="c:/temp"/>
 	
 	<!-- 是否是开发模式 -->
 	<constant name="struts.devMode" value="true"/>

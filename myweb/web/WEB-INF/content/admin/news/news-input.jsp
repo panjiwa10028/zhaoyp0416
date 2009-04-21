@@ -62,6 +62,7 @@
 
 	</head>
 <form id="inputForm" action="news!save.action" method="post" enctype="multipart/form-data">
+<s:token/>
 	<input type="hidden" name="id" value="${id}" />
 	<input type="hidden" name="page.pageRequest" value="${page.pageRequest}" />
 	<body scroll="auto" style="overflow: auto" onload="initPage()">
@@ -126,6 +127,15 @@
 						</TR>
 					</TABLE>
 					<TABLE id="Table2" cellSpacing="1" border="0" class="tbBlock">
+					
+						<TR>
+								<TD class="tdRightW30H40">
+									菜单分类:
+								</TD>
+								<TD class="tdLeftH40">
+									<s:select id="newsCategoryId" name="newsCategoryId" list="allNewsCategory" listKey="id" listValue="name"/>
+								</TD>
+						</TR>
 						<TR>
 							<TD class="tdRightW30H40">
 								标题:

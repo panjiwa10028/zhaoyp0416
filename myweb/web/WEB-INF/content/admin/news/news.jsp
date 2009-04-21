@@ -5,7 +5,8 @@
 	<HEAD>
 		<title></title>
 		<%@ include file="/common/meta.jsp"%>
-		<script src="<c:url value="/scripts/default.js"/>" type="text/javascript"></script>
+		<script src="<c:url value="/scripts/default.js"/>"
+			type="text/javascript"></script>
 		<script language="JavaScript" type="text/JavaScript">
 		
 		function InitPage()
@@ -15,13 +16,8 @@
 				top.setStatusBarInfo($("#message").text());
 			}
 			
-			body.style.cursor = "";
 		}		
-		
-		function CheckValid()
-		{
-			body.style.cursor = "wait";			
-		}
+	
 
 		function add() {
 			
@@ -30,30 +26,19 @@
 			//top.showDialog(url, null, 750, 500);
 		}
 
-		function getSelectedIds()
-		{
-			var checkList = document.getElementsByName("id");
-				
-			if(checkList==null)
-			{
-				return "";
-			}
-				
-			var strSelectedIds = "";
-			
-			for(var i=0; i<checkList.length; i++)
-			{
-				
-				if(checkList[i].checked==true)
-				{
-					if(i > 0 && strSelectedIds != "") {
-						strSelectedIds += ",";
-					}
-					strSelectedIds += checkList[i].value;
-				}
-			}
+		function update() {		
+			var ids = getSelectedCheckBoxIds('selectIds');
+			var url = "news!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
+			top.mainWorkArea.location = url;
+		}
+		
+		function del() {		
+			var ids = getSelectedCheckBoxIds('selectIds');
 
-			return strSelectedIds;
+			var url = "news!delete.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
+			if(confirm("确定删除")) {
+				top.mainWorkArea.location = url;
+			}
 		}
 
 		function query() {
@@ -81,7 +66,7 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
 									<span id="Location">新闻管理 > 新闻设定</span>&nbsp;&nbsp;&nbsp;
 									<img src="${base}/images/ask.gif" id="BtnAsk"
-										style="CURSOR: hand" alt="账户管理提供账户余额查询、交易查询、修改密码、挂失等账户基本功能。"
+										style="CURSOR: hand" alt="..."
 										height="23" width="24" align="absMiddle" />
 								</TD>
 								<TD class="tdTitle2">
@@ -118,7 +103,7 @@
 												&nbsp;
 											</td>
 											<td class=tdPanelSel_center>
-												<pre style="margin: 0px"><a href="#" class=lkPanelSel onclick="top.mainWorkArea.location='news.action'">新闻设定</a></pre>
+												<pre style="margin: 0px">新闻设定</pre>
 											</td>
 											<td class=tdPanelSel_right>
 												&nbsp;
@@ -187,7 +172,7 @@
 							style="border-color: #9FD6FF; border-width: 1px; border-style: solid; border-collapse: collapse;">
 							<tr class="dgHeader" align="Center">
 								<td class="dgHeader">
-									<input type="checkbox" class="checkbox" name="lId" />
+									<input type="checkbox" class="checkbox" name="ids" onclick="selectAllCheckBox(this,'selectIds')"/>
 								</td>
 								<td class="dgHeader">
 									<a href="javascript:orderBy('title')"><b>标题</b></a>
@@ -205,14 +190,11 @@
 								<td class="dgHeader">
 									<b>照片</b>
 								</td>
-								<td class="dgHeader">
-									<b>操作</b>
-								</td>
 							</tr>
 							<s:iterator value="page.result">
 								<tr class="dgAlternatingItem">
 									<td align="center">
-										<input type="checkbox" class="checkbox" name="id"
+										<input type="checkbox" class="checkbox" name="selectIds"
 											value="<c:out value='${id}'/>" />
 									</td>
 									<td align="Left">
@@ -225,11 +207,7 @@
 										${date}
 									</td>
 									<td align="Left">
-										<img src="${base}/upload/${picture}" alt="${base}/upload/${picture}" width="64" height="56"/>
-									</td>
-									<td align="Left">
-									<a href="news!input.action?id=${id}&page.pageRequest=${page.pageRequest}">修改</a>
-										<a href="news!delete.action?id=${id}&page.pageRequest=${page.pageRequest}">删除</a>
+										<img src="${base}/${picPath}/${picName}" alt="..." width="64" height="56"/>
 									</td>
 								</tr>
 							</s:iterator>							
