@@ -19,7 +19,7 @@
 		}		
 		
 		function add() {			
-			var url = "menu!input.action?page.pageRequest=${page.pageRequest}";
+			var url = "menu!input.action";
 			top.mainWorkArea.location = url;
 		}
 
