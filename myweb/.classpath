@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/core/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry kind="src" path="src/test"/>
-	<classpathentry kind="src" path="src/main/core"/>
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/junit-3.8.2.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/spring-test-2.5.6.jar"/>
