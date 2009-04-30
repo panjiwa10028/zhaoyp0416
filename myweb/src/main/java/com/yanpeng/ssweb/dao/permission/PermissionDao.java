@@ -26,6 +26,6 @@ public class PermissionDao extends HibernateDao<Permissions, String> {
 	}
 
 	public List<Permissions> findByIds(Collection<String> ids) {
-		return findByCriteria(Restrictions.in("id", ids));
+		return find(Restrictions.in("id", ids));
 	}
 }

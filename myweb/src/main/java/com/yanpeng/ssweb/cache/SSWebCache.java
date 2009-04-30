@@ -48,7 +48,7 @@ public class SSWebCache {
 	 * @return 缓存管理类
 	 */
 	public CacheManager getCacheManager() {
-		URL url = getClass().getResource("/ehcache-hibernate-c1.xml");
+		URL url = getClass().getResource("/ehcache/ehcache-hibernate-c1.xml");
 		return CacheManager.create(url);
 	}
 

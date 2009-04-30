@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yanpeng.core.orm.Page;
+import com.yanpeng.core.orm.PropertyFilter;
 import com.yanpeng.core.orm.hibernate.EntityManager;
 import com.yanpeng.ssweb.dao.menu.MenuDao;
 import com.yanpeng.ssweb.entity.Menus;
@@ -48,6 +49,11 @@ public class MenuManager extends EntityManager<Menus, String> {
 	@Transactional(readOnly = true)
 	public Page<Menus> getAllMenus(Page<Menus> page) {
 		return menuDao.getAllByPage(page);
+	}
+
+	@Transactional(readOnly = true)
+	public Page<Menus> search(Page<Menus> page, final List<PropertyFilter> filters) {
+		return menuDao.search(page, filters);
 	}
 
 	public void saveMenu(Menus menu) {

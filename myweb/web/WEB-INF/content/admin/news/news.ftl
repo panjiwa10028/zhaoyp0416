@@ -1,11 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
-<%@ include file="/common/taglibs.jsp"%>
+<#import "/common/ftl/page_comm.ftl" as comm />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<HEAD>
 		<title></title>
-		<%@ include file="/common/meta.jsp"%>
-		<script src="<c:url value="/scripts/default.js"/>"
+		<@comm.pageHeader/>
+		<script src="${base}/scripts/default.js"
 			type="text/javascript"></script>
 		<script language="JavaScript" type="text/JavaScript">
 		
@@ -23,7 +22,6 @@
 			
 			var url = "news!input.action";
 			top.mainWorkArea.location = url;
-			//top.showDialog(url, null, 750, 500);
 		}
 
 		function update() {		
@@ -51,12 +49,10 @@
 		</script>
 	</HEAD>
 	
-	<body scroll="auto" style="overflow: auto" id="body" onload="InitPage()" MS_POSITIONING="GridLayout">	
-<div id="message" style="display:none;"><s:actionmessage theme="simple"/></div>
-<form action="news!search.action" method="post" id="inputForm">
-										<input id="search_text" name="search_text" class="required"/><input type="submit" value="搜索" class="button"/>
-									</form>
 <form id="queryForm" name="queryForm" action="news.action" method="post">
+	<body scroll="auto" style="overflow: auto" id="body" onload="InitPage()" MS_POSITIONING="GridLayout">	
+<div id="message" style="display:none;"><@comm.message/></div>
+
 			<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
 				<TR>
 					<TD class="tdCommonTop">
@@ -74,7 +70,7 @@
 								</TD>
 								<TD class="tdTitle3">
 								
-								<IMG alt="" src="${base}/images/title_06.gif">
+								<img alt="" src="${base}/images/title_06.gif">
 							</TD>
 							</TR>
 						</TABLE>
@@ -175,68 +171,50 @@
 									<input type="checkbox" class="checkbox" name="ids" onclick="selectAllCheckBox(this,'selectIds')"/>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('title')"><b>标题</b></a>
+									<a href="news.action?page.orderBy=title&page.order=
+			<#if page.orderBy?default('') == "title">${page.inverseOrder}<#else>desc</#if>"><b>标题</b></a>
 								</td>
 								<td class="dgHeader">
 									<a href="news.action?page.orderBy=auth&page.order=
-			<s:if test="page.orderBy=='auth'">${page.inverseOrder}</s:if><s:else>desc</s:else>
+			<#if page.orderBy?default('')=="auth">${page.inverseOrder}<#else>desc</#if>
 			"><b>作者</b></a>
 								</td>
 								<td class="dgHeader">
-									<a href="${base}/demo/news.action?page.orderBy=mobile&page.order=
-			<s:if test="page.orderBy=='date'">${page.inverseOrder}</s:if><s:else>desc</s:else>
+									<a href="news.action?page.orderBy=date&page.order=
+			<#if page.orderBy?default('')=="date">${page.inverseOrder}<#else>desc</#if>
 			"><b>发布日期</b></a>
 								</td>
 								<td class="dgHeader">
 									<b>照片</b>
 								</td>
 							</tr>
-							<s:iterator value="page.result">
+							<#list page.result as list>
 								<tr class="dgAlternatingItem">
 									<td align="center">
 										<input type="checkbox" class="checkbox" name="selectIds"
-											value="<c:out value='${id}'/>" />
+											value="${list.id}" />
 									</td>
 									<td align="Left">
-										${title}
+										${list.title}
 									</td>
 									<td align="Left">
-										${auth}
+										${list.auth}
 									</td>
 									<td align="Left">
-										${date}
+										<fmt:formatDate value="${list.date}" pattern="yyyy-MM-dd" />
 									</td>
 									<td align="Left">
-										<img src="${base}/${picPath}/${picName}" alt="..." width="64" height="56"/>
+										<img src="${base}/${list.picPath?default('')}/${list.picName?default('')}" alt="..." width="64" height="56"/>
 									</td>
 								</tr>
-							</s:iterator>							
-						</table>
-						<s:if test="page.result != null">
-							<%@ include file="/common/paginateTool.jsp"%>
-						</s:if>		
+							</#list>							
+						</table>	
+						<#if page.result?exists>
+							<@comm.paginateTool/>
+						</#if>							
 					</TD>
-
-				</TR>
-				<TR>
-					<TD class="tdSpaceH12"></TD>
-				</TR>
-				<TR>
-					<TD class="tdCommonTop">
-						<TABLE class="tbExplain" id="Table10" height="20" cellSpacing="1"
-							border="0">
-							<TR>
-								<TD class="tdExplain">
-									<IFRAME class="ifExplain" id="ExplainPageFrame"
-										name="ExplainPageFrame" src="101002.htm" frameBorder="0"
-										scrolling="no"></IFRAME>
-								</TD>
-							</TR>
-						</TABLE>
-					</TD>
-				</TR>
+				</TR>				
 			</TABLE>
-				
 	</body>
 	</form>
 </HTML>

@@ -7,6 +7,8 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yanpeng.core.orm.PropertyFilter;
+import com.yanpeng.core.orm.hibernate.HibernateWebUtils;
 import com.yanpeng.core.web.struts2.CRUDActionSupport;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.Groups;
@@ -46,7 +48,8 @@ public class GroupAction extends CURDBaseAction<Groups> {
 
 	@Override
 	public String list() throws Exception {
-		page = groupManager.getAllGroup(page);
+		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new Groups());
+		page = groupManager.search(page, filters);
 		return SUCCESS;
 	}
 

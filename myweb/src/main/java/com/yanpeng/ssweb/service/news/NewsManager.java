@@ -2,6 +2,7 @@ package com.yanpeng.ssweb.service.news;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.List;
 
 import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yanpeng.core.orm.Page;
+import com.yanpeng.core.orm.PropertyFilter;
 import com.yanpeng.core.orm.hibernate.EntityManager;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.dao.news.NewsDao;
@@ -46,6 +48,11 @@ public class NewsManager extends EntityManager<News, String> {
 	public Page<News> getAllNews(Page<News> page) {
 		return newsDao.getAll(page);
 	}
+	
+	@Transactional(readOnly = true)
+	public Page<News> search(Page<News> page, final List<PropertyFilter> filters) {
+		return newsDao.find(page, filters);
+	}
 
 	@Transactional(readOnly = true)
 	public News getNewsById(String id) {
@@ -61,7 +68,7 @@ public class NewsManager extends EntityManager<News, String> {
 	}
 
 	public void deleteNews(Collection<String> ids) {
-		String path = (String) Struts2Utils.getRequest().getAttribute("SSWEBPATH");
+		String path = Struts2Utils.getRequest().getRealPath("");
 		for (String string : ids) {
 			String id = string;
 			News news = newsDao.get(id);

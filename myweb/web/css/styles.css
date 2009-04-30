@@ -629,7 +629,9 @@ TD.tdPanelSel_center
 	height:24px;
 	align:center;
 	text-align:center;
-	background-image:url(../images/panel_center.jpg);	
+	background-image:url(../images/panel_center.jpg);
+	color:white;
+    font-weight:bold;	
 }
 TD.tdPanelSel_right
 {

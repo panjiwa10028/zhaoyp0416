@@ -27,13 +27,15 @@ response.setDateHeader("Expires", 0);
    				 rules: { 
     				j_username: "required" ,
     				j_password: "required" ,
-    				j_code: "required" 
+    				j_captcha: "required" 
    				}
    			});
  			 });
   		</script>
 	</head>
 	<body>
+
+
 		<div id="content">
 			<% 
 				if(request.getParameter("error")!=null&&request.getParameter("error").equals("2")){
@@ -62,7 +64,7 @@ response.setDateHeader("Expires", 0);
 	<%
 } 
 %>
-			<h2>My-Web示例</h2>
+			<h2><s:text name="page.title"/></h2>
 			<h3>--管理界面</h3>
 			<form id="loginForm" name="loginForm" action="${base}/j_spring_security_check" method="post">
 				<table class="inputView">
@@ -84,15 +86,11 @@ response.setDateHeader("Expires", 0);
 						</td>
 					</tr>
 					<tr>
-						<td>
-							验证码:
-						</td>
-						<td>
-						<input type='text' id="code" name='j_code' size='4'/>
-						<img id="codeImg" src="captcha.jpg" onclick="this.src='captcha.jpg?'+Math.random()" style="cursor:pointer;"/>
-						<br/><span style="color:#006600">请点图片更换</span><br />				
-						</td>
+						<td>验证码:</td>
+						<td><input type='text' name='j_captcha'/></td>
+						<td valign="bottom"><img src="${base}/security/jcaptcha.jpg" onclick="this.src='${base}/security/jcaptcha.jpg?'+Math.random()" style="cursor:pointer;"/></td>
 					</tr>
+					
 					<tr>
 						<td>
 							<input type="checkbox" name="_spring_security_remember_me" />

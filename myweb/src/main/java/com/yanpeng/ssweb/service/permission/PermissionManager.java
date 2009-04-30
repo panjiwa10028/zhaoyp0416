@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yanpeng.core.orm.Page;
+import com.yanpeng.core.orm.PropertyFilter;
 import com.yanpeng.core.orm.hibernate.EntityManager;
 import com.yanpeng.ssweb.dao.permission.PermissionDao;
 import com.yanpeng.ssweb.entity.Permissions;
@@ -86,6 +87,11 @@ public class PermissionManager extends EntityManager<Permissions, String> {
 	@Transactional(readOnly = true)
 	public Page<Permissions> getPermissions(Page<Permissions> page) {
 		return permissionsDao.getAll(page);
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<Permissions> search(Page<Permissions> page, final List<PropertyFilter> filters) {
+		return permissionsDao.find(page, filters);
 	}
 
 }

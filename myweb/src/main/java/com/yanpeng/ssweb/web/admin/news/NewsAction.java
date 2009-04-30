@@ -15,6 +15,8 @@ import org.apache.struts2.convention.annotation.Results;
 import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yanpeng.core.orm.PropertyFilter;
+import com.yanpeng.core.orm.hibernate.HibernateWebUtils;
 import com.yanpeng.core.utils.DateUtils;
 import com.yanpeng.core.web.struts2.CRUDActionSupport;
 import com.yanpeng.core.web.struts2.Struts2Utils;
@@ -56,17 +58,19 @@ public class NewsAction extends CURDBaseAction<News> {
 		} else {
 			entity = new News();
 		}
+		allNewsCategory = newsCategoryManager.getAllNewsCategory();
 	}
 	
 	@Override
 	public String list() throws Exception {
-		page = newsManager.getAllNews(page);
+		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new News());
+		page = newsManager.search(page, filters);
 		return SUCCESS;
 	}
 
 	@Override
 	public String input() throws Exception {
-		allNewsCategory = newsCategoryManager.getAllNewsCategory();
+		
 		return INPUT;
 	}
 
@@ -92,11 +96,11 @@ public class NewsAction extends CURDBaseAction<News> {
 			if (entity != null && entity.getId().equals("")) {
 				entity.setId(null);
 			}
-
+			
 			entity.setUserId(getLoginUser().getId());
 			HtmlGenerator htmlGenerator = new HtmlGenerator();
 //			取服务器路径
-			String path = (String)Struts2Utils.getRequest().getAttribute("SSWEBPATH");
+			String path = Struts2Utils.getRequest().getRealPath("");
 //			生成随机的字符串
 			String rnadomString = RandomStringUtils.randomAlphabetic(4).toLowerCase();
 			Date date = new Date();

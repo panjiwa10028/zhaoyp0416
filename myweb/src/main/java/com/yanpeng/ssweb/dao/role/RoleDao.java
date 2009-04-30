@@ -19,7 +19,7 @@ import com.yanpeng.ssweb.entity.Roles;
 public class RoleDao extends HibernateDao<Roles, String> {
 
 	public List<Roles> findByIds(Collection<String> ids) {
-		return findByCriteria(Restrictions.in("id", ids));
+		return find(Restrictions.in("id", ids));
 	}
 
 	public boolean isNameUnique(String newValue, String orgValue) {

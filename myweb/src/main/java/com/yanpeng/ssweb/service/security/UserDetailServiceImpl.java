@@ -1,7 +1,9 @@
 package com.yanpeng.ssweb.service.security;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -31,6 +33,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		if (user == null) {
 			throw new UsernameNotFoundException(userName + " 不存在");
 		}
+		GrantedAuthority[] grantedAuths = obtainGrantedAuthorities(user);
+		
 		List<GrantedAuthority> authsList = new ArrayList<GrantedAuthority>();
 		GrantedAuthority ag = null;
 		for (Roles role : user.getRoleses()) {
@@ -40,11 +44,27 @@ public class UserDetailServiceImpl implements UserDetailsService {
 				ag = null;
 			}
 		}
+		boolean enabled = user.getIsDisabled() == 1 ? false : true;
+		boolean accountNonExpired = user.getIsExpired() == 1 ? false : true;
+		boolean credentialsNonExpired = true;
+		boolean accountNonLocked = user.getIsLocked() == 1 ? false : true;
+		
 		org.springframework.security.userdetails.User userdetail = new org.springframework.security.userdetails.User(
-				user.getLoginName(), user.getPassword(), user.getIsDisabled() == 1 ? false : true,
-				user.getIsExpired() == 1 ? false : true, true, user.getIsLocked() == 1 ? false : true, authsList
-						.toArray(new GrantedAuthority[authsList.size()]));
+				user.getLoginName(), user.getPassword(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, grantedAuths);
 		return userdetail;
+	}
+	
+	/**
+	 * 获得用户所有角色的权限.
+	 */
+	private GrantedAuthority[] obtainGrantedAuthorities(Users user) {
+		Set<GrantedAuthority> perSet = new HashSet<GrantedAuthority>();
+		for (Roles role : user.getRoleses()) {
+			for (Permissions per : role.getPermissionses()) {
+				perSet.add(new GrantedAuthorityImpl(per.getName()));
+			}
+		}
+		return perSet.toArray(new GrantedAuthority[perSet.size()]);
 	}
 
 }

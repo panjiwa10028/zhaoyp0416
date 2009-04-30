@@ -10,6 +10,8 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yanpeng.core.orm.PropertyFilter;
+import com.yanpeng.core.orm.hibernate.HibernateWebUtils;
 import com.yanpeng.core.web.struts2.CRUDActionSupport;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.Groups;
@@ -65,23 +67,25 @@ public class UserAction extends CURDBaseAction<Users> {
 			groupId = entity.getGroups().getId();
 		} else {
 			entity = new Users();
-		}
+		}		
+
+		allRoles = roleManager.getAllRoles();
+		checkedRoleIds = entity.getRoleIds();
+		allGroups = groupManager.getAllGroup();
+
 	}
 
 	// CRUD Action 函数
 
 	@Override
 	public String list() throws Exception {
-		page = userManager.getAllUsers(page);
+		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new Users());
+		page = userManager.search(page, filters);
 		return SUCCESS;
 	}
 
 	@Override
 	public String input() throws Exception {
-		allRoles = roleManager.getAllRoles();
-		checkedRoleIds = entity.getRoleIds();
-		allGroups = groupManager.getAllGroup();
-
 		return INPUT;
 	}
 

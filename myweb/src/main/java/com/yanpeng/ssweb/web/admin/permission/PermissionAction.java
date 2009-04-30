@@ -7,6 +7,8 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yanpeng.core.orm.PropertyFilter;
+import com.yanpeng.core.orm.hibernate.HibernateWebUtils;
 import com.yanpeng.core.web.struts2.CRUDActionSupport;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.Permissions;
@@ -46,11 +48,13 @@ public class PermissionAction extends CURDBaseAction<Permissions> {
 
 	@Override
 	public String list() throws Exception {
+		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new Permissions());
+		
 		if (page.getOrderBy() == null) {
 			page.setOrderBy("displayName");
 			page.setOrder("asc");
 		}
-		page = permissionManager.getPermissions(page);
+		page = permissionManager.search(page, filters);
 		return SUCCESS;
 	}
 

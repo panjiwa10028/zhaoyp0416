@@ -15,7 +15,8 @@
 	<constant name="struts.url.includeParams" value="none"/>
 	<constant name="struts.multipart.maxSize" value="209715200"/>
 	<constant name="struts.multipart.saveDir" value="c:/temp"/>
-	
+	<constant name="struts.custom.i18n.resources" value="i18n/messages"/>
+	<constant name="struts.convention.action.name.separator" value="-" /> 
 	<!-- 是否是开发模式 -->
 	<constant name="struts.devMode" value="true"/>
 	
@@ -26,6 +27,7 @@
 		<!-- 基于paramsPrepareParamsStack,增加store interceptor -->
 		<interceptors>
 		<!-- 初始化接口 -->
+			
 			<interceptor name="sswebinit"
 				class="com.yanpeng.ssweb.interceptor.SSWebInterceptor" />
 			<interceptor name="token" class="com.yanpeng.ssweb.interceptor.TokenInterceptor"/>
@@ -38,6 +40,8 @@
 				 <interceptor-ref name="token"/>				
 				<interceptor-ref name="paramsPrepareParamsStack" />
 				<interceptor-ref name="sswebinit" />
+				<interceptor-ref name="timer" />
+				
 			</interceptor-stack>
 		</interceptors>
 

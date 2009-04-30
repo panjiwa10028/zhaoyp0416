@@ -8,6 +8,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.yanpeng.core.orm.Page;
+import com.yanpeng.core.orm.PropertyFilter;
+import com.yanpeng.core.orm.PropertyFilter.MatchType;
 import com.yanpeng.core.orm.hibernate.HibernateDao;
 import com.yanpeng.ssweb.entity.Menus;
 
@@ -51,11 +53,11 @@ public class MenuDao extends HibernateDao<Menus, String> {
 		} else {
 			criteria = Restrictions.in("parentId", new Object[] { "-1", "0" });
 		}
-		return findByCriteria(criteria);
+		return find(criteria);
 	}
 
 	public List<Menus> findSub() {
-		return findByCriteria(Restrictions.not(Restrictions.in("parentId", new Object[] { "-1", "0" })));
+		return find(Restrictions.not(Restrictions.in("parentId", new Object[] { "-1", "0" })));
 	}
 
 	public boolean isNameUnique(String newValue, String orgValue) {
@@ -67,10 +69,16 @@ public class MenuDao extends HibernateDao<Menus, String> {
 	}
 
 	public List<Menus> findByIds(Collection<String> ids) {
-		return findByCriteria(Restrictions.in("id", ids));
+		return find(Restrictions.in("id", ids));
 	}
 
 	public Page<Menus> getAllByPage(Page<Menus> page) {
 		return findByCriteria(page, Restrictions.not(Restrictions.eq("id", "0")));
+	}
+	
+	public Page<Menus> search(Page<Menus> page, final List<PropertyFilter> filters) {
+		PropertyFilter proFilter = new PropertyFilter("id", "0", MatchType.NOTEQ);
+		filters.add(proFilter);
+		return find(page, filters);
 	}
 }
