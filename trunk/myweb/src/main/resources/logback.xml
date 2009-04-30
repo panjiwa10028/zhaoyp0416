@@ -39,13 +39,13 @@
 		<level value="DEBUG" />
 	</logger>
 		<logger name="org.hibernate.cache">
-		<level value="DEBUG" />
+		<level value="WARN" />
 	</logger>
 	<logger name="org.apache.struts2">
 		<level value="WARN" />
 	</logger>
 	<logger name="com.opensymphony.xwork2">
-		<level value="WARN" />
+		<level value="DEBUG" />
 	</logger>
 	<logger name="com.opensymphony.xwork2.ognl.OgnlValueStack">
 		<level value="ERROR" />

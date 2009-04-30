@@ -10,6 +10,8 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yanpeng.core.orm.PropertyFilter;
+import com.yanpeng.core.orm.hibernate.HibernateWebUtils;
 import com.yanpeng.core.web.struts2.CRUDActionSupport;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.Menus;
@@ -68,7 +70,8 @@ public class RoleAction extends CURDBaseAction<Roles> {
 
 	@Override
 	public String list() throws Exception {
-		page = roleManager.getAllRoles(page);
+		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new Roles());
+		page = roleManager.search(page, filters);
 		return SUCCESS;
 	}
 

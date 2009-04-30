@@ -20,36 +20,37 @@
 		</init-param>
 	</filter>
 	
+	<filter>
+		<filter-name>hibernateOpenSessionInViewFilter</filter-name>
+		<filter-class>com.yanpeng.core.orm.hibernate.OpenSessionInViewFilter</filter-class>
+		<init-param>
+			<param-name>excludeSuffixs</param-name>
+			<param-value>js,css,jpg,gif</param-value>
+		</init-param>
+	</filter>
+	
+	<filter>
+		<filter-name>jcaptchaFilter</filter-name>
+		<filter-class>com.yanpeng.core.security.jcaptcha.JCaptchaFilter</filter-class>
+		<init-param>
+			<param-name>failureUrl</param-name>
+			<param-value>/login.action?error=2</param-value>
+		</init-param>
+	</filter>
 	<!-- 名字必须为springSecurityFilterChain,否则会报未定义错误 -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
-	
-  	<!-- 如果不增加,会发生第一次上传取不到文件的情况-->
-  	<filter>
-		<filter-name>struts-cleanup</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class>
-    </filter> 
+	 
     
-
 	<filter>
-		<filter-name>struts2</filter-name>
+		<filter-name>struts2Filter</filter-name>
 		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
 	</filter>
 	
-	<filter>
-		<filter-name>osivFilter</filter-name>
-		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
-	</filter>
-
 	
 	 <!-- ################# mapping ################# -->
-	
-	<filter-mapping>
-		<filter-name>osivFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
 	
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
@@ -57,30 +58,31 @@
 	</filter-mapping>
 
 	<filter-mapping>
+		<filter-name>hibernateOpenSessionInViewFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- jcaptcha图片生成URL. -->
+	<filter-mapping>
+		<filter-name>jcaptchaFilter</filter-name>
+		<url-pattern>/security/jcaptcha.jpg</url-pattern>
+	</filter-mapping>
+
+	<!-- jcaptcha登录表单处理URL.
+	             必须放在springSecurityFilter的filter-mapping定义之前 -->
+	<filter-mapping>
+		<filter-name>jcaptchaFilter</filter-name>
+		<url-pattern>/j_spring_security_check</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	 
-	<filter-mapping>
-        <filter-name>struts-cleanup</filter-name>
-        <url-pattern>*.action</url-pattern>
-    </filter-mapping>
-    
-   	<filter-mapping>
-        <filter-name>struts-cleanup</filter-name>
-        <url-pattern>*.jsp</url-pattern>
-    </filter-mapping>
-   
-	<filter-mapping>
-		<filter-name>struts2</filter-name>
-		<url-pattern>*.action</url-pattern>
-	</filter-mapping>
 
 	<filter-mapping>
-		<filter-name>struts2</filter-name>
-		<url-pattern>*.jsp</url-pattern>
+		<filter-name>struts2Filter</filter-name>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
 	
 
 	<!--Spring ApplicationContext 载入 -->
@@ -102,15 +104,6 @@
 	<listener>
   		<listener-class>com.yanpeng.ssweb.SystemInitListener</listener-class>
 	</listener>
-  <servlet>
-    <servlet-name>CaptchaServlet</servlet-name>
-    <servlet-class>com.yanpeng.ssweb.servlet.CaptchaServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>CaptchaServlet</servlet-name>
-    <url-pattern>/captcha.jpg</url-pattern>
-  </servlet-mapping>
 	
 
 	<!-- session超时定义,单位为分钟 -->

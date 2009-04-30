@@ -13,8 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yanpeng.core.orm.Page;
+import com.yanpeng.core.orm.PropertyFilter;
 import com.yanpeng.core.orm.hibernate.EntityManager;
-import com.yanpeng.core.security.SpringSecurityUtils;
+import com.yanpeng.core.security.springsecurity.SpringSecurityUtils;
 import com.yanpeng.core.utils.BaseCodeUtils;
 import com.yanpeng.ssweb.dao.role.RoleDao;
 import com.yanpeng.ssweb.dao.user.UserDao;
@@ -40,10 +41,6 @@ public class UserManager extends EntityManager<Users, String> {
 	@Autowired
 	private RoleDao roleDao;
 
-	@Override
-	protected UserDao getEntityDao() {
-		return userDao;
-	}
 
 	// 用户业务函数
 
@@ -54,8 +51,8 @@ public class UserManager extends EntityManager<Users, String> {
 	}
 
 	@Transactional(readOnly = true)
-	public Page<Users> getAllUsers(Page<Users> page) {
-		return userDao.getAll(page);
+	public Page<Users> search(Page<Users> page, final List<PropertyFilter> filters) {
+		return userDao.find(page, filters);
 	}
 
 	public void saveUser(Users user) {
@@ -64,7 +61,7 @@ public class UserManager extends EntityManager<Users, String> {
 
 	public void saveUser(Users user, Collection<String> ids) {
 		if (ids != null) {
-			List<Roles> list = roleDao.findByCriteria(Restrictions.in("id", ids));
+			List<Roles> list = roleDao.find(Restrictions.in("id", ids));
 			Set<Roles> set = new LinkedHashSet<Roles>(list);
 			user.setRoleses(set);
 		}

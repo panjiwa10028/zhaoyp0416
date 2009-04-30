@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/common/taglibs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -17,29 +17,29 @@
 			}
 			
 		}		
-		
-		function add() {			
-			var url = "menu!input.action";
+	
+
+		function add() {
+			
+			var url = "news!input.action";
 			top.mainWorkArea.location = url;
+			//top.showDialog(url, null, 750, 500);
 		}
 
 		function update() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
-			var url = "menu!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
+			var url = "news!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 		
 		function del() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
-			var url = "menu!delete.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
+
+			var url = "news!delete.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
 			if(confirm("确定删除")) {
 				top.mainWorkArea.location = url;
 			}
 		}
-
-		
-
-		
 
 		function query() {
 			submitForm();
@@ -50,14 +50,13 @@
 		}
 		</script>
 	</HEAD>
-
-	<body scroll="auto" style="overflow: auto" id="body"
-		onload="InitPage()" MS_POSITIONING="GridLayout">
-		<div id="message" style="display: none;">
-			<s:actionmessage theme="simple" />
-		</div>
-		<form id="queryForm" name="queryForm" action="menu.action"
-			method="post">	
+	
+	<body scroll="auto" style="overflow: auto" id="body" onload="InitPage()" MS_POSITIONING="GridLayout">	
+<div id="message" style="display:none;"><s:actionmessage theme="simple"/></div>
+<form action="news!search.action" method="post" id="inputForm">
+										<input id="search_text" name="search_text" class="required"/><input type="submit" value="搜索" class="button"/>
+									</form>
+<form id="queryForm" name="queryForm" action="news.action" method="post">
 			<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
 				<TR>
 					<TD class="tdCommonTop">
@@ -65,7 +64,7 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">系统管理 > 菜单设定</span>&nbsp;&nbsp;&nbsp;
+									<span id="Location">新闻管理 > 新闻设定</span>&nbsp;&nbsp;&nbsp;
 									<img src="${base}/images/ask.gif" id="BtnAsk"
 										style="CURSOR: hand" alt="..."
 										height="23" width="24" align="absMiddle" />
@@ -74,9 +73,9 @@
 									<FONT face="宋体"></FONT>
 								</TD>
 								<TD class="tdTitle3">
-
-									<IMG alt="" src="${base}/images/title_06.gif">
-								</TD>
+								
+								<IMG alt="" src="${base}/images/title_06.gif">
+							</TD>
 							</TR>
 						</TABLE>
 
@@ -93,15 +92,25 @@
 							border="0">
 							<TR>
 								<TD class="tdPanelContent">
+									<!-- 账户管理首页标签 -->
 									<table border="0" cellpadding="0" cellspacing="0"
-										class="tbPanelContent">
+										class=tbPanelContent>
 										<tr>
-											<td class="tdPanelHead">&nbsp;</td>
-											<td class="tdPanelSel_left">&nbsp;</td>
-											<td class="tdPanelSel_center">菜单设定</td>
-											<td class="tdPanelSel_right">&nbsp;</td>
+											<td class=tdPanelHead>
+												&nbsp;
+											</td>
+											<td class=tdPanelSel_left>
+												&nbsp;
+											</td>
+											<td class=tdPanelSel_center>
+												<pre style="margin: 0px">新闻设定</pre>
+											</td>
+											<td class=tdPanelSel_right>
+												&nbsp;
+											</td>
 										</tr>
 									</table>
+									<!-- END 账户管理首页标签 -->
 								</TD>
 								<TD class="tdPanelTrail">
 									<table border="0" cellpadding="0" cellspacing="0"
@@ -109,10 +118,13 @@
 										<tr>
 											<td class=tdOperButton onclick="add()"><img src="${base}/images/${locale}/new.jpg" /></td>
 											<td class=tdPanelSpace10>&nbsp;</td>
-											<td class=tdOperButton onclick="update()"><img src="${base}/images/${locale}/update.jpg" /></td>
+											<td class=tdOperButton onclick="update()"><img src="${base}/images/${locale}/update.jpg"/></td>
 											<td class=tdPanelSpace10>&nbsp;</td>
-											<td class=tdOperButton onclick="del()"><img src="${base}/images/${locale}/del.jpg" /></td>
-											<td class=tdPanelSpaceW20>&nbsp;</td>
+											<td class=tdOperButton onclick="del()"><img src="${base}/images/${locale}/del.jpg"/></td>		
+										
+											<td class=tdPanelSpaceW20>
+												&nbsp;
+											</td>
 
 										</tr>
 									</table>
@@ -121,20 +133,21 @@
 						</TABLE>
 					</TD>
 
-				</TR>				
+				</TR>
 				<TR>
 					<TD id="tdQueryResult1" class="tdCommonTop">
-						<TABLE class="tbCommonColor" id="Table6" cellSpacing="1" border="0">
+						<TABLE class="tbCommonColor" id="Table5" cellSpacing="0"
+							border="0">
 							<TR>
-								<TD class="tdLeftH30" >
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;键值或显示名称：<input type="text" name="filter_LIKE_name__displayName" value="${param['filter_LIKE_name__displayName']}" size="9"/>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是否有效：
-									<select name="filter_EQ_isDisabled" id="filter_EQ_isDisabled" style="width:100px;">
-	<option value="">[ 全部 ]</option>
-<option <c:if test="${param['filter_EQ_isDisabled'] == 0}">selected="selected"</c:if> value="0">[ 有效 ]</option>
-<option <c:if test="${param['filter_EQ_isDisabled'] == 1}">selected="selected"</c:if> value="1">[ 无效 ]</option>
-</select>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="BtnOK" value="查 询" id="BtnOK" class="btn" onclick="query()"/>
+								<TD id="tdSpace" class=""></TD>
+
+							</TR>
+						</TABLE>
+						<TABLE class="tbCommonColor" id="Table6" cellSpacing="1"
+							border="0">
+							<TR>
+								<TD class="tdLeftH30">
+									
 								</TD>
 							</TR>
 						</TABLE>
@@ -145,11 +158,11 @@
 					<TD class="tdSpaceH12"></TD>
 				</TR>
 				<TR>
-					<TD id="tdQueryResult1" class="tdCommonTop">
+					<TD id="tdQueryResult2" class="tdCommonTop">
 						<TABLE class="tbBlock" id="Table8" cellSpacing="1" border="0">
 							<TR>
 								<TD class="tdPrompt">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;菜单列表
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								</TD>
 							</TR>
 						</TABLE>
@@ -161,49 +174,47 @@
 								<td class="dgHeader">
 									<input type="checkbox" class="checkbox" name="ids" onclick="selectAllCheckBox(this,'selectIds')"/>
 								</td>
+								<td class="dgHeader">
+									<a href="javascript:orderBy('title')"><b>标题</b></a>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('displayName')"><b>显示名称</b>
-									</a>
+									<a href="news.action?page.orderBy=auth&page.order=
+			<s:if test="page.orderBy=='auth'">${page.inverseOrder}</s:if><s:else>desc</s:else>
+			"><b>作者</b></a>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('name')"><b>标识</b>
-									</a>
+									<a href="news.action?page.orderBy=date&page.order=
+			<s:if test="page.orderBy=='date'">${page.inverseOrder}</s:if><s:else>desc</s:else>
+			"><b>发布日期</b></a>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('isDisabled')"><b>状态</b>
-									</a>
-								</td>
-								<td class="dgHeader">
-									<a href="javascript:orderBy('path')"><b>路径</b>
-									</a>
+									<b>照片</b>
 								</td>
 							</tr>
 							<s:iterator value="page.result">
 								<tr class="dgAlternatingItem">
 									<td align="center">
 										<input type="checkbox" class="checkbox" name="selectIds"
-											value="${id}" />
+											value="<c:out value='${id}'/>" />
 									</td>
 									<td align="Left">
-										${displayName}
+										${title}
 									</td>
 									<td align="Left">
-										${name}
+										${auth}
 									</td>
 									<td align="Left">
-										<s:if test="isDisabled == 0">有效</s:if>
-										<s:elseif test="isDisabled == 1">无效</s:elseif>
+										<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
 									</td>
 									<td align="Left">
-										${path}
+										<img src="${base}/${picPath}/${picName}" alt="..." width="64" height="56"/>
 									</td>
 								</tr>
-							</s:iterator>
+							</s:iterator>							
 						</table>
 						<s:if test="page.result != null">
 							<%@ include file="/common/paginateTool.jsp"%>
-						</s:if>
+						</s:if>		
 					</TD>
 
 				</TR>
@@ -225,6 +236,7 @@
 					</TD>
 				</TR>
 			</TABLE>
+				
 	</body>
 	</form>
 </HTML>

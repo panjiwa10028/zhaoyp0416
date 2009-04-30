@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yanpeng.core.orm.Page;
+import com.yanpeng.core.orm.PropertyFilter;
 import com.yanpeng.core.orm.hibernate.EntityManager;
 import com.yanpeng.ssweb.dao.group.GroupDao;
 import com.yanpeng.ssweb.entity.Groups;
@@ -46,6 +47,11 @@ public class GroupManager extends EntityManager<Groups, String> {
 	@Transactional(readOnly = true)
 	public Page<Groups> getAllGroup(Page<Groups> page) {
 		return groupDao.getAllByPage(page);
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<Groups> search(Page<Groups> page, final List<PropertyFilter> filters) {
+		return groupDao.search(page, filters);
 	}
 
 	@Transactional(readOnly = true)

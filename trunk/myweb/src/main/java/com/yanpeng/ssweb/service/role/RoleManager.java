@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yanpeng.core.orm.Page;
+import com.yanpeng.core.orm.PropertyFilter;
 import com.yanpeng.core.orm.hibernate.EntityManager;
 import com.yanpeng.ssweb.dao.menu.MenuDao;
 import com.yanpeng.ssweb.dao.permission.PermissionDao;
@@ -64,6 +65,11 @@ public class RoleManager extends EntityManager<Roles, String> {
 	@Transactional(readOnly = true)
 	public Page<Roles> getAllRoles(Page<Roles> page) {
 		return roleDao.getAll(page);
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<Roles> search(Page<Roles> page, final List<PropertyFilter> filters) {
+		return roleDao.find(page, filters);
 	}
 
 	@Transactional(readOnly = true)

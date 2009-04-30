@@ -19,7 +19,7 @@ public class UserDao extends HibernateDao<Users, String> {
 	private static final String QUERY_BY_ROLE_HQL = "select user from User user join user.roles as role where role.name=?";
 
 	public Users getByLoginName(String loginName) {
-		return findUniqueByProperty("loginName", loginName);
+		return findByUnique("loginName", loginName);
 	}
 
 	public boolean isLoginNameUnique(String newValue, String orgValue) {

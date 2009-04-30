@@ -173,7 +173,7 @@
 
 		function adjustFrameSize()
 		{
-			document.all.mainWorkArea.style.height=mainWorkArea.document.body.scrollHeight<400?400:document.body.scrollHeight-130;
+			document.all.mainWorkArea.style.height=mainWorkArea.document.body.scrollHeight<400?400:document.body.scrollHeight-180;
 			//mainWorkArea.document.body.style.overflowX='auto';
 			//mainWorkArea.document.body.style.overflowY='auto';
 		}
@@ -236,6 +236,9 @@
 		function logout() {alert();
 			document.href = "logout.action";
 		}
+		function langSelecter_onChanged() {
+	        document.langForm.submit();
+	    }
 		</script>
 	</head>
 	<input id="leftMenuValue" name="leftMenuValue" type="hidden" value='<c:out value="${leftMenuValue}" escapeXml="true"/>'/>
@@ -270,8 +273,18 @@
 													<tr>
 														<td height="62" align="right" style="PADDING-RIGHT:20px;padding-top:6px" valign=top>
 															<A onclick="CallFunc('CBANK_SHELL','Login/HomePage.aspx','FORM',null);" href="#null">
-																首页</A>&nbsp;|&nbsp;<A onclick="CallFunc('CBANK_SHELL','Service/WebSiteMap.aspx','FORM',null);" href="#null">功能地图</A>&nbsp;|&nbsp;<A onclick="CallFunc('CBANK_SHELL','Login/HP_QueryLog.aspx','FORM',null);" href="#null">日志查询</A>
-															|&nbsp;<A href="${base}/admin/logout.action">重登录</A>&nbsp;|&nbsp;<A  href="${base}/admin/logout.action">退出</A>&nbsp;
+															<s:text name="page.title"/>	首页</A>&nbsp;|&nbsp;<A href="${base}/admin/logout.action">重登录</A>&nbsp;|&nbsp;<A  href="${base}/admin/logout.action">退出</A>&nbsp;
+																<br/>
+																<s:set name="SESSION_LOCALE" value="#session['WW_TRANS_I18N_LOCALE']"/>
+																<s:bean id="locales" name="com.yanpeng.ssweb.commons.Locales"/>
+																<form action="<s:url includeParams="get" encode="true"/>" name="langForm" 
+																    style="padding-top: 4px; padding-bottom: 4px;">
+																   语 言: <s:select label="" 
+																        list="#locales.locales" listKey="value"    listValue="key"
+																        value="#SESSION_LOCALE == null ? locale : #SESSION_LOCALE"
+																        name="request_locale" id="langSelecter" 
+																        onchange="langSelecter_onChanged()"/>
+																</form>
 														</td>
 													</tr>
 												</table>

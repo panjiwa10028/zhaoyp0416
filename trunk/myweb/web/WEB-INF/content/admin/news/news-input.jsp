@@ -160,7 +160,7 @@
 			</tr>
 			<tr>
 				<td class="tdRightW30H40">发布日期:</td>
-				<td class="tdLeftH40"><input type="text" name="date" size="40" value="${date}" class="Wdate" onFocus="WdatePicker({lang:'${locale}',readOnly:true})"/></td>
+				<td class="tdLeftH40"><input type="text" name="date" size="40" value="<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />" class="Wdate" onFocus="WdatePicker({lang:'${locale}',readOnly:true})"/></td>
 			</tr>
 			<tr>
 				<td class="tdRightW30H40">内容:</td>
