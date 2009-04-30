@@ -5,7 +5,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit38.AbstractTransactionalJUnit38SpringContextTests;
 
 /**
- * Spring支持数据库事务、依赖注入的JUnit 3.8 TestCase基类的便捷简写.
+ * Spring的支持数据库事务和依赖注入的JUnit 3.8 TestCase基类简写.
  * 
  * @author Allen
  */
@@ -28,7 +28,7 @@ public class SpringTransactionalTestCase extends AbstractTransactionalJUnit38Spr
 	 * 
 	 * @param sessionFactoryName applicationContext中sessionFactory的名称.
 	 */
-	public void flush(String sessionFactoryName) {
+	public void flush(final String sessionFactoryName) {
 		((SessionFactory) applicationContext.getBean(sessionFactoryName)).getCurrentSession().flush();
 	}
 }

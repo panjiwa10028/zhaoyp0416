@@ -56,6 +56,13 @@ public class Struts2Utils {
 		return ServletActionContext.getResponse();
 	}
 
+	/**
+	 * 取得Request Parameter的简化方法.
+	 */
+	public static String getParameter(String name) {
+		return getRequest().getParameter(name);
+	}
+
 	// 绕过jsp/freemaker直接输出文本的函数 //
 
 	/**
@@ -66,8 +73,7 @@ public class Struts2Utils {
 	 * render("text/plain", "hello", "no-cache:false");
 	 * render("text/plain", "hello", "encoding:GBK", "no-cache:false");
 	 * 
-	 * @param headers 可变的header数组，目前接受的值为"encoding:"或"no-cache:",见示例代码.
-	 *                不设置时默认值分别为UTF-8和true.                 
+	 * @param headers 可变的header数组，目前接受的值为"encoding:"或"no-cache:",默认值分别为UTF-8和true.                 
 	 */
 	public static void render(final String contentType, final String content, final String... headers) {
 		try {
@@ -82,9 +88,8 @@ public class Struts2Utils {
 					encoding = headerValue;
 				} else if (StringUtils.equalsIgnoreCase(headerName, NOCACHE_PREFIX)) {
 					noCache = Boolean.parseBoolean(headerValue);
-				} else {
+				} else
 					throw new IllegalArgumentException(headerName + "不是一个合法的header类型");
-				}
 			}
 
 			HttpServletResponse response = ServletActionContext.getResponse();

@@ -2,17 +2,21 @@ package com.yanpeng.core.orm.hibernate;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import ognl.OgnlException;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 import org.springframework.web.util.WebUtils;
 
+import com.opensymphony.xwork2.ognl.OgnlUtil;
 import com.yanpeng.core.orm.PropertyFilter;
 import com.yanpeng.core.orm.PropertyFilter.MatchType;
 
@@ -44,7 +48,7 @@ public class HibernateWebUtils {
 	 * 因此需采用如此的整合算法：在源集合中删除id不在ID集合中的对象,根据ID集合中的id创建对象并添加到源集合中.
 	 * 
 	 * @param srcObjects 源对象集合
-	 * @param checkedIds  目标集合
+	 * @param checkedIds  目标ID集合
 	 * @param clazz  集合中对象的类型
 	 * @param idName 对象主键的名称
 	 */
@@ -52,9 +56,9 @@ public class HibernateWebUtils {
 			final Class<T> clazz, final String idName) throws Exception {
 
 		//参数校验
-		Assert.notNull(srcObjects);
-		Assert.hasText(idName);
-		Assert.notNull(clazz);
+		Assert.notNull(srcObjects, "scrObjects不能为空");
+		Assert.hasText(idName, "idName不能为空");
+		Assert.notNull(clazz, "clazz不能为空");
 
 		//目标ID集合为空,删除源集合中所有对象后直接返回.
 		if (checkedIds == null) {
@@ -90,8 +94,8 @@ public class HibernateWebUtils {
 	 * 
 	 * @see #buildPropertyFilters(HttpServletRequest, String)
 	 */
-	public static List<PropertyFilter> buildPropertyFilters(HttpServletRequest request) {
-		return buildPropertyFilters(request, "filter_");
+	public static List<PropertyFilter> buildPropertyFilters(final HttpServletRequest request, Object obj) {
+		return buildPropertyFilters(request, "filter_", obj);
 	}
 
 	/**
@@ -103,31 +107,41 @@ public class HibernateWebUtils {
 	 * filter_LIKE_name|email	
 	 */
 	@SuppressWarnings("unchecked")
-	public static List<PropertyFilter> buildPropertyFilters(HttpServletRequest request, String filterPrefix) {
+	public static List<PropertyFilter> buildPropertyFilters(final HttpServletRequest request, final String filterPrefix, Object obj) {
 		List<PropertyFilter> filterList = new ArrayList<PropertyFilter>();
 
 		//从request中获取含属性前缀名的参数,构造去除前缀名后的参数Map.
-		Map filterParamMap = WebUtils.getParametersStartingWith(request, filterPrefix);
+		Map<String, String> filterParamMap = WebUtils.getParametersStartingWith(request, filterPrefix);
 
 		//分析参数Map,构造PropertyFilter列表
-		for (Object filterName : filterParamMap.keySet()) {
-			Object value = filterParamMap.get(filterName);
-
+		for (Map.Entry<String, String> entry : filterParamMap.entrySet()) {
+			String filterName = entry.getKey();
+			String value = entry.getValue();
 			//如果value值为空,则忽略此filter.
-			boolean omit = StringUtils.isBlank((String) value);
+			boolean omit = StringUtils.isBlank(value);
+			Object proValue = null;
 			if (!omit) {
 
+				OgnlUtil util = new OgnlUtil();
+				try {
+					util.setValue(StringUtils.substringAfter(filterName, "_"), new HashMap(), obj, value);
+					proValue = util.getValue(StringUtils.substringAfter(filterName, "_"), new HashMap(), obj);
+				} catch (OgnlException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					continue;
+				}
 				//分析filterName,获取matchType与propertyName
 				MatchType matchType;
-				String matchTypeCode = StringUtils.substringBefore((String) filterName, "_");
+				String matchTypeCode = StringUtils.substringBefore(filterName, "_");
 				try {
 					matchType = Enum.valueOf(MatchType.class, matchTypeCode);
 				} catch (RuntimeException e) {
 					throw new IllegalArgumentException("filter名称没有按规则编写,无法得到属性比较类型.", e);
 				}
-				String propertyName = StringUtils.substringAfter((String) filterName, "_");
+				String propertyName = StringUtils.substringAfter(filterName, "_");
 
-				PropertyFilter filter = new PropertyFilter(propertyName, value, matchType);
+				PropertyFilter filter = new PropertyFilter(propertyName, proValue, matchType);
 				filterList.add(filter);
 			}
 		}
