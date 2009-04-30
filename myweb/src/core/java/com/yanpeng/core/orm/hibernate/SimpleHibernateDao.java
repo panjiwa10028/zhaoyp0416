@@ -123,6 +123,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 		Assert.notNull(id);
 		return (T) getSession().load(entityClass, id);
 	}
+
 	/**
 	 *	获取全部对象. 
 	 */
@@ -204,7 +205,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	public List<T> find(final Criterion... criterions) {
 		return createCriteria(criterions).list();
 	}
-	
+
 	/**
 	 * 按Criteria查询对象列表.
 	 * 
@@ -245,6 +246,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 		}
 		return criteria;
 	}
+
 	/**
 	 * 根据Criterion条件创建Criteria.
 	 * 
@@ -266,8 +268,9 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	 * 在修改对象的情景下,如果属性新修改的值(value)等于属性原来的值(orgValue)则不作比较.
 	 */
 	public boolean isPropertyUnique(final String propertyName, final Object newValue, final Object orgValue) {
-		if (newValue == null || newValue.equals(orgValue))
+		if (newValue == null || newValue.equals(orgValue)) {
 			return true;
+		}
 		Object object = findByUnique(propertyName, newValue);
 		return (object == null);
 	}

@@ -16,7 +16,6 @@ import com.yanpeng.ssweb.entity.config.Config;
 import com.yanpeng.ssweb.interceptor.ConfigAware;
 import com.yanpeng.ssweb.service.user.UserManager;
 
-
 /**
  * CURD操作的基类Action
  * @author Allen

@@ -88,7 +88,7 @@ public class PermissionManager extends EntityManager<Permissions, String> {
 	public Page<Permissions> getPermissions(Page<Permissions> page) {
 		return permissionsDao.getAll(page);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public Page<Permissions> search(Page<Permissions> page, final List<PropertyFilter> filters) {
 		return permissionsDao.find(page, filters);

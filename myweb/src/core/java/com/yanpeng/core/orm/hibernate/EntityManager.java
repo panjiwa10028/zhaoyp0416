@@ -1,7 +1,6 @@
 package com.yanpeng.core.orm.hibernate;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -9,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yanpeng.core.orm.Page;
-import com.yanpeng.core.orm.PropertyFilter;
 import com.yanpeng.core.utils.ReflectionUtils;
-
 
 /**
  * 默认的领域对象业务管理类基类,提供默认的泛型DAO成员变量.
@@ -44,32 +40,32 @@ public class EntityManager<T, PK extends Serializable> {
 	}
 
 	// CRUD函数 //
-//
-//	@Transactional(readOnly = true)
-//	public T get(final PK id) {
-//		return getEntityDao().get(id);
-//	}
-//
-//	@Transactional(readOnly = true)
-//	public Page<T> getAll(final Page<T> page) {
-//		return getEntityDao().getAll(page);
-//	}
-//
-//	@Transactional(readOnly = true)
-//	public List<T> getAll() {
-//		return getEntityDao().getAll();
-//	}
-//
-//	@Transactional(readOnly = true)
-//	public Page<T> search(final Page<T> page, final List<PropertyFilter> filters) {
-//		return getEntityDao().find(page, filters);
-//	}
-//
-//	public void save(final T entity) {
-//		getEntityDao().save(entity);
-//	}
-//
-//	public void delete(final PK id) {
-//		getEntityDao().delete(id);
-//	}
+	//
+	//	@Transactional(readOnly = true)
+	//	public T get(final PK id) {
+	//		return getEntityDao().get(id);
+	//	}
+	//
+	//	@Transactional(readOnly = true)
+	//	public Page<T> getAll(final Page<T> page) {
+	//		return getEntityDao().getAll(page);
+	//	}
+	//
+	//	@Transactional(readOnly = true)
+	//	public List<T> getAll() {
+	//		return getEntityDao().getAll();
+	//	}
+	//
+	//	@Transactional(readOnly = true)
+	//	public Page<T> search(final Page<T> page, final List<PropertyFilter> filters) {
+	//		return getEntityDao().find(page, filters);
+	//	}
+	//
+	//	public void save(final T entity) {
+	//		getEntityDao().save(entity);
+	//	}
+	//
+	//	public void delete(final PK id) {
+	//		getEntityDao().delete(id);
+	//	}
 }

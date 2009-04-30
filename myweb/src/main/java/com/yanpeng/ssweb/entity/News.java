@@ -1,6 +1,5 @@
 package com.yanpeng.ssweb.entity;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -38,7 +37,7 @@ public class News extends BaseEntity implements java.io.Serializable {
 	private String htmlName;
 	private String picName;
 	private Set<NewsMessage> newsMessages = new LinkedHashSet<NewsMessage>(0);
-	
+
 	private String categoryId;
 
 	// Constructors
@@ -47,13 +46,12 @@ public class News extends BaseEntity implements java.io.Serializable {
 	public News() {
 	}
 
-	
 	// Property accessors
-	
+
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "category_id", insertable = false, updatable = false)
 	public NewsCategory getNewsCategory() {
-		return this.newsCategory;
+		return newsCategory;
 	}
 
 	public void setNewsCategory(NewsCategory newsCategory) {
@@ -62,7 +60,7 @@ public class News extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "title", length = 100)
 	public String getTitle() {
-		return this.title;
+		return title;
 	}
 
 	public void setTitle(String title) {
@@ -71,7 +69,7 @@ public class News extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "auth", length = 50)
 	public String getAuth() {
-		return this.auth;
+		return auth;
 	}
 
 	public void setAuth(String auth) {
@@ -80,7 +78,7 @@ public class News extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "content", length = 65535)
 	public String getContent() {
-		return this.content;
+		return content;
 	}
 
 	public void setContent(String content) {
@@ -90,18 +88,16 @@ public class News extends BaseEntity implements java.io.Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "date", length = 19)
 	public Date getDate() {
-		return this.date;
+		return date;
 	}
 
 	public void setDate(Date date) {
 		this.date = date;
 	}
 
-	
-
 	@Column(name = "html_path", length = 512)
 	public String getHtmlPath() {
-		return this.htmlPath;
+		return htmlPath;
 	}
 
 	public void setHtmlPath(String htmlPath) {
@@ -110,7 +106,7 @@ public class News extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "pic_path", length = 512)
 	public String getPicPath() {
-		return this.picPath;
+		return picPath;
 	}
 
 	public void setPicPath(String picPath) {
@@ -119,7 +115,7 @@ public class News extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "html_name")
 	public String getHtmlName() {
-		return this.htmlName;
+		return htmlName;
 	}
 
 	public void setHtmlName(String htmlName) {
@@ -128,18 +124,16 @@ public class News extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "pic_name")
 	public String getPicName() {
-		return this.picName;
+		return picName;
 	}
 
 	public void setPicName(String picName) {
 		this.picName = picName;
 	}
 
-	
-
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "news")
 	public Set<NewsMessage> getNewsMessages() {
-		return this.newsMessages;
+		return newsMessages;
 	}
 
 	public void setNewsMessages(Set<NewsMessage> newsMessages) {
@@ -151,10 +145,8 @@ public class News extends BaseEntity implements java.io.Serializable {
 		return categoryId;
 	}
 
-
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 
-	
 }

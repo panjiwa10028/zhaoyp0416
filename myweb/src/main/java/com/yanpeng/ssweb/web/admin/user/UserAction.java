@@ -67,7 +67,7 @@ public class UserAction extends CURDBaseAction<Users> {
 			groupId = entity.getGroups().getId();
 		} else {
 			entity = new Users();
-		}		
+		}
 
 		allRoles = roleManager.getAllRoles();
 		checkedRoleIds = entity.getRoleIds();

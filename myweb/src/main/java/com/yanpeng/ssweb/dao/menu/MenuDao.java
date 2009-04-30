@@ -75,7 +75,7 @@ public class MenuDao extends HibernateDao<Menus, String> {
 	public Page<Menus> getAllByPage(Page<Menus> page) {
 		return findByCriteria(page, Restrictions.not(Restrictions.eq("id", "0")));
 	}
-	
+
 	public Page<Menus> search(Page<Menus> page, final List<PropertyFilter> filters) {
 		PropertyFilter proFilter = new PropertyFilter("id", "0", MatchType.NOTEQ);
 		filters.add(proFilter);

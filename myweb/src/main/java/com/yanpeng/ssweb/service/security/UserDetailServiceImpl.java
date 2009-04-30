@@ -34,7 +34,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException(userName + " 不存在");
 		}
 		GrantedAuthority[] grantedAuths = obtainGrantedAuthorities(user);
-		
+
 		List<GrantedAuthority> authsList = new ArrayList<GrantedAuthority>();
 		GrantedAuthority ag = null;
 		for (Roles role : user.getRoleses()) {
@@ -48,12 +48,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		boolean accountNonExpired = user.getIsExpired() == 1 ? false : true;
 		boolean credentialsNonExpired = true;
 		boolean accountNonLocked = user.getIsLocked() == 1 ? false : true;
-		
+
 		org.springframework.security.userdetails.User userdetail = new org.springframework.security.userdetails.User(
-				user.getLoginName(), user.getPassword(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, grantedAuths);
+				user.getLoginName(), user.getPassword(), enabled, accountNonExpired, credentialsNonExpired,
+				accountNonLocked, grantedAuths);
 		return userdetail;
 	}
-	
+
 	/**
 	 * 获得用户所有角色的权限.
 	 */

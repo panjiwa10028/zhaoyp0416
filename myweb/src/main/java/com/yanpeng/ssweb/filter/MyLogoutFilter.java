@@ -1,9 +1,5 @@
 package com.yanpeng.ssweb.filter;
 
-import java.io.IOException;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,13 +18,13 @@ public class MyLogoutFilter extends LogoutFilter {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	protected boolean requiresLogout(HttpServletRequest request, HttpServletResponse response) {
+		boolean condition = super.requiresLogout(request, response);
+		if (condition) {
+			System.out.println("退出操作");
+		}
+		return condition;
+	}
 
-	 protected boolean requiresLogout(HttpServletRequest request, HttpServletResponse response) {
-		 boolean condition = super.requiresLogout(request, response);
-		 if(condition) {
-			 System.out.println("退出操作");
-		 }
-		 return condition;
-	 }
-	
 }

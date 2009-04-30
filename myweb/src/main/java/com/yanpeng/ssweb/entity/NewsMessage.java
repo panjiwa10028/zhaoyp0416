@@ -30,15 +30,12 @@ public class NewsMessage extends BaseEntity implements java.io.Serializable {
 	public NewsMessage() {
 	}
 
-	
-
 	// Property accessors
-	
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "news_id", nullable = false)
 	public News getNews() {
-		return this.news;
+		return news;
 	}
 
 	public void setNews(News news) {
@@ -47,7 +44,7 @@ public class NewsMessage extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "title")
 	public String getTitle() {
-		return this.title;
+		return title;
 	}
 
 	public void setTitle(String title) {
@@ -56,12 +53,11 @@ public class NewsMessage extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "content", length = 65535)
 	public String getContent() {
-		return this.content;
+		return content;
 	}
 
 	public void setContent(String content) {
 		this.content = content;
 	}
 
-	
 }

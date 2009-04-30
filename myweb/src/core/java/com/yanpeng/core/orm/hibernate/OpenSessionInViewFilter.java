@@ -29,13 +29,15 @@ public class OpenSessionInViewFilter extends org.springframework.orm.hibernate3.
 
 		//对必须INCLUDE的URL直接返回false，省略后面对EXCLUDE后缀名的判断.
 		for (String suffix : DEFAULT_INCLUDE_SUFFIXS) {
-			if (path.endsWith(suffix))
+			if (path.endsWith(suffix)) {
 				return false;
+			}
 		}
 
 		for (String suffix : excludeSuffixs) {
-			if (path.endsWith(suffix))
+			if (path.endsWith(suffix)) {
 				return true;
+			}
 		}
 
 		return false;

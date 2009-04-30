@@ -41,7 +41,6 @@ public class UserManager extends EntityManager<Users, String> {
 	@Autowired
 	private RoleDao roleDao;
 
-
 	// 用户业务函数
 
 	//不更新数据库的函数重新定义readOnly属性以加强性能.

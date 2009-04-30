@@ -19,8 +19,9 @@ public class SpringSecurityUtils {
 	public static String getCurrentUserName() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-		if (auth == null)
+		if (auth == null) {
 			return null;
+		}
 		return auth.getName();
 	}
 }

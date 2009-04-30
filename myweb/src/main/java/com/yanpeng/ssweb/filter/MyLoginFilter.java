@@ -10,10 +10,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.Authentication;
 import org.springframework.security.AuthenticationException;
-import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
 
-import com.yanpeng.ssweb.entity.Users;
 import com.yanpeng.ssweb.exceptions.AuthenticationCodeException;
 import com.yanpeng.ssweb.service.user.UserManager;
 
@@ -31,24 +29,24 @@ public class MyLoginFilter extends AuthenticationProcessingFilter {
 
 	@Autowired
 	UserManager userManager;
-	
+
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request) throws AuthenticationException {
 
 		HttpSession session = request.getSession();
 
-	    String requestCaptcha = request.getParameter("j_code");
-	    String sessionCaptcha = (String) session.getAttribute("captcha");
+		String requestCaptcha = request.getParameter("j_code");
+		String sessionCaptcha = (String) session.getAttribute("captcha");
 
-	    if (sessionCaptcha == null || !sessionCaptcha.equals(requestCaptcha)) {
-	    	throw new AuthenticationCodeException("验证码输入不正确");
-	    }
-	    Authentication result = null;
-	    try {
-	    	result = super.attemptAuthentication(request);
-	    }catch(AuthenticationException exx) {
-	    	throw exx;
-	    }
+		if (sessionCaptcha == null || !sessionCaptcha.equals(requestCaptcha)) {
+			throw new AuthenticationCodeException("验证码输入不正确");
+		}
+		Authentication result = null;
+		try {
+			result = super.attemptAuthentication(request);
+		} catch (AuthenticationException exx) {
+			throw exx;
+		}
 		return result;
 	}
 
@@ -63,7 +61,7 @@ public class MyLoginFilter extends AuthenticationProcessingFilter {
 	public void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
 			Authentication authResult) throws IOException, ServletException {
 		logger.debug("登录成功！！");
-//		Users user = userManager.getUserByLoginName("admin");
+		//		Users user = userManager.getUserByLoginName("admin");
 		super.successfulAuthentication(request, response, authResult);
 	}
 

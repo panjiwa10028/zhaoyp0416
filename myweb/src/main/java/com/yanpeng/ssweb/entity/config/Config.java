@@ -11,9 +11,9 @@ public class Config {
 	private String appPath;
 
 	private int pageSize;//每页显示数量
-	
+
 	private String newsPicPath;
-	
+
 	private String newsHtmlPath;
 
 	public String getAppPath() {

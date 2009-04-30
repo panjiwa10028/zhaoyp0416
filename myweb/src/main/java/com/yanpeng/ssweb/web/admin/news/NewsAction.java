@@ -41,13 +41,13 @@ public class NewsAction extends CURDBaseAction<News> {
 
 	@Autowired
 	private NewsManager newsManager;
-	
+
 	@Autowired
 	private NewsCategoryManager newsCategoryManager;
 
 	private File upload;
 	private String uploadFileName;
-	
+
 	private List<NewsCategory> allNewsCategory;
 
 	@Override
@@ -60,7 +60,7 @@ public class NewsAction extends CURDBaseAction<News> {
 		}
 		allNewsCategory = newsCategoryManager.getAllNewsCategory();
 	}
-	
+
 	@Override
 	public String list() throws Exception {
 		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new News());
@@ -70,7 +70,7 @@ public class NewsAction extends CURDBaseAction<News> {
 
 	@Override
 	public String input() throws Exception {
-		
+
 		return INPUT;
 	}
 
@@ -79,7 +79,7 @@ public class NewsAction extends CURDBaseAction<News> {
 		try {
 			String[] ids = id.split(",");
 			List<String> list = Arrays.asList(ids);
-			newsManager.deleteNews(list);			
+			newsManager.deleteNews(list);
 			addActionMessage("删除成功!");
 
 		} catch (Exception e) {
@@ -96,51 +96,49 @@ public class NewsAction extends CURDBaseAction<News> {
 			if (entity != null && entity.getId().equals("")) {
 				entity.setId(null);
 			}
-			
+
 			entity.setUserId(getLoginUser().getId());
 			HtmlGenerator htmlGenerator = new HtmlGenerator();
-//			取服务器路径
+			//			取服务器路径
 			String path = Struts2Utils.getRequest().getRealPath("");
-//			生成随机的字符串
+			//			生成随机的字符串
 			String rnadomString = RandomStringUtils.randomAlphabetic(4).toLowerCase();
 			Date date = new Date();
-//			取当前日期
+			//			取当前日期
 			String dateString = DateUtils.convertDateToString(date, "yyyy-MM-dd");
 			if (upload != null) {
-//				删除旧的上传文件
+				//				删除旧的上传文件
 				String oldPic = path + entity.getPicPath() + File.separator + entity.getPicName();
 				FileUtil.deleteContents(new File(oldPic));
-				
+
 				String newPicName = rnadomString;
 				if (uploadFileName.indexOf(".") != -1) {
 					newPicName += uploadFileName.substring(uploadFileName.lastIndexOf("."));
 				}
-				
-				
+
 				String picPath = config.getNewsPicPath() + File.separator + dateString;
-//				创建日期文件夹
+				//				创建日期文件夹
 				htmlGenerator.creatDirs(path, picPath);
-				
+
 				entity.setPicPath(picPath);
 				entity.setPicName(newPicName);
-//				上传
+				//				上传
 				copy(upload, path + picPath, newPicName);
 			}
 
-			
-//			删除旧的生成文件
+			//			删除旧的生成文件
 			String oldHtml = path + entity.getHtmlPath() + File.separator + entity.getHtmlName();
 			FileUtil.deleteContents(new File(oldHtml));
-			
+
 			htmlGenerator.setEncode("utf-8");
 			htmlGenerator.setTemplateDir("/htmlskin/");
-			htmlGenerator.setTemplateFile("view.ftl");			
+			htmlGenerator.setTemplateFile("view.ftl");
 			htmlGenerator.setRootDir(path);
-			
+
 			String htmlPath = config.getNewsHtmlPath() + File.separator + dateString;
 			entity.setHtmlPath(htmlPath);
 			entity.setHtmlName(rnadomString + ".html");
-			
+
 			htmlGenerator.setPreviewHtmlFileDir(htmlPath);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("news", entity);
@@ -149,7 +147,7 @@ public class NewsAction extends CURDBaseAction<News> {
 				addActionError("保存失败!");
 				return INPUT;
 			}
-			
+
 			newsManager.saveNews(entity);
 			addActionMessage("保存成功!");
 			return RELOAD;
@@ -162,7 +160,6 @@ public class NewsAction extends CURDBaseAction<News> {
 		}
 	}
 
-	
 	/**
 	 * 拷贝文件
 	 * @param upload 文件流
@@ -183,7 +180,6 @@ public class NewsAction extends CURDBaseAction<News> {
 	}
 
 	// ==================================================
-
 
 	public File getUpload() {
 		return upload;
@@ -209,5 +205,4 @@ public class NewsAction extends CURDBaseAction<News> {
 		this.allNewsCategory = allNewsCategory;
 	}
 
-	
 }
