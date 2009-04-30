@@ -1,6 +1,7 @@
 package com.yanpeng.core.orm.hibernate;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +27,10 @@ import com.yanpeng.core.orm.PropertyFilter.MatchType;
 import com.yanpeng.core.utils.ReflectionUtils;
 
 /**
- * 封装扩展功能的Hibernat范型基类.
+ * 封装SpringSide扩展功能的Hibernat泛型基类.
  * 
- * 扩展功能包括分页查询,按属性过滤条件列表查询等.
- * 可在Service层直接使用,也可以扩展范型DAO子类使用.
+ * 扩展功能包括分页查询,按属性过滤条件列表查询.
+ * 可在Service层直接使用,也可以扩展泛型DAO子类使用,见两个构造函数的注释.
  * 
  * @param <T> DAO操作的对象类型
  * @param <PK> 主键类型
@@ -40,20 +41,21 @@ public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao
 	/**
 	 * 用于扩展的DAO子类使用的构造函数.
 	 * 
-	 * 通过子类的范型定义取得对象类型Class.
+	 * 通过子类的泛型定义取得对象类型Class.
 	 * eg.
-	 * public class UserDao extends SimpleHibernateDao<User, Long>
+	 * public class UserDao extends HibernateDao<User, Long>{
+	 * }
 	 */
 	public HibernateDao() {
 		super();
 	}
 
 	/**
-	 * 用于Service层直接使用SimpleHibernateDAO的构造函数.
+	 * 用于Service层直接使用HibernateDAO的构造函数.
 	 * eg.
-	 * SimpleHibernateDao<User, Long> userDao = new SimpleHibernateDao<User, Long>(sessionFactory, User.class);
+	 * HibernateDao<User, Long> userDao = new HibernateDao<User, Long>(sessionFactory, User.class);
 	 */
-	public HibernateDao(SessionFactory sessionFactory, Class<T> entityClass) {
+	public HibernateDao(final SessionFactory sessionFactory, final Class<T> entityClass) {
 		super(sessionFactory, entityClass);
 	}
 
@@ -78,7 +80,7 @@ public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao
 	 */
 	@SuppressWarnings("unchecked")
 	public Page<T> find(final Page<T> page, final String hql, final Object... values) {
-		Assert.notNull(page);
+		Assert.notNull(page, "page不能为空");
 
 		Query q = createQuery(hql, values);
 		setPageParameter(q, page);
@@ -98,12 +100,12 @@ public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao
 	 */
 	@SuppressWarnings("unchecked")
 	public Page<T> findByCriteria(final Page<T> page, final Criterion... criterions) {
-		Assert.notNull(page);
+		Assert.notNull(page, "page不能为空");
 
 		Criteria c = createCriteria(criterions);
 
 		if (page.isAutoCount()) {
-			int totalCount = countCriteriaResult(c, page);
+			int totalCount = countCriteriaResult(c);
 			page.setTotalCount(totalCount);
 		}
 
@@ -150,7 +152,7 @@ public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao
 	 * 执行count查询获得本次Criteria查询所能获得的对象总数.
 	 */
 	@SuppressWarnings("unchecked")
-	protected int countCriteriaResult(final Criteria c, final Page<T> page) {
+	protected int countCriteriaResult(final Criteria c) {
 		CriteriaImpl impl = (CriteriaImpl) c;
 
 		// 先把Projection、ResultTransformer、OrderBy取出来,清空三者后再执行Count操作
@@ -166,7 +168,12 @@ public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao
 		}
 
 		// 执行Count查询
-		int totalCount = (Integer) c.setProjection(Projections.rowCount()).uniqueResult();
+		int totalCount =0;
+		try {
+			totalCount = (Integer) c.setProjection(Projections.rowCount()).uniqueResult();
+		}catch(Exception exx) {
+			exx.printStackTrace();
+		}
 
 		// 将之前的Projection,ResultTransformer和OrderBy条件重新设回去
 		c.setProjection(projection);
@@ -193,43 +200,43 @@ public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao
 	 * 
 	 * @param matchType 目前支持的取值为"EQUAL"与"LIKE".
 	 */
-	public List<T> findByProperty(final String propertyName, final Object value, String matchTypeStr) {
+	public List<T> findBy(final String propertyName, final Object value, final String matchTypeStr) {
 		MatchType matchType = Enum.valueOf(MatchType.class, matchTypeStr);
 		Criterion criterion = buildPropertyCriterion(propertyName, value, matchType);
-		return findByCriteria(criterion);
+		return find(criterion);
 	}
 
 	/**
 	 * 按属性过滤条件列表查找对象列表.
 	 */
-	public List<T> findByFilters(final List<PropertyFilter> filters) {
-		Criterion[] criterions = buildPropertyFilterCriterions(filters);
-		return findByCriteria(criterions);
+	public List<T> find(final List<PropertyFilter> filters) {
+		Criterion[] criterions = buildFilterCriterions(filters);
+		return find(criterions);
 	}
 
 	/**
 	 * 按属性过滤条件列表分页查找对象.
 	 */
-	public Page<T> findByFilters(final Page<T> page, final List<PropertyFilter> filters) {
-		Criterion[] criterions = buildPropertyFilterCriterions(filters);
+	public Page<T> find(final Page<T> page, final List<PropertyFilter> filters) {
+		Criterion[] criterions = buildFilterCriterions(filters);
 		return findByCriteria(page, criterions);
 	}
 
 	/**
 	 * 按属性条件列表创建Criterion数组,辅助函数.
 	 */
-	protected Criterion[] buildPropertyFilterCriterions(List<PropertyFilter> filters) {
+	protected Criterion[] buildFilterCriterions(final List<PropertyFilter> filters) {
 		List<Criterion> criterionList = new ArrayList<Criterion>();
 		for (PropertyFilter filter : filters) {
 			String propertyName = filter.getPropertyName();
 
-			boolean multiProperty = StringUtils.contains(propertyName, "|");
+			boolean multiProperty = StringUtils.contains(propertyName, PropertyFilter.OR_SEPARATOR);
 			if (!multiProperty) { //properNameName中只有一个属性的情况.
 				Criterion criterion = buildPropertyCriterion(propertyName, filter.getValue(), filter.getMatchType());
 				criterionList.add(criterion);
 			} else {//properName中包含多个属性的情况,进行or处理.
 				Disjunction disjunction = Restrictions.disjunction();
-				String[] params = StringUtils.split(propertyName, '|');
+				String[] params = StringUtils.split(propertyName, PropertyFilter.OR_SEPARATOR);
 
 				for (String param : params) {
 					Criterion criterion = buildPropertyCriterion(param, filter.getValue(), filter.getMatchType());
@@ -244,15 +251,16 @@ public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao
 	/**
 	 * 按属性条件参数创建Criterion,辅助函数.
 	 */
-	protected Criterion buildPropertyCriterion(final String propertyName, final Object value, MatchType matchType) {
-		Assert.hasText(propertyName);
+	protected Criterion buildPropertyCriterion(final String propertyName, final Object value, final MatchType matchType) {
+		Assert.hasText(propertyName, "propertyName不能为空");
 		Criterion criterion = null;
-
-		if (MatchType.EQUAL.equals(matchType)) {
+		
+		if (MatchType.EQ.equals(matchType)) {
 			criterion = Restrictions.eq(propertyName, value);
-		}
-		if (MatchType.LIKE.equals(matchType)) {
+		}else if (MatchType.LIKE.equals(matchType)) {
 			criterion = Restrictions.like(propertyName, (String) value, MatchMode.ANYWHERE);
+		}else if(MatchType.NOTEQ.equals(matchType)) {
+			criterion = Restrictions.not(Restrictions.eq(propertyName, value));
 		}
 
 		return criterion;

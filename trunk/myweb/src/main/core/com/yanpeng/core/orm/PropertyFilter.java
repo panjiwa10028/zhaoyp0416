@@ -11,34 +11,39 @@ package com.yanpeng.core.orm;
 public class PropertyFilter {
 
 	/**
+	 * 多个属性间OR关系的分隔符.
+	 */
+	public static final String OR_SEPARATOR = "__";
+
+	/**
 	 * 属性比较类型.
 	 */
 	public enum MatchType {
-		EQUAL, LIKE;
+		EQ, LIKE, NOTEQ;
 	}
 
 	private String propertyName;
 	private Object value;
-	private MatchType matchType = MatchType.EQUAL;
+	private MatchType matchType = MatchType.EQ;
 
 	public PropertyFilter() {
 	}
 
-	public PropertyFilter(String propertyName, Object value, MatchType matchType) {
+	public PropertyFilter(final String propertyName, final Object value, final MatchType matchType) {
 		this.propertyName = propertyName;
 		this.value = value;
 		this.matchType = matchType;
 	}
 
 	/**
-	 * 获取属性名称,可用'|'分隔多个属性,此时属性间是or的关系.
+	 * 获取属性名称,可用'__'分隔多个属性,此时属性间是or的关系.
 	 */
 	public String getPropertyName() {
 		return propertyName;
 	}
 
 	/**
-	 * 设置属性名称,可用'|'分隔多个属性,此时属性间是or的关系.
+	 * 设置属性名称,可用'__'分隔多个属性,此时属性间是or的关系.
 	 */
 	public void setPropertyName(final String propertyName) {
 		this.propertyName = propertyName;
