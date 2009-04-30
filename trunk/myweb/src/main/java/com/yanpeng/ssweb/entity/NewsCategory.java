@@ -32,13 +32,11 @@ public class NewsCategory extends BaseEntity implements java.io.Serializable {
 	public NewsCategory() {
 	}
 
-
 	// Property accessors
-	
 
 	@Column(name = "name", length = 50)
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public void setName(String name) {
@@ -47,17 +45,16 @@ public class NewsCategory extends BaseEntity implements java.io.Serializable {
 
 	@Column(name = "description", length = 65535)
 	public String getDescription() {
-		return this.description;
+		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE },  mappedBy = "newsCategory")
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "newsCategory")
 	public Set<News> getNewses() {
-		return this.newses;
+		return newses;
 	}
 
 	public void setNewses(Set<News> newses) {

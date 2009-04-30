@@ -3,7 +3,6 @@ package com.yanpeng.core.security.springsecurity;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.security.ConfigAttributeDefinition;
@@ -29,8 +28,6 @@ import com.yanpeng.ssweb.service.security.resource.SecurityResourceCache;
  */
 public class DefinitionSourceFactoryBean implements FactoryBean {
 
-
-
 	public Object getObject() throws Exception {
 		LinkedHashMap<RequestKey, ConfigAttributeDefinition> requestMap = getRequestMap();
 		UrlMatcher matcher = getUrlMatcher();
@@ -53,13 +50,13 @@ public class DefinitionSourceFactoryBean implements FactoryBean {
 	}
 
 	private LinkedHashMap<RequestKey, ConfigAttributeDefinition> getRequestMap() throws Exception {
-		Collection perCol = SecurityResourceCache.getAllCache();
-//		LinkedHashMap<String, String> srcMap = requestMapService.getRequestMap();
+		Collection<Permissions> perCol = SecurityResourceCache.getAllCache();
+		//		LinkedHashMap<String, String> srcMap = requestMapService.getRequestMap();
 		LinkedHashMap<RequestKey, ConfigAttributeDefinition> requestMap = new LinkedHashMap<RequestKey, ConfigAttributeDefinition>();
 		ConfigAttributeEditor editor = new ConfigAttributeEditor();
 
 		if (perCol != null) {
-			for (Iterator it = perCol.iterator(); it.hasNext();) {
+			for (Iterator<Permissions> it = perCol.iterator(); it.hasNext();) {
 				Permissions permission = (Permissions) it.next();
 				String perPath = permission.getPath();
 				String perKey = permission.getName();

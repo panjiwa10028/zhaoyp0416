@@ -70,8 +70,9 @@ public class JCaptchaFilter implements Filter {
 	 * 初始化web.xml中定义的filter init-param.
 	 */
 	private void initParameters(final FilterConfig fConfig) {
-		if (StringUtils.isBlank(fConfig.getInitParameter(FAILURE_URL_NAME)))
+		if (StringUtils.isBlank(fConfig.getInitParameter(FAILURE_URL_NAME))) {
 			throw new IllegalArgumentException("CaptchaFilter缺少failureUrl参数");
+		}
 		failureUrl = fConfig.getInitParameter(FAILURE_URL_NAME);
 
 		if (StringUtils.isNotBlank(fConfig.getInitParameter(FILTER_PROCESSES_URL_NAME))) {
@@ -133,7 +134,7 @@ public class JCaptchaFilter implements Filter {
 			String captchaId = request.getSession(true).getId();
 
 			BufferedImage challenge = (BufferedImage) captchaService.getChallengeForID(captchaId, request.getLocale());
-//			challenge.setRGB(60, 20, BufferedImage.TYPE_INT_RGB);
+			//			challenge.setRGB(60, 20, BufferedImage.TYPE_INT_RGB);
 			ImageIO.write(challenge, "JPEG", out);
 			out.flush();
 		} catch (CaptchaServiceException e) {
@@ -147,8 +148,9 @@ public class JCaptchaFilter implements Filter {
 	 * 验证验证码. 
 	 */
 	private boolean validateCaptchaChallenge(final HttpServletRequest request) {
-		if (request.getSession(false) == null)
+		if (request.getSession(false) == null) {
 			return false;
+		}
 
 		try {
 			String captchaID = request.getSession().getId();

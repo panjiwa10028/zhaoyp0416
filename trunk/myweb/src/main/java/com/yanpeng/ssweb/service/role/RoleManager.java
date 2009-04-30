@@ -66,7 +66,7 @@ public class RoleManager extends EntityManager<Roles, String> {
 	public Page<Roles> getAllRoles(Page<Roles> page) {
 		return roleDao.getAll(page);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public Page<Roles> search(Page<Roles> page, final List<PropertyFilter> filters) {
 		return roleDao.find(page, filters);

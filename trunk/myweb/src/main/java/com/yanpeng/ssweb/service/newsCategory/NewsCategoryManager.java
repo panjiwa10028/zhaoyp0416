@@ -19,10 +19,10 @@ import com.yanpeng.ssweb.entity.NewsCategory;
  */
 @Service
 @Transactional
-public class NewsCategoryManager extends EntityManager<NewsCategory, String>{
+public class NewsCategoryManager extends EntityManager<NewsCategory, String> {
 
 	private final Logger logger = LoggerFactory.getLogger(NewsCategoryManager.class);
-	
+
 	@Autowired
 	private NewsCategoryDao newsCategoryDao;
 
@@ -31,7 +31,7 @@ public class NewsCategoryManager extends EntityManager<NewsCategory, String>{
 		// TODO Auto-generated method stub
 		return newsCategoryDao;
 	}
-	
+
 	@Transactional(readOnly = true)
 	public List<NewsCategory> getAllNewsCategory() {
 		return newsCategoryDao.getAll();

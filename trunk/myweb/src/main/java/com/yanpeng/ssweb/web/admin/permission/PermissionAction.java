@@ -48,8 +48,9 @@ public class PermissionAction extends CURDBaseAction<Permissions> {
 
 	@Override
 	public String list() throws Exception {
-		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new Permissions());
-		
+		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(),
+				new Permissions());
+
 		if (page.getOrderBy() == null) {
 			page.setOrderBy("displayName");
 			page.setOrder("asc");

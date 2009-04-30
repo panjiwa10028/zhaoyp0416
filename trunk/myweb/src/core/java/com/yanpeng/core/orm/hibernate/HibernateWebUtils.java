@@ -107,7 +107,8 @@ public class HibernateWebUtils {
 	 * filter_LIKE_name|email	
 	 */
 	@SuppressWarnings("unchecked")
-	public static List<PropertyFilter> buildPropertyFilters(final HttpServletRequest request, final String filterPrefix, Object obj) {
+	public static List<PropertyFilter> buildPropertyFilters(final HttpServletRequest request,
+			final String filterPrefix, Object obj) {
 		List<PropertyFilter> filterList = new ArrayList<PropertyFilter>();
 
 		//从request中获取含属性前缀名的参数,构造去除前缀名后的参数Map.

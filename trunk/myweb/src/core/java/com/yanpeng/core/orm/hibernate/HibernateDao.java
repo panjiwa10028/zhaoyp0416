@@ -1,7 +1,6 @@
 package com.yanpeng.core.orm.hibernate;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -168,10 +167,10 @@ public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao
 		}
 
 		// 执行Count查询
-		int totalCount =0;
+		int totalCount = 0;
 		try {
 			totalCount = (Integer) c.setProjection(Projections.rowCount()).uniqueResult();
-		}catch(Exception exx) {
+		} catch (Exception exx) {
 			exx.printStackTrace();
 		}
 
@@ -254,12 +253,12 @@ public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao
 	protected Criterion buildPropertyCriterion(final String propertyName, final Object value, final MatchType matchType) {
 		Assert.hasText(propertyName, "propertyName不能为空");
 		Criterion criterion = null;
-		
+
 		if (MatchType.EQ.equals(matchType)) {
 			criterion = Restrictions.eq(propertyName, value);
-		}else if (MatchType.LIKE.equals(matchType)) {
+		} else if (MatchType.LIKE.equals(matchType)) {
 			criterion = Restrictions.like(propertyName, (String) value, MatchMode.ANYWHERE);
-		}else if(MatchType.NOTEQ.equals(matchType)) {
+		} else if (MatchType.NOTEQ.equals(matchType)) {
 			criterion = Restrictions.not(Restrictions.eq(propertyName, value));
 		}
 

@@ -48,7 +48,7 @@ public class GroupManager extends EntityManager<Groups, String> {
 	public Page<Groups> getAllGroup(Page<Groups> page) {
 		return groupDao.getAllByPage(page);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public Page<Groups> search(Page<Groups> page, final List<PropertyFilter> filters) {
 		return groupDao.search(page, filters);

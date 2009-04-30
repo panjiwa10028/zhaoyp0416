@@ -132,8 +132,9 @@ public class Page<T> {
 		//检查order字符串的合法值
 		String[] orders = StringUtils.split(StringUtils.lowerCase(order), ',');
 		for (String orderStr : orders) {
-			if (!StringUtils.equals(DESC, orderStr) && !StringUtils.equals(ASC, orderStr))
+			if (!StringUtils.equals(DESC, orderStr) && !StringUtils.equals(ASC, orderStr)) {
 				throw new IllegalArgumentException("排序方向" + orderStr + "不是合法值");
+			}
 		}
 
 		this.order = StringUtils.lowerCase(order);
@@ -181,8 +182,9 @@ public class Page<T> {
 	 * 根据pageSize与totalCount计算总页数,默认值为-1.
 	 */
 	public int getTotalPages() {
-		if (totalCount < 0)
+		if (totalCount < 0) {
 			return -1;
+		}
 
 		int count = totalCount / pageSize;
 		if (totalCount % pageSize > 0) {
@@ -202,10 +204,11 @@ public class Page<T> {
 	 * 取得下页的页号,序号从1开始.
 	 */
 	public int getNextPage() {
-		if (isHasNext())
+		if (isHasNext()) {
 			return pageNo + 1;
-		else
+		} else {
 			return pageNo;
+		}
 	}
 
 	/**
@@ -219,12 +222,13 @@ public class Page<T> {
 	 * 取得上页的页号,序号从1开始.
 	 */
 	public int getPrePage() {
-		if (isHasPre())
+		if (isHasPre()) {
 			return pageNo - 1;
-		else
+		} else {
 			return pageNo;
+		}
 	}
-	
+
 	/**
 	 * 取得反转的排序方向.
 	 * 如果有以','分隔的多个排序方向,逐一进行反转.
@@ -241,7 +245,7 @@ public class Page<T> {
 		}
 		return StringUtils.join(orders);
 	}
-	
+
 	/**
 	 * 取得分页参数的组合字符串.
 	 * 将多个分页参数组合成一个字符串方便在页面上的传递,格式为pageNo|orderBy|order.

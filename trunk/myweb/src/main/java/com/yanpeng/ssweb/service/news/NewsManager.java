@@ -48,7 +48,7 @@ public class NewsManager extends EntityManager<News, String> {
 	public Page<News> getAllNews(Page<News> page) {
 		return newsDao.getAll(page);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public Page<News> search(Page<News> page, final List<PropertyFilter> filters) {
 		return newsDao.find(page, filters);
