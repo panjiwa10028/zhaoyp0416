@@ -30,7 +30,7 @@ public class GroupDao extends HibernateDao<Groups, String> {
 	}
 
 	public Page<Groups> search(Page<Groups> page, final List<PropertyFilter> filters) {
-		PropertyFilter proFilter = new PropertyFilter("id", "0", MatchType.EQ);
+		PropertyFilter proFilter = new PropertyFilter("id", "0", MatchType.NOTEQ);
 		filters.add(proFilter);
 		return this.find(page, filters);
 	}
