@@ -3,23 +3,40 @@
         "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
 	<constant name="struts.convention.default.parent.package" value="crud-default" />
+	<!-- 修改默认包路径，在此包下都会被struts2搜索 -->
 	<constant name="struts.convention.package.locators" value="web" />
+	<!-- 该属性设置Struts 2是否支持动态方法调用，该属性的默认值是true -->
 	<constant name="struts.enable.DynamicMethodInvocation" value="true"/>
-	<constant name="struts.i18n.reload" value="true"/>
+	<!-- 该属性指定视图标签默认的视图主题，该属性的默认值是xhtml -->
 	<constant name="struts.ui.theme" value="simple"/>
+	<!-- 指定Web应用的默认Locale -->
 	<constant name="struts.locale" value="zh_CN"/>
+	<!-- 指定Web应用的默认编码集 -->
 	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<!-- 指定Struts 2默认的ObjectFactory Bean，该属性默认值是spring -->
 	<constant name="struts.objectFactory" value="spring"/>
+	<!-- 指定Spring框架的自动装配模式，该属性的默认值是name，即默认根据Bean的name属性自动装配 -->
 	<constant name="struts.objectFactory.spring.autoWire" value="name"/>
-	<constant name="struts.serve.static.browserCache" value="false"/>
+	<!-- 该属性指定Struts 2生成URL时是否包含请求参数 -->
 	<constant name="struts.url.includeParams" value="none"/>
+	<!-- 该属性指定Struts 2文件上传中整个请求内容允许的最大字节数 -->
 	<constant name="struts.multipart.maxSize" value="209715200"/>
+	<!-- 该属性指定上传文件的临时保存路径，该属性的默认值是javax.servlet.context.tempdir -->
 	<constant name="struts.multipart.saveDir" value="c:/temp"/>
+	<!-- 该属性指定Struts 2应用所需要的国际化资源文件 -->
 	<constant name="struts.custom.i18n.resources" value="i18n/messages"/>
+	
 	<constant name="struts.convention.action.name.separator" value="-" /> 
+	
+	<!--改变默认结果页面， 默认所有的结果页面都存储在WEB-INF/content下-->
+	<constant name="struts.convention.result.path" value="/WEB-INF/content" />
 	<!-- 是否是开发模式 -->
 	<constant name="struts.devMode" value="true"/>
-	
+	<!--  该属性设置浏览器是否缓存静态内容。当应用处于开发阶段时，则可设置该属性为false -->
+	<constant name="struts.serve.static.browserCache" value="false"/>
+	<!-- 该属性设置是否每次HTTP请求到达时，系统都重新加载资源文件。该属性默认值是false。在开发阶段将该属性设置为true -->
+	<constant name="struts.i18n.reload" value="true"/>
+	<!-- 自动加载action，开发阶段使用 -->
 	<constant name="struts.convention.classes.reload" value="true" />
 		
 
@@ -54,8 +71,5 @@
 		</global-results>
 	</package>
 
-	<!-- 
-		使用ZeroConfig + CodeBehind插件,实现约定大于配置的零配置文件风格.
-	           特殊的Result路径在Action类中使用@Result设定. 
-	-->
+	
 </struts>
