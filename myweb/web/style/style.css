@@ -1,0 +1,59 @@
+@charset "utf-8";
+ul,h3{margin:0px;padding:0px; list-style:none;}
+body{padding:0;margin:0;background:#FFF;color:#000;font-size:13px;}
+#logo{width:957px;margin:auto;}
+#header{width:957px;margin:auto;}
+#centainer{width:957px;margin:auto;}
+#foot{
+	width:100%;
+	margin:auto;
+	clear: both;
+	height:106px;
+	background:url(../images/indexs_24.gif);
+	text-align:center;
+	line-height:30px;
+
+}
+
+
+#mune{width:957px;margin:auto;height:36px;float:left;background: url(../images/indexs_04.gif)  no-repeat;}
+#mune ul{margin: 5px;}
+#mune ul li{float:left;padding:5px 40px 0 20px;list-style:none }
+#mune ul li a:link,#mune ul li a:visited{color:#FFFFFF;text-decoration:none}
+#toppic{width:957px;margin:auto;float:left}
+#leftside{width:249px;float:left;}
+h3{background:#FEF0D3;padding:5px;margin-top:10px;color:#000;}
+#leftside li{margin:5px 10px;padding:5px 5px;background:#EEEEEE;}
+#user{
+	flort:left;
+	height:253px;
+	background:url(../images/indexs_07.gif) no-repeat top left;
+	padding:10px 15px;
+	overflow: inherit;
+}
+.f1{color:#FFFFFF;margin:7px 0px; width:200px;}
+
+
+
+.rightside{
+	width:708px;
+	float:right;
+}
+
+.th{ background:url(../images/indexs_08.gif) no-repeat left top;height:26px; width:100%;padding: 14px 0 0 0;}
+.th_center{ background:url(../images/indexs_09.gif) repeat-y; overflow:hidden;}
+.font1{margin: 3px 30px; font-weight:bold;color:#FFFFFF}
+
+.sp1{width:351px;float:left;}
+.neirong{ line-height:20px;}
+.th2{ background:url(../images/indexs_15.gif) no-repeat left top;height:26px; width:100%;padding: 14px 0 0 0;}
+.th_center2{ background:url(../images/indexs_17.gif) repeat-y; height:200px; padding:15px;}
+.th_center2 ul li{ line-height:23px;}
+.but{ width:80px;height:27px; margin:20px 10px 0 0;}
+.pu{ width:30%;float:left;margin-left:16px; text-align:center;margin-top:5px;}
+.pu img{border:#999999 1px double;width:170px;height:170px;margin-bottom:5px;}
+
+.ul1 li{ line-height:2.0; font-size:14px;}
+.chanp { text-align: center; position:relative;}
+.chanp img{ border:1px #ccc solid; background:#f4f4f4; padding:10px;margin:5px auto; display:block;}
+.chanp p { text-align:left; font-size:14px; line-height:1.6; padding-left:5px;}
