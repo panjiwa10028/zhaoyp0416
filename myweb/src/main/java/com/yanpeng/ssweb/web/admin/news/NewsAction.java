@@ -24,7 +24,7 @@ import com.yanpeng.ssweb.entity.News;
 import com.yanpeng.ssweb.entity.NewsCategory;
 import com.yanpeng.ssweb.interceptor.annotations.Token;
 import com.yanpeng.ssweb.service.news.NewsManager;
-import com.yanpeng.ssweb.service.newsCategory.NewsCategoryManager;
+import com.yanpeng.ssweb.service.newscategory.NewsCategoryManager;
 import com.yanpeng.ssweb.util.HtmlGenerator;
 import com.yanpeng.ssweb.web.CURDBaseAction;
 
