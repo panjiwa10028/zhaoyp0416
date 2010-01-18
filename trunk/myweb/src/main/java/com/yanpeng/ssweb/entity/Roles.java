@@ -96,13 +96,13 @@ public class Roles extends BaseEntity implements java.io.Serializable {
 
 	@Transient
 	@SuppressWarnings("unchecked")
-	public List<String> getPermissionIds() throws Exception {
+	public List<Long> getPermissionIds() throws Exception {
 		return ReflectionUtils.fetchElementPropertyToList(permissionses, "id");
 	}
 
 	@Transient
 	@SuppressWarnings("unchecked")
-	public List<String> getMenuIds() throws Exception {
+	public List<Long> getMenuIds() throws Exception {
 		return ReflectionUtils.fetchElementPropertyToList(menuses, "id");
 	}
 

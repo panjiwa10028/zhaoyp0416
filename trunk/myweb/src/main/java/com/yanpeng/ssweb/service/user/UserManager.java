@@ -31,7 +31,7 @@ import com.yanpeng.ssweb.exceptions.ServiceException;
 @Service
 //默认将类中的所有函数纳入事务管理.
 @Transactional
-public class UserManager extends EntityManager<Users, String> {
+public class UserManager extends EntityManager<Users, Long> {
 
 	private final Logger logger = LoggerFactory.getLogger(UserManager.class);
 
@@ -45,7 +45,7 @@ public class UserManager extends EntityManager<Users, String> {
 
 	//不更新数据库的函数重新定义readOnly属性以加强性能.
 	@Transactional(readOnly = true)
-	public Users getUser(String id) {
+	public Users getUser(Long id) {
 		return userDao.get(id);
 	}
 
@@ -58,7 +58,7 @@ public class UserManager extends EntityManager<Users, String> {
 		userDao.save(user);
 	}
 
-	public void saveUser(Users user, Collection<String> ids) {
+	public void saveUser(Users user, Collection<Long> ids) {
 		if (ids != null) {
 			List<Roles> list = roleDao.find(Restrictions.in("id", ids));
 			Set<Roles> set = new LinkedHashSet<Roles>(list);
@@ -70,7 +70,7 @@ public class UserManager extends EntityManager<Users, String> {
 		userDao.save(user);
 	}
 
-	public void deleteUser(String id) {
+	public void deleteUser(Long id) {
 		//为演示异常处理及用户行为日志而故意抛出的异常.
 		if (id.equals("1")) {
 			logger.warn("操作员{}尝试删除超级管理员用户", SpringSecurityUtils.getCurrentUserName());
@@ -102,9 +102,9 @@ public class UserManager extends EntityManager<Users, String> {
 			logger.warn("操作员{}尝试删除超级管理员用户", SpringSecurityUtils.getCurrentUserName());
 			throw new ServiceException("不能删除超级管理员用户");
 		}
-		for (String string : ids) {
-			String id = string;
-			Users user = userDao.get(id);
+		for (String id : ids) {
+			Long delId = Long.parseLong(id);
+			Users user = userDao.get(delId);
 			if (user != null) {
 				userDao.delete(user);
 			} else {

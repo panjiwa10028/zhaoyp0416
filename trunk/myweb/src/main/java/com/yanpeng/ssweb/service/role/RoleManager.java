@@ -30,7 +30,7 @@ import com.yanpeng.ssweb.exceptions.ServiceException;
 @Service
 //默认将类中的所有函数纳入事务管理.
 @Transactional
-public class RoleManager extends EntityManager<Roles, String> {
+public class RoleManager extends EntityManager<Roles, Long> {
 
 	private final Logger logger = LoggerFactory.getLogger(RoleManager.class);
 
@@ -53,7 +53,7 @@ public class RoleManager extends EntityManager<Roles, String> {
 	//不更新数据库的函数重新定义readOnly属性以加强性能.
 
 	@Transactional(readOnly = true)
-	public List<Roles> findRolesByIds(Collection<String> ids) {
+	public List<Roles> findRolesByIds(Collection<Long> ids) {
 		return roleDao.findByIds(ids);
 	}
 
@@ -73,11 +73,11 @@ public class RoleManager extends EntityManager<Roles, String> {
 	}
 
 	@Transactional(readOnly = true)
-	public Roles getRoleById(String id) {
+	public Roles getRoleById(Long id) {
 		return roleDao.get(id);
 	}
 
-	public void saveRole(Roles role, Collection<String> ids, Collection<String> menuIds) {
+	public void saveRole(Roles role, Collection<Long> ids, Collection<Long> menuIds) {
 		if (ids != null && ids.size() > 0) {
 			List<Permissions> list = permissionDao.findByIds(ids);
 			Set<Permissions> set = new LinkedHashSet<Permissions>(list);
@@ -99,9 +99,9 @@ public class RoleManager extends EntityManager<Roles, String> {
 		//			logger.warn("不能删除系统角色", SpringSecurityUtils.getCurrentUserName());
 		//			throw new ServiceException("不能删除系统角色");
 		//		}
-		for (String string : ids) {
-			String id = string;
-			Roles role = roleDao.get(id);
+		for (String id : ids) {
+			Long delId = Long.parseLong(id);
+			Roles role = roleDao.get(delId);
 			if (role != null) {
 				if (role.getUserses().size() > 0) {
 					throw new ServiceException("删除[" + role.getName() + "]角色失败。原因：还有拥有该角色的用户");

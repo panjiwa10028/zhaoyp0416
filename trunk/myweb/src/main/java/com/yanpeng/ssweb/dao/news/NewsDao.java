@@ -14,6 +14,6 @@ import com.yanpeng.ssweb.entity.News;
  */
 //Spring DAO Bean的标识
 @Repository
-public class NewsDao extends HibernateDao<News, String> {
+public class NewsDao extends HibernateDao<News, Long> {
 
 }

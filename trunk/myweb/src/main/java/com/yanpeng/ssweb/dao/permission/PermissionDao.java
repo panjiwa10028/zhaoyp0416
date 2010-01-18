@@ -15,7 +15,7 @@ import com.yanpeng.ssweb.entity.Permissions;
  */
 //Spring DAO Bean的标识
 @Repository
-public class PermissionDao extends HibernateDao<Permissions, String> {
+public class PermissionDao extends HibernateDao<Permissions, Long> {
 
 	public boolean isNameUnique(String newValue, String orgValue) {
 		return isPropertyUnique("name", newValue, orgValue);
@@ -25,7 +25,7 @@ public class PermissionDao extends HibernateDao<Permissions, String> {
 		return isPropertyUnique("displayName", newValue, orgValue);
 	}
 
-	public List<Permissions> findByIds(Collection<String> ids) {
+	public List<Permissions> findByIds(Collection<Long> ids) {
 		return find(Restrictions.in("id", ids));
 	}
 }

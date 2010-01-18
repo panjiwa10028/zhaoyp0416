@@ -24,7 +24,7 @@ import com.yanpeng.ssweb.exceptions.ServiceException;
 @Service
 //默认将类中的所有函数纳入事务管理.
 @Transactional
-public class PermissionManager extends EntityManager<Permissions, String> {
+public class PermissionManager extends EntityManager<Permissions, Long> {
 
 	private final Logger logger = LoggerFactory.getLogger(PermissionManager.class);
 
@@ -46,7 +46,7 @@ public class PermissionManager extends EntityManager<Permissions, String> {
 	}
 
 	@Transactional(readOnly = true)
-	public Permissions getPermissionById(String id) {
+	public Permissions getPermissionById(Long id) {
 		return permissionsDao.get(id);
 	}
 
@@ -59,9 +59,9 @@ public class PermissionManager extends EntityManager<Permissions, String> {
 		//			logger.warn("不能删除系统权限", SpringSecurityUtils.getCurrentUserName());
 		//			throw new ServiceException("不能删除系统权限");
 		//		}
-		for (String string : ids) {
-			String id = string;
-			Permissions per = permissionsDao.get(id);
+		for (String id : ids) {
+			Long delId = Long.parseLong(id);
+			Permissions per = permissionsDao.get(delId);
 			if (per != null) {
 				if (per.getRoleses().size() > 0) {
 					throw new ServiceException("删除[" + per.getDisplayName() + "]权限失败。原因：还有拥有该权限的角色");

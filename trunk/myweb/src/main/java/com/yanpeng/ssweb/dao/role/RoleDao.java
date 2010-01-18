@@ -16,9 +16,9 @@ import com.yanpeng.ssweb.entity.Roles;
  */
 //Spring DAO Bean的标识
 @Repository
-public class RoleDao extends HibernateDao<Roles, String> {
+public class RoleDao extends HibernateDao<Roles, Long> {
 
-	public List<Roles> findByIds(Collection<String> ids) {
+	public List<Roles> findByIds(Collection<Long> ids) {
 		return find(Restrictions.in("id", ids));
 	}
 

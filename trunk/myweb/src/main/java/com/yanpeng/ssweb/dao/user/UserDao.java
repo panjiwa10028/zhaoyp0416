@@ -13,7 +13,7 @@ import com.yanpeng.ssweb.entity.Users;
  */
 //Spring DAO Bean的标识
 @Repository
-public class UserDao extends HibernateDao<Users, String> {
+public class UserDao extends HibernateDao<Users, Long> {
 
 	// 统一定义所有用户的HQL.
 	private static final String QUERY_BY_ROLE_HQL = "select user from User user join user.roles as role where role.name=?";

@@ -21,19 +21,19 @@ import com.yanpeng.ssweb.entity.NewsCategory;
  */
 //Spring DAO Bean的标识
 @Repository
-public class NewsCategoryDao extends HibernateDao<NewsCategory, String> {
+public class NewsCategoryDao extends HibernateDao<NewsCategory, Long> {
 
 	@Override
 	public List<NewsCategory> getAll() {
-		return this.find(Restrictions.not(Restrictions.eq("id", "0")));
+		return this.find(Restrictions.not(Restrictions.eq("id", new Long(-1))));
 	}
 
 	public Page<NewsCategory> getAllByPage(Page<NewsCategory> page) {
-		return this.findByCriteria(page, Restrictions.not(Restrictions.eq("id", "0")));
+		return this.findByCriteria(page, Restrictions.not(Restrictions.eq("id", new Long(-1))));
 	}
 
 	public Page<NewsCategory> search(Page<NewsCategory> page, final List<PropertyFilter> filters) {
-		PropertyFilter proFilter = new PropertyFilter("id", "0", MatchType.NOTEQ);
+		PropertyFilter proFilter = new PropertyFilter("id", new Long(-1), MatchType.NOTEQ);
 		filters.add(proFilter);
 		return this.find(page, filters);
 	}

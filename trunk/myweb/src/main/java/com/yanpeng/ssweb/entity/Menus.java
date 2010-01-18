@@ -41,7 +41,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 	private Set<Roles> roleses = new LinkedHashSet<Roles>(0);
 	private Set<Menus> menuses = new LinkedHashSet<Menus>(0);
 
-	private String parentId;
+	private Long parentId;
 
 	// Constructors
 
@@ -125,11 +125,11 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 	}
 
 	@Column(name = "parent_id")
-	public String getParentId() {
+	public Long getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(String parentId) {
+	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 

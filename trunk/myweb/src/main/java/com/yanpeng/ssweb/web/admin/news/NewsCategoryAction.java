@@ -46,12 +46,12 @@ public class NewsCategoryAction extends CURDBaseAction<NewsCategory> {
 
 	@Autowired
 	private NewsCategoryManager newsCategoryManager;
-
+	private String selectedIds;
 	// CRUD Action 属性访问函数
 
 	@Override
 	protected void prepareModel() throws Exception {
-		if (id != null && !id.equals("")) {
+		if (id != null) {
 			entity = newsCategoryManager.getNewsCategoryById(id);
 		} else {
 			entity = new NewsCategory();
@@ -76,9 +76,9 @@ public class NewsCategoryAction extends CURDBaseAction<NewsCategory> {
 	@Token
 	public String save() throws Exception {
 		//根据页面上的checkbox 整合entity的roles Set
-		if (entity != null && entity.getId().equals("")) {
-			entity.setId(null);
-		}
+//		if (entity != null && entity.getId().equals("")) {
+//			entity.setId(null);
+//		}
 		//		暂不支持多级组
 //		entity.setParentId("0");
 
@@ -97,7 +97,7 @@ public class NewsCategoryAction extends CURDBaseAction<NewsCategory> {
 	@Override
 	public String delete() throws Exception {
 		try {
-			String[] ids = id.split(",");
+			String[] ids = selectedIds.split(",");
 			List<String> list = Arrays.asList(ids);
 
 			newsCategoryManager.deleteNewsCategorys(list);
@@ -126,5 +126,11 @@ public class NewsCategoryAction extends CURDBaseAction<NewsCategory> {
 		//因为直接输出而不经过Jsp,因此返回null.
 		return null;
 	}
+	public String getSelectedIds() {
+		return selectedIds;
+	}
 
+	public void setSelectedIds(String selectedIds) {
+		this.selectedIds = selectedIds;
+	}
 }

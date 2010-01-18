@@ -20,7 +20,7 @@ import com.yanpeng.ssweb.entity.Menus;
  */
 //Spring DAO Bean的标识
 @Repository
-public class MenuDao extends HibernateDao<Menus, String> {
+public class MenuDao extends HibernateDao<Menus, Long> {
 
 	//	public List<Menus> findByRoleIds(Collection<String> ids) {
 	//		
@@ -38,26 +38,26 @@ public class MenuDao extends HibernateDao<Menus, String> {
 	//		return this.createQuery(queryString).list();
 	//	}
 
-	public List<Menus> findByRoleIds(Collection<String> ids) {
+	public List<Menus> findByRoleIds(Collection<Long> ids) {
 		Page page = new Page();
 		page.setOrder("asc,asc");
 		page.setOrderBy("sort,id");
 		return findByCriteria("roleses", 0, page, Restrictions.in("_roleses.id", ids));
 	}
 
-	public List<Menus> findFirstLevelNotId(String id) {
+	public List<Menus> findFirstLevelNotId(Long id) {
 		Criterion criteria;
 		if (id != null && !id.equals("")) {
-			criteria = Restrictions.and(Restrictions.in("parentId", new Object[] { "-1", "0" }), Restrictions
+			criteria = Restrictions.and(Restrictions.in("parentId", new Object[] { new Long(-1), new Long(0) }), Restrictions
 					.not(Restrictions.eq("id", id)));
 		} else {
-			criteria = Restrictions.in("parentId", new Object[] { "-1", "0" });
+			criteria = Restrictions.in("parentId", new Object[] { new Long(-1), new Long(0) });
 		}
 		return find(criteria);
 	}
 
 	public List<Menus> findSub() {
-		return find(Restrictions.not(Restrictions.in("parentId", new Object[] { "-1", "0" })));
+		return find(Restrictions.not(Restrictions.in("parentId", new Object[] { new Long(-1), new Long(0) })));
 	}
 
 	public boolean isNameUnique(String newValue, String orgValue) {
@@ -68,16 +68,16 @@ public class MenuDao extends HibernateDao<Menus, String> {
 		return isPropertyUnique("displayName", newValue, orgValue);
 	}
 
-	public List<Menus> findByIds(Collection<String> ids) {
+	public List<Menus> findByIds(Collection<Long> ids) {
 		return find(Restrictions.in("id", ids));
 	}
 
 	public Page<Menus> getAllByPage(Page<Menus> page) {
-		return findByCriteria(page, Restrictions.not(Restrictions.eq("id", "0")));
+		return findByCriteria(page, Restrictions.not(Restrictions.eq("id", new Long(-1))));
 	}
 
 	public Page<Menus> search(Page<Menus> page, final List<PropertyFilter> filters) {
-		PropertyFilter proFilter = new PropertyFilter("id", "0", MatchType.NOTEQ);
+		PropertyFilter proFilter = new PropertyFilter("id", new Long(-1), MatchType.NOTEQ);
 		filters.add(proFilter);
 		return find(page, filters);
 	}

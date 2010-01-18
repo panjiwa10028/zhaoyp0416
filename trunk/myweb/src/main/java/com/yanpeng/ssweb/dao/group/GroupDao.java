@@ -18,19 +18,19 @@ import com.yanpeng.ssweb.entity.Groups;
  */
 //Spring DAO Bean的标识
 @Repository
-public class GroupDao extends HibernateDao<Groups, String> {
+public class GroupDao extends HibernateDao<Groups, Long> {
 
 	@Override
 	public List<Groups> getAll() {
-		return this.find(Restrictions.not(Restrictions.eq("id", "0")));
+		return this.find(Restrictions.not(Restrictions.eq("id", new Long(-1))));
 	}
 
 	public Page<Groups> getAllByPage(Page<Groups> page) {
-		return this.findByCriteria(page, Restrictions.not(Restrictions.eq("id", "0")));
+		return this.findByCriteria(page, Restrictions.not(Restrictions.eq("id", new Long(-1))));
 	}
 
 	public Page<Groups> search(Page<Groups> page, final List<PropertyFilter> filters) {
-		PropertyFilter proFilter = new PropertyFilter("id", "0", MatchType.NOTEQ);
+		PropertyFilter proFilter = new PropertyFilter("id", new Long(-1), MatchType.NOTEQ);
 		filters.add(proFilter);
 		return this.find(page, filters);
 	}

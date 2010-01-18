@@ -23,7 +23,7 @@ import com.yanpeng.ssweb.exceptions.ServiceException;
 @Service
 //默认将类中的所有函数纳入事务管理.
 @Transactional
-public class GroupManager extends EntityManager<Groups, String> {
+public class GroupManager extends EntityManager<Groups, Long> {
 
 	private final Logger logger = LoggerFactory.getLogger(GroupManager.class);
 
@@ -55,7 +55,7 @@ public class GroupManager extends EntityManager<Groups, String> {
 	}
 
 	@Transactional(readOnly = true)
-	public Groups getGroupById(String id) {
+	public Groups getGroupById(Long id) {
 		return groupDao.get(id);
 	}
 
@@ -78,9 +78,9 @@ public class GroupManager extends EntityManager<Groups, String> {
 		//			throw new ServiceException("不能删除root");
 		//		}
 
-		for (String string : ids) {
-			String id = string;
-			Groups group = groupDao.get(id);
+		for (String id : ids) {
+			Long delId = Long.parseLong(id);
+			Groups group = groupDao.get(delId);
 			if (group != null) {
 				if (group.getUserses().size() > 0) {
 					throw new ServiceException("删除失败。原因：" + group.getName() + "部门下有用户");

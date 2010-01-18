@@ -31,7 +31,7 @@ public abstract class CURDBaseAction<T extends BaseEntity> extends CRUDActionSup
 
 	protected T entity;
 
-	protected String id;
+	protected Long id;
 
 	protected Config config;
 
@@ -66,7 +66,7 @@ public abstract class CURDBaseAction<T extends BaseEntity> extends CRUDActionSup
 		return entity;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

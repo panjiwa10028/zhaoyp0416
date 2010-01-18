@@ -25,21 +25,21 @@ public class BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 3980743350790156736L;
 
-	private String id;
+	private Long id;
 
 	@Column(name = "update_time", length = 19, insertable = true, updatable = true)
 	private Date updateTime = DateUtils.getCurrentDateTime();
 
-	private String userId;
+	private Long userId;
 
 	@Id
 	@GeneratedValue(generator = "paymentableGenerator")
-	@GenericGenerator(name = "paymentableGenerator", strategy = "uuid")
-	public String getId() {
+	@GenericGenerator(name = "paymentableGenerator", strategy = "identity")
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -54,11 +54,11 @@ public class BaseEntity implements Serializable {
 	}
 
 	@Column(name = "user_id")
-	public String getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
