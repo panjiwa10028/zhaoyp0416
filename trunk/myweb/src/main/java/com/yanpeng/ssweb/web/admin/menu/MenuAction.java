@@ -59,8 +59,8 @@ public class MenuAction extends CURDBaseAction<Menus> {
 	public String list() throws Exception {
 		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new Menus());
 		if (page.getOrderBy() == null || page.getOrderBy().equals("")) {
-			page.setOrderBy("updateTime");
-			page.setOrder("desc");
+			page.setOrderBy("updateTime,id,sort");
+			page.setOrder("desc,asc,asc");
 		}
 		page = menuManager.search(page, filters);
 		return SUCCESS;
