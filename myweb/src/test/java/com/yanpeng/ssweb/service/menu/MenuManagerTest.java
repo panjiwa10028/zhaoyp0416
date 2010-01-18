@@ -28,8 +28,8 @@ public class MenuManagerTest extends SpringTransactionalTestCase {
 	}
 
 	public void testFindMenusByRoleIds() {
-		Collection<String> ids = new ArrayList<String>();
-		ids.add("1");
+		Collection<Long> ids = new ArrayList<Long>();
+		ids.add(new Long(1));
 		List<Menus> list = menuManager.findMenusByRoleIds(ids);
 		Assert.assertNotNull(list);
 	}

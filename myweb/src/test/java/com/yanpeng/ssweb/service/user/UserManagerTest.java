@@ -35,7 +35,7 @@ public class UserManagerTest extends SpringTransactionalTestCase {
 		entity.setName("foo");
 		entity.setPassword("foo");
 
-		Groups gorup = groupManager.getGroupById("0");
+		Groups gorup = groupManager.getGroupById(new Long(0));
 
 		entity.setGroups(gorup);
 		userManager.saveUser(entity);
@@ -58,7 +58,7 @@ public class UserManagerTest extends SpringTransactionalTestCase {
 		//			Roles r = (Roles) roles.next();
 		//			entity.getRoleses().add(r);
 		//		}
-		Groups gorup = groupManager.getGroupById("0");
+		Groups gorup = groupManager.getGroupById(new Long(0));
 		entity.setGroups(gorup);
 		List list = new ArrayList();
 		list.add("1");
