@@ -68,7 +68,7 @@ public class MainAction extends BaseAction {
 		for (int i = 0; i < menuList.size(); i++) {
 
 			Menus menu = menuList.get(i);
-			if ("0".equals(menu.getMenus().getId())) {
+			if ("-1".equals(menu.getMenus().getId())) {
 				// 创建节点 user;
 				if (!"".equals(returnValue)) {
 					cnt++;
