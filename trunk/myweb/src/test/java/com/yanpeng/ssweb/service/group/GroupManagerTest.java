@@ -48,7 +48,7 @@ public class GroupManagerTest extends SpringTransactionalTestCase {
 
 	public void testSaveGroup() {
 		Groups group = new Groups();
-		group = groupManager.getGroupById("40288834203bc07a01203bc370af0001");
+		group = groupManager.getGroupById(new Long(-1));
 		//		group.setName("name");
 		groupManager.saveGroup(group);
 		Assert.assertNotNull(group.getId());
