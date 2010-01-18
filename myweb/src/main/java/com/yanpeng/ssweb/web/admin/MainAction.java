@@ -46,7 +46,7 @@ public class MainAction extends BaseAction {
 			user = new Users();
 		}
 
-		Collection<String> roleIds = user.getRoleIds();
+		Collection<Long> roleIds = user.getRoleIds();
 		if (roleIds != null && roleIds.size() > 0) {
 			List<Menus> menusList = menuManager.findMenusByRoleIds(roleIds);
 			leftMenuValue = listToLeftMenu(menusList);
@@ -68,7 +68,7 @@ public class MainAction extends BaseAction {
 		for (int i = 0; i < menuList.size(); i++) {
 
 			Menus menu = menuList.get(i);
-			if ("-1".equals(menu.getMenus().getId())) {
+			if (-1 ==(menu.getMenus().getId())) {
 				// 创建节点 user;
 				if (!"".equals(returnValue)) {
 					cnt++;

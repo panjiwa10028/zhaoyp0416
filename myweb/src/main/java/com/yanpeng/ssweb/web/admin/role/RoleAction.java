@@ -50,16 +50,16 @@ public class RoleAction extends CURDBaseAction<Roles> {
 
 	private List<Permissions> allPermissions; //全部可选角色列表
 
-	private List<String> checkedIds; //页面中钩选的角色id列表
+	private List<Long> checkedIds; //页面中钩选的角色id列表
 
 	private List<Menus> allMenus;
-	private List<String> checkedMenuIds;
-
+	private List<Long> checkedMenuIds;
+	private String selectedIds;
 	// CRUD Action 属性访问函数
 
 	@Override
 	protected void prepareModel() throws Exception {
-		if (id != null && !id.equals("")) {
+		if (id != null) {
 			entity = roleManager.getRoleById(id);
 		} else {
 			entity = new Roles();
@@ -89,9 +89,9 @@ public class RoleAction extends CURDBaseAction<Roles> {
 	public String save() throws Exception {
 
 		//		
-		if (entity != null && entity.getId().equals("")) {
-			entity.setId(null);
-		}
+//		if (entity != null && entity.getId().equals("")) {
+//			entity.setId(null);
+//		}
 
 		try {
 			roleManager.saveRole(entity, checkedIds, checkedMenuIds);
@@ -108,7 +108,7 @@ public class RoleAction extends CURDBaseAction<Roles> {
 	@Override
 	public String delete() throws Exception {
 		try {
-			String[] ids = id.split(",");
+			String[] ids = selectedIds.split(",");
 			List<String> list = Arrays.asList(ids);
 
 			roleManager.deleteRoles(list);
@@ -151,20 +151,26 @@ public class RoleAction extends CURDBaseAction<Roles> {
 		return allMenus;
 	}
 
-	public void setCheckedIds(List<String> checkedIds) {
+	public void setCheckedIds(List<Long> checkedIds) {
 		this.checkedIds = checkedIds;
 	}
 
-	public void setCheckedMenuIds(List<String> checkedMenuIds) {
+	public void setCheckedMenuIds(List<Long> checkedMenuIds) {
 		this.checkedMenuIds = checkedMenuIds;
 	}
 
-	public List<String> getCheckedIds() {
+	public List<Long> getCheckedIds() {
 		return checkedIds;
 	}
 
-	public List<String> getCheckedMenuIds() {
+	public List<Long> getCheckedMenuIds() {
 		return checkedMenuIds;
 	}
+	public String getSelectedIds() {
+		return selectedIds;
+	}
 
+	public void setSelectedIds(String selectedIds) {
+		this.selectedIds = selectedIds;
+	}
 }

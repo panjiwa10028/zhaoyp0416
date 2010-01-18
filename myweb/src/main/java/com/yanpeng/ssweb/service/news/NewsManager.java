@@ -26,7 +26,7 @@ import com.yanpeng.ssweb.entity.News;
 @Service
 //默认将类中的所有函数纳入事务管理.
 @Transactional
-public class NewsManager extends EntityManager<News, String> {
+public class NewsManager extends EntityManager<News, Long> {
 
 	// 统一定义所有HQL
 
@@ -55,7 +55,7 @@ public class NewsManager extends EntityManager<News, String> {
 	}
 
 	@Transactional(readOnly = true)
-	public News getNewsById(String id) {
+	public News getNewsById(Long id) {
 		return newsDao.get(id);
 	}
 
@@ -69,9 +69,9 @@ public class NewsManager extends EntityManager<News, String> {
 
 	public void deleteNews(Collection<String> ids) {
 		String path = Struts2Utils.getRequest().getRealPath("");
-		for (String string : ids) {
-			String id = string;
-			News news = newsDao.get(id);
+		for (String id : ids) {
+			Long delId = Long.parseLong(id);
+			News news = newsDao.get(delId);
 			if (news != null) {
 
 				String oldPic = path + news.getPicPath() + File.separator + news.getPicName();

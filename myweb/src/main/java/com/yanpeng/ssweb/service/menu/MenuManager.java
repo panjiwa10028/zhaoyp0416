@@ -24,7 +24,7 @@ import com.yanpeng.ssweb.exceptions.ServiceException;
 @Service
 //默认将类中的所有函数纳入事务管理.
 @Transactional
-public class MenuManager extends EntityManager<Menus, String> {
+public class MenuManager extends EntityManager<Menus, Long> {
 
 	// 统一定义所有HQL
 
@@ -42,7 +42,7 @@ public class MenuManager extends EntityManager<Menus, String> {
 
 	//不更新数据库的函数重新定义readOnly属性以加强性能.
 	@Transactional(readOnly = true)
-	public Menus getMenuById(String id) {
+	public Menus getMenuById(Long id) {
 		return menuDao.get(id);
 	}
 
@@ -63,7 +63,7 @@ public class MenuManager extends EntityManager<Menus, String> {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Menus> findMenusByRoleIds(Collection<String> ids) {
+	public List<Menus> findMenusByRoleIds(Collection<Long> ids) {
 		return menuDao.findByRoleIds(ids);
 
 	}
@@ -74,9 +74,9 @@ public class MenuManager extends EntityManager<Menus, String> {
 		//			logger.warn("不能删除系统菜单", SpringSecurityUtils.getCurrentUserName());
 		//			throw new ServiceException("删除失败。原因：不能删除系统菜单");
 		//		}
-		for (String string : ids) {
-			String id = string;
-			Menus menu = menuDao.get(id);
+		for (String id : ids) {
+			Long delId = Long.parseLong(id);
+			Menus menu = menuDao.get(delId);
 			if (menu != null) {
 				if (menu.getMenuses().size() > 0) {
 					throw new ServiceException("删除菜单" + menu.getName() + "失败。原因：有下级菜单存在");
@@ -101,7 +101,7 @@ public class MenuManager extends EntityManager<Menus, String> {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Menus> findFirstLevelMenusNotId(String id) {
+	public List<Menus> findFirstLevelMenusNotId(Long id) {
 		return menuDao.findFirstLevelNotId(id);
 	}
 

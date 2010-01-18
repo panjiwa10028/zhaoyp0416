@@ -1,5 +1,6 @@
 package com.yanpeng.ssweb.web.admin.user;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,19 +51,22 @@ public class UserAction extends CURDBaseAction<Users> {
 
 	private List<Roles> allRoles; //全部可选角色列表
 
-	private List<String> checkedRoleIds; //页面中钩选的角色id列表
+	private List<Long> checkedRoleIds; //页面中钩选的角色id列表
 
 	private List<Groups> allGroups;
 
 	private List<String> selectIds;
 
-	private String groupId;
+	private Long groupId;
+	
+	private String selectedIds;
+	
 
 	// CRUD Action 属性访问函数
 
 	@Override
 	protected void prepareModel() throws Exception {
-		if (id != null && !id.equals("")) {
+		if (id != null) {
 			entity = userManager.getUser(id);
 			groupId = entity.getGroups().getId();
 		} else {
@@ -94,9 +98,9 @@ public class UserAction extends CURDBaseAction<Users> {
 	public String save() throws Exception {
 		//根据页面上的checkbox 整合entity的roles Set
 		//		
-		if (entity != null && entity.getId().equals("")) {
-			entity.setId(null);
-		}
+//		if (entity != null && entity.getId().equals("")) {
+//			entity.setId(null);
+//		}
 		Groups group = groupManager.getGroupById(groupId);
 		entity.setGroups(group);
 		try {
@@ -114,7 +118,7 @@ public class UserAction extends CURDBaseAction<Users> {
 	@Override
 	public String delete() throws Exception {
 		try {
-			String[] ids = id.split(",");
+			String[] ids = selectedIds.split(",");
 			List<String> list = Arrays.asList(ids);
 
 			userManager.deleteUsers(list);
@@ -153,11 +157,11 @@ public class UserAction extends CURDBaseAction<Users> {
 		return allGroups;
 	}
 
-	public List<String> getCheckedRoleIds() {
+	public List<Long> getCheckedRoleIds() {
 		return checkedRoleIds;
 	}
 
-	public void setCheckedRoleIds(List<String> checkedRoleIds) {
+	public void setCheckedRoleIds(List<Long> checkedRoleIds) {
 		this.checkedRoleIds = checkedRoleIds;
 	}
 
@@ -169,12 +173,20 @@ public class UserAction extends CURDBaseAction<Users> {
 		this.selectIds = selectIds;
 	}
 
-	public String getGroupId() {
+	public Long getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(String groupId) {
+	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
+	}
+
+	public String getSelectedIds() {
+		return selectedIds;
+	}
+
+	public void setSelectedIds(String selectedIds) {
+		this.selectedIds = selectedIds;
 	}
 
 }

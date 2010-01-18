@@ -24,7 +24,7 @@ import com.yanpeng.ssweb.exceptions.ServiceException;
  */
 @Service
 @Transactional
-public class NewsCategoryManager extends EntityManager<NewsCategory, String> {
+public class NewsCategoryManager extends EntityManager<NewsCategory, Long> {
 
 	private final Logger logger = LoggerFactory.getLogger(NewsCategoryManager.class);
 
@@ -54,7 +54,7 @@ public class NewsCategoryManager extends EntityManager<NewsCategory, String> {
 	}
 
 	@Transactional(readOnly = true)
-	public NewsCategory getNewsCategoryById(String id) {
+	public NewsCategory getNewsCategoryById(Long id) {
 		return newsCategoryDao.get(id);
 	}
 
@@ -77,9 +77,9 @@ public class NewsCategoryManager extends EntityManager<NewsCategory, String> {
 		//			throw new ServiceException("不能删除root");
 		//		}
 
-		for (String string : ids) {
-			String id = string;
-			NewsCategory newsCategory = newsCategoryDao.get(id);
+		for (String id : ids) {
+			Long delId = Long.parseLong(id);
+			NewsCategory newsCategory = newsCategoryDao.get(delId);
 			if (newsCategory != null) {
 				if (newsCategory.getNewses().size() > 0) {
 					throw new ServiceException("删除失败。原因：" + newsCategory.getName() + "类别下有新闻");

@@ -34,16 +34,18 @@ public class MenuAction extends CURDBaseAction<Menus> {
 
 	private List<Menus> allMenus;
 
-	private String menuId;
+	private Long menuId;
 
 	@Autowired
 	private MenuManager menuManager;
+	
+	private String selectedIds;
 
 	// CRUD Action 属性访问函数
 
 	@Override
 	protected void prepareModel() throws Exception {
-		if (id != null && !id.equals("")) {
+		if (id != null) {
 			entity = menuManager.getMenuById(id);
 			menuId = entity.getParentId();
 		} else {
@@ -75,9 +77,9 @@ public class MenuAction extends CURDBaseAction<Menus> {
 	public String save() throws Exception {
 		//根据页面上的checkbox 整合entity的roles Set
 
-		if (entity != null && entity.getId().equals("")) {
-			entity.setId(null);
-		}
+//		if (entity != null && entity.getId().equals("")) {
+//			entity.setId(null);
+//		}
 
 		String isDisabled = Struts2Utils.getRequest().getParameter("isDisabled");
 		if (isDisabled == null || isDisabled.equals("")) {
@@ -99,7 +101,7 @@ public class MenuAction extends CURDBaseAction<Menus> {
 	@Override
 	public String delete() throws Exception {
 		try {
-			String[] ids = id.split(",");
+			String[] ids = selectedIds.split(",");
 			List<String> list = Arrays.asList(ids);
 
 			menuManager.deleteMenus(list);
@@ -146,16 +148,22 @@ public class MenuAction extends CURDBaseAction<Menus> {
 		return allMenus;
 	}
 
-	public void setMenuId(String menuId) {
+	public void setMenuId(Long menuId) {
 		this.menuId = menuId;
 	}
 
-	public String getMenuId() {
+	public Long getMenuId() {
 		return menuId;
 	}
 
 	public void setAllMenus(List<Menus> allMenus) {
 		this.allMenus = allMenus;
 	}
+	public String getSelectedIds() {
+		return selectedIds;
+	}
 
+	public void setSelectedIds(String selectedIds) {
+		this.selectedIds = selectedIds;
+	}
 }

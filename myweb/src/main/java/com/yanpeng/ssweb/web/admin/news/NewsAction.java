@@ -49,11 +49,11 @@ public class NewsAction extends CURDBaseAction<News> {
 	private String uploadFileName;
 
 	private List<NewsCategory> allNewsCategory;
-
+	private String selectedIds;
 	@Override
 	protected void prepareModel() throws Exception {
 		// TODO Auto-generated method stub
-		if (id != null && !id.equals("")) {
+		if (id != null) {
 			entity = newsManager.getNewsById(id);
 		} else {
 			entity = new News();
@@ -77,7 +77,7 @@ public class NewsAction extends CURDBaseAction<News> {
 	@Override
 	public String delete() throws Exception {
 		try {
-			String[] ids = id.split(",");
+			String[] ids = selectedIds.split(",");
 			List<String> list = Arrays.asList(ids);
 			newsManager.deleteNews(list);
 			addActionMessage("删除成功!");
@@ -93,9 +93,9 @@ public class NewsAction extends CURDBaseAction<News> {
 	@Token
 	public String save() throws Exception {
 		try {
-			if (entity != null && entity.getId().equals("")) {
-				entity.setId(null);
-			}
+//			if (entity != null && entity.getId().equals("")) {
+//				entity.setId(null);
+//			}
 
 			entity.setUserId(getLoginUser().getId());
 			HtmlGenerator htmlGenerator = new HtmlGenerator();
@@ -204,5 +204,11 @@ public class NewsAction extends CURDBaseAction<News> {
 	public void setAllNewsCategory(List<NewsCategory> allNewsCategory) {
 		this.allNewsCategory = allNewsCategory;
 	}
+	public String getSelectedIds() {
+		return selectedIds;
+	}
 
+	public void setSelectedIds(String selectedIds) {
+		this.selectedIds = selectedIds;
+	}
 }

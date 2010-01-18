@@ -132,7 +132,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 	//非持久化属性.
 	@Transient
 	@SuppressWarnings("unchecked")
-	public List<String> getRoleIds() throws Exception {
+	public List<Long> getRoleIds() throws Exception {
 		return ReflectionUtils.fetchElementPropertyToList(roleses, "id");
 	}
 
