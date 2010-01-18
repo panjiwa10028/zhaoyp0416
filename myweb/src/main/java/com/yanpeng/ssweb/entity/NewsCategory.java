@@ -26,7 +26,7 @@ public class NewsCategory extends BaseEntity implements java.io.Serializable {
 	private String sort;
 	private String description;
 	private Set<News> newses = new LinkedHashSet<News>(0);
-
+	private Long parentId;
 	// Constructors
 
 	/** default constructor */
@@ -69,5 +69,12 @@ public class NewsCategory extends BaseEntity implements java.io.Serializable {
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
+	@Column(name = "parent_id")
+	public Long getParentId() {
+		return parentId;
+	}
 
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
 }

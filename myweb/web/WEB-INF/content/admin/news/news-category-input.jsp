@@ -23,13 +23,13 @@
 				 rules: { 
 					name: { 
 	        			required: true, 
-	        			remote: encodeURI("group!checkName.action?orgName=${name}")
+	        			remote: encodeURI("news-category!checkName.action?orgName=${name}")
 	    			}
 	           		
 				},
 				messages: {
 					name: {
-						remote: "用户组名称已存在"
+						remote: "新闻分类名称已存在"
 					}
 				}
 			});
@@ -48,7 +48,7 @@
 	}
 
 	function cancel() {
-		top.mainWorkArea.location='group.action';
+		top.mainWorkArea.location='news-category.action';
 	}
 
 	function setStatusBarInfo(info)
@@ -63,7 +63,7 @@
 	</head>
 
 	<body scroll="auto" style="overflow: auto" onload="initPage()">
-		<form id="inputForm" name="inputForm" action="group!save.action"
+		<form id="inputForm" name="inputForm" action="news-category!save.action"
 			method="post" >
 			<s:token/>
 			<input type="hidden" name="id" value="${id}" />
@@ -76,7 +76,7 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">用户管理 > <a href='#' onclick="cancel()">用户组设定</a> > 用户组<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
+									<span id="Location">新闻管理 > <a href='#' onclick="cancel()">新闻分类设定</a> > 新闻分类<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
 								</TD>
 								<TD class="tdTitle2"></TD>
 								<TD class="tdTitle3">									
@@ -107,7 +107,7 @@
 												&nbsp;
 											</td>
 											<td class=tdPanelSel_center>
-												<pre style="margin: 0px">用户组设定</pre>
+												<pre style="margin: 0px">新闻分类设定</pre>
 											</td>
 											<td class=tdPanelSel_right>
 												&nbsp;
@@ -133,7 +133,7 @@
 						<TABLE class="tbBlock" id="Table1" cellSpacing="1" border="0">
 							<TR>
 								<TD class="tdPrompt">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户组<s:if test="id == null">新增</s:if><s:else>修改</s:else>：
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新闻分类<s:if test="id == null">新增</s:if><s:else>修改</s:else>：
 								</TD>
 							</TR>
 						</TABLE>
@@ -142,7 +142,7 @@
 							
 							<TR>
 								<TD class="tdRightW30H40">
-									用户组名称:
+									新闻分类名称:
 								</TD>
 								<TD class="tdLeftH40">
 									<input type="text" id="name" name="name" size="40" value="${name}"/>
@@ -150,7 +150,7 @@
 							</TR>	
 							<TR>
 								<TD class="tdRightW30H40">
-									用户组描述:
+									新闻分类描述:
 								</TD>
 								<TD class="tdLeftH40">
 									<textarea id="description" name="description" rows="5" cols="30">${description}</textarea>

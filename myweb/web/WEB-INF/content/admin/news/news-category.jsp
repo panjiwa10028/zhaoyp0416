@@ -20,19 +20,19 @@
 		}		
 		
 		function add() {			
-			var url = "group!input.action";
+			var url = "news-category!input.action";
 			top.mainWorkArea.location = url;
 		}
 
 		function update() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
-			var url = "group!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
+			var url = "news-category!input.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 		
 		function del() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
-			var url = "group!delete.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
+			var url = "news-category!delete.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
 			
 			if(confirm("确定删除")) {
 				top.mainWorkArea.location = url;
@@ -55,7 +55,7 @@
 		<div id="message" style="display: none;">
 			<s:actionmessage theme="simple" />
 		</div>
-		<form id="queryForm" name="queryForm" action="group.action"
+		<form id="queryForm" name="queryForm" action="news-category.action"
 			method="post">
 			<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
 				<TR>
@@ -64,7 +64,7 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">用户管理 > 用户组设定</span>&nbsp;&nbsp;&nbsp;
+									<span id="Location">新闻管理 > 新闻分类设定</span>&nbsp;&nbsp;&nbsp;
 									<img src="${base}/images/ask.gif" id="BtnAsk"
 										style="CURSOR: hand" alt="..."
 										height="23" width="24" align="absMiddle" />
@@ -98,7 +98,7 @@
 										<tr>
 											<td class=tdPanelHead>&nbsp;</td>
 											<td class=tdPanelSel_left>&nbsp;</td>
-											<td class=tdPanelSel_center><pre style="margin: 0px">用户组设定</pre></td>
+											<td class=tdPanelSel_center><pre style="margin: 0px">新闻分类设定</pre></td>
 											<td class=tdPanelSel_right>&nbsp;</td>
 										</tr>
 									</table>

@@ -59,6 +59,11 @@ public class NewsCategoryManager extends EntityManager<NewsCategory, Long> {
 	}
 
 	public void saveNewsCategory(NewsCategory newsCategory) {
+
+		NewsCategory parentCategory = newsCategoryDao.get(newsCategory.getParentId());
+		newsCategory.setSort(parentCategory.getSort() + "-");
+		newsCategoryDao.save(newsCategory);
+		newsCategory.setSort(newsCategory.getSort() + newsCategory.getId());
 		newsCategoryDao.save(newsCategory);
 	}
 

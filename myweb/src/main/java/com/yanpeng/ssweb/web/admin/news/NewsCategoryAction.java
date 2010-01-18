@@ -39,7 +39,7 @@ import com.yanpeng.ssweb.web.CURDBaseAction;
  * @author Allen
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = CRUDActionSupport.RELOAD, location = "group.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
+@Results( { @Result(name = CRUDActionSupport.RELOAD, location = "news-category.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
 public class NewsCategoryAction extends CURDBaseAction<NewsCategory> {
 
 	// CRUD Action 基本属性
