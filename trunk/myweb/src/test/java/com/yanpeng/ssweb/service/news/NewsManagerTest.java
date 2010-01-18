@@ -29,7 +29,7 @@ public class NewsManagerTest extends SpringTransactionalTestCase {
 	}
 
 	public void testGetNewsById() {
-		String id = "0";
+		Long id = new Long(0);
 		newsManager.getNewsById(id);
 	}
 

@@ -29,7 +29,7 @@ public class PermissionManagerTest extends SpringTransactionalTestCase {
 	}
 
 	public void testGetPermissionById() {
-		String id = "1";
+		Long id = new Long(1);
 		Permissions per = permissionManager.getPermissionById(id);
 		Assert.assertNotNull(per);
 	}

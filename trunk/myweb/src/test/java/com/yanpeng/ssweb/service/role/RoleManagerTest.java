@@ -28,18 +28,18 @@ public class RoleManagerTest extends SpringTransactionalTestCase {
 		Roles role = new Roles();
 		role.setName("role");
 		role.setDescription("");
-		List<String> ids = new ArrayList<String>();
-		ids.add("1");
-		List<String> menuIds = new ArrayList<String>();
-		menuIds.add("13");
-		menuIds.add("12");
-		menuIds.add("14");
+		List<Long> ids = new ArrayList<Long>();
+		ids.add(new Long(1));
+		List<Long> menuIds = new ArrayList<Long>();
+		menuIds.add(new Long(13));
+		menuIds.add(new Long(12));
+		menuIds.add(new Long(14));
 		roleManager.saveRole(role, ids, menuIds);
 	}
 
 	public void testFindRolesByIds() {
-		List<String> ids = new ArrayList<String>();
-		ids.add("1");
+		List<Long> ids = new ArrayList<Long>();
+		ids.add(new Long(1));
 		List<Roles> list = roleManager.findRolesByIds(ids);
 		Assert.assertEquals(1, list.size());
 	}
@@ -56,7 +56,7 @@ public class RoleManagerTest extends SpringTransactionalTestCase {
 	}
 
 	public void testGetRoleById() {
-		String id = "1";
+		Long id = new Long(1);
 		Roles role = roleManager.getRoleById(id);
 		Assert.assertNotNull(role);
 	}
