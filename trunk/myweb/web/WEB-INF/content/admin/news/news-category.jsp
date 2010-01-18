@@ -32,7 +32,7 @@
 		
 		function del() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
-			var url = "group!delete.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
+			var url = "group!delete.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
 			
 			if(confirm("确定删除")) {
 				top.mainWorkArea.location = url;

@@ -33,7 +33,7 @@
 		function del() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
 
-			var url = "role!delete.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
+			var url = "role!delete.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 
