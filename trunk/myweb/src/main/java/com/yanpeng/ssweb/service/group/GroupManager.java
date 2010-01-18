@@ -14,6 +14,7 @@ import com.yanpeng.core.orm.PropertyFilter;
 import com.yanpeng.core.orm.hibernate.EntityManager;
 import com.yanpeng.ssweb.dao.group.GroupDao;
 import com.yanpeng.ssweb.entity.Groups;
+import com.yanpeng.ssweb.entity.Menus;
 import com.yanpeng.ssweb.exceptions.ServiceException;
 
 /**
@@ -60,6 +61,10 @@ public class GroupManager extends EntityManager<Groups, Long> {
 	}
 
 	public void saveGroup(Groups group) {
+		Groups parentGroup = groupDao.get(group.getParentId());
+		group.setSort(parentGroup.getSort() + "-");
+		groupDao.save(group);
+		group.setSort(group.getSort() + group.getId());
 		groupDao.save(group);
 	}
 

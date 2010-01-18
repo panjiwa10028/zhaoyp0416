@@ -1,8 +1,8 @@
 --ALTER TABLE groups DROP FOREIGN KEY FK_groups_groups;
 --ALTER TABLE menus DROP FOREIGN KEY FK_menus_menus;
 
-insert into groups (id, name, parent_id, description, update_time, user_id)
-values(-1, 'root',-1,'---',now(), 1);
+insert into groups (id, name, parent_id, description, sort, update_time, user_id)
+values(-1, 'root',-1,'---', '0', now(), 1);
 
 insert into users(id, name, group_id, login_name, password, is_disabled, is_expired, is_locked, update_time, user_id)
 values(1, 'administrator', -1, 'admin', 'ceb4f32325eda6142bd65215f4c0f371', 0, 0, 0, now(), 1);
@@ -144,3 +144,6 @@ values (1, 14);
 insert into roles_menus (role_id, menu_id)
 values (1, 15);
 
+
+insert into news_category (id, name, parent_id, description, sort, update_time, user_id)
+values(-1, 'root',-1,'---', '0', now(), 1);
