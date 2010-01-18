@@ -1,5 +1,5 @@
-ALTER TABLE groups DROP FOREIGN KEY FK_groups_groups;
-ALTER TABLE menus DROP FOREIGN KEY FK_menus_menus;
+--ALTER TABLE groups DROP FOREIGN KEY FK_groups_groups;
+--ALTER TABLE menus DROP FOREIGN KEY FK_menus_menus;
 
 insert into groups (id, name, parent_id, description, update_time, user_id)
 values(-1, 'root',-1,'---',now(), 1);
@@ -94,35 +94,35 @@ values(1, 19);
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values(-1, 'root', -1, '---', '', '0', 0, now(), 1);
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
-values(1, 'ADMIN_SYSTEM', -1, '系统管理', '', '0_1', 0, now(), 1);
+values(1, 'ADMIN_SYSTEM', -1, '系统管理', '', '0-1', 0, now(), 1);
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
-values(2, 'ADMIN_USERS', -1, '用户管理', '', '0_2', 0, now(), 1);
+values(2, 'ADMIN_USERS', -1, '用户管理', '', '0-2', 0, now(), 1);
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
-values(3, 'ADMIN_NEWS', -1, '新闻管理', '', '0_3', 0, now(), 1);
+values(3, 'ADMIN_NEWS', -1, '新闻管理', '', '0-3', 0, now(), 1);
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
-values(4, 'ADMIN_MOCK1', -1, '占位1', '', '0_4', 0, now(), 1);
+values(4, 'ADMIN_MOCK1', -1, '占位1', '', '0-4', 0, now(), 1);
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
-values(5, 'ADMIN_MOCK2', -1, '占位2', '', '0_5', 0, now(), 1);
+values(5, 'ADMIN_MOCK2', -1, '占位2', '', '0-5', 0, now(), 1);
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
-values(6, 'ADMIN_MOCK3', -1, '占位3', '', '0_6', 0, now(), 1);
+values(6, 'ADMIN_MOCK3', -1, '占位3', '', '0-6', 0, now(), 1);
 
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
-values(10, 'ADMIN_SYSTEM_MENU', 1, '菜单设定', 'mainWorkArea.location=''menu/menu.action''', '0_1_10', 0, now(), 1);
+values(10, 'ADMIN_SYSTEM_MENU', 1, '菜单设定', 'mainWorkArea.location=''menu/menu.action''', '0-1-10', 0, now(), 1);
 
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
-values(11, 'ADMIN_USER_GROUP', 2, '用户组设定', 'mainWorkArea.location=''group/group.action''', '0_2_11', 0, now(), 1);
+values(11, 'ADMIN_USER_GROUP', 2, '用户组设定', 'mainWorkArea.location=''group/group.action''', '0-2-11', 0, now(), 1);
 
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
-values(12, 'ADMIN_USER_USER', 2, '用户设定', 'mainWorkArea.location=''user/user.action''', '0_2_12', 0, now(), 1);
+values(12, 'ADMIN_USER_USER', 2, '用户设定', 'mainWorkArea.location=''user/user.action''', '0-2-12', 0, now(), 1);
 
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
-values(13, 'ADMIN_USER_ROLE', 2, '角色设定', 'mainWorkArea.location=''role/role.action''', '0_2_13', 0, now(), 1);
+values(13, 'ADMIN_USER_ROLE', 2, '角色设定', 'mainWorkArea.location=''role/role.action''', '0-2-13', 0, now(), 1);
 
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
-values(14, 'ADMIN_USER_PERMISSION', 2, '权限设定', 'mainWorkArea.location=''permission/permission.action''', '0_2_14', 0, now(), 1);
+values(14, 'ADMIN_USER_PERMISSION', 2, '权限设定', 'mainWorkArea.location=''permission/permission.action''', '0-2-14', 0, now(), 1);
 
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
-values(15, 'ADMIN_NEWS_ROLE', 3, '新闻设定', 'mainWorkArea.location=''news/news.action''', '0_3_15', 0, now(), 1);
+values(15, 'ADMIN_NEWS_ROLE', 3, '新闻设定', 'mainWorkArea.location=''news/news.action''', '0-3-15', 0, now(), 1);
 
 
 insert into roles_menus (role_id, menu_id)

@@ -40,8 +40,8 @@ public class MenuDao extends HibernateDao<Menus, Long> {
 
 	public List<Menus> findByRoleIds(Collection<Long> ids) {
 		Page page = new Page();
-		page.setOrder("asc,asc");
-		page.setOrderBy("sort,id");
+		page.setOrder("asc,asc,asc");
+		page.setOrderBy("parentId,id,sort");
 		return findByCriteria("roleses", 0, page, Restrictions.in("_roleses.id", ids));
 	}
 

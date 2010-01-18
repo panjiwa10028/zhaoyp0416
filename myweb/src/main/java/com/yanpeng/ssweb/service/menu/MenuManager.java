@@ -58,7 +58,9 @@ public class MenuManager extends EntityManager<Menus, Long> {
 
 	public void saveMenu(Menus menu) {
 		Menus parentMenu = menuDao.get(menu.getParentId());
-		menu.setSort(parentMenu.getSort() + "_");
+		menu.setSort(parentMenu.getSort() + "-");
+		menuDao.save(menu);
+		menu.setSort(menu.getSort() + menu.getId());
 		menuDao.save(menu);
 	}
 
