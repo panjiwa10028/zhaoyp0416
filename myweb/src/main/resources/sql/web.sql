@@ -69,12 +69,12 @@ drop table if exists users_roles;
 /*==============================================================*/
 create table groups
 (
-   id                   varchar(36) not null,
+   id                   INTEGER not null AUTO_INCREMENT,
    name                 varchar(100)  not null,
    description          text,
-   parent_id            varchar(36),
+   parent_id            INTEGER,
    update_time          datetime,
-   user_id              varchar(36),
+   user_id              INTEGER,
    primary key (id),
    unique key AK_Key_t_groups_2 (name)
 )
@@ -101,15 +101,15 @@ create index Index_t_groups_2 on groups
 /*==============================================================*/
 create table menus
 (
-   id                   varchar(36) not null,
+   id                   INTEGER not null AUTO_INCREMENT,
    name                 varchar(50) not null,
-   parent_id            varchar(36),
+   parent_id            INTEGER,
    display_name         varchar(100) not null,
    path                 varchar(500),
    sort                 varchar(100),
    is_disabled          int default 0,
    update_time          datetime,
-   user_id              varchar(36),
+   user_id              INTEGER,
    primary key (id)
 )
 type = InnoDB;
@@ -159,8 +159,8 @@ create index Index_t_menu_5 on menus
 /*==============================================================*/
 create table news
 (
-   id                   varchar(36) not null,
-   category_id          varchar(36),
+   id                   INTEGER not null AUTO_INCREMENT,
+   category_id          INTEGER,
    title                varchar(100),
    auth                 varchar(50),
    content              text,
@@ -170,7 +170,7 @@ create table news
    pic_path             varchar(512),
    html_name            varchar(255),
    pic_name             varchar(255),
-   user_id              varchar(36),
+   user_id              INTEGER,
    primary key (id)
 )
 type = InnoDB;
@@ -180,11 +180,11 @@ type = InnoDB;
 /*==============================================================*/
 create table news_category
 (
-   id                   varchar(36) not null,
+   id                   INTEGER not null AUTO_INCREMENT,
    name                 varchar(50),
    description          text,
    update_time          datetime,
-   user_id              varchar(36),
+   user_id              INTEGER,
    primary key (id),
    key AK_Key_2 (name)
 )
@@ -195,12 +195,12 @@ type = InnoDB;
 /*==============================================================*/
 create table news_message
 (
-   id                   varchar(36) not null,
-   news_id              varchar(36) not null,
+   id                   INTEGER not null AUTO_INCREMENT,
+   news_id              INTEGER not null,
    title                varchar(255),
    content              text,
    update_time          datetime,
-   user_id              varchar(36),
+   user_id              INTEGER,
    primary key (id)
 )
 type = InnoDB;
@@ -210,12 +210,12 @@ type = InnoDB;
 /*==============================================================*/
 create table permissions
 (
-   id                   varchar(36) not null,
+   id                   INTEGER not null AUTO_INCREMENT,
    name                 varchar(100) not null,
    display_name         varchar(100) not null,
    path                 varchar(255),
    update_time          datetime,
-   user_id              varchar(36),
+   user_id              INTEGER,
    primary key (id)
 )
 type = InnoDB;
@@ -241,11 +241,11 @@ create unique index Index_t_permissions_3 on permissions
 /*==============================================================*/
 create table roles
 (
-   id                   varchar(36) not null,
+   id                   INTEGER not null AUTO_INCREMENT,
    name                 varchar(50) not null,
    description          text,
    update_time          datetime,
-   user_id              varchar(36),
+   user_id              INTEGER,
    primary key (id)
 )
 type = InnoDB;
@@ -263,8 +263,8 @@ create unique index Index_t_roles_1 on roles
 /*==============================================================*/
 create table roles_menus
 (
-   role_id              varchar(36) not null,
-   menu_id              varchar(36) not null,
+   role_id              INTEGER not null,
+   menu_id              INTEGER not null,
    primary key (role_id, menu_id)
 )
 type = InnoDB;
@@ -290,8 +290,8 @@ create index Index_t_roels_menus_2 on roles_menus
 /*==============================================================*/
 create table roles_permissions
 (
-   role_id              varchar(36) not null,
-   permission_id        varchar(36) not null,
+   role_id              INTEGER not null,
+   permission_id        INTEGER not null,
    primary key (role_id, permission_id)
 )
 type = InnoDB;
@@ -317,16 +317,16 @@ create index Index_t_role_permissions_2 on roles_permissions
 /*==============================================================*/
 create table users
 (
-   id                   varchar(36) not null,
+   id                   INTEGER not null AUTO_INCREMENT,
    name                 varchar(100)  not null,
-   group_id             varchar(36) not null,
+   group_id             INTEGER not null,
    login_name           varchar(100) binary not null,
    password             varchar(255) not null,
    is_disabled          smallint not null default 0,
    is_expired           smallint not null default 0,
    is_locked            smallint not null default 0,
    update_time          datetime,
-   user_id              varchar(36),
+   user_id              INTEGER,
    primary key (id)
 )
 type = InnoDB;
@@ -360,8 +360,8 @@ create unique index Index_t_users_3 on users
 /*==============================================================*/
 create table users_roles
 (
-   user_id              varchar(36) not null,
-   role_id              varchar(36) not null,
+   user_id              INTEGER not null,
+   role_id              INTEGER not null,
    primary key (user_id, role_id)
 )
 type = InnoDB;
