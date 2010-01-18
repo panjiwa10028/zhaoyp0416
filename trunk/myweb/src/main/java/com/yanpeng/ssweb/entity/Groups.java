@@ -31,6 +31,7 @@ public class Groups extends BaseEntity implements java.io.Serializable {
 	// Fields
 	private Groups groups;
 	private String name;
+	private String sort;
 	private String description;
 
 	private Set<Users> userses = new LinkedHashSet<Users>(0);
@@ -99,6 +100,15 @@ public class Groups extends BaseEntity implements java.io.Serializable {
 
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
+	}
+
+	@Column(name = "sort")
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
 	}
 
 }

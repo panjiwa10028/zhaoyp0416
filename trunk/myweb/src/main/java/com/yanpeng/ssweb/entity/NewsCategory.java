@@ -23,6 +23,7 @@ public class NewsCategory extends BaseEntity implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 2606838415704378401L;
 	private String name;
+	private String sort;
 	private String description;
 	private Set<News> newses = new LinkedHashSet<News>(0);
 
@@ -59,6 +60,14 @@ public class NewsCategory extends BaseEntity implements java.io.Serializable {
 
 	public void setNewses(Set<News> newses) {
 		this.newses = newses;
+	}
+	@Column(name = "sort", length = 100)
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
 	}
 
 }
