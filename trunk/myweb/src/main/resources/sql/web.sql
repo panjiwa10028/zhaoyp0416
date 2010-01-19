@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2010-1-18 23:36:38                           */
+/* Created on:     2010-1-19 12:11:36                           */
 /*==============================================================*/
 
 
@@ -25,6 +25,8 @@ drop index Index_t_menu_1 on menus;
 drop table if exists menus;
 
 drop table if exists news;
+
+drop index Index_2 on news_category;
 
 drop index Index_1 on news_category;
 
@@ -194,6 +196,7 @@ type = InnoDB;
 create table news_category
 (
    id                   bigint not null auto_increment,
+   parent_id            bigint,
    name                 varchar(50),
    description          text,
    sort                 varchar(100),
@@ -210,6 +213,14 @@ type = InnoDB;
 create index Index_1 on news_category
 (
    sort
+);
+
+/*==============================================================*/
+/* Index: Index_2                                               */
+/*==============================================================*/
+create index Index_2 on news_category
+(
+   parent_id
 );
 
 /*==============================================================*/
