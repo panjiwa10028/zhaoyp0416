@@ -67,10 +67,11 @@ public class DbFilterInvocationDefinitionSource implements FilterInvocationDefin
 		if (resources != null) {
 			for (Iterator it = resources.iterator(); it.hasNext();) {
 				permission = (Permissions) it.next();
+				Long id = permission.getId();
 				String resPath = permission.getPath();
 				boolean matched = urlMatcher.pathMatchesUrl(resPath, requestURI);
 				if (matched) {
-					authorities = SecurityResourceCache.getAuthoritysInCache(resPath);
+					authorities = SecurityResourceCache.getAuthoritysInCache(id);
 					break;
 				}
 			}
