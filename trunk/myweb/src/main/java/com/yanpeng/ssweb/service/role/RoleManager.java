@@ -87,6 +87,14 @@ public class RoleManager extends EntityManager<Roles, Long> {
 		if(menuIds != null && menuIds.size() > 0) {
 			List<Menus> menuList = menuDao.findByIds(menuIds);
 			Set<Menus> menuSet = new LinkedHashSet<Menus>(menuList);
+
+			for (Menus menu : menuList) {
+				Menus m = menu.getMenus();
+				if (!menuSet.contains(m)) {
+					menuSet.add(menu.getMenus());
+				}
+			}
+
 			role.setMenuses(menuSet);
 		}
 
