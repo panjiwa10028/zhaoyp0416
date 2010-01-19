@@ -15,6 +15,7 @@ import com.yanpeng.core.orm.hibernate.EntityManager;
 import com.yanpeng.ssweb.dao.permission.PermissionDao;
 import com.yanpeng.ssweb.entity.Permissions;
 import com.yanpeng.ssweb.exceptions.ServiceException;
+import com.yanpeng.ssweb.service.security.resource.SecurityResourceCache;
 
 /**
  * 权限管理
@@ -52,6 +53,7 @@ public class PermissionManager extends EntityManager<Permissions, Long> {
 
 	public void savePermission(Permissions entity) {
 		permissionsDao.save(entity);
+		SecurityResourceCache.putCache(entity);
 	}
 
 	public void deletePermissions(Collection<String> ids) {
@@ -67,6 +69,7 @@ public class PermissionManager extends EntityManager<Permissions, Long> {
 					throw new ServiceException("删除[" + per.getDisplayName() + "]权限失败。原因：还有拥有该权限的角色");
 				}
 				permissionsDao.delete(per);
+				SecurityResourceCache.removeCache(delId);
 			} else {
 				logger.warn("ID=[" + id + "]的权限不存在，无法删除");
 			}

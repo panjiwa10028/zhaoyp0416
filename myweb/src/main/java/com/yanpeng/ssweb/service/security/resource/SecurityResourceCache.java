@@ -32,14 +32,14 @@ public class SecurityResourceCache {
 	}
 
 	public synchronized static void putCache(Permissions permission) {
-		Element element = new Element(permission.getPath(), permission);
+		Element element = new Element(permission.getId(), permission);
 		cache.put(element);
 	}
 
-	public synchronized static Permissions getCache(String resPath) {
+	public synchronized static Permissions getCache(Long id) {
 		Element element = null;
 		try {
-			element = cache.get(resPath);
+			element = cache.get(id);
 		} catch (CacheException cacheException) {
 			throw new DataRetrievalFailureException("ResourceCache failure: " + cacheException.getMessage(),
 					cacheException);
@@ -52,13 +52,13 @@ public class SecurityResourceCache {
 
 	}
 
-	public synchronized static void removeCache(String resPath) {
-		cache.remove(resPath);
+	public synchronized static void removeCache(Long id) {
+		cache.remove(id);
 	}
 
 	@SuppressWarnings("unchecked")
 	public synchronized static Collection<Permissions> getAllCache() {
-		List<String> resources = new ArrayList<String>();
+		List<Long> resources = new ArrayList<Long>();
 		List<Permissions> resclist = new ArrayList<Permissions>();
 		try {
 			if (cache != null) {
@@ -70,15 +70,15 @@ public class SecurityResourceCache {
 		} catch (CacheException e) {
 			throw new UnsupportedOperationException(e.getMessage(), e);
 		}
-		for (String resPath : resources) {
-			Permissions rd = getCache(resPath);
+		for (Long id : resources) {
+			Permissions rd = getCache(id);
 			resclist.add(rd);
 		}
 		return resclist;
 	}
 
-	public synchronized static GrantedAuthority[] getAuthoritysInCache(String resPath) {
-		Permissions resource = getCache(resPath);
+	public synchronized static GrantedAuthority[] getAuthoritysInCache(Long id) {
+		Permissions resource = getCache(id);
 		GrantedAuthority[] gas = { new GrantedAuthorityImpl(resource.getName()) };
 		return gas;
 	}
