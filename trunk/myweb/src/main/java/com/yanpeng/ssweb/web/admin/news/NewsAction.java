@@ -132,12 +132,12 @@ public class NewsAction extends CURDBaseAction<News> {
 
 			htmlGenerator.setEncode("utf-8");
 			htmlGenerator.setTemplateDir("/htmlskin/");
-			htmlGenerator.setTemplateFile("view.ftl");
+			htmlGenerator.setTemplateFile("news.ftl");
 			htmlGenerator.setRootDir(path);
 
 			String htmlPath = config.getNewsHtmlPath() + File.separator + dateString;
 			entity.setHtmlPath(htmlPath);
-			entity.setHtmlName(rnadomString + ".html");
+			entity.setHtmlName(rnadomString + ".shtml");
 
 			htmlGenerator.setPreviewHtmlFileDir(htmlPath);
 			Map<String, Object> map = new HashMap<String, Object>();

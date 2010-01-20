@@ -80,8 +80,7 @@ public class NewsCategoryAction extends CURDBaseAction<NewsCategory> {
 //			entity.setId(null);
 //		}
 		//		暂不支持多级组
-//		entity.setParentId("0");
-
+		entity.setParentId(new Long(-1));
 		try {
 			newsCategoryManager.saveNewsCategory(entity);
 			addActionMessage("保存新闻类别成功");

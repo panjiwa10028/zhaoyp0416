@@ -122,7 +122,10 @@ insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, u
 values(14, 'ADMIN_USER_PERMISSION', 2, '权限设定', 'mainWorkArea.location=''permission/permission.action''', '0-2-14', 0, now(), 1);
 
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
-values(15, 'ADMIN_NEWS_ROLE', 3, '新闻设定', 'mainWorkArea.location=''news/news.action''', '0-3-15', 0, now(), 1);
+values(15, 'ADMIN_NEWS_CATEGORY_ROLE', 3, '新闻类型设定', 'mainWorkArea.location=''news/news-category.action''', '0-3-15', 0, now(), 1);
+
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
+values(16, 'ADMIN_NEWS_ROLE', 3, '新闻设定', 'mainWorkArea.location=''news/news.action''', '0-3-16', 0, now(), 1);
 
 
 insert into roles_menus (role_id, menu_id)
@@ -143,7 +146,8 @@ insert into roles_menus (role_id, menu_id)
 values (1, 14);
 insert into roles_menus (role_id, menu_id)
 values (1, 15);
-
+insert into roles_menus (role_id, menu_id)
+values (1, 16);
 
 insert into news_category (id, name, parent_id, description, sort, update_time, user_id)
 values(-1, 'root',-1,'---', '0', now(), 1);
