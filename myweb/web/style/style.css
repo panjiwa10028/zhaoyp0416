@@ -37,11 +37,14 @@ h3{background:#FEF0D3;padding:5px;margin-top:10px;color:#000;}
 
 .rightside{
 	width:708px;
-	float:right;
+	float:center;
 }
-
-.th{ background:url(../images/indexs_08.gif) no-repeat left top;height:26px; width:100%;padding: 14px 0 0 0;}
-.th_center{ background:url(../images/indexs_09.gif) repeat-y; overflow:hidden;}
+.centerside{
+	width:957px;
+	float:center;
+}
+.th{ background:url(../images/indexs_08_957.gif) no-repeat left top;height:26px; width:100%;padding: 14px 0 0 0;}
+.th_center{ background:url(../images/indexs_09_957.gif) repeat-y; overflow:hidden;}
 .font1{margin: 3px 30px; font-weight:bold;color:#FFFFFF}
 
 .sp1{width:351px;float:left;}

@@ -53,9 +53,6 @@
 	
 	<body scroll="auto" style="overflow: auto" id="body" onload="InitPage()" MS_POSITIONING="GridLayout">	
 <div id="message" style="display:none;"><s:actionmessage theme="simple"/></div>
-<form action="news!search.action" method="post" id="inputForm">
-										<input id="search_text" name="search_text" class="required"/><input type="submit" value="搜索" class="button"/>
-									</form>
 <form id="queryForm" name="queryForm" action="news.action" method="post">
 			<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
 				<TR>

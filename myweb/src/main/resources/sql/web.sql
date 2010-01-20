@@ -3,7 +3,8 @@
 /* Created on:     2010-1-19 12:11:36                           */
 /*==============================================================*/
 
-
+--drop database myweb;
+--create database myweb character set=utf8;
 drop index Index_t_groups_3 on groups;
 
 drop index Index_t_groups_1 on groups;
@@ -174,7 +175,7 @@ create index Index_t_menu_5 on menus
 /*==============================================================*/
 create table news
 (
-   id                   bigint not null,
+   id                   bigint not null auto_increment,
    category_id          bigint,
    title                varchar(100),
    auth                 varchar(50),
