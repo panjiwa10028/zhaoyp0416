@@ -47,10 +47,13 @@
 	function subForm() {
 		//inputForm.target = "mainWorkArea";
 		//inputForm.target = "dialog_Info_hiddenSubmitIFrame";
+		top.setStatusBarInfo('');
 		KE.util.setData('content');
 		inputForm.submit();
 	}
-
+	function cancel() {
+		top.mainWorkArea.location='product.action';
+	}
 	function setStatusBarInfo(info)
 	{
 		document.getElementById('statusBarInfo').innerHTML = 'transactInfo'+info;
@@ -61,7 +64,7 @@
 
 
 	</head>
-<form id="inputForm" action="news!save.action" method="post" enctype="multipart/form-data">
+<form id="inputForm" action="product!save.action" method="post" enctype="multipart/form-data">
 <s:token/>
 	<input type="hidden" name="id" value="${id}" />
 	<input type="hidden" name="page.pageRequest" value="${page.pageRequest}" />
@@ -74,11 +77,10 @@
 						<TR>
 							<TD class="tdTitle1" colSpan="1" rowSpan="1">
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-								<span id="Location">系统管理 > 菜单设定 > 菜单修改</span>
+								<span id="Location">产品管理 > <a href='#' onclick="cancel()">产品设定</a> > 产品<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
 							</TD>
 							<TD class="tdTitle2"></TD>
 							<TD class="tdTitle3">
-								版面号：101005
 								<IMG alt="" src="${base}/images/title_06.gif">
 							</TD>
 						</TR>
@@ -100,7 +102,7 @@
 									<tr>
 										<td class=tdPanelHead>&nbsp;</td>
 										<td class=tdPanelSel_left>&nbsp;</td>
-										<td class=tdPanelSel_center><pre style="margin:0px">菜单设定</pre></td>
+										<td class=tdPanelSel_center><pre style="margin:0px">产品设定</pre></td>
 										<td class=tdPanelSel_right>&nbsp;</td>
 									</tr>
 								</table>
@@ -122,7 +124,7 @@
 					<TABLE class="tbBlock" id="Table1" cellSpacing="1" border="0">
 						<TR>
 							<TD class="tdPrompt">
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;菜单修改：
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产品<s:if test="id == null">新增</s:if><s:else>修改</s:else>：
 							</TD>
 						</TR>
 					</TABLE>
@@ -130,10 +132,10 @@
 					
 						<TR>
 								<TD class="tdRightW30H40">
-									菜单分类:
+									产品分类:
 								</TD>
 								<TD class="tdLeftH40">
-									<s:select id="categoryId" name="categoryId" list="allNewsCategory" listKey="id" listValue="name"/>
+									<s:select id="categoryId" name="categoryId" list="allProductCategory" listKey="id" listValue="name"/>
 								</TD>
 						</TR>
 						<TR>
@@ -141,7 +143,7 @@
 								标题:
 							</TD>
 							<TD class="tdLeftH40">
-								<input type="text" id="name" name="title" size="40" value="${title}" class="required"/>
+								<input type="text" id="name" name="name" size="40" value="${name}" class="required"/>
 							</TD>
 						</TR>	
 						<TR>
@@ -153,15 +155,8 @@
 								
 								<span id="newPreview"></span></span>
 							</TD>
-						</TR>	
-						<tr>
-				<td class="tdRightW30H40">作者:</td>
-				<td class="tdLeftH40"><input type="text" name="auth" size="40" value="${auth}" class="required"/></td>
-			</tr>
-			<tr>
-				<td class="tdRightW30H40">发布日期:</td>
-				<td class="tdLeftH40"><input type="text" name="date" size="40" value="<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />" class="Wdate" onFocus="WdatePicker({lang:'${locale}',readOnly:true})"/></td>
-			</tr>
+						</TR>					
+			
 			<tr>
 				<td class="tdRightW30H40">内容:</td>
 				<td class="tdLeftH40"><textarea id="content" name="content" style="width:600px;height:250px;visibility:hidden;" class="required">${content}</textarea>

@@ -33,8 +33,11 @@ h3{background:#FEF0D3;padding:5px;margin-top:10px;color:#000;}
 }
 .f1{color:#FFFFFF;margin:7px 0px; width:200px;}
 
-
-
+#leftside1{width:310px;float:left;}
+.rightside1{
+	width:647px;
+	float:center;
+}
 .rightside{
 	width:708px;
 	float:center;
@@ -43,8 +46,15 @@ h3{background:#FEF0D3;padding:5px;margin-top:10px;color:#000;}
 	width:957px;
 	float:center;
 }
-.th{ background:url(../images/indexs_08_957.gif) no-repeat left top;height:26px; width:100%;padding: 14px 0 0 0;}
-.th_center{ background:url(../images/indexs_09_957.gif) repeat-y; overflow:hidden;}
+.th4{ background:url(../images/indexs_08_647.gif) no-repeat left top;height:26px; width:100%;padding: 14px 0 0 0;}
+.th_center4{ background:url(../images/indexs_09_647.gif) repeat-y; overflow:hidden;}
+
+
+.th3{ background:url(../images/indexs_08_957.gif) no-repeat left top;height:26px; width:100%;padding: 14px 0 0 0;}
+.th_center3{ background:url(../images/indexs_09_957.gif) repeat-y; overflow:hidden;}
+
+.th{ background:url(../images/indexs_08.gif) no-repeat left top;height:26px; width:100%;padding: 14px 0 0 0;}
+.th_center{ background:url(../images/indexs_09.gif) repeat-y; overflow:hidden;}
 .font1{margin: 3px 30px; font-weight:bold;color:#FFFFFF}
 
 .sp1{width:351px;float:left;}
@@ -60,3 +70,8 @@ h3{background:#FEF0D3;padding:5px;margin-top:10px;color:#000;}
 .chanp { text-align: center; position:relative;}
 .chanp img{ border:1px #ccc solid; background:#f4f4f4; padding:10px;margin:5px auto; display:block;}
 .chanp p { text-align:left; font-size:14px; line-height:1.6; padding-left:5px;}
+
+a:link { text-decoration: none;color: blue} 
+a:active { text-decoration:blink} 
+a:hover { text-decoration:underline;color: red}  
+a:visited { text-decoration: none;color: green} 
