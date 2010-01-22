@@ -3,32 +3,32 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>${news.title}</title>
-<link href="./../../../../style/style.css" rel="stylesheet" type="text/css" />
-<script src="./../../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-<link href="./../../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
+<link href="./../../../style/style.css" rel="stylesheet" type="text/css" />
+<script src="./../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+<link href="./../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<!--#include virtual="./../../../../head.jsp"-->
+<!--#include virtual="./../../../head.jsp"-->
 <div id="centainer">
 
   <div class="centerside">
-    <div class="th">
+    <div class="th3">
       <p class="font1">首页-产品列表-内容详情</p>
     </div>
-        <div class="th_center">
+        <div class="th_center3">
 		<div style="margin:10px;" class="chanp">
-        <p style="position:absolute; right:10px; color:#ccc;">${news.date?string("yyyy年MM月dd日 hh点mm分ss秒")}</p>
-        <h1 style="text-align:center; border-bottom:1px #ccc solid;padding-bottom:5px;">${news.title}</h1>
+        <p style="position:absolute; right:10px; color:#ccc;">${news.updateTime?string("yyyy年MM月dd日 hh点mm分ss秒")}</p>
+        <h1 style="text-align:center; border-bottom:1px #ccc solid;padding-bottom:5px;"><div style="width: 600px">${news.title}</div></h1>
          <p></p>
          <#if news.picPath??>
-			<img src="./../../../../${news.picPath}/${news.picName}" />
+			<img src="./../../../${news.picPath}/${news.picName}" />
 		</#if>
         ${news.content}
         </div>
     </div>
-    <div class="th_foot"><img src="./../../../../images/indexs_12_957.gif"/></div>
+    <div class="th_foot"><img src="./../../../images/indexs_12_957.gif"/></div>
     </div>
 </div>
-<!--#include virtual="./../../../../foot.jsp"-->
+<!--#include virtual="./../../../foot.jsp"-->
 </body>
 </html>

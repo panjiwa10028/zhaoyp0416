@@ -1,5 +1,3 @@
---ALTER TABLE groups DROP FOREIGN KEY FK_groups_groups;
---ALTER TABLE menus DROP FOREIGN KEY FK_menus_menus;
 
 insert into groups (id, name, parent_id, description, sort, update_time, user_id)
 values(-1, 'root',-1,'---', '0', now(), 1);
@@ -52,6 +50,27 @@ values(18, 'PER_SAVE_MENUS', '保存菜单', '/admin/menu/menu!save.action*', no
 insert into permissions (id, name, display_name, path, update_time, user_id)
 values(19, 'PER_DELETE_MENUS', '删除菜单', '/admin/menu/menu!delete.action*', now(), 1);
 
+insert into permissions (id, name, display_name, path, update_time, user_id)
+values(20, 'PER_VIEW_NEWS_CATEGORY', '浏览新闻分类', '/admin/news/news-category.action*', now(), 1);
+insert into permissions (id, name, display_name, path, update_time, user_id)
+values(21, 'PER_SAVE_NEWS_CATEGORY', '保存新闻分类', '/admin/news/news-category!save.action*', now(), 1);
+insert into permissions (id, name, display_name, path, update_time, user_id)
+values(22, 'PER_DELETE_NEWS_CATEGORY', '删除新闻分类', '/admin/news/news-category!delete.action*', now(), 1);
+
+insert into permissions (id, name, display_name, path, update_time, user_id)
+values(23, 'PER_VIEW_PRODUCT_CATEGORY', '浏览产品分类', '/admin/product/product-category.action*', now(), 1);
+insert into permissions (id, name, display_name, path, update_time, user_id)
+values(24, 'PER_SAVE_PRODUCT_CATEGORY', '保存产品分类', '/admin/product/product-category!save.action*', now(), 1);
+insert into permissions (id, name, display_name, path, update_time, user_id)
+values(25, 'PER_DELETE_PRODUCT_CATEGORY', '删除产品分类', '/admin/product/product-category!delete.action*', now(), 1);
+
+insert into permissions (id, name, display_name, path, update_time, user_id)
+values(26, 'PER_VIEW_PRODUCT', '浏览产品', '/admin/product/product.action*', now(), 1);
+insert into permissions (id, name, display_name, path, update_time, user_id)
+values(27, 'PER_SAVE_PRODUCT', '保存产品', '/admin/product/product!save.action*', now(), 1);
+insert into permissions (id, name, display_name, path, update_time, user_id)
+values(28, 'PER_DELETE_PRODUCT', '删除产品', '/admin/product/product!delete.action*', now(), 1);
+
 insert into roles_permissions (role_id, permission_id)
 values(1, 1);
 insert into roles_permissions (role_id, permission_id)
@@ -91,6 +110,25 @@ values(1, 18);
 insert into roles_permissions (role_id, permission_id)
 values(1, 19);
 
+insert into roles_permissions (role_id, permission_id)
+values(1, 20);
+insert into roles_permissions (role_id, permission_id)
+values(1, 21);
+insert into roles_permissions (role_id, permission_id)
+values(1, 22);
+insert into roles_permissions (role_id, permission_id)
+values(1, 23);
+insert into roles_permissions (role_id, permission_id)
+values(1, 24);
+insert into roles_permissions (role_id, permission_id)
+values(1, 25);
+insert into roles_permissions (role_id, permission_id)
+values(1, 26);
+insert into roles_permissions (role_id, permission_id)
+values(1, 27);
+insert into roles_permissions (role_id, permission_id)
+values(1, 28);
+
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values(-1, 'root', -1, '---', '', '0', 0, now(), 1);
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
@@ -100,7 +138,7 @@ values(2, 'ADMIN_USERS', -1, '用户管理', '', '0-2', 0, now(), 1);
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values(3, 'ADMIN_NEWS', -1, '新闻管理', '', '0-3', 0, now(), 1);
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
-values(4, 'ADMIN_MOCK1', -1, '占位1', '', '0-4', 0, now(), 1);
+values(4, 'ADMIN_PRODUCT', -1, '产品管理', '', '0-4', 0, now(), 1);
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values(5, 'ADMIN_MOCK2', -1, '占位2', '', '0-5', 0, now(), 1);
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
@@ -127,6 +165,12 @@ values(15, 'ADMIN_NEWS_CATEGORY_ROLE', 3, '新闻类型设定', 'mainWorkArea.lo
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values(16, 'ADMIN_NEWS_ROLE', 3, '新闻设定', 'mainWorkArea.location=''news/news.action''', '0-3-16', 0, now(), 1);
 
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
+values(17, 'ADMIN_PRODUCT_CATEGORY_ROLE', 4, '产品类型设定', 'mainWorkArea.location=''product/product-category.action''', '0-4-17', 0, now(), 1);
+
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
+values(18, 'ADMIN_PRODUCT_ROLE', 4, '产品设定', 'mainWorkArea.location=''product/product.action''', '0-4-18', 0, now(), 1);
+
 
 insert into roles_menus (role_id, menu_id)
 values (1, 1);
@@ -134,6 +178,8 @@ insert into roles_menus (role_id, menu_id)
 values (1, 2);
 insert into roles_menus (role_id, menu_id)
 values (1, 3);
+insert into roles_menus (role_id, menu_id)
+values (1, 4);
 insert into roles_menus (role_id, menu_id)
 values (1, 10);
 insert into roles_menus (role_id, menu_id)
@@ -148,6 +194,13 @@ insert into roles_menus (role_id, menu_id)
 values (1, 15);
 insert into roles_menus (role_id, menu_id)
 values (1, 16);
+insert into roles_menus (role_id, menu_id)
+values (1, 17);
+insert into roles_menus (role_id, menu_id)
+values (1, 18);
 
 insert into news_category (id, name, parent_id, description, sort, update_time, user_id)
+values(-1, 'root',-1,'---', '0', now(), 1);
+
+insert into product_category (id, name, parent_id, description, sort, update_time, user_id)
 values(-1, 'root',-1,'---', '0', now(), 1);

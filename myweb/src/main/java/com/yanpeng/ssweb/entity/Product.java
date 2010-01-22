@@ -42,7 +42,7 @@ public class Product extends BaseEntity implements java.io.Serializable {
 
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE },fetch = FetchType.LAZY)
-	@JoinColumn(name = "category_id")
+	@JoinColumn(name = "category_id", insertable = false, updatable = false)
 	public ProductCategory getProductCategory() {
 		return this.productCategory;
 	}

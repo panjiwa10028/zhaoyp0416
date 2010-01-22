@@ -1,4 +1,4 @@
-package com.yanpeng.ssweb.web.admin.news;
+package com.yanpeng.ssweb.web.news;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -50,6 +50,8 @@ public class NewsAction extends CURDBaseAction<News> {
 
 	private List<NewsCategory> allNewsCategory;
 	private String selectedIds;
+	
+	private String filter_EQ_categoryId;
 	@Override
 	protected void prepareModel() throws Exception {
 		// TODO Auto-generated method stub
@@ -67,6 +69,7 @@ public class NewsAction extends CURDBaseAction<News> {
 		page.setOrder("desc");
 		page.setOrderBy("updateTime");
 		page = newsManager.search(page, filters);
+		allNewsCategory = newsCategoryManager.getAllNewsCategory();
 		return SUCCESS;
 	}
 
@@ -134,7 +137,7 @@ public class NewsAction extends CURDBaseAction<News> {
 
 			htmlGenerator.setEncode("utf-8");
 			htmlGenerator.setTemplateDir("/htmlskin/");
-			htmlGenerator.setTemplateFile(config.getNewsHtmlTemplate());
+			htmlGenerator.setTemplateFile("news.ftl");
 			htmlGenerator.setRootDir(path);
 
 			String htmlPath = config.getNewsHtmlPath() + File.separator + dateString;
@@ -213,4 +216,14 @@ public class NewsAction extends CURDBaseAction<News> {
 	public void setSelectedIds(String selectedIds) {
 		this.selectedIds = selectedIds;
 	}
+
+	public String getFilter_EQ_categoryId() {
+		return filter_EQ_categoryId;
+	}
+
+	public void setFilter_EQ_categoryId(String filterEQCategoryId) {
+		filter_EQ_categoryId = filterEQCategoryId;
+	}
+	
+	
 }

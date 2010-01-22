@@ -1,4 +1,4 @@
-package com.yanpeng.ssweb.web.admin.news;
+package com.yanpeng.ssweb.web.product;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,10 +21,11 @@ import com.yanpeng.core.utils.DateUtils;
 import com.yanpeng.core.web.struts2.CRUDActionSupport;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.entity.News;
-import com.yanpeng.ssweb.entity.NewsCategory;
+import com.yanpeng.ssweb.entity.Product;
+import com.yanpeng.ssweb.entity.ProductCategory;
 import com.yanpeng.ssweb.interceptor.annotations.Token;
-import com.yanpeng.ssweb.service.news.NewsManager;
-import com.yanpeng.ssweb.service.newscategory.NewsCategoryManager;
+import com.yanpeng.ssweb.service.product.ProductManager;
+import com.yanpeng.ssweb.service.productcategory.ProductCategoryManager;
 import com.yanpeng.ssweb.util.HtmlGenerator;
 import com.yanpeng.ssweb.web.CURDBaseAction;
 
@@ -36,37 +37,40 @@ import com.yanpeng.ssweb.web.CURDBaseAction;
  * @author Allen
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = CRUDActionSupport.RELOAD, location = "news.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
-public class NewsAction extends CURDBaseAction<News> {
+@Results( { @Result(name = CRUDActionSupport.RELOAD, location = "product.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
+public class ProductAction extends CURDBaseAction<Product> {
 
 	@Autowired
-	private NewsManager newsManager;
+	private ProductManager productManager;
 
 	@Autowired
-	private NewsCategoryManager newsCategoryManager;
+	private ProductCategoryManager productCategoryManager;
 
 	private File upload;
 	private String uploadFileName;
 
-	private List<NewsCategory> allNewsCategory;
+	private List<ProductCategory> allProductCategory;
 	private String selectedIds;
+	
+	private String filter_EQ_categoryId;
 	@Override
 	protected void prepareModel() throws Exception {
 		// TODO Auto-generated method stub
 		if (id != null) {
-			entity = newsManager.getNewsById(id);
+			entity = productManager.getProductById(id);
 		} else {
-			entity = new News();
+			entity = new Product();
 		}
-		allNewsCategory = newsCategoryManager.getAllNewsCategory();
+		allProductCategory = productCategoryManager.getAllProductCategory();
 	}
 
 	@Override
 	public String list() throws Exception {
-		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new News());
+		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new Product());
 		page.setOrder("desc");
 		page.setOrderBy("updateTime");
-		page = newsManager.search(page, filters);
+		page = productManager.search(page, filters);
+		allProductCategory = productCategoryManager.getAllProductCategory();
 		return SUCCESS;
 	}
 
@@ -81,7 +85,7 @@ public class NewsAction extends CURDBaseAction<News> {
 		try {
 			String[] ids = selectedIds.split(",");
 			List<String> list = Arrays.asList(ids);
-			newsManager.deleteNews(list);
+			productManager.deleteProducts(list);
 			addActionMessage("删除成功!");
 
 		} catch (Exception e) {
@@ -105,6 +109,12 @@ public class NewsAction extends CURDBaseAction<News> {
 			String path = Struts2Utils.getRequest().getRealPath("");
 			//			生成随机的字符串
 			String rnadomString = RandomStringUtils.randomAlphabetic(10).toLowerCase();
+			if(entity.getHtmlName() != null && !"".equals(entity.getHtmlName())) {
+				String tempHtmlName = entity.getHtmlName();
+				if(tempHtmlName.indexOf(".") != -1) {
+					rnadomString = tempHtmlName.substring(0, tempHtmlName.indexOf("."));
+				}
+			}
 			Date date = new Date();
 			//			取当前日期
 			String dateString = DateUtils.convertDateToString(date, "yyyy-MM-dd");
@@ -118,7 +128,7 @@ public class NewsAction extends CURDBaseAction<News> {
 					newPicName += uploadFileName.substring(uploadFileName.lastIndexOf("."));
 				}
 
-				String picPath = config.getNewsPicPath() + File.separator + dateString;
+				String picPath = config.getProdcutPicPath() + File.separator + dateString;
 				//				创建日期文件夹
 				htmlGenerator.creatDirs(path, picPath);
 
@@ -134,23 +144,23 @@ public class NewsAction extends CURDBaseAction<News> {
 
 			htmlGenerator.setEncode("utf-8");
 			htmlGenerator.setTemplateDir("/htmlskin/");
-			htmlGenerator.setTemplateFile(config.getNewsHtmlTemplate());
+			htmlGenerator.setTemplateFile(config.getProductHtmlTemplate());
 			htmlGenerator.setRootDir(path);
 
-			String htmlPath = config.getNewsHtmlPath() + File.separator + dateString;
+			String htmlPath = config.getProductHtmlPath() + File.separator + dateString;
 			entity.setHtmlPath(htmlPath);
 			entity.setHtmlName(rnadomString + ".shtml");
 
 			htmlGenerator.setPreviewHtmlFileDir(htmlPath);
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("news", entity);
+			map.put("product", entity);
 			String returnValue = htmlGenerator.preview(map, entity.getHtmlName());
 			if (returnValue == null) {
 				addActionError("保存失败!");
 				return INPUT;
 			}
 
-			newsManager.saveNews(entity);
+			productManager.saveProduct(entity);
 			addActionMessage("保存成功!");
 			return RELOAD;
 		} catch (Exception e) {
@@ -199,12 +209,12 @@ public class NewsAction extends CURDBaseAction<News> {
 		this.uploadFileName = uploadFileName;
 	}
 
-	public List<NewsCategory> getAllNewsCategory() {
-		return allNewsCategory;
+	public List<ProductCategory> getAllProductCategory() {
+		return allProductCategory;
 	}
 
-	public void setAllNewsCategory(List<NewsCategory> allNewsCategory) {
-		this.allNewsCategory = allNewsCategory;
+	public void setAllProductCategory(List<ProductCategory> allProductCategory) {
+		this.allProductCategory = allProductCategory;
 	}
 	public String getSelectedIds() {
 		return selectedIds;
@@ -212,5 +222,13 @@ public class NewsAction extends CURDBaseAction<News> {
 
 	public void setSelectedIds(String selectedIds) {
 		this.selectedIds = selectedIds;
+	}
+	
+	public String getFilter_EQ_categoryId() {
+		return filter_EQ_categoryId;
+	}
+
+	public void setFilter_EQ_categoryId(String filterEQCategoryId) {
+		filter_EQ_categoryId = filterEQCategoryId;
 	}
 }

@@ -11,7 +11,23 @@
 		</void>	
 		<!-- 新闻生成静态页路径 -->
 		<void property="newsHtmlPath">
-			<string>/upload/news/html</string>
+			<string>/news/html</string>
+		</void>	
+		<!-- 新闻生成静态页模板 -->
+		<void property="newsHtmlTemplate">
+			<string>news.ftl</string>
+		</void>	
+		<!-- 产品上传图片路径 -->
+		<void property="prodcutPicPath">
+			<string>/upload/product/pic</string>
+		</void>	
+		<!-- 产品生成静态页路径 -->
+		<void property="productHtmlPath">
+			<string>/product/html</string>
+		</void>	
+		<!-- 产品生成静态页模板 -->
+		<void property="productHtmlTemplate">
+			<string>product.ftl</string>
 		</void>			
  </object> 
 </java> 
