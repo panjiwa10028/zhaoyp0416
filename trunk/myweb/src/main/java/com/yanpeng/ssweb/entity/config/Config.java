@@ -15,6 +15,13 @@ public class Config {
 	private String newsPicPath;
 
 	private String newsHtmlPath;
+	
+	private String prodcutPicPath;
+	private String productHtmlPath;
+	
+	private String newsHtmlTemplate;
+	
+	private String productHtmlTemplate;
 
 	public String getAppPath() {
 		return appPath;
@@ -47,5 +54,38 @@ public class Config {
 	public void setNewsHtmlPath(String newsHtmlPath) {
 		this.newsHtmlPath = newsHtmlPath;
 	}
+
+	public String getProdcutPicPath() {
+		return prodcutPicPath;
+	}
+
+	public void setProdcutPicPath(String prodcutPicPath) {
+		this.prodcutPicPath = prodcutPicPath;
+	}
+
+	public String getProductHtmlPath() {
+		return productHtmlPath;
+	}
+
+	public void setProductHtmlPath(String productHtmlPath) {
+		this.productHtmlPath = productHtmlPath;
+	}
+
+	public String getNewsHtmlTemplate() {
+		return newsHtmlTemplate;
+	}
+
+	public void setNewsHtmlTemplate(String newsHtmlTemplate) {
+		this.newsHtmlTemplate = newsHtmlTemplate;
+	}
+
+	public String getProductHtmlTemplate() {
+		return productHtmlTemplate;
+	}
+
+	public void setProductHtmlTemplate(String productHtmlTemplate) {
+		this.productHtmlTemplate = productHtmlTemplate;
+	}
+	
 
 }

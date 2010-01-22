@@ -1,10 +1,10 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2010-1-19 12:11:36                           */
+/* Created on:     2010-1-22 11:46:43                           */
 /*==============================================================*/
-
 --drop database myweb;
---create database myweb character set=utf8;
+--create database myweb character set =utf8;
+
 drop index Index_t_groups_3 on groups;
 
 drop index Index_t_groups_1 on groups;
@@ -25,6 +25,8 @@ drop index Index_t_menu_1 on menus;
 
 drop table if exists menus;
 
+drop index Index_1 on news;
+
 drop table if exists news;
 
 drop index Index_2 on news_category;
@@ -33,6 +35,8 @@ drop index Index_1 on news_category;
 
 drop table if exists news_category;
 
+drop index Index_1 on news_message;
+
 drop table if exists news_message;
 
 drop index Index_t_permissions_3 on permissions;
@@ -40,6 +44,18 @@ drop index Index_t_permissions_3 on permissions;
 drop index Index_t_permissions_2 on permissions;
 
 drop table if exists permissions;
+
+drop index Index_2 on product;
+
+drop index Index_1 on product;
+
+drop table if exists product;
+
+drop index Index_2 on product_category;
+
+drop index Index_1 on product_category;
+
+drop table if exists product_category;
 
 drop index Index_t_roles_1 on roles;
 
@@ -192,13 +208,21 @@ create table news
 type = InnoDB;
 
 /*==============================================================*/
+/* Index: Index_1                                               */
+/*==============================================================*/
+create index Index_1 on news
+(
+   update_time
+);
+
+/*==============================================================*/
 /* Table: news_category                                         */
 /*==============================================================*/
 create table news_category
 (
    id                   bigint not null auto_increment,
    parent_id            bigint,
-   name                 varchar(50),
+   name                 varchar(50) not null,
    description          text,
    sort                 varchar(100),
    update_time          datetime,
@@ -240,6 +264,14 @@ create table news_message
 type = InnoDB;
 
 /*==============================================================*/
+/* Index: Index_1                                               */
+/*==============================================================*/
+create index Index_1 on news_message
+(
+   update_time
+);
+
+/*==============================================================*/
 /* Table: permissions                                           */
 /*==============================================================*/
 create table permissions
@@ -268,6 +300,73 @@ create unique index Index_t_permissions_2 on permissions
 create unique index Index_t_permissions_3 on permissions
 (
    display_name
+);
+
+/*==============================================================*/
+/* Table: product                                               */
+/*==============================================================*/
+create table product
+(
+   id                   bigint not null auto_increment,
+   category_id          bigint,
+   name                 varchar(100),
+   content              text,
+   update_time          datetime,
+   html_path            varchar(512),
+   html_name            varchar(100),
+   pic_path             varchar(512),
+   pic_name             varchar(100),
+   user_id              bigint,
+   primary key (id)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Index: Index_1                                               */
+/*==============================================================*/
+create index Index_1 on product
+(
+   name
+);
+
+/*==============================================================*/
+/* Index: Index_2                                               */
+/*==============================================================*/
+create index Index_2 on product
+(
+   update_time
+);
+
+/*==============================================================*/
+/* Table: product_category                                      */
+/*==============================================================*/
+create table product_category
+(
+   id                   bigint not null auto_increment,
+   parent_id            bigint,
+   name                 varchar(100),
+   description          text,
+   sort                 varchar(100),
+   update_time          datetime,
+   user_id              bigint,
+   primary key (id)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Index: Index_1                                               */
+/*==============================================================*/
+create index Index_1 on product_category
+(
+   name
+);
+
+/*==============================================================*/
+/* Index: Index_2                                               */
+/*==============================================================*/
+create index Index_2 on product_category
+(
+   update_time
 );
 
 /*==============================================================*/
@@ -421,6 +520,9 @@ alter table news add constraint FK_FK_news_category_news foreign key (category_i
 
 alter table news_message add constraint FK_news_news_message foreign key (news_id)
       references news (id);
+
+alter table product add constraint FK_Reference_10 foreign key (category_id)
+      references product_category (id);
 
 alter table roles_menus add constraint FK_menus_rolesmenus foreign key (menu_id)
       references menus (id);

@@ -54,7 +54,7 @@ public class NewsCategory extends BaseEntity implements java.io.Serializable {
 		this.description = description;
 	}
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY, mappedBy = "newsCategory")
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "newsCategory")
 	public Set<News> getNewses() {
 		return newses;
 	}
