@@ -14,7 +14,7 @@
 <div id="header">
       <div id="mune">
          <ul>
-           <li><a href="${base}/index.html">网站首页</a></li>
+           <li><a href="${base}/index.shtml">网站首页</a></li>
               <li><a href="${base}/companyinfo.html">公司介绍</a></li>
               <li><a href="${base}/product/product.shtml">产品介绍</a></li>
               <li><a href="${base}/service.html">技术与维修服务</a></li>

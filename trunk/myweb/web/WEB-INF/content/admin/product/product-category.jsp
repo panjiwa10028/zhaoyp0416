@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+﻿<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/common/taglibs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -16,30 +16,29 @@
 				top.setStatusBarInfo($("#message").text());
 			}
 			
+			body.style.cursor = "";
 		}		
-	
-
-		function add() {
-			
-			var url = "news!input.action";
+		
+		function add() {			
+			var url = "product-category!input.action";
 			top.mainWorkArea.location = url;
-			//top.showDialog(url, null, 750, 500);
 		}
 
 		function update() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
-			var url = "news!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
+			var url = "product-category!input.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 		
 		function del() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
-
-			var url = "news!delete.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
+			var url = "product-category!delete.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
+			
 			if(confirm("确定删除")) {
 				top.mainWorkArea.location = url;
 			}
-		}
+			
+		}		
 
 		function query() {
 			submitForm();
@@ -50,10 +49,14 @@
 		}
 		</script>
 	</HEAD>
-	
-	<body scroll="auto" style="overflow: auto" id="body" onload="InitPage()" MS_POSITIONING="GridLayout">	
-<div id="message" style="display:none;"><s:actionmessage theme="simple"/></div>
-<form id="queryForm" name="queryForm" action="news.action" method="post">
+
+	<body scroll="auto" style="overflow: auto" id="body"
+		onload="InitPage()" MS_POSITIONING="GridLayout">
+		<div id="message" style="display: none;">
+			<s:actionmessage theme="simple" />
+		</div>
+		<form id="queryForm" name="queryForm" action="product-category.action"
+			method="post">
 			<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
 				<TR>
 					<TD class="tdCommonTop">
@@ -61,7 +64,7 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">新闻管理 > 新闻设定</span>&nbsp;&nbsp;&nbsp;
+									<span id="Location">产品管理 > 产品分类设定</span>&nbsp;&nbsp;&nbsp;
 									<img src="${base}/images/ask.gif" id="BtnAsk"
 										style="CURSOR: hand" alt="..."
 										height="23" width="24" align="absMiddle" />
@@ -70,9 +73,9 @@
 									<FONT face="宋体"></FONT>
 								</TD>
 								<TD class="tdTitle3">
-								
-								<IMG alt="" src="${base}/images/title_06.gif">
-							</TD>
+
+									<IMG alt="" src="${base}/images/title_06.gif">
+								</TD>
 							</TR>
 						</TABLE>
 
@@ -93,18 +96,10 @@
 									<table border="0" cellpadding="0" cellspacing="0"
 										class=tbPanelContent>
 										<tr>
-											<td class=tdPanelHead>
-												&nbsp;
-											</td>
-											<td class=tdPanelSel_left>
-												&nbsp;
-											</td>
-											<td class=tdPanelSel_center>
-												<pre style="margin: 0px">新闻设定</pre>
-											</td>
-											<td class=tdPanelSel_right>
-												&nbsp;
-											</td>
+											<td class=tdPanelHead>&nbsp;</td>
+											<td class=tdPanelSel_left>&nbsp;</td>
+											<td class=tdPanelSel_center><pre style="margin: 0px">产品分类设定</pre></td>
+											<td class=tdPanelSel_right>&nbsp;</td>
 										</tr>
 									</table>
 									<!-- END 账户管理首页标签 -->
@@ -115,13 +110,10 @@
 										<tr>
 											<td class=tdOperButton onclick="add()"><img src="${base}/images/${locale}/new.jpg" /></td>
 											<td class=tdPanelSpace10>&nbsp;</td>
-											<td class=tdOperButton onclick="update()"><img src="${base}/images/${locale}/update.jpg"/></td>
+											<td class=tdOperButton onclick="update()"><img src="${base}/images/${locale}/update.jpg" /></td>
 											<td class=tdPanelSpace10>&nbsp;</td>
-											<td class=tdOperButton onclick="del()"><img src="${base}/images/${locale}/del.jpg"/></td>		
-										
-											<td class=tdPanelSpaceW20>
-												&nbsp;
-											</td>
+											<td class=tdOperButton onclick="del()"><img src="${base}/images/${locale}/del.jpg" /></td>
+											<td class=tdPanelSpaceW20>&nbsp;</td>
 
 										</tr>
 									</table>
@@ -130,32 +122,12 @@
 						</TABLE>
 					</TD>
 
-				</TR>
-				<TR>
-					<TD id="tdQueryResult1" class="tdCommonTop">
-						<TABLE class="tbCommonColor" id="Table5" cellSpacing="0"
-							border="0">
-							<TR>
-								<TD id="tdSpace" class=""></TD>
-
-							</TR>
-						</TABLE>
-						<TABLE class="tbCommonColor" id="Table6" cellSpacing="1"
-							border="0">
-							<TR>
-								<TD class="tdLeftH30">
-									
-								</TD>
-							</TR>
-						</TABLE>
-					</TD>
-
-				</TR>
+				</TR>				
 				<TR>
 					<TD class="tdSpaceH12"></TD>
 				</TR>
 				<TR>
-					<TD id="tdQueryResult2" class="tdCommonTop">
+					<TD id="tdQueryResult1" class="tdCommonTop">
 						<TABLE class="tbBlock" id="Table8" cellSpacing="1" border="0">
 							<TR>
 								<TD class="tdPrompt">
@@ -171,47 +143,27 @@
 								<td class="dgHeader">
 									<input type="checkbox" class="checkbox" name="ids" onclick="selectAllCheckBox(this,'selectIds')"/>
 								</td>
-								<td class="dgHeader">
-									<a href="javascript:orderBy('title')"><b>标题</b></a>
 								</td>
 								<td class="dgHeader">
-									<a href="news.action?page.orderBy=auth&page.order=
-			<s:if test="page.orderBy=='auth'">${page.inverseOrder}</s:if><s:else>desc</s:else>
-			"><b>作者</b></a>
-								</td>
-								<td class="dgHeader">
-									<a href="news.action?page.orderBy=date&page.order=
-			<s:if test="page.orderBy=='date'">${page.inverseOrder}</s:if><s:else>desc</s:else>
-			"><b>发布日期</b></a>
-								</td>
-								<td class="dgHeader">
-									<b>照片</b>
+									<a href="javascript:orderBy('name')"><b>名称</b>
+									</a>
 								</td>
 							</tr>
 							<s:iterator value="page.result">
 								<tr class="dgAlternatingItem">
 									<td align="center">
 										<input type="checkbox" class="checkbox" name="selectIds"
-											value="<c:out value='${id}'/>" />
+											value="${id}" />
 									</td>
 									<td align="Left">
-										${title}
-									</td>
-									<td align="Left">
-										${auth}
-									</td>
-									<td align="Left">
-										<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
-									</td>
-									<td align="Left">
-										<c:if test="${not empty picName }"><img src="${base}/${picPath}/${picName}" alt="..." width="30" height="28"/></c:if>
+										${name}
 									</td>
 								</tr>
-							</s:iterator>							
+							</s:iterator>
 						</table>
 						<s:if test="page.result != null">
 							<%@ include file="/common/paginateTool.jsp"%>
-						</s:if>		
+						</s:if>
 					</TD>
 
 				</TR>
@@ -233,7 +185,6 @@
 					</TD>
 				</TR>
 			</TABLE>
-				
 	</body>
 	</form>
 </HTML>

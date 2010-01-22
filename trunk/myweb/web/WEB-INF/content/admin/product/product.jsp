@@ -21,21 +21,21 @@
 
 		function add() {
 			
-			var url = "news!input.action";
+			var url = "product!input.action";
 			top.mainWorkArea.location = url;
 			//top.showDialog(url, null, 750, 500);
 		}
 
 		function update() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
-			var url = "news!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
+			var url = "product!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 		
 		function del() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
 
-			var url = "news!delete.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
+			var url = "product!delete.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
 			if(confirm("确定删除")) {
 				top.mainWorkArea.location = url;
 			}
@@ -53,7 +53,7 @@
 	
 	<body scroll="auto" style="overflow: auto" id="body" onload="InitPage()" MS_POSITIONING="GridLayout">	
 <div id="message" style="display:none;"><s:actionmessage theme="simple"/></div>
-<form id="queryForm" name="queryForm" action="news.action" method="post">
+<form id="queryForm" name="queryForm" action="product.action" method="post">
 			<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
 				<TR>
 					<TD class="tdCommonTop">
@@ -61,7 +61,7 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">新闻管理 > 新闻设定</span>&nbsp;&nbsp;&nbsp;
+									<span id="Location">产品管理 > 产品设定</span>&nbsp;&nbsp;&nbsp;
 									<img src="${base}/images/ask.gif" id="BtnAsk"
 										style="CURSOR: hand" alt="..."
 										height="23" width="24" align="absMiddle" />
@@ -100,7 +100,7 @@
 												&nbsp;
 											</td>
 											<td class=tdPanelSel_center>
-												<pre style="margin: 0px">新闻设定</pre>
+												<pre style="margin: 0px">产品设定</pre>
 											</td>
 											<td class=tdPanelSel_right>
 												&nbsp;
@@ -172,20 +172,16 @@
 									<input type="checkbox" class="checkbox" name="ids" onclick="selectAllCheckBox(this,'selectIds')"/>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('title')"><b>标题</b></a>
+									<a href="javascript:orderBy('name')"><b>标题</b></a>
 								</td>
 								<td class="dgHeader">
-									<a href="news.action?page.orderBy=auth&page.order=
-			<s:if test="page.orderBy=='auth'">${page.inverseOrder}</s:if><s:else>desc</s:else>
-			"><b>作者</b></a>
+									<a href="javascript:orderBy('htmlName')"><b>发布页面名</b></a>
 								</td>
 								<td class="dgHeader">
-									<a href="news.action?page.orderBy=date&page.order=
-			<s:if test="page.orderBy=='date'">${page.inverseOrder}</s:if><s:else>desc</s:else>
-			"><b>发布日期</b></a>
+									<a href="javascript:orderBy('updateTime')"><b>发布日期</b></a>
 								</td>
 								<td class="dgHeader">
-									<b>照片</b>
+									<b>图片</b>
 								</td>
 							</tr>
 							<s:iterator value="page.result">
@@ -195,13 +191,13 @@
 											value="<c:out value='${id}'/>" />
 									</td>
 									<td align="Left">
-										${title}
+										${name}
 									</td>
 									<td align="Left">
-										${auth}
+										<a href="${base}${htmlPath}/${htmlName}" target="_blank">${htmlName}</a>
 									</td>
 									<td align="Left">
-										<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+										<fmt:formatDate value="${updateTime}" pattern="yyyy-MM-dd" />
 									</td>
 									<td align="Left">
 										<c:if test="${not empty picName }"><img src="${base}/${picPath}/${picName}" alt="..." width="30" height="28"/></c:if>

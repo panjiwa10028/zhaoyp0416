@@ -21,10 +21,10 @@ long maxSize = 1000000;
 String[] types = new String[]{"gif", "jpg", "jpeg", "png", "bmp"};   
   
 //文件保存目录路径   
-String savePath = request.getSession().getServletContext().getRealPath("/")+"attached/";   
+String savePath = request.getSession().getServletContext().getRealPath("/")+"upload" + File.separator +"attached" + File.separator;   
   
 //文件保存目录URL   
-String saveUrl  = request.getContextPath()+"/attached/";   
+String saveUrl  = request.getContextPath()+ File.separator + "upload" + File.separator + "attached" + File.separator;   
 
 //判断是否为单个文件   
 boolean isMultipart = ServletFileUpload.isMultipartContent(request);   
@@ -96,7 +96,7 @@ if(isMultipart){
             String tempName = new Date().getTime()+"."+fileExt;   
                
             //检查是否已上传   
-            File file = new File(savePath+"\\"+tempName);   
+            File file = new File(savePath + File.separator + tempName);   
             if(file.exists()){   
                 errorMsg = "临时文件可能不是上传文件。";   
             }   
