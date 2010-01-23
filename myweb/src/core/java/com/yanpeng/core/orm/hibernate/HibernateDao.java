@@ -2,6 +2,7 @@ package com.yanpeng.core.orm.hibernate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -260,6 +261,8 @@ public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao
 			criterion = Restrictions.like(propertyName, (String) value, MatchMode.ANYWHERE);
 		} else if (MatchType.NOTEQ.equals(matchType)) {
 			criterion = Restrictions.not(Restrictions.eq(propertyName, value));
+		}else if (MatchType.IN.equals(matchType)) {
+			criterion = Restrictions.in(propertyName, (Collection)value);
 		}
 
 		return criterion;

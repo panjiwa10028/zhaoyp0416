@@ -15,6 +15,7 @@ import org.apache.struts2.convention.annotation.Results;
 import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.orm.PropertyFilter;
 import com.yanpeng.core.orm.hibernate.HibernateWebUtils;
 import com.yanpeng.core.utils.DateUtils;
@@ -83,6 +84,10 @@ public class ProductAction extends CURDBaseAction<Product> {
 			String[] ids = selectedIds.split(",");
 			List<String> list = Arrays.asList(ids);
 			productManager.deleteProducts(list);
+			String returnValue = generatorHtmlList();
+		
+			
+			returnValue = generatorPicList();
 			addActionMessage("删除成功!");
 
 		} catch (Exception e) {
@@ -101,63 +106,17 @@ public class ProductAction extends CURDBaseAction<Product> {
 //			}
 
 			entity.setUserId(getLoginUser().getId());
-			HtmlGenerator htmlGenerator = new HtmlGenerator();
-			//			取服务器路径
-			String path = Struts2Utils.getRequest().getRealPath("");
-			//			生成随机的字符串
-			String rnadomString = RandomStringUtils.randomAlphabetic(10).toLowerCase();
-			if(entity.getHtmlName() != null && !"".equals(entity.getHtmlName())) {
-				String tempHtmlName = entity.getHtmlName();
-				if(tempHtmlName.indexOf(".") != -1) {
-					rnadomString = tempHtmlName.substring(0, tempHtmlName.indexOf("."));
-				}
-			}
-			Date date = new Date();
-			//			取当前日期
-			String dateString = DateUtils.convertDateToString(date, "yyyy-MM-dd");
-			if (upload != null) {
-				//				删除旧的上传文件
-				String oldPic = path + entity.getPicPath() + File.separator + entity.getPicName();
-				FileUtil.deleteContents(new File(oldPic));
-
-				String newPicName = rnadomString;
-				if (uploadFileName.indexOf(".") != -1) {
-					newPicName += uploadFileName.substring(uploadFileName.lastIndexOf("."));
-				}
-
-				String picPath = config.getProdcutPicPath() + File.separator + dateString;
-				//				创建日期文件夹
-				htmlGenerator.creatDirs(path, picPath);
-
-				entity.setPicPath(picPath);
-				entity.setPicName(newPicName);
-				//				上传
-				copy(upload, path + picPath, newPicName);
-			}
-
-			//			删除旧的生成文件
-			String oldHtml = path + entity.getHtmlPath() + File.separator + entity.getHtmlName();
-			FileUtil.deleteContents(new File(oldHtml));
-
-			htmlGenerator.setEncode("utf-8");
-			htmlGenerator.setTemplateDir("/htmlskin/");
-			htmlGenerator.setTemplateFile(config.getProductHtmlTemplate());
-			htmlGenerator.setRootDir(path);
-
-			String htmlPath = config.getProductHtmlPath() + File.separator + dateString;
-			entity.setHtmlPath(htmlPath);
-			entity.setHtmlName(rnadomString + ".shtml");
-
-			htmlGenerator.setPreviewHtmlFileDir(htmlPath);
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("product", entity);
-			String returnValue = htmlGenerator.preview(map, entity.getHtmlName());
-			if (returnValue == null) {
-				addActionError("保存失败!");
+			String returnValue = generatorHtml();
+			if(returnValue != null) {
+				addActionError("生成静态页失败!");
 				return INPUT;
 			}
-
+		
 			productManager.saveProduct(entity);
+			
+			returnValue = generatorHtmlList();
+			
+			returnValue = generatorPicList();
 			addActionMessage("保存成功!");
 			return RELOAD;
 		} catch (Exception e) {
@@ -187,7 +146,143 @@ public class ProductAction extends CURDBaseAction<Product> {
 		fos.close();
 		fis.close();
 	}
+	private String generatorPicList() throws Exception{
+		String path = Struts2Utils.getRequest().getRealPath("");
+		HtmlGenerator htmlGenerator = new HtmlGenerator();
+		htmlGenerator.setEncode("utf-8");
+		htmlGenerator.setTemplateDir("/htmlskin/");
+		htmlGenerator.setTemplateFile("product-main-pic5.ftl");
+		htmlGenerator.setPreviewHtmlFileDir("/product/");
+		htmlGenerator.setRootDir(path);
 
+		Page<Product> generatorPage = new Page<Product>(5);
+		generatorPage.setOrder("desc");
+		generatorPage.setOrderBy("updateTime");
+		generatorPage = productManager.getPic(generatorPage);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("productList", generatorPage);
+		String returnValue = htmlGenerator.preview(map, "product-pic5.html");
+		if (returnValue == null) {
+			return "error";
+		}
+		return null;
+	}
+	private String generatorHtmlList() throws Exception{
+		String path = Struts2Utils.getRequest().getRealPath("");
+		HtmlGenerator htmlGenerator = new HtmlGenerator();
+		htmlGenerator.setEncode("utf-8");
+		htmlGenerator.setTemplateDir("/htmlskin/");
+		htmlGenerator.setTemplateFile("product-main-list10.ftl");
+		htmlGenerator.setPreviewHtmlFileDir("/product/");
+		htmlGenerator.setRootDir(path);
+
+		Page<Product> generatorPage = new Page<Product>(10);
+		generatorPage.setOrder("desc");
+		generatorPage.setOrderBy("updateTime");
+		generatorPage = productManager.getAllProduct(generatorPage);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("productList", generatorPage);
+		String returnValue = htmlGenerator.preview(map, "product-list10.html");
+		if (returnValue == null) {
+			return "error";
+		}
+		return null;
+	}
+	
+	public String generator() throws Exception{
+		try {
+			String[] ids = selectedIds.split(",");
+			Long[] idsl = new Long[ids.length];
+			for(int i=0;i<ids.length;i++) {
+				try {
+					idsl[i] = Long.parseLong(ids[i]);
+				}catch(Exception ex){}
+			}
+			List<Long> list = Arrays.asList(idsl);
+			List<Product> productList = productManager.getFindByIds(list);
+			for(Product product:productList) {
+				entity = product;
+				generatorHtml();
+			}
+			addActionMessage("生成成功!");
+
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			addActionError("生成失败!");
+			return "生成失败!";
+		}
+		return "111";
+	}
+	private String generatorHtml() throws Exception{
+		HtmlGenerator htmlGenerator = new HtmlGenerator();
+		//			取服务器路径
+		String path = Struts2Utils.getRequest().getRealPath("");
+		//			生成随机的字符串
+		String rnadomString = RandomStringUtils.randomAlphabetic(10).toLowerCase();
+		if(entity.getHtmlName() != null && !"".equals(entity.getHtmlName())) {
+			String tempHtmlName = entity.getHtmlName();
+			if(tempHtmlName.indexOf(".") != -1) {
+				rnadomString = tempHtmlName.substring(0, tempHtmlName.indexOf("."));
+			}
+		}
+		Date date = new Date();
+		//			取当前日期
+		String dateString = DateUtils.convertDateToString(date, "yyyy-MM-dd");
+		if (upload != null) {
+			//				删除旧的上传文件
+			String oldPic = path + entity.getPicPath() + File.separator + entity.getPicName();
+			FileUtil.deleteContents(new File(oldPic));
+
+			String newPicName = rnadomString;
+			if (uploadFileName.indexOf(".") != -1) {
+				newPicName += uploadFileName.substring(uploadFileName.lastIndexOf("."));
+			}
+
+			String picPath = config.getProdcutPicPath() + File.separator + dateString;
+			//				创建日期文件夹
+			htmlGenerator.creatDirs(path, picPath);
+
+			entity.setPicPath(picPath);
+			entity.setPicName(newPicName);
+			//				上传
+			copy(upload, path + picPath, newPicName);
+		}
+
+		//			删除旧的生成文件
+		String oldHtml = path + entity.getHtmlPath() + File.separator + entity.getHtmlName();
+		FileUtil.deleteContents(new File(oldHtml));
+
+		htmlGenerator.setEncode("utf-8");
+		htmlGenerator.setTemplateDir("/htmlskin/");
+		htmlGenerator.setTemplateFile(config.getProductHtmlTemplate());
+		htmlGenerator.setRootDir(path);
+
+		String htmlPath = config.getProductHtmlPath() + File.separator + dateString;
+		entity.setHtmlPath(htmlPath);
+		entity.setHtmlName(rnadomString + ".shtml");
+
+		htmlGenerator.setPreviewHtmlFileDir(htmlPath);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("product", entity);
+		String returnValue = htmlGenerator.preview(map, entity.getHtmlName());
+		if (returnValue == null) {
+			return "error";
+		}
+		return null;
+	}
+	
+	public String checkName() throws Exception {
+		String name = Struts2Utils.getRequest().getParameter("name");
+		String orgName = Struts2Utils.getRequest().getParameter("orgName");
+
+		if (productManager.isNameUnique(name, orgName)) {
+			Struts2Utils.renderText("true");
+		} else {
+			Struts2Utils.renderText("false");
+		}
+		//因为直接输出而不经过Jsp,因此返回null.
+		return null;
+	}
 	// ==================================================
 
 	public File getUpload() {

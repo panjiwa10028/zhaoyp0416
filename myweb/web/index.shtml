@@ -16,10 +16,7 @@ var rootPath = "ssweb";
 <div id="centainer">
      <div id="leftside">
        <div id="user">
-         <p class="f1">用户登陆</p> 
-   <p>用户名:</p><input type="text" size="16"  />  
-           <p>密码:</p><input type="password" size="18" />
-         <br /><input type="button" class="but" /><input type="button" class="but" />
+         <!--#include virtual="./news/news-pic5.html"-->
        </div>
        <div><img src="images/indexs_13.gif" /></div>
      </div>
@@ -41,31 +38,25 @@ var rootPath = "ssweb";
        <div class="th_foot"><img src="images/indexs_12.gif" /></div>
          <div class="sp1">
             <div class="th2">
-              <p class="font1">标题标题</p>
+              <p class="font1">实时新闻&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="news/news.action" target="_blank"><font color="white">更多...</font></a></p>
             </div>
               <div class="th_center2">
-              <span class="neirong">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容容内容内容内容内容</span>
+              <!--#include virtual="./news/news-list10.html"-->
               </div>
               <div class="th_foot"><img src="images/indexs_23.gif" /></div>
          </div>
          <div class="sp1">
             <div class="th2">
-              <p class="font1">标题标题&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <p class="font1">最新产品&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
      			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
      			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更多...</p>
+     			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="product/product.action" target="_blank"><font color="white">更多...</font></a></p>
             </div>
               <div class="th_center2">
-                 <ul>
-                 <li>标题标题标题标题标题标题</li>
-                 <li>标题标题标题标题标题标题</li>
-                 <li>标题标题标题标题标题标题</li>
-                 <li>标题标题标题标题标题标题</li>
-                 <li>标题标题标题标题标题标题</li>
-                 <li>标题标题标题标题标题标题</li>
-                 <li>标题标题标题标题标题标题</li>
-                 <li>标题标题标题标题标题标题</li>
-                 </ul>
+                 <!--#include virtual="./product/product-list10.html"-->
               </div>
               <div class="th_foot"><img src="images/indexs_23.gif" /></div>
          </div>       

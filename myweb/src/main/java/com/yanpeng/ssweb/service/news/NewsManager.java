@@ -48,6 +48,19 @@ public class NewsManager extends EntityManager<News, Long> {
 	public Page<News> getAllNews(Page<News> page) {
 		return newsDao.getAll(page);
 	}
+	
+	@Transactional(readOnly = true)
+	public Page<News> getPic(Page<News> page) {
+		return newsDao.getPicByPage(page);
+	}
+	@Transactional(readOnly = true)
+	public List<News> getFindByIds(Collection ids) {
+		return newsDao.findBy("id", ids, "IN");
+	}
+	
+	public List<News> getFindByPic() {
+		return newsDao.findBy("picName", "", "NOTEQ");
+	}
 
 	@Transactional(readOnly = true)
 	public Page<News> search(Page<News> page, final List<PropertyFilter> filters) {
@@ -66,7 +79,12 @@ public class NewsManager extends EntityManager<News, Long> {
 	public void deleteNews(News news) {
 		newsDao.delete(news);
 	}
-
+	
+	@Transactional(readOnly = true)
+	public boolean isNameUnique(String name, String orgName) {
+		return newsDao.isNameUnique(name, orgName);
+	}
+	
 	public void deleteNews(Collection<String> ids) {
 		String path = Struts2Utils.getRequest().getRealPath("");
 		for (String id : ids) {

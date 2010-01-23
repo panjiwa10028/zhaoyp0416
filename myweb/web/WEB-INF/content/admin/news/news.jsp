@@ -41,6 +41,20 @@
 			}
 		}
 
+		function generator() {		
+			var ids = getSelectedCheckBoxIds('selectIds');
+			
+			$.ajax({
+				 type: "POST",
+				 url: "news!generator.action?selectedIds=" + ids,
+				 data:   "111",				 
+				 success: function(msg111){
+				 alert(msg111);
+				 top.setStatusBarInfo("566");
+				 	} 
+				}); 
+		}
+
 		function query() {
 			submitForm();
 		}
@@ -117,8 +131,9 @@
 											<td class=tdPanelSpace10>&nbsp;</td>
 											<td class=tdOperButton onclick="update()"><img src="${base}/images/${locale}/update.jpg"/></td>
 											<td class=tdPanelSpace10>&nbsp;</td>
-											<td class=tdOperButton onclick="del()"><img src="${base}/images/${locale}/del.jpg"/></td>		
-										
+											<td class=tdOperButton onclick="del()"><img src="${base}/images/${locale}/del.jpg"/></td>
+											<td class=tdPanelSpace10>&nbsp;</td>		
+											<td class=tdOperButton onclick="generator()"><img src="${base}/images/${locale}/generator.jpg"/></td>	
 											<td class=tdPanelSpaceW20>
 												&nbsp;
 											</td>
@@ -185,6 +200,11 @@
 			"><b>发布日期</b></a>
 								</td>
 								<td class="dgHeader">
+									<a href="news.action?page.orderBy=htmlName&page.order=
+			<s:if test="page.orderBy=='date'">${page.inverseOrder}</s:if><s:else>desc</s:else>
+			"><b>页面</b></a>
+								</td>
+								<td class="dgHeader">
 									<b>照片</b>
 								</td>
 							</tr>
@@ -202,6 +222,9 @@
 									</td>
 									<td align="Left">
 										<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+									</td>
+									<td align="Left">
+										<a href="${base}${htmlPath}/${htmlName}" target="_blank">${htmlName}</a>
 									</td>
 									<td align="Left">
 										<c:if test="${not empty picName }"><img src="${base}/${picPath}/${picName}" alt="..." width="30" height="28"/></c:if>

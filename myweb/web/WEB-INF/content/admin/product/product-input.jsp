@@ -31,7 +31,20 @@
 		<script>
 	$(document).ready(function(){
 		$("#name").focus();
-		
+		$("#inputForm").validate({
+			 rules: { 
+				name: { 
+       			required: true, 
+       			remote: encodeURI("product!checkName.action?orgName=${name}")
+   			}
+          		
+			},
+			messages: {
+				name: {
+					remote: "产品名称已存在"
+				}
+			}
+		});
 	});
 
 	function initPage() {
@@ -49,7 +62,7 @@
 		//inputForm.target = "dialog_Info_hiddenSubmitIFrame";
 		top.setStatusBarInfo('');
 		KE.util.setData('content');
-		inputForm.submit();
+		$("#inputForm").submit();
 	}
 	function cancel() {
 		top.mainWorkArea.location='product.action';
@@ -163,15 +176,20 @@
 				</td>
 			</tr>				
 					</TABLE>
-					<TABLE class="tbCommonColor" id="Table3" cellSpacing="1" border="0">
-						<TR>
-							<TD class="tdCenterW30H40"></TD>
-							<TD class="tdLeftH40">
-								<input type="button" name="uc_am_ModiQueryPwd1:BtnOK"
-									value="确 定" id="uc_am_ModiQueryPwd1_BtnOK" class="btn" onclick="subForm()"/>
-							</TD>
-						</TR>
-					</TABLE>
+					<TABLE class="tbCommonColor" id="Table3" cellSpacing="1"
+							border="0">
+							<TR>
+								<TD class="tdCenterW30H40"></TD>
+								<TD class="tdLeftH40">
+									<input type="button" name="uc_am_ModiQueryPwd1:BtnOK"
+										value="确 定" id="uc_am_ModiQueryPwd1_BtnOK" class="btn"
+										onclick="subForm()" />
+									<input type="button" name="cancelButton"
+										value="取消" id="cancelButton" class="btn"
+										onclick="cancel()" />
+								</TD>
+							</TR>
+						</TABLE>
 				</TD>
 			</TR>
 			<TR>

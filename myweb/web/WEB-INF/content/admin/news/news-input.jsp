@@ -30,8 +30,21 @@
   </script>
 		<script>
 	$(document).ready(function(){
-		$("#name").focus();
-		
+		$("#title").focus();
+		$("#inputForm").validate({
+			 rules: { 
+			title: { 
+       			required: true, 
+       			remote: encodeURI("news!checkName.action?orgName=${title}")
+   			}
+          		
+			},
+			messages: {
+				title: {
+					remote: "新闻名称已存在"
+				}
+			}
+		});
 	});
 
 	function initPage() {
@@ -48,7 +61,7 @@
 		//inputForm.target = "mainWorkArea";
 		//inputForm.target = "dialog_Info_hiddenSubmitIFrame";
 		KE.util.setData('content');
-		inputForm.submit();
+		$("#inputForm").submit();
 	}
 
 	function setStatusBarInfo(info)
@@ -141,7 +154,7 @@
 								标题:
 							</TD>
 							<TD class="tdLeftH40">
-								<input type="text" id="name" name="title" size="40" value="${title}" class="required"/>
+								<input type="text" id="title" name="title" size="40" value="${title}"/>
 							</TD>
 						</TR>	
 						<TR>
@@ -149,7 +162,7 @@
 								图片:
 							</TD>
 							<TD class="tdLeftH40">								
-								<span><input type="file" name="upload" class="required" onChange="javascript:FileChange(this.value,'newPreview');"/>
+								<span><input type="file" name="upload" onChange="javascript:FileChange(this.value,'newPreview');"/>
 								
 								<span id="newPreview"></span></span>
 							</TD>
@@ -168,15 +181,20 @@
 				</td>
 			</tr>				
 					</TABLE>
-					<TABLE class="tbCommonColor" id="Table3" cellSpacing="1" border="0">
-						<TR>
-							<TD class="tdCenterW30H40"></TD>
-							<TD class="tdLeftH40">
-								<input type="button" name="uc_am_ModiQueryPwd1:BtnOK"
-									value="确 定" id="uc_am_ModiQueryPwd1_BtnOK" class="btn" onclick="subForm()"/>
-							</TD>
-						</TR>
-					</TABLE>
+					<TABLE class="tbCommonColor" id="Table3" cellSpacing="1"
+							border="0">
+							<TR>
+								<TD class="tdCenterW30H40"></TD>
+								<TD class="tdLeftH40">
+									<input type="button" name="uc_am_ModiQueryPwd1:BtnOK"
+										value="确 定" id="uc_am_ModiQueryPwd1_BtnOK" class="btn"
+										onclick="subForm()" />
+									<input type="button" name="cancelButton"
+										value="取消" id="cancelButton" class="btn"
+										onclick="cancel()" />
+								</TD>
+							</TR>
+						</TABLE>
 				</TD>
 			</TR>
 			<TR>
