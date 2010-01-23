@@ -17,7 +17,7 @@
      <p>&nbsp;</p>
 			<div align="center">
 			<#if product.picPath??>
-			<img src="./../../../${product.picPath}/${product.picName}" />
+			<img src="./../../../${product.picPath}/${product.picName}" width="300" height="280"/>
 		</#if>
 		</div>
   </div>

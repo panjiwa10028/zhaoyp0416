@@ -1,8 +1,11 @@
 package com.yanpeng.ssweb.dao.product;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.orm.hibernate.HibernateDao;
+import com.yanpeng.ssweb.entity.News;
 import com.yanpeng.ssweb.entity.Product;
 
 /**
@@ -16,4 +19,11 @@ import com.yanpeng.ssweb.entity.Product;
 @Repository
 public class ProductDao extends HibernateDao<Product, Long> {
 
+	public boolean isNameUnique(String newValue, String orgValue) {
+		return isPropertyUnique("name", newValue, orgValue);
+	}
+	
+	public Page<Product> getPicByPage(Page<Product> page) {
+		return this.findByCriteria(page, Restrictions.not(Restrictions.eq("picName", "")));
+	}
 }

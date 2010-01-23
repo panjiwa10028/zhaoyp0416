@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>产品你列表</title>
+<title>北京发那科机电有限公司-产品列表</title>
 
  
 <script src="<c:url value="/scripts/jquery.js"/>" type="text/javascript"></script>
@@ -27,7 +27,7 @@
   </select>
    &nbsp;&nbsp;<input type="submit" value="搜索"/>&nbsp;&nbsp;</span>
     <div class="th3">
-      <p class="font1">首页-产品你列表</p>
+      <p class="font1">产品列表</p>
     </div>
     <div class="th_center3">
     	<ul class="ul1" style="margin:20px;">
@@ -36,7 +36,7 @@
     	<table width="100%" border="0" cellspacing="5" cellpadding="0">
   <tr>
     <td width="120">
-    <c:if test="${not empty picName }"><img src="${base}/${picPath}/${picName}" alt="..." width="50" height="45" border="0"/></c:if>
+    <c:if test="${not empty picName }"><img src="${base}/${picPath}/${picName}" alt="..." width="100" height="80" border="0"/></c:if>
     </td>
     <td valign="top"><table width="100%" border="0" cellspacing="2" cellpadding="0">
       <tr>

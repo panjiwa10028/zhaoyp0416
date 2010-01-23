@@ -16,6 +16,7 @@ import com.yanpeng.core.orm.PropertyFilter;
 import com.yanpeng.core.orm.hibernate.EntityManager;
 import com.yanpeng.core.web.struts2.Struts2Utils;
 import com.yanpeng.ssweb.dao.product.ProductDao;
+import com.yanpeng.ssweb.entity.News;
 import com.yanpeng.ssweb.entity.Product;
 
 /**
@@ -59,6 +60,10 @@ public class ProductManager extends EntityManager<Product, Long> {
 		return productDao.get(id);
 	}
 
+	@Transactional(readOnly = true)
+	public Page<Product> getPic(Page<Product> page) {
+		return productDao.getPicByPage(page);
+	}
 	public void saveProduct(Product product) {
 		productDao.save(product);
 	}
@@ -66,7 +71,15 @@ public class ProductManager extends EntityManager<Product, Long> {
 	public void deleteProduct(Product product) {
 		productDao.delete(product);
 	}
-
+	
+	@Transactional(readOnly = true)
+	public boolean isNameUnique(String name, String orgName) {
+		return productDao.isNameUnique(name, orgName);
+	}
+	@Transactional(readOnly = true)
+	public List<Product> getFindByIds(Collection ids) {
+		return productDao.findBy("id", ids, "IN");
+	}
 	public void deleteProducts(Collection<String> ids) {
 		String path = Struts2Utils.getRequest().getRealPath("");
 		for (String id : ids) {

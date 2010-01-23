@@ -26,7 +26,7 @@
 
 		function update() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
-			var url = "product-category!input.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
+			var url = "product-category!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 		

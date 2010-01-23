@@ -1,7 +1,9 @@
 package com.yanpeng.ssweb.dao.news;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import com.yanpeng.core.orm.Page;
 import com.yanpeng.core.orm.hibernate.HibernateDao;
 import com.yanpeng.ssweb.entity.News;
 
@@ -15,5 +17,11 @@ import com.yanpeng.ssweb.entity.News;
 //Spring DAO Bean的标识
 @Repository
 public class NewsDao extends HibernateDao<News, Long> {
-
+	public boolean isNameUnique(String newValue, String orgValue) {
+		return isPropertyUnique("title", newValue, orgValue);
+	}
+	
+	public Page<News> getPicByPage(Page<News> page) {
+		return this.findByCriteria(page, Restrictions.not(Restrictions.eq("picName", "")));
+	}
 }

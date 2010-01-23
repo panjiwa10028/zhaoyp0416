@@ -40,6 +40,19 @@
 				top.mainWorkArea.location = url;
 			}
 		}
+		function generator() {		
+			var ids = getSelectedCheckBoxIds('selectIds');
+			
+			$.ajax({
+				 type: "POST",
+				 url: "product!generator.action?selectedIds=" + ids,
+				 data:   "",				 
+				 success: function(msg111){
+				
+				 top.setStatusBarInfo("566");
+				 	} 
+				}); 
+		}
 
 		function query() {
 			submitForm();
@@ -118,7 +131,9 @@
 											<td class=tdOperButton onclick="update()"><img src="${base}/images/${locale}/update.jpg"/></td>
 											<td class=tdPanelSpace10>&nbsp;</td>
 											<td class=tdOperButton onclick="del()"><img src="${base}/images/${locale}/del.jpg"/></td>		
-										
+										<td class=tdPanelSpace10>&nbsp;</td>		
+											<td class=tdOperButton onclick="generator()"><img src="${base}/images/${locale}/generator.jpg"/></td>	
+											
 											<td class=tdPanelSpaceW20>
 												&nbsp;
 											</td>

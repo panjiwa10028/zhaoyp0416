@@ -19,7 +19,7 @@ public class PropertyFilter {
 	 * 属性比较类型.
 	 */
 	public enum MatchType {
-		EQ, LIKE, NOTEQ;
+		EQ, LIKE, NOTEQ, IN;
 	}
 
 	private String propertyName;
