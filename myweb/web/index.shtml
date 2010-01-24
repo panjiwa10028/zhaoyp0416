@@ -23,17 +23,8 @@ var rootPath = "ssweb";
 
      <div class="rightside">
        <div class="th"><p class="font1">产品介绍</p></div>
-         <div class="th_center">
-         <div class="pu">
-         	<img src=""/>
-            <div>标题标题标题标题标题</div>
-         </div>
-         <div class="pu"> <img src="" alt=""/>
-             <div>标题标题标题标题标题</div>
-         </div>
-         <div class="pu"> <img src="" alt=""/>
-             <div>标题标题标题标题标题</div>
-         </div>
+         <div class="th_center">         
+  <!--#include virtual="./product/product-pic5.html"-->
          </div>
        <div class="th_foot"><img src="images/indexs_12.gif" /></div>
          <div class="sp1">
