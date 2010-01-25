@@ -230,7 +230,7 @@ public class ProductAction extends CURDBaseAction<Product> {
 		String dateString = DateUtils.convertDateToString(date, "yyyy-MM-dd");
 		if (upload != null) {
 			//				删除旧的上传文件
-			String oldPic = path + entity.getPicPath() + File.separator + entity.getPicName();
+			String oldPic = path + entity.getPicPath() + "/" + entity.getPicName();
 			FileUtil.deleteContents(new File(oldPic));
 
 			String newPicName = rnadomString;
@@ -238,7 +238,7 @@ public class ProductAction extends CURDBaseAction<Product> {
 				newPicName += uploadFileName.substring(uploadFileName.lastIndexOf("."));
 			}
 
-			String picPath = config.getProdcutPicPath() + File.separator + dateString;
+			String picPath = config.getProdcutPicPath() + "/" + dateString;
 			//				创建日期文件夹
 			htmlGenerator.creatDirs(path, picPath);
 
@@ -249,7 +249,7 @@ public class ProductAction extends CURDBaseAction<Product> {
 		}
 
 		//			删除旧的生成文件
-		String oldHtml = path + entity.getHtmlPath() + File.separator + entity.getHtmlName();
+		String oldHtml = path + entity.getHtmlPath() + "/" + entity.getHtmlName();
 		FileUtil.deleteContents(new File(oldHtml));
 
 		htmlGenerator.setEncode("utf-8");
@@ -257,7 +257,7 @@ public class ProductAction extends CURDBaseAction<Product> {
 		htmlGenerator.setTemplateFile(config.getProductHtmlTemplate());
 		htmlGenerator.setRootDir(path);
 
-		String htmlPath = config.getProductHtmlPath() + File.separator + dateString;
+		String htmlPath = config.getProductHtmlPath() + "/" + dateString;
 		entity.setHtmlPath(htmlPath);
 		entity.setHtmlName(rnadomString + ".shtml");
 
