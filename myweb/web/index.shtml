@@ -15,7 +15,7 @@ var rootPath = "ssweb";
 <!--#include virtual="./head.jsp"-->
 <div id="centainer">
      <div id="leftside">
-       <div id="user">
+       <div id="user" style="margin:0px 0px 0px 0px;">
          <!--#include virtual="./news/news-pic5.html"-->
        </div>
        <div><img src="images/indexs_13.gif" /></div>
