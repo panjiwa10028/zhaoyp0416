@@ -233,7 +233,7 @@ public class NewsAction extends CURDBaseAction<News> {
 		String dateString = DateUtils.convertDateToString(date, "yyyy-MM-dd");
 		if (upload != null) {
 			//				删除旧的上传文件
-			String oldPic = path + entity.getPicPath() + File.separator + entity.getPicName();
+			String oldPic = path + entity.getPicPath() + "/" + entity.getPicName();
 			FileUtil.deleteContents(new File(oldPic));
 
 			String newPicName = rnadomString;
@@ -241,7 +241,7 @@ public class NewsAction extends CURDBaseAction<News> {
 				newPicName += uploadFileName.substring(uploadFileName.lastIndexOf("."));
 			}
 
-			String picPath = config.getNewsPicPath() + File.separator + dateString;
+			String picPath = config.getNewsPicPath() + "/"+ dateString;
 			//				创建日期文件夹
 			htmlGenerator.creatDirs(path, picPath);
 
@@ -252,7 +252,7 @@ public class NewsAction extends CURDBaseAction<News> {
 		}
 
 		//			删除旧的生成文件
-		String oldHtml = path + entity.getHtmlPath() + File.separator + entity.getHtmlName();
+		String oldHtml = path + entity.getHtmlPath() + "/" + entity.getHtmlName();
 		FileUtil.deleteContents(new File(oldHtml));
 
 		htmlGenerator.setEncode("utf-8");
@@ -260,7 +260,7 @@ public class NewsAction extends CURDBaseAction<News> {
 		htmlGenerator.setTemplateFile(config.getNewsHtmlTemplate());
 		htmlGenerator.setRootDir(path);
 
-		String htmlPath = config.getNewsHtmlPath() + File.separator + dateString;
+		String htmlPath = config.getNewsHtmlPath() + "/" + dateString;
 		entity.setHtmlPath(htmlPath);
 		entity.setHtmlName(rnadomString + ".shtml");
 
