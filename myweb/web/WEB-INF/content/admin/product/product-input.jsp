@@ -52,9 +52,18 @@
 		if($("#message").text() != '') {
 			top.setStatusBarInfo($("#message").text());
 		}
-		if('${picture}' != '') {
-			$("#newPreview").html("<img width='80' height='60' src='${base}/upload/${picture}'/>"); 
+		if('${picName}' != '') {
+			$("#newPreview").html("<img width='80' height='60' src='${base}/${picPath}/${picName}'/> <a href='javascript:hiddenPic()'>删除</a>");
+			$("#pic_input").attr("style","display:none");
+			$("#pic_input").attr("disabled","disabled");
+			
 		}
+	}
+	function hiddenPic() {
+		$("#pic_input").attr("disabled","");
+		$("#pic_input").attr("style","display:");
+		
+		$("#newPreview").html("");
 	}
 
 	function subForm() {
@@ -159,12 +168,12 @@
 								<input type="text" id="name" name="name" size="40" value="${name}" class="required"/>
 							</TD>
 						</TR>	
-						<TR>
+						<TR >
 							<TD class="tdRightW30H40">
 								图片:
 							</TD>
 							<TD class="tdLeftH40">								
-								<span><input type="file" name="upload" class="required" onChange="javascript:FileChange(this.value,'newPreview');"/>
+								<span ><input id="pic_input" type="file" name="upload" class="required" onChange="javascript:FileChange(this.value,'newPreview');"/>
 								
 								<span id="newPreview"></span></span>
 							</TD>
