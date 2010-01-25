@@ -1,34 +1,52 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>产品列表</title>
-<link href="./../../../style/style.css" rel="stylesheet" type="text/css" />
-<script src="./../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-<link href="./../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-<td valign="top" style="padding-left:1px; position:relative;">
-<ul id="indextrans_head_1" class="tabs"><li class="current">
-<span onMouseOver="javascript:DuceObC.imageModule(0);">社区图片</span>
-</li></ul>
-<div id="indextrans_body_1" class="imagebody">
-<script type="text/javascript" src="ducedis/indextrans/template/flash.js"></script>
-<div id="image0" style="display:block" class="imagebox">
-	<div id="flash_show_out">
-	<div id="flash_img" style="width:400px; height:288px;overflow:hidden;"></div>
-	<div id="flashtrans"></div>
-	<div id="flash_btn"></div><div id="flashimg_loading"></div>
-	<div id="flash_show_ctl"><div id="flash_show_ctl_msg"><a id="flash_title"></a></div></div>
-	</div>
+<style type="text/css"> 
+<!--
+.blk_01{border:0px solid #bdd2ed;text-align:center;margin-left:-9px;margin-top:40px}
+.blk_01 #FlashFocusImg{border:0px solid #fff;padding:0px 0;}
+#FlashFocusImg object{display:block;margin:0 auto;}
+-->
+</style> 
+<script type="text/javascript" src="./scripts/picflash.js"></script>
+<div class="blk_01">
+		<div id="FlashFocusImg" class="c_s_01">	<a href="" target="_blank"><img height="176" width="306"  src=""/></a></div>
+		<script type="text/javascript">
+		<!--//--><![CDATA[//><!--
+
+		var focus_width=237
+		var focus_height=197
+		var text_height=0
+		var bgcolor="#ffffff";
+		var swf_height = focus_height+text_height
+		var curhref=document.location.href;
+
+		var pics= '';
+		var links= '';
+		var texts= '';
+		//var pics='./news/423195999_summ.jpg|http://i2.sinaimg.cn/cj/U1985P31T623D1F16779DT20100124113323.jpg|http://i3.sinaimg.cn/cj/U2860P31T623D1F16782DT20100125074815.jpg|http://i0.sinaimg.cn/cj/U3975P31T623D1F16788DT20100122230030.jpg'
+		//var links='http://finance.sina.com.cn/roll/20100125/02087300577.shtml|http://finance.sina.com.cn/china/hgjj/20100124/07427299073.shtml|http://finance.sina.com.cn/stock/s/20100125/06167301308.shtml|http://finance.sina.com.cn/money/future/ds2010/index.shtml'
+		//var texts='�Ϳ˳����ɴ���ȼӰ�|���Ƴ¹���4316��Ǯɽ����|ħ��ST��˾��ժ�����ñ�� �ݲ����Ϸ|ȫ����ָ��������������ʽ24�վ���'
+
+	<#list newsList.result as news>
+	pics += './${news.picPath}/${news.picName}|';
+	links += './${news.htmlPath}/${news.htmlName}|';
+	texts += '${news.title}|';
+     </#list>
+     pics = pics.substring(0, pics.length -1);
+     links = pics.substring(0, pics.length -1);
+     texts = pics.substring(0, pics.length -1);
+		var FocusFlash = new picFlash("./scripts/focus.swf", "focusflash", focus_width, swf_height, "7", bgcolor, false, "High");
+		FocusFlash.addParam("allowScriptAccess", "sameDomain");
+		FocusFlash.addParam("menu", "false");
+		FocusFlash.addParam("wmode", "opaque");
+
+		FocusFlash.addVariable("pics", pics);
+		FocusFlash.addVariable("links", links);
+		FocusFlash.addVariable("texts", texts);
+		FocusFlash.addVariable("borderwidth", focus_width);
+		FocusFlash.addVariable("borderheight", focus_height);
+		FocusFlash.addVariable("textheight", text_height);
+		FocusFlash.addVariable("curhref", curhref);
+		FocusFlash.write("FlashFocusImg");
+
+		//--><!]]>
+		</script>
 </div>
-<script type="text/javascript">
-var duceimgs = new Array();
-DuceObF.done = parseInt('5000');
-DuceObF.target = '_self';
-DuceObF.imgzoom = parseInt('1');
-duceimgs.push({img:'http://www.jjlmw.com/attachments/month_1001/1001032359e8d0453a1b4a2dae.jpg', href:'viewthread.php?tid=23998', title:'雪天留影'});duceimgs.push({img:'http://www.jjlmw.com/attachments/month_1001/100111184080d5ecb5a2112b28.jpg', href:'viewthread.php?tid=24138', title:'中网标已收到 嘿嘿 漂亮'});duceimgs.push({img:'http://www.jjlmw.com/attachments/month_1001/10011516487f9822a04c95e502.jpg', href:'viewthread.php?tid=24202', title:'有缘啊！'});duceimgs.push({img:'http://www.jjlmw.com/attachments/month_1001/1001190930303ab2e7802ddc34.jpg', href:'viewthread.php?tid=24248', title:'通缉'});duceimgs.push({img:'http://www.jjlmw.com/attachments/month_1001/1001212328e19dd17ebdb49e65.jpg', href:'viewthread.php?tid=24283', title:'雪后颐和园'});
-</script></div>
-</td>
-</body>
-</html>
