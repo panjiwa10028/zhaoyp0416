@@ -20,14 +20,12 @@
   <a href="./${product.htmlPath}/${product.htmlName}" target="_blank">
   <img border=0 src="./${product.picPath}/${product.picName}" width=150 height=140 hspace=22>
   </a>
-  <br><br>
   <center><b>
-  <div style="width:140px;float:left;height: 18px; border: 0px;overflow:hidden; padding:3px 2px 0px 2px; text-overflow:ellipsis"><a href="./${product.htmlPath}/${product.htmlName}" target="_blank">${product.name}</a></div>
+  <div style="width:140px;float:center;height: 18px; border: 0px;overflow:hidden; padding:3px 2px 0px 2px; text-overflow:ellipsis"><a href="./${product.htmlPath}/${product.htmlName}" target="_blank">${product.name}</a></div>
   </b></center>
   </td>
   <td width=30></td>
-  </#list>
-  
+  </#list>  
   </tr>
   </table>
  </td><td id=www_qpsh_com2 valign=top></td></tr></table></div>
