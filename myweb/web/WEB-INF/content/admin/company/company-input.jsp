@@ -5,8 +5,6 @@
 	<head>
 		<title></title>
 		<%@ include file="/common/meta.jsp"%>
-		<link href="${base}/js/validate/jquery.validate.css" type="text/css"
-			rel="stylesheet" />
 		<link href="${base}/scripts/validate/jquery.validate.css"
 			type="text/css" rel="stylesheet" />
 		<script language="javascript"
@@ -14,43 +12,33 @@
 			type="text/javascript"></script>
 		<script language="javascript"
 			src="${base}/scripts/validate/messages_cn.js" type="text/javascript"></script>
-		<script language="javascript"
-			src="${base}/scripts/date-picker/WdatePicker.js"
-			type="text/javascript"></script>
-
+		<script type="text/javascript" charset="utf-8" src="${base}/scripts/kindeditor/kindeditor.js"></script>
+<script type="text/javascript">
+    KE.show({
+        id : 'info',
+        cssPath : '${base}/scripts/kindeditor/index.css'
+    });
+    KE.show({
+        id : 'service',
+        cssPath : '${base}/scripts/kindeditor/index.css'
+    });
+    KE.show({
+        id : 'training',
+        cssPath : '${base}/scripts/kindeditor/index.css'
+    });
+    KE.show({
+        id : 'job',
+        cssPath : '${base}/scripts/kindeditor/index.css'
+    });
+    KE.show({
+        id : 'contact',
+        cssPath : '${base}/scripts/kindeditor/index.css'
+    });
+  </script>
 		<script>
-		$(document).ready(function(){
-			$("#loginName").focus();
-			$("#inputForm").validate({
-				 rules: { 
-					groupId: {
-						required: true
-		 			},
-					loginName: { 
-	        			required: true, 
-	        			remote: encodeURI("user!checkLoginName.action?orgLoginName=${loginName}")
-	    			},
-	            	name: "required",
-	            	password: {
-	    				required: true,
-	    				rangelength:[6,12]
-	    			}, 
-	    			passwordConfirm: {
-	    				required: true,
-	    				equalTo:"#password"
-	    			}
-	    			
-	           		
-				},
-				messages: {
-					loginName: {
-						remote: "用户登录名已存在"
-					},
-					passwordConfirm: {
-						equalTo: "输入与上面相同的密码"
-					}
-				}
-			});
+		$().ready(function(){
+			$("#info").focus();
+			
 		});
 
 	function initPage() {
@@ -62,11 +50,12 @@
 
 	function subForm() {
 		top.setStatusBarInfo('');
+		KE.util.setData('info');
+		KE.util.setData('service');
+		KE.util.setData('training');
+		KE.util.setData('job');
+		KE.util.setData('contact');
 		$("#inputForm").submit();
-	}
-
-	function cancel() {
-		top.mainWorkArea.location='user.action';
 	}
 
 	function setStatusBarInfo(info)
@@ -81,8 +70,8 @@
 	</head>
 
 	<body scroll="auto" style="overflow: auto" onload="initPage()">
-		<form id="inputForm" name="inputForm" action="user!save.action"
-			method="post">
+		<form id="inputForm" name="inputForm" action="company!save.action"
+			method="post" >
 			<s:token/>
 			<input type="hidden" name="id" value="${id}" />
 			<input type="hidden" name="page.pageRequest"
@@ -94,11 +83,10 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">用户管理 > <a href='#' onclick="cancel()">用户设定</a> > 用户<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
+									<span id="Location">公司管理 > <a href='#' onclick="cancel()">公司信息设定</a></span>
 								</TD>
 								<TD class="tdTitle2"></TD>
-								<TD class="tdTitle3">
-									版面号：101005
+								<TD class="tdTitle3">									
 									<IMG alt="" src="${base}/images/title_06.gif">
 								</TD>
 							</TR>
@@ -126,7 +114,7 @@
 												&nbsp;
 											</td>
 											<td class=tdPanelSel_center>
-												<pre style="margin: 0px">用户设定</pre>
+												<pre style="margin: 0px">公司信息设定</pre>
 											</td>
 											<td class=tdPanelSel_right>
 												&nbsp;
@@ -152,68 +140,53 @@
 						<TABLE class="tbBlock" id="Table1" cellSpacing="1" border="0">
 							<TR>
 								<TD class="tdPrompt">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户<s:if test="id == null">新增</s:if><s:else>修改</s:else>：
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司信息设定：
 								</TD>
 							</TR>
 						</TABLE>
 						<TABLE id="Table2" cellSpacing="1" border="0" class="tbBlock">
 						
+							
 							<TR>
 								<TD class="tdRightW30H40">
-									用户组:
+									公司信息:
 								</TD>
 								<TD class="tdLeftH40">
-									<s:select id="groupId" name="groupId" list="allGroups" listKey="id" listValue="name"/>
+									<textarea id="info" name="info" style="width:600px;height:250px;visibility:hidden;" class="required">${info}</textarea>
 								</TD>
 							</TR>
 							<TR>
 								<TD class="tdRightW30H40">
-									登录名:
+									维修与服务:
 								</TD>
 								<TD class="tdLeftH40">
-									<input type="text" name="loginName" size="40" id="loginName"
-										value="${loginName}" class="required" />
+									<textarea id="service" name="service" style="width:600px;height:250px;visibility:hidden;" class="required">${service}</textarea>
 								</TD>
-							</TR>
+							</TR>	
 							<TR>
 								<TD class="tdRightW30H40">
-									用户名:
+									培训:
 								</TD>
 								<TD class="tdLeftH40">
-									<input type="text" name="name" size="40" value="${name}"
-										class="required" />
+									<textarea id="training" name="training" style="width:600px;height:250px;visibility:hidden;" class="required">${training}</textarea>
 								</TD>
-							</TR>
-							<tr>
+							</TR>	
+							<TR>
 								<TD class="tdRightW30H40">
-									密码:
-								</td>
+									招聘:
+								</TD>
 								<TD class="tdLeftH40">
-									<input type="password" id="password" name="password" size="40"
-										value="${password}" class="required" />
-								</td>
-							</tr>
-							<tr>
+									<textarea id="job" name="job" style="width:600px;height:250px;visibility:hidden;" class="required">${job}</textarea>
+								</TD>
+							</TR>		
+							<TR>
 								<TD class="tdRightW30H40">
-									确认密码:
-								</td>
+									联系我们:
+								</TD>
 								<TD class="tdLeftH40">
-									<input type="password" name="passwordConfirm" size="40"
-										value="${password}" class="required" />
-								</td>
-							</tr>
-							<tr>
-								<TD class="tdRightW30H40">
-									角色:
-								</td>
-								<TD class="tdLeftH40">
-									<div
-										style="word-break: break-all; width: 250px; overflow: auto;">
-										<s:checkboxlist name="checkedRoleIds" list="allRoles"
-											listKey="id" listValue="name" cssClass="button" />
-									</div>
-								</td>
-							</tr>
+									<textarea id="contact" name="contact" style="width:600px;height:250px;visibility:hidden;" class="required">${contact}</textarea>
+								</TD>
+							</TR>												
 						</TABLE>
 						<TABLE class="tbCommonColor" id="Table3" cellSpacing="1"
 							border="0">
@@ -222,21 +195,13 @@
 								<TD class="tdLeftH40">
 									<input type="button" name="uc_am_ModiQueryPwd1:BtnOK"
 										value="确 定" id="uc_am_ModiQueryPwd1_BtnOK" class="btn"
-										onclick="subForm()" />
-									<input type="button" name="cancelButton"
-										value="取消" id="cancelButton" class="btn"
-										onclick="cancel()" />
+										onclick="subForm()" />									
 								</TD>
 							</TR>
 						</TABLE>
 					</TD>
 				</TR>
-				<TR>
-					<TD class="tdSpaceH12"></TD>
-				</TR>
-
-				
-			</TABLE>
+					</TABLE>
 			<div id="message" style="display: none;">
 				<s:actionmessage theme="simple" />
 			</div>

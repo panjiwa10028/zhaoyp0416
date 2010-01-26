@@ -5643,8 +5643,9 @@ TableComment 0 新宋体,8,N</a:FontList>
 <a:Code>product_category</a:Code>
 <a:CreationDate>1264130471</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1264131586</a:ModificationDate>
+<a:ModificationDate>1264131965</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
+<a:PhysicalOptions>type = InnoDB</a:PhysicalOptions>
 <c:Columns>
 <o:Column Id="o185">
 <a:ObjectID>89DA6BDD-2616-4BF4-8290-186F6DB71244</a:ObjectID>
@@ -5789,8 +5790,9 @@ TableComment 0 新宋体,8,N</a:FontList>
 <a:Code>product</a:Code>
 <a:CreationDate>1264130473</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1264131558</a:ModificationDate>
+<a:ModificationDate>1264131991</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
+<a:PhysicalOptions>type = InnoDB</a:PhysicalOptions>
 <c:Columns>
 <o:Column Id="o197">
 <a:ObjectID>04E552F7-0D10-4A01-A6E6-04A9F097007D</a:ObjectID>

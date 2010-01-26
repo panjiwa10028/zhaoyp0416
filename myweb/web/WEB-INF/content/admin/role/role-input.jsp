@@ -204,22 +204,7 @@
 					<TD class="tdSpaceH12"></TD>
 				</TR>
 
-				<TR>
-					<TD class="tdCommonTop">
-						<TABLE class="tbExplain" id="Table6" cellSpacing="1" border="0"
-							height="20">
-							<TR>
-								<TD class="tdExplain">
-									<IFRAME class="ifExplain" id="ExplainPageFrame"
-										name="ExplainPageFrame"
-										src="${base}/common/help/menu-help.jsp" frameBorder="0"
-										scrolling="no"></IFRAME>
-								</TD>
-							</TR>
-						</TABLE>
-					</TD>
-				</TR>
-
+				
 			</TABLE>
 			<div id="message" style="display: none;">
 				<s:actionmessage theme="simple" />

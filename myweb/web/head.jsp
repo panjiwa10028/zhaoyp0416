@@ -15,12 +15,12 @@
       <div id="mune">
          <ul>
            <li><a href="${base}/index.shtml">网站首页</a></li>
-              <li><a href="${base}/companyinfo.shtml">公司介绍</a></li>
+              <li><a href="${base}/company-info.shtml">公司介绍</a></li>
               <li><a href="${base}/product/product.action">产品介绍</a></li>
-              <li><a href="${base}/service.shtml">技术与维修服务</a></li>
-              <li><a href="${base}/etach.shtml">培训中心</a></li>
-              <li><a href="${base}/job.shtml">人才招聘</a></li>
-              <li><a href="${base}/contact.shtml">联系我们</a></li>
+              <li><a href="${base}/company-service.shtml">技术与维修服务</a></li>
+              <li><a href="${base}/company-training.shtml">培训中心</a></li>
+              <li><a href="${base}/company-job.shtml">人才招聘</a></li>
+              <li><a href="${base}/company-contact.shtml">联系我们</a></li>
          </ul>
       </div>
       <div id="toppic"><img src="${base}/images/indexs_06.gif" width="957" height="170" /></div>

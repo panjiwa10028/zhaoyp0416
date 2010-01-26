@@ -13,12 +13,12 @@
 <div id="foot">
 
 <a href="${base}/index.shtml">网站首页</a>
-<a href="${base}/companyinfo.shtml">公司介绍</a>
+<a href="${base}/company-info.shtml">公司介绍</a>
 <a href="${base}/product/porduct.action">产品介绍</a>
-<a href="${base}/service.shtml">技术与维修服务</a>
-<a href="${base}/etach.shtml">培训中心</a>
-<a href="${base}/job.shtml">人才招聘</a>
-<a href="${base}/contact.shtml">联系我们</a><br />
+<a href="${base}/company-service.shtml">技术与维修服务</a>
+<a href="${base}/company-training.shtml">培训中心</a>
+<a href="${base}/company-job.shtml">人才招聘</a>
+<a href="${base}/company-contact.shtml">联系我们</a><br />
 Copyright © 1996-2010 FANUC Corporation, All Rights Reserved
 
 </div>

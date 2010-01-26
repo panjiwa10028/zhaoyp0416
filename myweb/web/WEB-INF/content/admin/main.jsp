@@ -272,19 +272,8 @@
 												<table cellSpacing="0" cellPadding="0" width="100%" border="0">
 													<tr>
 														<td height="62" align="right" style="PADDING-RIGHT:20px;padding-top:6px" valign=top>
-															<A onclick="CallFunc('CBANK_SHELL','Login/HomePage.aspx','FORM',null);" href="#null">
-															<s:text name="page.title"/>	首页</A>&nbsp;|&nbsp;<A href="${base}/admin/logout.action">重登录</A>&nbsp;|&nbsp;<A  href="${base}/admin/logout.action">退出</A>&nbsp;
-																<br/>
-																<s:set name="SESSION_LOCALE" value="#session['WW_TRANS_I18N_LOCALE']"/>
-																<s:bean id="locales" name="com.yanpeng.ssweb.commons.Locales"/>
-																<form action="<s:url includeParams="get" encode="true"/>" name="langForm" 
-																    style="padding-top: 4px; padding-bottom: 4px;">
-																   语 言: <s:select label="" 
-																        list="#locales.locales" listKey="value"    listValue="key"
-																        value="#SESSION_LOCALE == null ? locale : #SESSION_LOCALE"
-																        name="request_locale" id="langSelecter" 
-																        onchange="langSelecter_onChanged()"/>
-																</form>
+															<A href="${base}">首页</A>&nbsp;|&nbsp;<A href="${base}/admin/logout.action">重登录</A>&nbsp;|&nbsp;<A  href="${base}/admin/logout.action">退出</A>&nbsp;
+																
 														</td>
 													</tr>
 												</table>
@@ -320,18 +309,10 @@
 							<tr>
 								<td class="leftBg" id="tdShortCutMenu" vAlign="top" width="159" height="100%">
 									<table cellSpacing="0" cellPadding="0" width="159" border="0">
-										<tr>
-											<td width="159" background="${base}/images/onlineCS_bg.gif" height="102"><IMG style="CURSOR: hand" onClick="var nWinLeft = (screen.width-600)/2;var nWinTop = (screen.height-450)/2;window.open(GenOnlineCustomerServiceURL,'WindowOpen','menubar=no,toolbar=no,location=no,directories=no,status=yes,resizable=no,scrollbars=no,width=600,height=450,top='+nWinTop+',left='+nWinLeft);"
-													src="${base}/images/95555.gif"></td>
-										</tr>
-										<tr>
-											<td bgColor="white" height="4"></td>
-										</tr>
+										
 										<tr>
 											<td background="${base}/images/search_bg.jpg" height="57" align="center">
-												<input id="txtSearch" maxlength="10" value="功能搜索" onKeyPress="if(window.event.keyCode==13){onSearch();}" onClick="if(this.style.color=='gray'){this.style.color='black';this.value='';}"
-													onblur="if(this.value==''){this.value='功能搜索';this.style.color='gray';}" style="BORDER-RIGHT:gray 1px solid;BORDER-TOP:gray 1px solid;PADDING-LEFT:5px;MARGIN-BOTTOM:5px;BORDER-LEFT:gray 1px solid;COLOR:gray;PADDING-TOP:4px;BORDER-BOTTOM:gray 1px solid;HEIGHT:22px"
-													size="10">&nbsp; <input type="image" src="${base}/images/search_btn.jpg" onClick="onSearch();return false;">
+												
 											</td>
 										</tr>
 										<tr>

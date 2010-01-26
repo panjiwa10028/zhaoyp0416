@@ -11,7 +11,7 @@ response.setDateHeader("Expires", 0);
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title><s:text name="page.title"/></title>
+		<title>后台管理登录</title>
 		<%@ include file="/common/meta.jsp"%>
 		<link href="${base}/scripts/validate/jquery.validate.css"
 			type="text/css" rel="stylesheet" />
@@ -64,15 +64,16 @@ response.setDateHeader("Expires", 0);
 	<%
 } 
 %>
-			<h2><s:text name="page.title"/></h2>
-			<h3>--管理界面</h3>
+<p>&nbsp;</p><p>&nbsp;</p>
+			<h2><!-- s:text name="page.title"/ --></h2>
+			<h3><font size="20px">后台管理</font></h3>
 			<form id="loginForm" name="loginForm" action="${base}/j_spring_security_check" method="post">
-				<table class="inputView">
+				<table class="inputView" border=0>
 					<tr>
-						<td>
+						<td align="right">
 							用户名:
 						</td>
-						<td>
+						<td align="right">
 							<input type='text' id="userName" name='j_username'
 								<s:if test="not empty param.error"> value='<%=session.getAttribute(AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY)%>'</s:if>/>
 						</td>
@@ -85,28 +86,17 @@ response.setDateHeader("Expires", 0);
 							<input type='password' id="password" name='j_password'/>
 						</td>
 					</tr>
-					<tr>
+					<tr >
 						<td>验证码:</td>
-						<td><input type='text' name='j_captcha'/></td>
-						<td valign="bottom"><img src="${base}/security/jcaptcha.jpg" onclick="this.src='${base}/security/jcaptcha.jpg?'+Math.random()" style="cursor:pointer;"/></td>
-					</tr>
-					
+						<td align="left"><input type='text' name='j_captcha' size="4"/><img src="${base}/security/jcaptcha.jpg" onclick="this.src='${base}/security/jcaptcha.jpg?'+Math.random()" style="cursor:pointer;"/></td>
+					</tr>					
 					<tr>
-						<td>
-							<input type="checkbox" name="_spring_security_remember_me" />
-						</td>
-						<td>
-							两周内记住我
-						</td>
-					</tr>
-					<tr>
-						<td colspan='2'>
-							<input value="登录" type="submit"/>
+						<td colspan='2' align="right">
+							<input value=" 登   录 " type="submit"/>
 						</td>
 					</tr>
 				</table>
 			</form>
-			<p>（管理员<b>admin/admin</b> ,普通用户<b>user/user</b>）</p>
 
 		</div>
 	</body>

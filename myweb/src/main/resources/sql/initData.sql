@@ -1,3 +1,6 @@
+insert into company(id, info, service, training, job, contact update_time, user_id)
+values(1, ' ', ' ', ' ', ' ',' ', now(), 1);
+
 
 insert into groups (id, name, parent_id, description, sort, update_time, user_id)
 values(-1, 'root',-1,'---', '0', now(), 1);
