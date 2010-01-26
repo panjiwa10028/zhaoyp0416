@@ -17,11 +17,11 @@ values(1, 1);
 insert into permissions (id, name, display_name, path, update_time, user_id)
 values(1, 'PER_ALL_ADMIN', '后台管理　　', '/admin/main.action*', now(), 1);
 insert into permissions (id, name, display_name, path, update_time, user_id)
-values(2, 'PER_VIEW_GROUP', '浏览用户组', '/admin/group/group.action*', now(), 1);
+values(2, 'PER_VIEW_GROUP', '浏览用户组　', '/admin/group/group.action*', now(), 1);
 insert into permissions (id, name, display_name, path, update_time, user_id)
-values(3, 'PER_SAVE_GROUP', '保存用户组', '/admin/group/group!save.action*', now(), 1);
+values(3, 'PER_SAVE_GROUP', '保存用户组　', '/admin/group/group!save.action*', now(), 1);
 insert into permissions (id, name, display_name, path, update_time, user_id)
-values(4, 'PER_DELETE_GROUP', '删除用户组', '/admin/group/group!delete.action*', now(), 1);
+values(4, 'PER_DELETE_GROUP', '删除用户组　', '/admin/group/group!delete.action*', now(), 1);
 insert into permissions (id, name, display_name, path, update_time, user_id)
 values(5, 'PER_SAVE_USER', '保存用户　　', '/admin/user/user!save.action*', now(), 1);
 insert into permissions (id, name, display_name, path, update_time, user_id)
