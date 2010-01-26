@@ -15,7 +15,7 @@ insert into users_roles (user_id, role_id)
 values(1, 1);
 
 insert into permissions (id, name, display_name, path, update_time, user_id)
-values(1, 'PER_ALL_ADMIN', '后台管理　　', '/admin/main.action*', now(), 1);
+values(1, 'PER_ALL_ADMIN', '后台管理　　', '/admin/*', now(), 1);
 insert into permissions (id, name, display_name, path, update_time, user_id)
 values(2, 'PER_VIEW_GROUP', '浏览用户组　', '/admin/group/group.action*', now(), 1);
 insert into permissions (id, name, display_name, path, update_time, user_id)
