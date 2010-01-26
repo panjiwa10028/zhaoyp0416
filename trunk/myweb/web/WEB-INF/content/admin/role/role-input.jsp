@@ -157,7 +157,7 @@
 								</td>
 								<TD class="tdLeftH40">
 									<div
-										style="word-break: break-all; width: 400px; overflow: auto;">
+										style="word-break: break-all; width: 410px; overflow: auto;">
 										<s:checkboxlist id="checkedIds" name="checkedIds" list="allPermissions"
 											listKey="id" listValue="displayName" cssClass="button" />
 									</div>
@@ -169,7 +169,7 @@
 								</td>
 								<TD class="tdLeftH40">
 									<div
-										style="word-break: break-all; width: 400px; overflow: auto;">
+										style="word-break: break-all; width: 410px; overflow: auto;">
 										<s:checkboxlist id="checkedMenuIds" name="checkedMenuIds" list="allMenus"
 											listKey="id" listValue="displayName" cssClass="button" />
 									</div>
