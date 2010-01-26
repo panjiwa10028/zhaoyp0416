@@ -16,12 +16,12 @@
   <tr>
   
   <#list productList.result as product>
-  <td>
+  <td valign="top">
   <a href="./${product.htmlPath}/${product.htmlName}" target="_blank">
-  <img border=0 src="./${product.picPath}/${product.picName}" width=150 height=140 hspace=22>
+  <img border=0 src="./${product.picPath}/${product.picName}" width=180 height=140 hspace=22>
   </a>
   <center><b>
-  <div style="width:140px;float:center;height: 18px; border: 0px;overflow:hidden; padding:3px 2px 0px 2px; text-overflow:ellipsis"><a href="./${product.htmlPath}/${product.htmlName}" target="_blank">${product.name}</a></div>
+  <div class="mudi_list" style="text-overflow:ellipsis; white-space:nowrap; overflow:hidden; width:140px;"><a href="./${product.htmlPath}/${product.htmlName}" target="_blank">${product.name}</a></div>
   </b></center>
   </td>
   <td width=30></td>
