@@ -1,9 +1,10 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2010-1-22 11:46:43                           */
+/* Created on:     2010-1-26 14:26:07                           */
 /*==============================================================*/
---drop database myweb;
---create database myweb character set =utf8;
+
+
+drop table if exists company;
 
 drop index Index_t_groups_3 on groups;
 
@@ -86,6 +87,22 @@ drop index Index_t_users_roles_2 on users_roles;
 drop index Index_t_users_roles_1 on users_roles;
 
 drop table if exists users_roles;
+
+/*==============================================================*/
+/* Table: company                                               */
+/*==============================================================*/
+create table company
+(
+   id                   bigint not null auto_increment,
+   info                 text,
+   service              text,
+   training             text,
+   job                  text,
+   contact              text,
+   update_time          datetime,
+   user_id              bigint,
+   primary key (id)
+);
 
 /*==============================================================*/
 /* Table: groups                                                */

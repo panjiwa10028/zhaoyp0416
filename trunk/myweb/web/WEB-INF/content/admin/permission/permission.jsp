@@ -176,20 +176,7 @@
 				<TR>
 					<TD class="tdSpaceH12"></TD>
 				</TR>
-				<TR>
-					<TD class="tdCommonTop">
-						<TABLE class="tbExplain" id="Table10" height="20" cellSpacing="1"
-							border="0">
-							<TR>
-								<TD class="tdExplain">
-									<IFRAME class="ifExplain" id="ExplainPageFrame"
-										name="ExplainPageFrame" src="101002.htm" frameBorder="0"
-										scrolling="no"></IFRAME>
-								</TD>
-							</TR>
-						</TABLE>
-					</TD>
-				</TR>
+				
 			</TABLE>
 	</body>
 	</form>

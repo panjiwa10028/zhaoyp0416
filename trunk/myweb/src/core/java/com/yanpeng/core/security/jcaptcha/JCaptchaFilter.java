@@ -1,6 +1,11 @@
 package com.yanpeng.core.security.jcaptcha;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.awt.image.MultiPixelPackedSampleModel;
+import java.awt.image.Raster;
+import java.awt.image.SampleModel;
+import java.awt.image.SinglePixelPackedSampleModel;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -135,6 +140,7 @@ public class JCaptchaFilter implements Filter {
 
 			BufferedImage challenge = (BufferedImage) captchaService.getChallengeForID(captchaId, request.getLocale());
 			//			challenge.setRGB(60, 20, BufferedImage.TYPE_INT_RGB);
+
 			ImageIO.write(challenge, "JPEG", out);
 			out.flush();
 		} catch (CaptchaServiceException e) {

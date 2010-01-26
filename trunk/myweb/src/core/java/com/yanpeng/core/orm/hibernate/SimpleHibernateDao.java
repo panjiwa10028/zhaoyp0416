@@ -113,7 +113,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	 */
 	public T get(final PK id) {
 		Assert.notNull(id, "id不能为空");
-		return (T) getSession().load(entityClass, id);
+		return (T) getSession().get(entityClass, id);
 	}
 
 	/**
