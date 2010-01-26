@@ -54,13 +54,13 @@ h3{background:#FEF0D3;padding:5px;margin-top:10px;color:#000;}
 .th_center3{ background:url(../images/indexs_09_957.gif) repeat-y; overflow:hidden;}
 
 .th{ background:url(../images/indexs_08.gif) no-repeat left top;height:26px; width:100%;padding: 14px 0 0 0;}
-.th_center{ background:url(../images/indexs_09.gif) repeat-y; overflow:hidden;}
+.th_center{ background:url(../images/indexs_09.gif) repeat-y; overflow:hidden; height:170px;padding-top:2px;text-align:top;}
 .font1{margin: 3px 30px; font-weight:bold;color:#FFFFFF}
 
 .sp1{width:351px;float:left;}
 .neirong{ line-height:20px;}
 .th2{ background:url(../images/indexs_15.gif) no-repeat left top;height:26px; width:100%;padding: 14px 0 0 0;}
-.th_center2{ background:url(../images/indexs_17.gif) repeat-y; height:200px; padding:15px;}
+.th_center2{ background:url(../images/indexs_17.gif) repeat-y; height:230px; padding:5px;}
 .th_center2 ul li{ line-height:23px;}
 .but{ width:80px;height:27px; margin:20px 10px 0 0;}
 .pu{ width:30%;float:left;margin-left:16px; text-align:center;margin-top:5px;}
