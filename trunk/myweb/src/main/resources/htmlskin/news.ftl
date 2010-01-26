@@ -18,7 +18,7 @@
         <div class="th_center3">
 		<div style="margin:10px;" class="chanp">
         <p style="position:absolute; right:10px; color:#ccc;">${news.updateTime?string("yyyy年MM月dd日 hh点mm分ss秒")}</p>
-        <h1 style="text-align:center; border-bottom:1px #ccc solid;padding-bottom:5px;"><div style="width: 600px">${news.title}</div></h1>
+        <h1 style="text-align:center; border-bottom:1px #ccc solid;padding-bottom:5px;"><div style="width: 520px">${news.title}</div></h1>
          <p></p>
          <#if news.picPath??>
 			<img src="./../../../${news.picPath}/${news.picName}" />
