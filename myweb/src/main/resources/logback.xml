@@ -23,29 +23,29 @@
 	</appender>
 	
 	<logger name="com.yanpeng.ssweb">
-		<level value="DEBUG" />
+		<level value="ERROR" />
 	</logger>
 	<logger name="com.yanpeng.core">
-		<level value="DEBUG" />
+		<level value="ERROR" />
 	</logger>
 
 	<logger name="org.springframework">
-		<level value="WARN" />
+		<level value="ERROR" />
 	</logger>
 	<logger name="org.hibernate">
 		<level value="ERROR" />
 	</logger>
 	<logger name="org.hibernate.SQL">
-		<level value="DEBUG" />
+		<level value="ERROR" />
 	</logger>
 		<logger name="org.hibernate.cache">
-		<level value="WARN" />
+		<level value="ERROR" />
 	</logger>
 	<logger name="org.apache.struts2">
-		<level value="WARN" />
+		<level value="ERROR" />
 	</logger>
 	<logger name="com.opensymphony.xwork2">
-		<level value="DEBUG" />
+		<level value="ERROR" />
 	</logger>
 	<logger name="com.opensymphony.xwork2.ognl.OgnlValueStack">
 		<level value="ERROR" />
