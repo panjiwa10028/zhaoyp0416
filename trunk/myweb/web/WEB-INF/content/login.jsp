@@ -38,7 +38,7 @@ response.setDateHeader("Expires", 0);
 
 		<div id="content">
 			<% 
-				if(request.getParameter("error")!=null&&request.getParameter("error").equals("2")){
+				if(request.getParameter("error")!=null&&request.getParameter("error").equals("true")){
 					%>
 					<span style="color:red"> 用户名、密码错误！ </span>
 				<%
