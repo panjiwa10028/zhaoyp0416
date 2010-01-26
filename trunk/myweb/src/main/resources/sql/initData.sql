@@ -192,6 +192,8 @@ values (1, 3);
 insert into roles_menus (role_id, menu_id)
 values (1, 4);
 insert into roles_menus (role_id, menu_id)
+values (1, 5);
+insert into roles_menus (role_id, menu_id)
 values (1, 10);
 insert into roles_menus (role_id, menu_id)
 values (1, 11);
