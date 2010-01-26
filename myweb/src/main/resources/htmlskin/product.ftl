@@ -18,6 +18,8 @@
 			<div align="center">
 			<#if product.picPath??>
 			<img src="./../../../${product.picPath}/${product.picName}" width="300" height="280"/>
+			<#else>
+			<img src="./../../../images/nopic.gif" width="120" height="120"/>
 		</#if>
 		</div>
   </div>

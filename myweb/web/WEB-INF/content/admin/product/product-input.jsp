@@ -173,7 +173,7 @@
 								图片:
 							</TD>
 							<TD class="tdLeftH40">								
-								<span ><input id="pic_input" type="file" name="upload" class="required" onChange="javascript:FileChange(this.value,'newPreview');"/>
+								<span ><input id="pic_input" type="file" name="upload" onChange="javascript:FileChange(this.value,'newPreview');"/>
 								
 								<span id="newPreview"></span></span>
 							</TD>
