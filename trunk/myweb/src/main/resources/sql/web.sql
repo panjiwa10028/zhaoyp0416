@@ -102,7 +102,8 @@ create table company
    update_time          datetime,
    user_id              bigint,
    primary key (id)
-);
+)
+type = InnoDB;
 
 /*==============================================================*/
 /* Table: groups                                                */
