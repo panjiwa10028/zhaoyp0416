@@ -207,14 +207,14 @@ public class NewsAction extends CURDBaseAction<News> {
 				entity = news;
 				generatorHtml();
 			}
-			addActionMessage("生成成功!");
+			Struts2Utils.renderText("生成成功!");
 
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			addActionError("生成失败!");
-			return "生成失败!";
+			Struts2Utils.renderText("生成失败!");
+			
 		}
-		return "111";
+		return null;
 	}
 	private String generatorHtml() throws Exception{
 		HtmlGenerator htmlGenerator = new HtmlGenerator();
