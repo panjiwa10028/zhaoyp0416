@@ -48,9 +48,8 @@
 				 type: "POST",
 				 url: "news!generator.action?selectedIds=" + ids,
 				 data:   "111",				 
-				 success: function(msg111){
-				 alert(msg111);
-				 top.setStatusBarInfo("566");
+				 success: function(msg){
+				 top.setStatusBarInfo(msg);
 				 	} 
 				}); 
 		}
