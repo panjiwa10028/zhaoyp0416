@@ -47,7 +47,7 @@
 			$.ajax({
 				 type: "POST",
 				 url: "news!generator.action?selectedIds=" + ids,
-				 data:   "111",				 
+				 data:   "",				 
 				 success: function(msg){
 				 top.setStatusBarInfo(msg);
 				 	} 
