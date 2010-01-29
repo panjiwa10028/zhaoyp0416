@@ -28,6 +28,9 @@
 		<!-- 产品生成静态页模板 -->
 		<void property="productHtmlTemplate">
 			<string>product.ftl</string>
+		</void>	
+		<void property="backupPath">
+			<string>../../backup</string>
 		</void>			
  </object> 
 </java> 

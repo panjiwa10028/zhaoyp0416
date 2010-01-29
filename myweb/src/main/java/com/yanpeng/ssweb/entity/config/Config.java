@@ -22,6 +22,8 @@ public class Config {
 	private String newsHtmlTemplate;
 	
 	private String productHtmlTemplate;
+	
+	private String backupPath;
 
 	public String getAppPath() {
 		return appPath;
@@ -85,6 +87,14 @@ public class Config {
 
 	public void setProductHtmlTemplate(String productHtmlTemplate) {
 		this.productHtmlTemplate = productHtmlTemplate;
+	}
+
+	public String getBackupPath() {
+		return backupPath;
+	}
+
+	public void setBackupPath(String backupPath) {
+		this.backupPath = backupPath;
 	}
 	
 
