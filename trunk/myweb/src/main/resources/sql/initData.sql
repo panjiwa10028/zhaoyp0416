@@ -77,6 +77,14 @@ values(28, 'PER_DELETE_PRODUCT', '删除产品　　', '/admin/product/product!d
 insert into permissions (id, name, display_name, path, update_time, user_id)
 values(29, 'PER_SET_COMPANY', '设定公司信息　', '/admin/company/company!save.action*', now(), 1);
 
+insert into permissions (id, name, display_name, path, update_time, user_id)
+values(30, 'PER_SET_SYSTEM', '系统设定　', '/admin/system/system!save.action*', now(), 1);
+
+insert into permissions (id, name, display_name, path, update_time, user_id)
+values(31, 'PER_BACKUP_SYSTEM', '数据备份　', '/admin/system/system!backup.action*', now(), 1);
+insert into permissions (id, name, display_name, path, update_time, user_id)
+values(32, 'PER_RECOVER_SYSTEM', '数据恢复　', '/admin/system/system!recover.action*', now(), 1);
+
 insert into roles_permissions (role_id, permission_id)
 values(1, 1);
 insert into roles_permissions (role_id, permission_id)
@@ -137,6 +145,13 @@ values(1, 28);
 insert into roles_permissions (role_id, permission_id)
 values(1, 29);
 
+insert into roles_permissions (role_id, permission_id)
+values(1, 30);
+insert into roles_permissions (role_id, permission_id)
+values(1, 31);
+insert into roles_permissions (role_id, permission_id)
+values(1, 32);
+
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values(-1, 'root', -1, '---', '', '0', 0, now(), 1);
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
@@ -182,6 +197,11 @@ values(18, 'ADMIN_PRODUCT_ROLE', 4, '产品设定　　', 'mainWorkArea.location
 insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
 values(19, 'ADMIN_COMPANY_SET', 5, '信息设定　　', 'mainWorkArea.location=''company/company!input.action?id=1''', '0-5-19', 0, now(), 1);
 
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
+values(20, 'ADMIN_SYSTEM_SET', 5, '系统设定　　', 'mainWorkArea.location=''system/system.action''', '0-1-20', 0, now(), 1);
+insert into menus (id, name, parent_id, display_name, path, sort, is_disabled, update_time, user_id)
+values(21, 'ADMIN_BACKUP_RECOVER_SET', 5, '数据备份/恢复', 'mainWorkArea.location=''system/system!backupAndRecover.action''', '0-1-21', 0, now(), 1);
+
 
 insert into roles_menus (role_id, menu_id)
 values (1, 1);
@@ -213,6 +233,10 @@ insert into roles_menus (role_id, menu_id)
 values (1, 18);
 insert into roles_menus (role_id, menu_id)
 values (1, 19);
+insert into roles_menus (role_id, menu_id)
+values (1, 20);
+insert into roles_menus (role_id, menu_id)
+values (1, 21);
 
 insert into news_category (id, name, parent_id, description, sort, update_time, user_id)
 values(-1, 'root',-1,'---', '0', now(), 1);

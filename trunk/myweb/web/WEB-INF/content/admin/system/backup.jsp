@@ -19,27 +19,41 @@
 			body.style.cursor = "";
 		}		
 		
-		
-		function subForm() {
-			top.setStatusBarInfo('');
-			var paramData = "";
-			if($("#autoBackup").attr("checked")) {
-				paramData = "autoBackup=1";
-			} else {
-				paramData = "autoBackup=0";
-			}
-			paramData += "&webRootPath=" + $("#webRootPath").val();
-			paramData += "&backupPath=" + $("#backupPath").val();
-			$.ajax({
-				 type: "POST",
-				 url: "system!save.action",
-				 data:   paramData,				 
-				 success: function(msg){
-				 top.setStatusBarInfo(msg);
-				 	} 
-				}); 
-		//	$("#inputForm").submit();
+		function backup() {		
+			if(confirm("确认备份数据库？")){
+				$.ajax({
+					 type: "POST",
+					 url: "system!backup.action",
+					 data:   "",				 
+					 success: function(msg){
+					 top.setStatusBarInfo(msg);
+					 	} 
+					}); 
+			}	
+			
 		}
+
+		function recover() {		
+			var paramData = "";
+			if($("#recoverDate").val() == "") {
+				alert("请选择要恢复的日期");
+				return;
+			} else {
+				paramData = "recoverDate=" + $("#recoverDate").val();
+			}
+			if(confirm("确认恢复数据库？")){
+				$.ajax({
+					 type: "POST",
+					 url: "system!recover.action",
+					 data:   paramData,				 
+					 success: function(msg){
+					 top.setStatusBarInfo(msg);
+					 	} 
+					}); 
+			}	
+			
+		}
+		
 		</script>
 	</HEAD>
 <form id="inputForm" name="inputForm" action="system!save.action"
@@ -59,7 +73,7 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">系统管理 > 系统设定</span>&nbsp;&nbsp;&nbsp;
+									<span id="Location">系统管理 > 数据备份/恢复</span>&nbsp;&nbsp;&nbsp;
 									<img src="${base}/images/ask.gif" id="BtnAsk"
 										style="CURSOR: hand" alt="..."
 										height="23" width="24" align="absMiddle" />
@@ -93,7 +107,7 @@
 										<tr>
 											<td class=tdPanelHead>&nbsp;</td>
 											<td class=tdPanelSel_left>&nbsp;</td>
-											<td class=tdPanelSel_center><pre style="margin: 0px">系统设定</pre></td>
+											<td class=tdPanelSel_center><pre style="margin: 0px">数据备份/恢复</pre></td>
 											<td class=tdPanelSel_right>&nbsp;</td>
 										</tr>
 									</table>
@@ -118,43 +132,31 @@
 							</TR>
 						</TABLE>
 						<TABLE id="Table2" cellSpacing="1" border="0" class="tbBlock">
+							
 							<TR>
 								<TD class="tdRightW30H40">
-									web工程目录:
+									数据库备份:
 								</TD>
 								<TD class="tdLeftH40">
-									<input type="text" id="webRootPath" name="webRootPath" size="40" value="${config.webRootPath}"/>
+									<a href="javascript:backup()">备份</a>
 								</TD>
-							</TR>
+							</TR>	
 							<TR>
 								<TD class="tdRightW30H40">
-									备份数据库目录:
+									数据库恢复：${name }
 								</TD>
 								<TD class="tdLeftH40">
-									<input type="text" id="backupPath" name="backupPath" size="40" value="${config.backupPath}"/>
+								<select id="recoverDate" name="recoverDate">
+								<option value="">--选择恢复日期--</option>
+								<c:forEach var="element" items="${fileList}">
+								<option value="${element}">${element}</option>
+								</c:forEach>
+								</select>
+									&nbsp;&nbsp;&nbsp;<a href="javascript:recover()">恢复</a>
 								</TD>
-							</TR>
-							<TR>
-								<TD class="tdRightW30H40">
-									自动备份数据库:
-								</TD>
-								<TD class="tdLeftH40">
-									<input type="checkbox" id="autoBackup" name="autoBackup" value="1" <c:if test="${config.autoBackup == 1}">checked</c:if>/>
-								</TD>
-							</TR>								
-											
+							</TR>							
 						</TABLE>						
-					<TABLE class="tbCommonColor" id="Table3" cellSpacing="1"
-							border="0">
-							<TR>
-								<TD class="tdCenterW30H40"></TD>
-								<TD class="tdLeftH40">
-									<input type="button" name="uc_am_ModiQueryPwd1:BtnOK"
-										value="确 定" id="uc_am_ModiQueryPwd1_BtnOK" class="btn"
-										onclick="subForm()" />									
-								</TD>
-							</TR>
-						</TABLE>
+					
 					</TD>
 
 				</TR>

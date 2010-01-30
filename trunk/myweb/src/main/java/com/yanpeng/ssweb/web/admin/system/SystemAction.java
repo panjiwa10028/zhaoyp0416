@@ -28,7 +28,7 @@ import com.yanpeng.ssweb.web.BaseAction;
  * @author Allen
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = CRUDActionSupport.RELOAD, location = "group.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
+@Results( { @Result(name = "backup", location = "backup.jsp", type = "dispatcher") })
 public class SystemAction extends BaseAction {
 
 	private final Logger logger = LoggerFactory.getLogger(SystemAction.class);
@@ -40,6 +40,15 @@ public class SystemAction extends BaseAction {
 	private List<String> fileList;
 	@Override
 	public String execute() throws Exception {
+		
+		File backupPath = new File(config.getBackupPath());
+		if(!backupPath.exists()){
+			backupPath.mkdirs();
+		}		
+		
+		return SUCCESS;
+	}
+	public String backupAndRecover() throws Exception {
 		fileList = new ArrayList<String>();
 		File backupPath = new File(config.getBackupPath());
 		if(!backupPath.exists()){
@@ -58,9 +67,8 @@ public class SystemAction extends BaseAction {
 			}
 		}
 		
-		return SUCCESS;
+		return "backup";
 	}
-	
 	public String save() throws Exception {
 		int autoBackup = 1;
 		String webRootPath = "";
