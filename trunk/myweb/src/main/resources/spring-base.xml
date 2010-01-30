@@ -88,7 +88,7 @@
 		<property name="run" value="false"/><!-- 如果是内存库true，其他普通库为false -->
 	</bean>
 	 
-	 <bean id="backupManager" class="com.yanpeng.ssweb.service.backup.BackupManager">
+	 <bean id="systemManager" class="com.yanpeng.ssweb.service.system.SystemManager">
 	 	<property name="databaseUserName" value="${jdbc.username}" />
 		<property name="databasePassword" value="${jdbc.password}" />
 		<property name="databaseName" value="${jdbc.databasename}" />
