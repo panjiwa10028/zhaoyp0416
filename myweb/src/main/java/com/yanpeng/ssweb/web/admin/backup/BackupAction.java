@@ -1,6 +1,7 @@
 package com.yanpeng.ssweb.web.admin.backup;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collection;
@@ -45,11 +46,26 @@ public class BackupAction extends BaseAction {
 	@Autowired
 	private BackupManager backupManager;
 	
+	@Override
+	public String execute() throws Exception {
+		String path = ClassLoader.class.getClassLoader().getResource("").toString();
+		File file = new File(config.getBackupPath());
+
+		return SUCCESS;
+	}
+	
 	public String backup() throws Exception {
 		
 		try {
 			Runtime rt = Runtime.getRuntime();
-//			
+			String path = this.getClass().getClassLoader().getResource("").toString();
+			if(path.indexOf("ssweb") != -1) {
+				path = path.substring(0, path.indexOf("ssweb"));
+			}
+			File file = new File(path+"../../aaaccc");
+			if(!file.exists()){
+				file.mkdirs();
+			}
 //		    Process proc;
 //			proc = rt.exec("cmd /c mysqldump -l -u"+dataSource.getUrl().getUsername()+" -p" + dataSource.getPassword() + " --opt test > ../../backup/b.sql");
 //			InputStreamReader isr = new InputStreamReader(proc.getErrorStream()); 

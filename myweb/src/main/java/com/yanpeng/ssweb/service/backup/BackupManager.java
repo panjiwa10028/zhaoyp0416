@@ -1,10 +1,16 @@
 package com.yanpeng.ssweb.service.backup;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.yanpeng.core.web.struts2.Struts2Utils;
+import java.net.URL;   
+import java.net.URLClassLoader; 
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method; 
 /**
  *
  * @author Allen
@@ -16,13 +22,17 @@ public class BackupManager {
 	private String databasePassword;
 	private String databaseName;
 	
+
 	public int backup(String backupPath, String backupName) throws Exception {
 		int exitVal = -1;
 		try {
 			Runtime rt = Runtime.getRuntime();
-			
+
 		    Process proc;
-			proc = rt.exec("cmd /c mysqldump -l -u"+databaseUserName+" -p" + databasePassword + " --opt "+databaseName+" > " + backupPath + "/" + backupName);
+		    String cmdarray = new String();
+		    cmdarray = "cmd /c mysqldump -l -u"+databaseUserName+" -p" + databasePassword + " --opt "+databaseName+" > " + backupPath + "/"+ backupName;
+		   
+			proc = rt.exec(cmdarray);
 			InputStreamReader isr = new InputStreamReader(proc.getErrorStream()); 
 			BufferedReader br = new BufferedReader(isr); 
 			String line=null; 
@@ -44,13 +54,13 @@ public class BackupManager {
 		return exitVal;
 	}
 	
-	public String recover() throws Exception {
+	public String recover(String backupPath, String backupName) throws Exception {
 		
 		try {
 			Runtime rt = Runtime.getRuntime();
 			
 		    Process proc;
-			proc = rt.exec("cmd /c mysql -uroot -proot test < d:\bak.sql");
+			proc = rt.exec("mysql -uroot -proot test < " + backupPath + "/" + backupName);
 			InputStreamReader isr = new InputStreamReader(proc.getErrorStream()); 
 			BufferedReader br = new BufferedReader(isr); 
 			String line=null; 
