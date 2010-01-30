@@ -23,7 +23,7 @@
 	</appender>
 	
 	<logger name="com.yanpeng.ssweb">
-		<level value="ERROR" />
+		<level value="debug" />
 	</logger>
 	<logger name="com.yanpeng.core">
 		<level value="ERROR" />
