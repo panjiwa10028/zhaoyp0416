@@ -3,7 +3,9 @@ package com.yanpeng.ssweb.web.admin.system;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
@@ -35,9 +37,24 @@ public class SystemAction extends BaseAction {
 	@Autowired
 	private SystemManager systemManager;
 	
+	private List fileList;
 	@Override
 	public String execute() throws Exception {
-		
+		fileList = new ArrayList();
+		File backupPath = new File(config.getBackupPath());
+		if(!backupPath.exists()){
+			backupPath.mkdirs();
+		}
+		File []files = backupPath.listFiles();
+		for(File file:files) {
+			if(file.isFile()) {
+				String fileName = file.getName();
+				if(fileName.indexOf(".") != -1) {
+					fileName = fileName.substring(0, fileName.lastIndexOf("."));
+				}
+				fileList.add(fileName);
+			}
+		}
 		return SUCCESS;
 	}
 	
@@ -74,23 +91,7 @@ public class SystemAction extends BaseAction {
 	
 	public String backup() throws Exception {
 		
-		try {
-			Runtime rt = Runtime.getRuntime();
-			String path = this.getClass().getClassLoader().getResource("").toString();
-			if(path.indexOf("ssweb") != -1) {
-				path = path.substring(0, path.indexOf("ssweb"));
-			}
-			File file = new File(path+"../../aaaccc");
-			if(!file.exists()){
-				file.mkdirs();
-			}
-//		    Process proc;
-//			proc = rt.exec("cmd /c mysqldump -l -u"+dataSource.getUrl().getUsername()+" -p" + dataSource.getPassword() + " --opt test > ../../backup/b.sql");
-//			InputStreamReader isr = new InputStreamReader(proc.getErrorStream()); 
-//			BufferedReader br = new BufferedReader(isr); 
-//			String line=null; 
-//			while ( (line = br.readLine()) != null) 
-//			System.out.println( ">" + line); 
+		try {	
 			Date date = new Date();
 			String dateString = DateUtils.convertDateToString(date, "yyyy-MM-dd");
 			int returnValue = systemManager.backup(config.getBackupPath(), dateString + ".sql");
@@ -111,23 +112,18 @@ public class SystemAction extends BaseAction {
 	}
 	
 	public String recover() throws Exception {
-		
+		String recoverDate;
 		try {
-			Runtime rt = Runtime.getRuntime();
-			
-		    Process proc;
-			proc = rt.exec("cmd /c mysql -uroot -proot test < d:\bak.sql");
-			InputStreamReader isr = new InputStreamReader(proc.getErrorStream()); 
-			BufferedReader br = new BufferedReader(isr); 
-			String line=null; 
-			while ( (line = br.readLine()) != null) 
-			System.out.println( ">" + line); 
+			recoverDate = Struts2Utils.getRequest().getParameter("recoverDate");
+			if(recoverDate == null || "".equals(recoverDate)) {
+				Struts2Utils.renderText("恢复失败");
+				return null;
+			}
+			int returnValue = systemManager.recover(config.getBackupPath(), recoverDate + ".sql");
+		
+		  
 
-
-
-			// any error??? 
-			int exitVal = proc.waitFor(); 
-			if(exitVal == 0) {
+			if(returnValue == 0) {
 				Struts2Utils.renderText("恢复成功");
 			} else {
 				Struts2Utils.renderText("恢复失败");
@@ -141,4 +137,14 @@ public class SystemAction extends BaseAction {
 
 		return null;
 	}
+
+	public void setFileList(List fileList) {
+		this.fileList = fileList;
+	}
+
+	public List getFileList() {
+		return fileList;
+	}
+	
+	
 }
