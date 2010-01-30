@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean id="localQuartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false">
+		<property name="triggers">
+			<list>
+				<ref bean="backupTrigger"/>
+			</list>
+		</property>
+	</bean>
+	
+ 	 <bean id="backupTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="backupJobDetail" />
+		<!-- 首次执行延期10秒 -->
+		<property name="startDelay" value="10000" />
+		<!-- 每次执行间隔1 minute -->
+		<property name="repeatInterval" value="2000" />
+	</bean>
+	
+	<bean id="backupJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="backupJob" />
+		<property name="targetMethod" value="executeBackup" />
+		<!-- 同一任务在前一次执行未完成而Trigger时间又到时是否并发开始新的执行, 默认为true. -->
+		<property name="concurrent" value="true" />
+	</bean>
+	
+	<bean id="backupJob" class="com.yanpeng.ssweb.schedule.BackupJob"/>
+	
+	
+</beans>

@@ -37,24 +37,27 @@ public class SystemAction extends BaseAction {
 	@Autowired
 	private SystemManager systemManager;
 	
-	private List fileList;
+	private List<String> fileList;
 	@Override
 	public String execute() throws Exception {
-		fileList = new ArrayList();
+		fileList = new ArrayList<String>();
 		File backupPath = new File(config.getBackupPath());
 		if(!backupPath.exists()){
 			backupPath.mkdirs();
 		}
 		File []files = backupPath.listFiles();
-		for(File file:files) {
-			if(file.isFile()) {
-				String fileName = file.getName();
-				if(fileName.indexOf(".") != -1) {
-					fileName = fileName.substring(0, fileName.lastIndexOf("."));
+		if(files != null) {
+			for(File file:files) {
+				if(file.isFile()) {
+					String fileName = file.getName();
+					if(fileName.indexOf(".") != -1) {
+						fileName = fileName.substring(0, fileName.lastIndexOf("."));
+					}
+					fileList.add(fileName);
 				}
-				fileList.add(fileName);
 			}
 		}
+		
 		return SUCCESS;
 	}
 	
@@ -91,6 +94,10 @@ public class SystemAction extends BaseAction {
 	
 	public String backup() throws Exception {
 		
+		if("".equals(config.getBackupPath())) {
+			Struts2Utils.renderText("备份失败。原因：请先在系统设定中配置备份路径");
+			return null;
+		}
 		try {	
 			Date date = new Date();
 			String dateString = DateUtils.convertDateToString(date, "yyyy-MM-dd");
@@ -113,6 +120,10 @@ public class SystemAction extends BaseAction {
 	
 	public String recover() throws Exception {
 		String recoverDate;
+		if("".equals(config.getBackupPath())) {
+			Struts2Utils.renderText("恢复失败。原因：请先在系统设定中配置备份路径");
+			return null;
+		}
 		try {
 			recoverDate = Struts2Utils.getRequest().getParameter("recoverDate");
 			if(recoverDate == null || "".equals(recoverDate)) {
