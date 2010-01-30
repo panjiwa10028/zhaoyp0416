@@ -29,8 +29,17 @@
 		<void property="productHtmlTemplate">
 			<string>product.ftl</string>
 		</void>	
+		<!-- 备份路径 -->
 		<void property="backupPath">
-			<string>../../backup</string>
-		</void>			
+			<string></string>
+		</void>	
+		<!-- 工程路径 -->
+		<void property="webRootPath">
+			<string></string>
+		</void>	
+		<!-- 是否自动备份。1：自动，0：手动 -->
+		<void property="autoBackup">
+			<int>1</int>
+		</void>				
  </object> 
 </java> 
