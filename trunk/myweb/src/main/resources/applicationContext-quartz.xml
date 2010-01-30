@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<bean id="scheduledReportTask" class="org.springframework.scheduling.timer.MethodInvokingTimerTaskFactoryBean">
+		<property name="targetObject">
+			<ref bean="taskService"/>
+		</property>
+		<property name="targetMethod">
+			<value>runtask</value>
+		</property>
+	</bean>
+	<bean id="courseServiceInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	    <property name="targetObject">
+     		 <ref bean="taskService"/>
+    	</property>
+    	<property name="targetMethod">
+      		<value>runtask</value>      		
+    	</property>    	
+ 	 </bean>
+	<bean id="taskService" class="com.esoon.schedule.manager.impl.TaskServiceImpl">
+		<property name="taskbean" ref="taskbean"></property>	
+	</bean>
+	<bean id="taskbean" class="com.esoon.schedule.model.TaskBaseBean">		
+	</bean>
+	
+	<bean id="taskOne"
+		class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.esoon.schedule.task.TaskOne</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="taskService">
+					<ref bean="taskService" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="cronReportTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="taskOne"/>
+		</property>
+		<property name="cronExpression">
+		<value>45 27 13 * * ?</value>
+		</property>
+	</bean>
+	
+	<bean id="taskTwo"
+		class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.esoon.schedule.task.TaskTwo</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="taskService">
+					<ref bean="taskService" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="taskTwoTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="taskTwo"/>
+		</property>
+		<property name="cronExpression">
+		<value>50 27 13 * * ?</value>
+		</property>
+	</bean>
+	
+	<bean id="faxFileTask"
+		class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.esoon.schedule.task.FaxFileTask</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="taskService">
+					<ref bean="taskService" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="faxFileTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="faxFileTask"/>
+		</property>
+		<!-- 每次执行间隔1 minute -->
+		<property name="cronExpression">
+		<value>0 * * * * ?</value>
+		</property>
+	</bean>
+	
+	<bean id="checkLicenseTask"
+		class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.esoon.schedule.task.CheckLicenseTask</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="taskService">
+					<ref bean="taskService" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="checkLicenseTaskTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail">
+			<ref bean="checkLicenseTask"/>
+		</property>
+		<!-- 首次执行延期1 minute -->
+		<property name="startDelay" value="60000" />
+		<!-- 每次执行间隔5 minute -->
+		<property name="repeatInterval" value="300000" />
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronReportTrigger"/>
+				<ref bean="taskTwoTrigger"/>
+				<ref bean="faxFileTaskTrigger"/>
+				<ref bean="emailTrigger"/>
+				<ref bean="checkLicenseTaskTrigger"/>
+			</list>
+		</property>
+	</bean>
+	
+ 	 <bean id="emailTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="emailJobDetail" />
+		<!-- 首次执行延期10秒 -->
+		<property name="startDelay" value="10000" />
+		<!-- 每次执行间隔1 minute -->
+		<property name="repeatInterval" value="60000" />
+	</bean>
+	
+	<bean id="emailJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="emailJob" />
+		<property name="targetMethod" value="executeSendEmail" />
+	</bean>
+	
+	<bean id="emailJob" class="com.esoon.schedule.email.EmailJob">
+		<property name="emailService" ref="emailService" />
+	</bean>
+	
+ 	 
+ 	 <!-- TimeTask 简单定时-->
+ 	 <!-- 
+ 	 <bean id = "faxFileTask"   class = "com.esoon.schedule.task.FaxFileTask" >   
+	 </bean > 
+ 	 <bean id = "scheduledTimerTask_1"   class = "org.springframework.scheduling.timer.ScheduledTimerTask" > 
+	   <property name = "timerTask" > 
+	     <ref local = "faxFileTask" /> 
+	   </property > 
+	   <property name = "delay" > 
+	     <value> 1000 </value > 
+	   </property> 
+	   <property name = "period" > 
+	     <value >10000</value > 
+	   </property > 
+	</bean > 
+ 	<bean id = "timer"   class = "org.springframework.scheduling.timer.TimerFactoryBean"> 
+	   <property name = "scheduledTimerTasks"> 
+	     <list > 
+	       <ref local = "scheduledTimerTask_1" /> 
+	     </list > 
+	   </property > 
+	</bean > 
+	-->
+</beans>

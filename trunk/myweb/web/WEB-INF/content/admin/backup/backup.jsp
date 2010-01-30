@@ -108,19 +108,26 @@
 								</TD>
 							</TR>
 						</TABLE>
-						<table class="dgMain" cellspacing="0" cellpadding="3"
-							align="Center" rules="all" bordercolor="#9FD6FF" border="1"
-							id="dgSubAccRecSet"
-							style="border-color: #9FD6FF; border-width: 1px; border-style: solid; border-collapse: collapse;">
-							<tr class="dgHeader" align="Center">
-								<td class="dgHeader">
-									<a href="javascript:backup()">数据库备份：</a>
-								</td>
-								</td>
-								
-							</tr>
+						<TABLE id="Table2" cellSpacing="1" border="0" class="tbBlock">
+						
 							
-						</table>
+							<TR>
+								<TD class="tdRightW30H40">
+									数据库备份:
+								</TD>
+								<TD class="tdLeftH40">
+									<a href="javascript:backup()">备份</a>
+								</TD>
+							</TR>	
+							<TR>
+								<TD class="tdRightW30H40">
+									数据库恢复：
+								</TD>
+								<TD class="tdLeftH40">
+									<a href="javascript:recover()">恢复</a>
+								</TD>
+							</TR>							
+						</TABLE>						
 					
 					</TD>
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>   
+   <local-tx-datasource>
+    <jndi-name>IPCCDS</jndi-name>
+    <connection-url>jdbc:postgresql://192.168.8.26:5432/ezipcc_cn</connection-url>
+    <driver-class>org.postgresql.Driver</driver-class>
+    <user-name>dev</user-name>
+    <password>dev</password>
+      <min-pool-size>10</min-pool-size>
+      <max-pool-size>30</max-pool-size>
+  </local-tx-datasource>  
+</datasources>
