@@ -12,18 +12,22 @@ public class Config {
 
 	private int pageSize;//每页显示数量
 
-	private String newsPicPath;
+	private String newsPicPath;//新闻图片路径
 
-	private String newsHtmlPath;
+	private String newsHtmlPath;//新闻静态页路径
 	
-	private String prodcutPicPath;
-	private String productHtmlPath;
+	private String prodcutPicPath;//产品图片路径
+	private String productHtmlPath;//产品静态页路径
 	
-	private String newsHtmlTemplate;
+	private String newsHtmlTemplate;//新闻静态页模板名
 	
-	private String productHtmlTemplate;
+	private String productHtmlTemplate;//产品静态页模板名
 	
-	private String backupPath;
+	private String backupPath;//数据库备份目录
+	
+	private String webRootPath;//工程根目录
+	
+	private int autoBackup;//是否自动备份。1：自动，0：手动
 
 	public String getAppPath() {
 		return appPath;
@@ -96,6 +100,23 @@ public class Config {
 	public void setBackupPath(String backupPath) {
 		this.backupPath = backupPath;
 	}
+
+	public String getWebRootPath() {
+		return webRootPath;
+	}
+
+	public void setWebRootPath(String webRootPath) {
+		this.webRootPath = webRootPath;
+	}
+
+	public int getAutoBackup() {
+		return autoBackup;
+	}
+
+	public void setAutoBackup(int autoBackup) {
+		this.autoBackup = autoBackup;
+	}
+	
 	
 
 }
