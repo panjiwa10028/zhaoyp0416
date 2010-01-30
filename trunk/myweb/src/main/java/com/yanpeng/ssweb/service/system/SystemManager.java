@@ -32,6 +32,10 @@ public class SystemManager {
 		    String cmdarray = new String();
 		    cmdarray = "cmd /c mysqldump -l -u"+databaseUserName+" -p" + databasePassword + " --opt "+databaseName+" > " + backupPath + "/"+ backupName;
 		   
+		    File path = new File(backupPath);
+		    if(!path.exists()) {
+		    	path.mkdirs();
+		    }
 			proc = rt.exec(cmdarray);
 			InputStreamReader isr = new InputStreamReader(proc.getErrorStream()); 
 			BufferedReader br = new BufferedReader(isr); 
@@ -54,13 +58,13 @@ public class SystemManager {
 		return exitVal;
 	}
 	
-	public String recover(String backupPath, String backupName) throws Exception {
-		
+	public int recover(String backupPath, String backupName) throws Exception {
+		int exitVal = -1;
 		try {
 			Runtime rt = Runtime.getRuntime();
 			
 		    Process proc;
-			proc = rt.exec("mysql -uroot -proot test < " + backupPath + "/" + backupName);
+			proc = rt.exec("cmd /c mysql -u"+databaseUserName+" -p" + databasePassword + " "+databaseName+" < " + backupPath + "/" + backupName);
 			InputStreamReader isr = new InputStreamReader(proc.getErrorStream()); 
 			BufferedReader br = new BufferedReader(isr); 
 			String line=null; 
@@ -70,12 +74,7 @@ public class SystemManager {
 
 
 			// any error??? 
-			int exitVal = proc.waitFor(); 
-			if(exitVal == 0) {
-				Struts2Utils.renderText("恢复成功");
-			} else {
-				Struts2Utils.renderText("恢复失败");
-			}
+			exitVal = proc.waitFor(); 
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -83,7 +82,7 @@ public class SystemManager {
 		}
 
 
-		return null;
+		return exitVal;
 	}
 	public void setDatabaseUserName(String databaseUserName) {
 		this.databaseUserName = databaseUserName;
