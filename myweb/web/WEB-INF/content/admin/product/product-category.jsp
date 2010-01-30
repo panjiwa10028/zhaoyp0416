@@ -57,6 +57,10 @@
 		</div>
 		<form id="queryForm" name="queryForm" action="product-category.action"
 			method="post">
+			<s:token/>
+			<input type="hidden" name="id" value="${id}" />
+			<input type="hidden" name="page.pageRequest"
+				value="${page.pageRequest}" />
 			<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
 				<TR>
 					<TD class="tdCommonTop">
