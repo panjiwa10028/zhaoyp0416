@@ -23,8 +23,29 @@
 			if(confirm("确认备份数据库？")){
 				$.ajax({
 					 type: "POST",
-					 url: "backup!backup.action",
+					 url: "system!backup.action",
 					 data:   "",				 
+					 success: function(msg){
+					 top.setStatusBarInfo(msg);
+					 	} 
+					}); 
+			}	
+			
+		}
+
+		function recover() {		
+			var paramData = "";
+			if($("#recoverDate").val() == "") {
+				alert("请选择要恢复的日期");
+				return;
+			} else {
+				paramData = "recoverDate=" + $("#recoverDate").val();
+			}
+			if(confirm("确认恢复数据库？")){
+				$.ajax({
+					 type: "POST",
+					 url: "system!recover.action",
+					 data:   paramData,				 
 					 success: function(msg){
 					 top.setStatusBarInfo(msg);
 					 	} 
@@ -159,7 +180,7 @@
 								<TD class="tdRightW30H40">
 									数据库备份:
 								</TD>
-								<TD class="tdLeftH40">${config.appPath}
+								<TD class="tdLeftH40">
 									<a href="javascript:backup()">备份</a>
 								</TD>
 							</TR>	
@@ -168,6 +189,12 @@
 									数据库恢复：
 								</TD>
 								<TD class="tdLeftH40">
+								<select id="recoverDate" name="recoverDate">
+								<option value="">--选择恢复日期--</option>
+								<c:forEach var="element" items="${fileList}">
+								<option value="${element}">${element}</option>
+								</c:forEach>
+								</select>
 									<a href="javascript:recover()">恢复</a>
 								</TD>
 							</TR>							
