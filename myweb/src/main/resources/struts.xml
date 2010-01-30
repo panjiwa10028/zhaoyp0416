@@ -22,7 +22,7 @@
 	<!-- 该属性指定Struts 2文件上传中整个请求内容允许的最大字节数 -->
 	<constant name="struts.multipart.maxSize" value="209715200"/>
 	<!-- 该属性指定上传文件的临时保存路径，该属性的默认值是javax.servlet.context.tempdir -->
-	<constant name="struts.multipart.saveDir" value="c:/temp"/>
+	<constant name="struts.multipart.saveDir" value="../temp"/>
 	<!-- 该属性指定Struts 2应用所需要的国际化资源文件 -->
 	<constant name="struts.custom.i18n.resources" value="i18n/messages"/>
 	
