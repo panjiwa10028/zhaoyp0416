@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
+import org.apache.struts2.util.StrutsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yanpeng.core.orm.PropertyFilter;
@@ -33,7 +34,8 @@ import com.yanpeng.ssweb.web.CURDBaseAction;
  * @author Allen
  */
 @SuppressWarnings("serial")
-@Results( { @Result(name = CRUDActionSupport.RELOAD, location = "user.action?page.pageRequest=${page.pageRequest}", type = "redirect") })
+@Results( { @Result(name = CRUDActionSupport.RELOAD, location = "user.action?page.pageRequest=${page.pageRequest}", type = "redirect")
+, @Result(name = "PASSWORDINPUT", location = "user-password-input.jsp", type = "dispatcher") })
 public class UserAction extends CURDBaseAction<Users> {
 
 	// CRUD Action 基本属性
@@ -84,6 +86,10 @@ public class UserAction extends CURDBaseAction<Users> {
 	@Override
 	public String list() throws Exception {
 		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new Users());
+		if(page.getOrderBy() == null || page.getOrderBy().equals("")) {
+			page.setOrder("desc");
+			page.setOrderBy("updateTime");
+		}
 		page = userManager.search(page, filters);
 		return SUCCESS;
 	}
@@ -93,6 +99,11 @@ public class UserAction extends CURDBaseAction<Users> {
 		return INPUT;
 	}
 
+	public String passwordInput() throws Exception {
+		prepareModel();
+		return "PASSWORDINPUT";
+	}
+	
 	@Override
 	@Token
 	public String save() throws Exception {
@@ -111,6 +122,30 @@ public class UserAction extends CURDBaseAction<Users> {
 			e.printStackTrace();
 			addActionMessage("保存用户失败");
 			return INPUT;
+		}
+
+	}
+	
+	@Token
+	public String updatePassword() throws Exception {
+		//根据页面上的checkbox 整合entity的roles Set
+		//		
+//		if (entity != null && entity.getId().equals("")) {
+//			entity.setId(null);
+//		}
+		
+		try {
+			String password = Struts2Utils.getParameter("password");
+			prepareModel();
+			entity.setPassword(password);
+			userManager.saveUser(entity);
+			prepareModelAfter();
+			addActionMessage("密码修改成功");
+			return RELOAD;
+		} catch (Exception e) {
+			e.printStackTrace();
+			addActionMessage("密码修改失败");
+			return "PASSWORDINPUT";
 		}
 
 	}

@@ -28,13 +28,24 @@
 
 		function update() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
+			if(ids == "") {
+				alert("请选择一条记录");
+				return;
+			}
+			if(ids.indexOf(",") != -1) {
+				alert("只能选择一条记录");
+				return;
+			}
 			var url = "product!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 		
 		function del() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
-
+			if(ids == "") {
+				alert("请选择一条或多条记录");
+				return;
+			}
 			var url = "product!delete.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
 			if(confirm("确定删除")) {
 				top.mainWorkArea.location = url;
@@ -42,19 +53,23 @@
 		}
 		function generator() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
-			
+			if(ids == "") {
+				alert("请选择一条或多条记录");
+				return;
+			}
 			$.ajax({
 				 type: "POST",
 				 url: "product!generator.action?selectedIds=" + ids,
 				 data:   "",				 
-				 success: function(msg111){
-				
-				 top.setStatusBarInfo("566");
+				 success: function(msg){
+				unCheckBox('selectIds');
+				 top.setStatusBarInfo(msg);
 				 	} 
 				}); 
 		}
 
 		function query() {
+			$('#pageNo').val("1");
 			submitForm();
 		}
 
@@ -146,26 +161,50 @@
 					</TD>
 
 				</TR>
-				<TR>
-					<TD id="tdQueryResult1" class="tdCommonTop">
-						<TABLE class="tbCommonColor" id="Table5" cellSpacing="0"
-							border="0">
-							<TR>
-								<TD id="tdSpace" class=""></TD>
-
-							</TR>
-						</TABLE>
-						<TABLE class="tbCommonColor" id="Table6" cellSpacing="1"
-							border="0">
-							<TR>
-								<TD class="tdLeftH30">
-									
-								</TD>
-							</TR>
-						</TABLE>
-					</TD>
-
-				</TR>
+				<!-- 搜索 -->
+				<tr>
+                <td class="tdCommonBtm">
+                    <table class="tbBlock" cellspacing="1" cellpadding="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table class="tbCommonColor" id="Table3" cellspacing="1" border="0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="tdCenterH40">
+                                                   产品名称：<input type="text" name="filter_LIKE_name" value="${param['filter_LIKE_name']}" size="20"/>
+                                                </td>
+                                                <td class="tdCenterH40">
+                                                    是否有效：<select name="filter_EQ_categoryId" id="filter_EQ_categoryId" style="height:19px;width:110px;">
+	<option value="">[ 全部 ]</option>
+	<c:forEach var="element" items="${allProductCategory}">
+	<option <c:if test="${param['filter_EQ_categoryId'] == element.id}">selected="selected"</c:if> value="${element.id}">${element.name}</option>
+	</c:forEach>
+</select>
+                                                </td>
+                                                <td class="tdLeftH40">
+                                                    <input class="btn" id="BtnSubmit" onclick="query()" type="button" value="查 询"
+                                                        name="BtnClose">
+                                                </td> 
+                                                <td bordercolor="white" width="1" ></td>
+                                                <td >
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </td>                                              
+                                             </tr>
+                                            <tr>
+                                                
+                                            </tr>
+                                        </tbody>
+                                </td>
+                            </tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </TD></TR>	
+    		<!-- 搜索 -->	
 				<TR>
 					<TD class="tdSpaceH12"></TD>
 				</TR>
@@ -187,13 +226,16 @@
 									<input type="checkbox" class="checkbox" name="ids" onclick="selectAllCheckBox(this,'selectIds')"/>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('name')"><b>标题</b></a>
+									<a href="product.action?page.orderBy=name&page.order=
+			<s:if test="page.orderBy=='name'">${page.inverseOrder}</s:if><s:else>desc</s:else>"><b>产品名称</b></a>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('htmlName')"><b>发布页面名</b></a>
+									<a href="product.action?page.orderBy=htmlName&page.order=
+			<s:if test="page.orderBy=='htmlName'">${page.inverseOrder}</s:if><s:else>desc</s:else>"><b>发布页面名</b></a>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('updateTime')"><b>发布日期</b></a>
+									<a href="product.action?page.orderBy=updateTime&page.order=
+			<s:if test="page.orderBy=='updateTime'">${page.inverseOrder}</s:if><s:else>desc</s:else>"><b>发布日期</b></a>
 								</td>
 								<td class="dgHeader">
 									<b>图片</b>

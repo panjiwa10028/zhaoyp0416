@@ -52,6 +52,16 @@ public class PermissionManager extends EntityManager<Permissions, Long> {
 	}
 
 	public void savePermission(Permissions entity) {
+		if(entity.getId() != null) {
+			boolean returnValue = permissionsDao.isNameUniqueById(entity.getId(), entity.getName());
+			if(!returnValue) {
+				throw new ServiceException("保存权限失败。原因：权限标识重复。");
+			}
+			returnValue = permissionsDao.isDisplayNameUniqueById(entity.getId(), entity.getName());
+			if(!returnValue) {
+				throw new ServiceException("保存权限失败。原因：权限名称重复。");
+			}
+		}
 		permissionsDao.save(entity);
 		SecurityResourceCache.putCache(entity);
 	}

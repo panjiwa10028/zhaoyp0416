@@ -26,20 +26,32 @@
 
 		function update() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
+			if(ids == "") {
+				alert("请选择一条记录");
+				return;
+			}
+			if(ids.indexOf(",") != -1) {
+				alert("只能选择一条记录");
+				return;
+			}
 			var url = "permission!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 		
 		function del() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
-
+			if(ids == "") {
+				alert("请选择一条或多条记录");
+				return;
+			}
 			var url = "permission!delete.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
-			if(confirm("确定删除")) {
+			if(confirm("确定删除？")) {
 				top.mainWorkArea.location = url;
 			}
 		}
 
 		function query() {
+			$('#pageNo').val("1");
 			submitForm();
 		}
 
@@ -121,7 +133,47 @@
 						</TABLE>
 					</TD>
 
-				</TR>				
+				</TR>	
+				
+				<!-- 搜索 -->
+				<tr>
+                <td class="tdCommonBtm">
+                    <table class="tbBlock" cellspacing="1" cellpadding="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table class="tbCommonColor" id="Table3" cellspacing="1" border="0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="tdCenterH40">
+                                                   权限名称：<input type="text" name="filter_LIKE_displayName" value="${param['filter_LIKE_displayName']}" size="20"/>
+                                                </td>
+                                                 <td class="tdCenterH40">
+                                                    权限键值：<input type="text" name="filter_LIKE_name" value="${param['filter_LIKE_name']}" size="20"/>
+                                                </td>
+                                                <td class="tdLeftH40">
+                                                    <input class="btn" id="BtnSubmit" onclick="query()" type="button" value="查 询"
+                                                        name="BtnClose">
+                                                </td> 
+                                                <td bordercolor="white" width="1" ></td>
+                                                <td >
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </td>                                              
+                                             </tr>
+                                            <tr>
+                                                
+                                            </tr>
+                                        </tbody>
+                                </td>
+                            </tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </TD></TR>	
+    		<!-- 搜索 -->			
 				<TR>
 					<TD class="tdSpaceH12"></TD>
 				</TR>
@@ -144,11 +196,13 @@
 								</td>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('displayName')"><b>权限名称</b>
+									<a href="permission.action?page.orderBy=displayName&page.order=
+			<s:if test="page.orderBy=='displayName'">${page.inverseOrder}</s:if><s:else>desc</s:else>"><b>权限名称</b>
 									</a>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('name')"><b>权限键值</b>
+									<a href="permission.action?page.orderBy=name&page.order=
+			<s:if test="page.orderBy=='name'">${page.inverseOrder}</s:if><s:else>desc</s:else>"><b>权限键值</b>
 									</a>
 								</td>
 							</tr>

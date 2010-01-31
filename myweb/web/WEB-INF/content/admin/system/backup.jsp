@@ -138,7 +138,7 @@
 									数据库备份:
 								</TD>
 								<TD class="tdLeftH40">
-									<a href="javascript:backup()">备份</a>
+									<a href="javascript:backup()"><img src="${base}/images/${locale}/backup.jpg" /></a>
 								</TD>
 							</TR>	
 							<TR>
@@ -152,7 +152,7 @@
 								<option value="${element}">${element}</option>
 								</c:forEach>
 								</select>
-									&nbsp;&nbsp;&nbsp;<a href="javascript:recover()">恢复</a>
+									&nbsp;&nbsp;&nbsp;<a href="javascript:recover()"><img src="${base}/images/${locale}/recover.jpg" /></a>
 								</TD>
 							</TR>							
 						</TABLE>						

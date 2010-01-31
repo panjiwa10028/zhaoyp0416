@@ -49,7 +49,11 @@ public class ProductCategoryAction extends CURDBaseAction<ProductCategory> {
 
 	@Override
 	public String list() throws Exception {
-		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new Groups());
+		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new ProductCategory());
+		if(page.getOrderBy() == null || page.getOrderBy().equals("")) {
+			page.setOrder("desc");
+			page.setOrderBy("updateTime");
+		}
 		page = productCategoryManager.search(page, filters);
 		return SUCCESS;
 	}

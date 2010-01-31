@@ -28,13 +28,24 @@
 
 		function update() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
+			if(ids == "") {
+				alert("请选择一条记录");
+				return;
+			}
+			if(ids.indexOf(",") != -1) {
+				alert("只能选择一条记录");
+				return;
+			}
 			var url = "news!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 		
 		function del() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
-
+			if(ids == "") {
+				alert("请选择一条或多条记录");
+				return;
+			}
 			var url = "news!delete.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
 			if(confirm("确定删除")) {
 				top.mainWorkArea.location = url;
@@ -43,18 +54,23 @@
 
 		function generator() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
-			
+			if(ids == "") {
+				alert("请选择一条或多条记录");
+				return;
+			}
 			$.ajax({
 				 type: "POST",
 				 url: "news!generator.action?selectedIds=" + ids,
 				 data:   "",				 
 				 success: function(msg){
+				unCheckBox('selectIds');
 				 top.setStatusBarInfo(msg);
 				 	} 
 				}); 
 		}
 
 		function query() {
+			$('#pageNo').val("1");
 			submitForm();
 		}
 
@@ -145,26 +161,45 @@
 					</TD>
 
 				</TR>
-				<TR>
-					<TD id="tdQueryResult1" class="tdCommonTop">
-						<TABLE class="tbCommonColor" id="Table5" cellSpacing="0"
-							border="0">
-							<TR>
-								<TD id="tdSpace" class=""></TD>
-
-							</TR>
-						</TABLE>
-						<TABLE class="tbCommonColor" id="Table6" cellSpacing="1"
-							border="0">
-							<TR>
-								<TD class="tdLeftH30">
-									
-								</TD>
-							</TR>
-						</TABLE>
-					</TD>
-
-				</TR>
+				<!-- 搜索 -->
+				<tr>
+                <td class="tdCommonBtm">
+                    <table class="tbBlock" cellspacing="1" cellpadding="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table class="tbCommonColor" id="Table3" cellspacing="1" border="0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="tdCenterH40">
+                                                    新闻标题：<input type="text" name="filter_LIKE_title" value="${param['filter_LIKE_title']}" size="20"/>
+                                                </td>
+                                                 <td class="tdCenterH40">
+                                                    新闻作者：<input type="text" name="filter_LIKE_auth" value="${param['filter_LIKE_auth']}" size="20"/>
+                                                </td>
+                                                <td class="tdLeftH40">
+                                                    <input class="btn" id="BtnSubmit" onclick="query()" type="button" value="查 询"
+                                                        name="BtnClose">
+                                                </td> 
+                                                <td bordercolor="white" width="1" ></td>
+                                                <td >
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </td>                                              
+                                             </tr>
+                                            <tr>
+                                                
+                                            </tr>
+                                        </tbody>
+                                </td>
+                            </tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </TD></TR>	
+    		<!-- 搜索 -->
 				<TR>
 					<TD class="tdSpaceH12"></TD>
 				</TR>
@@ -186,7 +221,8 @@
 									<input type="checkbox" class="checkbox" name="ids" onclick="selectAllCheckBox(this,'selectIds')"/>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('title')"><b>标题</b></a>
+									<a href="news.action?page.orderBy=title&page.order=
+			<s:if test="page.orderBy=='title'">${page.inverseOrder}</s:if><s:else>desc</s:else>"><b>标题</b></a>
 								</td>
 								<td class="dgHeader">
 									<a href="news.action?page.orderBy=auth&page.order=
@@ -194,8 +230,8 @@
 			"><b>作者</b></a>
 								</td>
 								<td class="dgHeader">
-									<a href="news.action?page.orderBy=date&page.order=
-			<s:if test="page.orderBy=='date'">${page.inverseOrder}</s:if><s:else>desc</s:else>
+									<a href="news.action?page.orderBy=updateTime&page.order=
+			<s:if test="page.orderBy=='updateTime'">${page.inverseOrder}</s:if><s:else>desc</s:else>
 			"><b>发布日期</b></a>
 								</td>
 								<td class="dgHeader">
@@ -220,7 +256,7 @@
 										${auth}
 									</td>
 									<td align="Left">
-										<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+										<fmt:formatDate value="${updateTime}" pattern="yyyy-MM-dd" />
 									</td>
 									<td align="Left">
 										<a href="${base}${htmlPath}/${htmlName}" target="_blank">${htmlName}</a>

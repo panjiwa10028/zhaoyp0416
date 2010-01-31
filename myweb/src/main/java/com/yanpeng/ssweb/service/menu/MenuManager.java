@@ -57,6 +57,16 @@ public class MenuManager extends EntityManager<Menus, Long> {
 	}
 
 	public void saveMenu(Menus menu) {
+		if(menu.getId() != null) {
+			boolean returnValue = menuDao.isNameUniqueById(menu.getId(), menu.getName());
+			if(!returnValue) {
+				throw new ServiceException("保存菜单失败。原因：菜单标识重复。");
+			}
+			returnValue = menuDao.isDisplayNameUniqueById(menu.getId(), menu.getName());
+			if(!returnValue) {
+				throw new ServiceException("保存菜单失败。原因：菜单名称重复。");
+			}
+		}
 		Menus parentMenu = menuDao.get(menu.getParentId());
 		menu.setSort(parentMenu.getSort() + "-");
 		menuDao.save(menu);
@@ -81,7 +91,11 @@ public class MenuManager extends EntityManager<Menus, Long> {
 			Menus menu = menuDao.get(delId);
 			if (menu != null) {
 				if (menu.getMenuses().size() > 0) {
-					throw new ServiceException("删除菜单" + menu.getName() + "失败。原因：有下级菜单存在");
+					throw new ServiceException("删除菜单'" + menu.getDisplayName() + "'失败。原因：有下级菜单存在。");
+				}
+				
+				if (menu.getRoleses().size() > 0) {
+					throw new ServiceException("删除菜单'" + menu.getDisplayName() + "'失败。原因：和角色已关联。");
 				}
 				menuDao.delete(menu);
 			} else {

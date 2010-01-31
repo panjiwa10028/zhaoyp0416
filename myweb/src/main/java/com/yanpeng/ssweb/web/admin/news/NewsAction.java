@@ -66,8 +66,10 @@ public class NewsAction extends CURDBaseAction<News> {
 	@Override
 	public String list() throws Exception {
 		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new News());
-		page.setOrder("desc");
-		page.setOrderBy("updateTime");
+		if(page.getOrderBy() == null || page.getOrderBy().equals("")) {
+			page.setOrder("desc");
+			page.setOrderBy("updateTime");
+		}
 		page = newsManager.search(page, filters);
 		return SUCCESS;
 	}

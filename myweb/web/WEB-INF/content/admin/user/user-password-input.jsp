@@ -20,17 +20,10 @@
 
 		<script>
 		$(document).ready(function(){
-			$("#loginName").focus();
+			$("#password").focus();
 			$("#inputForm").validate({
 				 rules: { 
-					groupId: {
-						required: true
-		 			},
-					loginName: { 
-	        			required: true, 
-	        			remote: encodeURI("user!checkLoginName.action?orgLoginName=${loginName}")
-	    			},
-	            	name: "required",
+					
 	            	password: {
 	    				required: true,
 	    				rangelength:[6,12]
@@ -43,9 +36,7 @@
 	           		
 				},
 				messages: {
-					loginName: {
-						remote: "用户登录名已存在"
-					},
+					
 					passwordConfirm: {
 						equalTo: "输入与上面相同的密码"
 					}
@@ -58,20 +49,7 @@
 		if($("#message").text() != '') {
 			top.setStatusBarInfo($("#message").text());
 		}	
-		if($("#id").val() == "1") {
-			$("#groupTR").attr("style","display:none");
-			$("#groupId").attr("disabled","disabled");
-			$("#groupId").val("-1");
-		}
-		if($("#id").val() != "") {
-			$("#passTR").attr("style","display:none");
-			$("#passConfirmTR").attr("style","display:none");
-			
-			$("#passwordConfirm").attr("disabled","disabled");
-			
-			$("#password").attr("disabled","disabled");
-			
-		}
+		
 	}
 
 	function subForm() {
@@ -95,10 +73,10 @@
 	</head>
 
 	<body scroll="auto" style="overflow: auto" onload="initPage()">
-		<form id="inputForm" name="inputForm" action="user!save.action"
+		<form id="inputForm" name="inputForm" action="user!updatePassword.action"
 			method="post">
 			<s:token/>
-			<input type="hidden" id="id" name="id" value="${id}" />
+			<input type="hidden" id="id" name="id" value="${id}" />${entity}
 			<input type="hidden" name="page.pageRequest"
 				value="${page.pageRequest}" />
 			<TABLE class="tbMain" id="Table1" cellSpacing="0" border="0">
@@ -108,11 +86,11 @@
 							<TR>
 								<TD class="tdTitle1" colSpan="1" rowSpan="1">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前功能：
-									<span id="Location">用户管理 > <a href='#' onclick="cancel()">用户设定</a> > 用户<s:if test="id == null">新增</s:if><s:else>修改</s:else></span>
+									<span id="Location">用户管理 > <a href='#' onclick="cancel()">密码设定</a> </span>
 								</TD>
 								<TD class="tdTitle2"></TD>
 								<TD class="tdTitle3">
-									版面号：101005
+									
 									<IMG alt="" src="${base}/images/title_06.gif">
 								</TD>
 							</TR>
@@ -140,7 +118,7 @@
 												&nbsp;
 											</td>
 											<td class=tdPanelSel_center>
-												<pre style="margin: 0px">用户设定</pre>
+												<pre style="margin: 0px">密码设定</pre>
 											</td>
 											<td class=tdPanelSel_right>
 												&nbsp;
@@ -166,66 +144,28 @@
 						<TABLE class="tbBlock" id="Table1" cellSpacing="1" border="0">
 							<TR>
 								<TD class="tdPrompt">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户<s:if test="id == null">新增</s:if><s:else>修改</s:else>：
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码设定：
 								</TD>
 							</TR>
 						</TABLE>
 						<TABLE id="Table2" cellSpacing="1" border="0" class="tbBlock">
 						
-							<TR id="groupTR">
+							<tr>
 								<TD class="tdRightW30H40">
-									用户组:
-								</TD>
-								<TD class="tdLeftH40">
-									<s:select id="groupId" name="groupId" list="allGroups" listKey="id" listValue="name"/>
-								</TD>
-							</TR>
-							<TR>
-								<TD class="tdRightW30H40">
-									登录名:
-								</TD>
-								<TD class="tdLeftH40">
-									<input type="text" name="loginName" size="40" id="loginName"
-										value="${loginName}" class="required" />
-								</TD>
-							</TR>
-							<TR>
-								<TD class="tdRightW30H40">
-									用户名:
-								</TD>
-								<TD class="tdLeftH40">
-									<input type="text" name="name" size="40" value="${name}"
-										class="required" />
-								</TD>
-							</TR>
-							<tr id="passTR">
-								<TD class="tdRightW30H40">
-									密码:
+									新密码:
 								</td>
 								<TD class="tdLeftH40">
 									<input type="password" id="password" name="password" size="40"
-										value="${password}" class="required" />
+										value="" class="required" />
 								</td>
 							</tr>
-							<tr id="passConfirmTR">
+							<tr>
 								<TD class="tdRightW30H40">
-									确认密码:
+									确认新密码:
 								</td>
 								<TD class="tdLeftH40">
 									<input type="password" id="passwordConfirm" name="passwordConfirm" size="40"
-										value="${password}" class="required" />
-								</td>
-							</tr>
-							<tr >
-								<TD class="tdRightW30H40">
-									角色:
-								</td>
-								<TD class="tdLeftH40">
-									<div
-										style="word-break: break-all; width: 250px; overflow: auto;">
-										<s:checkboxlist name="checkedRoleIds" list="allRoles"
-											listKey="id" listValue="name" cssClass="button" />
-									</div>
+										value="" class="required" />
 								</td>
 							</tr>
 						</TABLE>

@@ -2,6 +2,8 @@ package com.yanpeng.ssweb.dao.user;
 
 import java.util.List;
 
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.yanpeng.core.orm.hibernate.HibernateDao;
@@ -31,5 +33,13 @@ public class UserDao extends HibernateDao<Users, Long> {
 	 */
 	public List<Users> getUsersByRole(String roleName) {
 		return find(QUERY_BY_ROLE_HQL, roleName);
+	}
+	
+	public boolean isLoginNameUniqueById(final Long id,final String loginNameValue) {
+		Criterion criteria;
+		criteria = Restrictions.and(Restrictions.eq("loginName", loginNameValue), Restrictions
+					.not(Restrictions.eq("id", id)));
+
+		return find(criteria).size() == 0;
 	}
 }

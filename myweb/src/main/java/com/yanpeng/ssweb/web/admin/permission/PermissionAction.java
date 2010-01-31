@@ -51,9 +51,9 @@ public class PermissionAction extends CURDBaseAction<Permissions> {
 		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(),
 				new Permissions());
 
-		if (page.getOrderBy() == null) {
-			page.setOrderBy("displayName");
-			page.setOrder("asc");
+		if(page.getOrderBy() == null || page.getOrderBy().equals("")) {
+			page.setOrder("desc");
+			page.setOrderBy("updateTime");
 		}
 		page = permissionManager.search(page, filters);
 		return SUCCESS;

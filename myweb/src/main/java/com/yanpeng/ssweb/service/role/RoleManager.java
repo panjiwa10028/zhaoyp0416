@@ -78,6 +78,12 @@ public class RoleManager extends EntityManager<Roles, Long> {
 	}
 
 	public void saveRole(Roles role, Collection<Long> ids, Collection<Long> menuIds) {
+		if(role.getId() != null) {
+			boolean returnValue = roleDao.isNameUniqueById(role.getId(), role.getName());
+			if(!returnValue) {
+				throw new ServiceException("保存角色失败。原因：角色名称重复。");
+			}
+		}
 		if (ids != null && ids.size() > 0) {
 			List<Permissions> list = permissionDao.findByIds(ids);
 			Set<Permissions> set = new LinkedHashSet<Permissions>(list);
