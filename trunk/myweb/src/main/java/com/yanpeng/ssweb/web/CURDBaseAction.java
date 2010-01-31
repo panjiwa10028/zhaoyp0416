@@ -92,4 +92,8 @@ public abstract class CURDBaseAction<T extends BaseEntity> extends CRUDActionSup
 		page.setPageSize(config.getPageSize());
 	}
 
+	public Long getId() {
+		return id;
+	}
+
 }

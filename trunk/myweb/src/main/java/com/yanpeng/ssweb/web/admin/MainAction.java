@@ -1,5 +1,6 @@
 package com.yanpeng.ssweb.web.admin;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -71,9 +72,16 @@ public class MainAction extends BaseAction {
 		String value = "";
 		Map<Long, String> tempMap = new LinkedHashMap<Long, String>();
 		Map<Long, Integer> placeMap = new HashMap<Long, Integer>();
+		List<Menus> tempList = new ArrayList<Menus>();
 		for (int i = 0; i < menuList.size(); i++) {
 
+			
 			Menus menu = menuList.get(i);
+			if(tempList.contains(menu)) {
+				continue;
+			} else {
+				tempList.add(menu);
+			}
 			if (-1 ==(menu.getParentId())) {
 				tempMap.put(menu.getId(), menu.getDisplayName() + "||");
 				placeMap.put(menu.getId(), cnt++);

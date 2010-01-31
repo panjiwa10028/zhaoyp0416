@@ -75,7 +75,7 @@ public class Groups extends BaseEntity implements java.io.Serializable {
 		this.description = description;
 	}
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "groups")
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "groups" , fetch = FetchType.LAZY)
 	public Set<Users> getUserses() {
 		return userses;
 	}
@@ -84,7 +84,7 @@ public class Groups extends BaseEntity implements java.io.Serializable {
 		this.userses = userses;
 	}
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "groups")
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "groups" , fetch = FetchType.LAZY)
 	public Set<Groups> getGroupses() {
 		return groupses;
 	}

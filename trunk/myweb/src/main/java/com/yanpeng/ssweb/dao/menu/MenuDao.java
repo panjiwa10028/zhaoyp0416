@@ -81,4 +81,19 @@ public class MenuDao extends HibernateDao<Menus, Long> {
 		filters.add(proFilter);
 		return find(page, filters);
 	}
+	
+	public boolean isNameUniqueById(Long id, String nameValue) {
+		Criterion criteria;
+		criteria = Restrictions.and(Restrictions.eq("name", nameValue), Restrictions
+					.not(Restrictions.eq("id", id)));
+
+		return find(criteria).size() == 0;
+	}
+	public boolean isDisplayNameUniqueById(Long id, String displayNameValue) {
+		Criterion criteria;
+		criteria = Restrictions.and(Restrictions.eq("displayName", displayNameValue), Restrictions
+					.not(Restrictions.eq("id", id)));
+
+		return find(criteria).size() == 0;
+	}
 }

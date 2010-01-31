@@ -25,12 +25,25 @@
 
 		function update() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
+			if(ids == "") {
+				alert("请选择一条记录");
+				return;
+			}
+			if(ids.indexOf(",") != -1) {
+				alert("只能选择一条记录");
+				return;
+			}
 			var url = "menu!input.action?id="+ids+"&page.pageRequest=${page.pageRequest}";
 			top.mainWorkArea.location = url;
 		}
 		
 		function del() {		
 			var ids = getSelectedCheckBoxIds('selectIds');
+			if(ids == "") {
+				alert("请选择一条或多条记录");
+				return;
+			}
+			
 			var url = "menu!delete.action?selectedIds="+ids+"&page.pageRequest=${page.pageRequest}";
 			if(confirm("确定删除")) {
 				top.mainWorkArea.location = url;
@@ -42,6 +55,7 @@
 		
 
 		function query() {
+			$('#pageNo').val("1");
 			submitForm();
 		}
 
@@ -122,25 +136,53 @@
 					</TD>
 
 				</TR>				
-				<TR>
-					<TD id="tdQueryResult1" class="tdCommonTop">
-						<TABLE class="tbCommonColor" id="Table6" cellSpacing="1" border="0">
-							<TR>
-								<TD class="tdLeftH30" >
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;键值或显示名称：<input type="text" name="filter_LIKE_name__displayName" value="${param['filter_LIKE_name__displayName']}" size="9"/>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是否有效：
-									<select name="filter_EQ_isDisabled" id="filter_EQ_isDisabled" style="width:100px;">
+				
+				<!-- 搜索 -->
+				<tr>
+                <td class="tdCommonBtm">
+                    <table class="tbBlock" cellspacing="1" cellpadding="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table class="tbCommonColor" id="Table3" cellspacing="1" border="0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="tdCenterH40">
+                                                   显示名称：<input type="text" name="filter_LIKE_displayName" value="${param['filter_LIKE_displayName']}" size="20"/>
+                                                </td>
+                                                <td class="tdCenterH40">
+                                                   键值：<input type="text" name="filter_LIKE_name" value="${param['filter_LIKE_name']}" size="20"/>
+                                                </td>
+                                                <td class="tdCenterH40">
+                                                    是否有效：<select name="filter_EQ_isDisabled" id="filter_EQ_isDisabled" style="height:19px;width:110px;">
 	<option value="">[ 全部 ]</option>
 <option <c:if test="${param['filter_EQ_isDisabled'] == 0}">selected="selected"</c:if> value="0">[ 有效 ]</option>
 <option <c:if test="${param['filter_EQ_isDisabled'] == 1}">selected="selected"</c:if> value="1">[ 无效 ]</option>
 </select>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="BtnOK" value="查 询" id="BtnOK" class="btn" onclick="query()"/>
-								</TD>
-							</TR>
-						</TABLE>
-					</TD>
-
-				</TR>
+                                                </td>
+                                                <td class="tdLeftH40">
+                                                    <input class="btn" id="BtnSubmit" onclick="query()" type="button" value="查 询"
+                                                        name="BtnClose">
+                                                </td> 
+                                                <td bordercolor="white" width="1" ></td>
+                                                <td >
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </td>                                              
+                                             </tr>
+                                            <tr>
+                                                
+                                            </tr>
+                                        </tbody>
+                                </td>
+                            </tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </TD></TR>	
+    		<!-- 搜索 -->
 				<TR>
 					<TD class="tdSpaceH12"></TD>
 				</TR>
@@ -163,19 +205,23 @@
 								</td>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('displayName')"><b>显示名称</b>
+									<a href="menu.action?page.orderBy=displayName&page.order=
+			<s:if test="page.orderBy=='displayName'">${page.inverseOrder}</s:if><s:else>desc</s:else>"><b>显示名称</b>
 									</a>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('name')"><b>标识</b>
+									<a href="menu.action?page.orderBy=name&page.order=
+			<s:if test="page.orderBy=='name'">${page.inverseOrder}</s:if><s:else>desc</s:else>"><b>标识</b>
 									</a>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('isDisabled')"><b>状态</b>
+									<a href="menu.action?page.orderBy=isDisabled&page.order=
+			<s:if test="page.orderBy=='isDisabled'">${page.inverseOrder}</s:if><s:else>desc</s:else>"><b>状态</b>
 									</a>
 								</td>
 								<td class="dgHeader">
-									<a href="javascript:orderBy('path')"><b>路径</b>
+									<a href="menu.action?page.orderBy=path&page.order=
+			<s:if test="page.orderBy=='path'">${page.inverseOrder}</s:if><s:else>desc</s:else>"><b>路径</b>
 									</a>
 								</td>
 							</tr>

@@ -59,6 +59,12 @@ public class ProductCategoryManager extends EntityManager<ProductCategory, Long>
 
 	public void saveProductCategory(ProductCategory productCategory) {
 
+		if(productCategory.getId() != null) {
+			boolean returnValue = productCategoryDao.isNameUniqueById(productCategory.getId(), productCategory.getName());
+			if(!returnValue) {
+				throw new ServiceException("保存类别失败。原因：类别名称重复。");
+			}
+		}
 		ProductCategory parentCategory = productCategoryDao.get(productCategory.getParentId());
 		productCategory.setSort(parentCategory.getSort() + "-");
 		productCategoryDao.save(productCategory);

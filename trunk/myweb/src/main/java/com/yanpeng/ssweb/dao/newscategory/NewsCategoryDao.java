@@ -2,6 +2,7 @@ package com.yanpeng.ssweb.dao.newscategory;
 
 import java.util.List;
 
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -40,5 +41,13 @@ public class NewsCategoryDao extends HibernateDao<NewsCategory, Long> {
 
 	public boolean isNameUnique(String newValue, String orgValue) {
 		return isPropertyUnique("name", newValue, orgValue);
+	}
+	
+	public boolean isNameUniqueById(final Long id,final String nameValue) {
+		Criterion criteria;
+		criteria = Restrictions.and(Restrictions.eq("name", nameValue), Restrictions
+					.not(Restrictions.eq("id", id)));
+
+		return find(criteria).size() == 0;
 	}
 }

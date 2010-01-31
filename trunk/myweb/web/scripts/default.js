@@ -423,6 +423,22 @@ function selectAllCheckBox(obj, id) {
 	}
 }
 
+function unCheckBox(id) {
+	if(id == undefined) {
+		id = "'selectIds'";
+	}
+	var checkList = document.getElementsByName(id);
+	if(checkList==null) {
+		return "";
+	}
+	for(var i=0; i<checkList.length; i++) {	
+		if(checkList[i].checked == true) {
+			checkList[i].checked = false;
+		}
+		
+	}
+}
+
 function getSelectedCheckBoxIds(id) {
 	if(id == undefined) {
 		id = "'selectIds'";

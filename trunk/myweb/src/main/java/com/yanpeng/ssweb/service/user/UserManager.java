@@ -55,18 +55,29 @@ public class UserManager extends EntityManager<Users, Long> {
 	}
 
 	public void saveUser(Users user) {
+		String psw = BaseCodeUtils.getMd5PasswordEncoder(user.getPassword(), user.getLoginName());
+		user.setPassword(psw);
 		userDao.save(user);
 	}
 
 	public void saveUser(Users user, Collection<Long> ids) {
-		if (ids != null) {
+		
+		if(user.getId() != null) {
+			boolean returnValue = userDao.isLoginNameUniqueById(user.getId(), user.getLoginName());
+			if(!returnValue) {
+				throw new ServiceException("保存用户失败。原因：用户登录名称重复。");
+			}
+		} else {
+			String psw = BaseCodeUtils.getMd5PasswordEncoder(user.getPassword(), user.getLoginName());
+			user.setPassword(psw);
+		}
+		if (ids != null && ids.size() > 0) {
 			List<Roles> list = roleDao.find(Restrictions.in("id", ids));
 			Set<Roles> set = new LinkedHashSet<Roles>(list);
 			user.setRoleses(set);
 		}
 
-		String psw = BaseCodeUtils.getMd5PasswordEncoder(user.getPassword(), user.getLoginName());
-		user.setPassword(psw);
+		
 		userDao.save(user);
 	}
 

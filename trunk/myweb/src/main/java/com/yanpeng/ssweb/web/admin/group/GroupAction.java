@@ -49,6 +49,10 @@ public class GroupAction extends CURDBaseAction<Groups> {
 	@Override
 	public String list() throws Exception {
 		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new Groups());
+		if(page.getOrderBy() == null || page.getOrderBy().equals("")) {
+			page.setOrder("desc");
+			page.setOrderBy("updateTime");
+		}
 		page = groupManager.search(page, filters);
 		return SUCCESS;
 	}

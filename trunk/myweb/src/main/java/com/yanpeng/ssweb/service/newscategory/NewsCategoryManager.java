@@ -60,6 +60,13 @@ public class NewsCategoryManager extends EntityManager<NewsCategory, Long> {
 
 	public void saveNewsCategory(NewsCategory newsCategory) {
 
+		if(newsCategory.getId() != null) {
+			boolean returnValue = newsCategoryDao.isNameUniqueById(newsCategory.getId(), newsCategory.getName());
+			if(!returnValue) {
+				throw new ServiceException("保存类别失败。原因：类别名称重复。");
+			}
+		}
+		
 		NewsCategory parentCategory = newsCategoryDao.get(newsCategory.getParentId());
 		newsCategory.setSort(parentCategory.getSort() + "-");
 		newsCategoryDao.save(newsCategory);
@@ -91,7 +98,7 @@ public class NewsCategoryManager extends EntityManager<NewsCategory, Long> {
 				}
 				newsCategoryDao.delete(newsCategory);
 			} else {
-				logger.warn("ID=[" + id + "]的用户组不存在，无法删除");
+				logger.warn("ID=[" + id + "]的类别不存在，无法删除");
 			}
 
 		}

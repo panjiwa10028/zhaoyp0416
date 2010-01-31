@@ -132,7 +132,7 @@ public class News extends BaseEntity implements java.io.Serializable {
 		this.picName = picName;
 	}
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "news")
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "news", fetch = FetchType.LAZY)
 	public Set<NewsMessage> getNewsMessages() {
 		return newsMessages;
 	}

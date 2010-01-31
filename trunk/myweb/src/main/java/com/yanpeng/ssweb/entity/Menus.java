@@ -106,7 +106,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 		this.isDisabled = isDisabled;
 	}
 
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "menuses")
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "menuses", fetch = FetchType.LAZY)
 	public Set<Roles> getRoleses() {
 		return roleses;
 	}
@@ -115,7 +115,7 @@ public class Menus extends BaseEntity implements java.io.Serializable {
 		this.roleses = roleses;
 	}
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "menus")
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "menus", fetch = FetchType.LAZY)
 	public Set<Menus> getMenuses() {
 		return menuses;
 	}

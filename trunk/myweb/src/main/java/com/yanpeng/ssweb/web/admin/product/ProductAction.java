@@ -65,9 +65,12 @@ public class ProductAction extends CURDBaseAction<Product> {
 
 	@Override
 	public String list() throws Exception {
-		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new News());
-		page.setOrder("desc");
-		page.setOrderBy("updateTime");
+		allProductCategory = productCategoryManager.getAllProductCategory();
+		List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(Struts2Utils.getRequest(), new Product());
+		if(page.getOrderBy() == null || page.getOrderBy().equals("")) {
+			page.setOrder("desc");
+			page.setOrderBy("updateTime");
+		}
 		page = productManager.search(page, filters);
 		return SUCCESS;
 	}
@@ -204,14 +207,14 @@ public class ProductAction extends CURDBaseAction<Product> {
 				entity = product;
 				generatorHtml();
 			}
-			addActionMessage("生成成功!");
+			Struts2Utils.renderText("生成成功!");
 
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			addActionError("生成失败!");
-			return "生成失败!";
+			Struts2Utils.renderText("生成失败!");
 		}
-		return "111";
+		return null;
 	}
 	private String generatorHtml() throws Exception{
 		HtmlGenerator htmlGenerator = new HtmlGenerator();
