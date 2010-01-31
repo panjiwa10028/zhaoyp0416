@@ -2,8 +2,12 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     2010-1-26 14:26:07                           */
 /*==============================================================*/
+drop database if exists myweb;
 
+create database myweb character set=utf8;
 
+use myweb;
+/*
 drop table if exists company;
 
 drop index Index_t_groups_3 on groups;
@@ -87,7 +91,7 @@ drop index Index_t_users_roles_2 on users_roles;
 drop index Index_t_users_roles_1 on users_roles;
 
 drop table if exists users_roles;
-
+*/
 /*==============================================================*/
 /* Table: company                                               */
 /*==============================================================*/
