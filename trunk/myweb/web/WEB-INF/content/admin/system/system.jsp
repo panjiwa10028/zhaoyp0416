@@ -23,11 +23,8 @@
 		function subForm() {
 			top.setStatusBarInfo('');
 			var paramData = "";
-			if($("#autoBackup").attr("checked")) {
-				paramData = "autoBackup=1";
-			} else {
-				paramData = "autoBackup=0";
-			}
+			
+			paramData = "autoBackup="+ $("input[name='autoBackup']:checked").val();
 			paramData += "&webRootPath=" + $("#webRootPath").val();
 			paramData += "&backupPath=" + $("#backupPath").val();
 			$.ajax({
@@ -128,7 +125,7 @@
 							</TR>
 							<TR>
 								<TD class="tdRightW30H40">
-									备份数据库目录:
+									备份数据库路径:
 								</TD>
 								<TD class="tdLeftH40">
 									<input type="text" id="backupPath" name="backupPath" size="40" value="${config.backupPath}"/>
@@ -139,7 +136,9 @@
 									自动备份数据库:
 								</TD>
 								<TD class="tdLeftH40">
-									<input type="checkbox" id="autoBackup" name="autoBackup" value="1" <c:if test="${config.autoBackup == 1}">checked</c:if>/>
+									<input type="radio" id="autoBackup2" name="autoBackup" value="0" <c:if test="${config.autoBackup == 0}">checked</c:if>/>手动
+									<input type="radio" id="autoBackup1" name="autoBackup" value="1" <c:if test="${config.autoBackup == 1}">checked</c:if>/>自动
+									(自动执行时间：每周六晚24点。执行备份前请设置有效的备份数据库的路径)
 								</TD>
 							</TR>								
 											
