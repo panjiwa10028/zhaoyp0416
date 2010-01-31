@@ -70,7 +70,7 @@
 			$("#passwordConfirm").attr("disabled","disabled");
 			
 			$("#password").attr("disabled","disabled");
-			
+			$("#loginName").attr("readonly","readonly");
 		}
 	}
 
