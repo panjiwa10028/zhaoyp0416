@@ -274,7 +274,7 @@
 												<table cellSpacing="0" cellPadding="0" width="100%" border="0">
 													<tr>
 														<td height="62" align="right" style="PADDING-RIGHT:20px;padding-top:6px" valign=top>
-															<A href="${base}">首页</A>&nbsp;|&nbsp;<A href="${base}/admin/logout.action">重登录</A>&nbsp;|&nbsp;<A  href="${base}/admin/logout.action">退出</A>&nbsp;
+															<A href="${base}"><font color="red">首页</font></A>&nbsp;|&nbsp;<A  href="${base}/admin/logout.action"><font color="red">退出</font></A>&nbsp;
 																
 														</td>
 													</tr>
