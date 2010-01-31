@@ -91,6 +91,7 @@ public class UserAction extends CURDBaseAction<Users> {
 			page.setOrderBy("updateTime");
 		}
 		page = userManager.search(page, filters);
+		allGroups = groupManager.getAllGroup();
 		return SUCCESS;
 	}
 

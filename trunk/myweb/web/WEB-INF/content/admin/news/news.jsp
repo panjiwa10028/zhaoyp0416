@@ -171,6 +171,14 @@
                                     <table class="tbCommonColor" id="Table3" cellspacing="1" border="0">
                                         <tbody>
                                             <tr>
+                                            <td class="tdCenterH40">
+                                                    新闻类别：<select name="filter_EQ_categoryId" id="filter_EQ_categoryId" style="height:19px;width:110px;">
+	<option value="">[ 全部 ]</option>
+	<c:forEach var="element" items="${allNewsCategory}">
+	<option <c:if test="${param['filter_EQ_categoryId'] == element.id}">selected="selected"</c:if> value="${element.id}">${element.name}</option>
+	</c:forEach>
+</select>
+                                                </td>
                                                 <td class="tdCenterH40">
                                                     新闻标题：<input type="text" name="filter_LIKE_title" value="${param['filter_LIKE_title']}" size="20"/>
                                                 </td>
