@@ -44,6 +44,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 	private Short isLocked = 0;
 	private Set<Roles> roleses = new LinkedHashSet<Roles>(0);
 
+	private String groupId;
 	// Constructors
 
 	/** default constructor */
@@ -51,7 +52,7 @@ public class Users extends BaseEntity implements java.io.Serializable {
 	}
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
-	@JoinColumn(name = "group_id", nullable = false)
+	@JoinColumn(name = "group_id", insertable = false, updatable = false)
 	public Groups getGroups() {
 		return groups;
 	}
@@ -112,6 +113,14 @@ public class Users extends BaseEntity implements java.io.Serializable {
 
 	public void setIsLocked(Short isLocked) {
 		this.isLocked = isLocked;
+	}
+	@Column(name = "group_id")
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)

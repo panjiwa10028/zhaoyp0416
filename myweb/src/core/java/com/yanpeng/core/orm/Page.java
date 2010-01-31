@@ -192,6 +192,7 @@ public class Page<T> {
 		}
 		return count;
 	}
+	
 
 	/**
 	 * 是否还有下一页.
@@ -277,5 +278,14 @@ public class Page<T> {
 		if (StringUtils.isNotBlank(params[2])) {
 			setOrder(params[2]);
 		}
+	}
+	public void setTotalPages(int totalPages) {
+		
+	}
+	public void setPrePage(int prePage) {
+		
+	}
+	public void setNextPage(int nextPage) {
+		
 	}
 }

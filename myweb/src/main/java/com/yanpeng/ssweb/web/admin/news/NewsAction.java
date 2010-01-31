@@ -71,6 +71,7 @@ public class NewsAction extends CURDBaseAction<News> {
 			page.setOrderBy("updateTime");
 		}
 		page = newsManager.search(page, filters);
+		allNewsCategory = newsCategoryManager.getAllNewsCategory();
 		return SUCCESS;
 	}
 

@@ -172,8 +172,10 @@
 		}
 
 		function adjustFrameSize()
-		{
-			document.all.mainWorkArea.style.height=mainWorkArea.document.body.scrollHeight<400?400:document.body.scrollHeight-180;
+		{//alert(mainWorkArea.document.body.scrollHeight);
+		//alert(window.screen.availHeight);
+		//alert(document.body.scrollHeight);
+			document.all.mainWorkArea.style.height=document.body.scrollHeight-127;
 			//mainWorkArea.document.body.style.overflowX='auto';
 			//mainWorkArea.document.body.style.overflowY='auto';
 		}

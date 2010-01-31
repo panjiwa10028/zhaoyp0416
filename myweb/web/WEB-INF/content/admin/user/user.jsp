@@ -157,6 +157,14 @@
                                     <table class="tbCommonColor" id="Table3" cellspacing="1" border="0">
                                         <tbody>
                                             <tr>
+                                            <td class="tdCenterH40">
+                                                    用户组：<select name="filter_EQ_groupId" id="filter_EQ_groupId" style="height:19px;width:110px;">
+	<option value="">[ 全部 ]</option>
+	<c:forEach var="element" items="${allGroups}">
+	<option <c:if test="${param['filter_EQ_groupId'] == element.id}">selected="selected"</c:if> value="${element.id}">${element.name}</option>
+	</c:forEach>
+</select>
+                                                </td>
                                                 <td class="tdCenterH40">
                                                   登录名：<input type="text" name="filter_LIKE_loginName" value="${param['filter_LIKE_loginName']}" size="20"/>
                                                 </td>
