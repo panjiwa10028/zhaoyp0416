@@ -4,21 +4,35 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
+	<description>Quartz的本地Cron式执行任务配置</description>
+
+	<!-- Quartz本地Schduler -->
 	<bean id="localQuartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false">
+		<!-- Triggers集成 -->
 		<property name="triggers">
 			<list>
-				<ref bean="backupTrigger"/>
+				<ref bean="backupTrigger" />
 			</list>
 		</property>
+		<!-- Quartz配置 -->
+		<property name="quartzProperties">
+			<props>
+				<prop key="org.quartz.threadPool.threadCount">5</prop>
+			</props>
+		</property>
+		<!-- 启动时延期3秒开始任务 -->
+		<property name="startupDelay" value="3" />
 	</bean>
-	
- 	 <bean id="backupTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+
+	<!-- Cron式Trigger定义 -->
+	<bean id="backupTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="backupJobDetail" />
-		<!-- 首次执行延期10秒 -->
-		<property name="startDelay" value="10000" />
-		<!-- 每次执行间隔1 minute -->
-		<property name="repeatInterval" value="60000" />
+		<!-- 每周六晚24点执行一次 -->
+		<property name="cronExpression" value="0 0 0 ? * SAT" />
 	</bean>
+
+	<!-- Cron JobDetajil, 基于MethodInvokingJobDetailFactoryBean调用普通Spring Bean -->
+	
 	
 	<bean id="backupJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="backupJob" />
