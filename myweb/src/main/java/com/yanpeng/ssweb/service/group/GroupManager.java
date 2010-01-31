@@ -61,6 +61,12 @@ public class GroupManager extends EntityManager<Groups, Long> {
 	}
 
 	public void saveGroup(Groups group) {
+		if(group.getId() != null) {
+			boolean returnValue = groupDao.isNameUniqueById(group.getId(), group.getName());
+			if(!returnValue) {
+				throw new ServiceException("保存用户组失败。原因：用户组名称重复。");
+			}
+		}
 		Groups parentGroup = groupDao.get(group.getParentId());
 		group.setSort(parentGroup.getSort() + "-");
 		groupDao.save(group);
