@@ -36,11 +36,11 @@
     	<table width="100%" border="0" cellspacing="5" cellpadding="0">
   <tr>
     <td width="120">
-    <c:if test="${not empty picName }"><img src="${base}/${picPath}/${picName}" alt="..." width="100" height="80" border="0"/></c:if>
+    <c:if test="${not empty picName }"><a href="${base}/${htmlPath}/${htmlName}" target="_blank"><img src="${base}/${picPath}/${picName}" alt="..." width="100" height="80" border="0"/></a></c:if>
     </td>
     <td valign="top"><table width="100%" border="0" cellspacing="2" cellpadding="0">
       <tr>
-        <td>${name}</td>
+        <td><a href="${base}/${htmlPath}/${htmlName}" target="_blank">${name}</a></td>
         <td align="right"><fmt:formatDate value="${updateTime}" pattern="yyyy-MM-dd" /></td>
       </tr>
       <tr>
@@ -48,8 +48,8 @@
       </tr>
       <tr>
         <td colspan="2">
-        <div style="width: 650px; height: 28px; border: 0px;overflow:hidden; padding:3px 2px 0px 2px; text-overflow:ellipsis">
-        <nobr>${content}</nobr></div></td>
+        ${fn:substring(fn:replace(fn:replace(content,"<img","&lt;img"),"<br />"," "), 0, 120)}...
+        </td>
       </tr>
     </table></td>
   </tr>
