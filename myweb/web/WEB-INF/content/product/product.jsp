@@ -48,7 +48,7 @@
       </tr>
       <tr>
         <td colspan="2">
-        ${fn:substring(fn:replace(fn:replace(content,"<img","&lt;img"),"<br />"," "), 0, 120)}...
+        ${fn:substring(fn:replace(fn:replace(content,"<img","&lt;img"),"<br />","&nbsp;&nbsp;&nbsp;&nbsp;"), 0, 120)}...
         </td>
       </tr>
     </table></td>
