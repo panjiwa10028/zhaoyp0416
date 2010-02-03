@@ -47,7 +47,9 @@ public class ActivityDialog extends JDialog {
     try  {
       myObject = obj;
       jbInit();
+//    调整此窗口的大小，以适合其子组件的首选大小和布局。
       pack();
+//      把组件的值带入到窗体中
       updateDialog();
     } catch(Exception ex) {
       ex.printStackTrace();
