@@ -11,16 +11,51 @@
 
 package com.ivr;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.print.*;
-import java.awt.dnd.*;
-import java.awt.datatransfer.*;
-import java.awt.geom.*;
-import javax.swing.*;
-import java.util.*;
-import com.nwoods.jgo.*;
-import com.ivr.jgo.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
+import java.awt.print.PageFormat;
+import java.util.Iterator;
+
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+
+import com.ivr.activity.ActivityDialog;
+import com.ivr.activity.ActivityNode;
+import com.ivr.flow.FlowDialog;
+import com.ivr.flow.FlowLabel;
+import com.ivr.flow.FlowLink;
+import com.ivr.jgo.Comment;
+import com.nwoods.jgo.JGoBasicNode;
+import com.nwoods.jgo.JGoCopyEnvironment;
+import com.nwoods.jgo.JGoDocument;
+import com.nwoods.jgo.JGoDocumentEvent;
+import com.nwoods.jgo.JGoGlobal;
+import com.nwoods.jgo.JGoLabeledLink;
+import com.nwoods.jgo.JGoLayer;
+import com.nwoods.jgo.JGoLink;
+import com.nwoods.jgo.JGoListPosition;
+import com.nwoods.jgo.JGoObject;
+import com.nwoods.jgo.JGoObjectCollection;
+import com.nwoods.jgo.JGoPort;
+import com.nwoods.jgo.JGoSelection;
+import com.nwoods.jgo.JGoStroke;
+import com.nwoods.jgo.JGoText;
+import com.nwoods.jgo.JGoView;
+import com.nwoods.jgo.JGoViewEvent;
+import com.nwoods.jgo.JGoViewListener;
 
 // Provide a view of a ProcessDocument
 // Implement various command handlers
