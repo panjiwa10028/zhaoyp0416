@@ -1012,6 +1012,7 @@ public class ProcessView extends JGoView implements JGoViewListener
       default:
       case ActivityNode.Activity:
         ActivityDialog activityDialog = new ActivityDialog(getFrame(), snode);
+//        设置窗口相对于指定组件的位置。 为 null，则此窗口将置于屏幕的中央
         activityDialog.setLocationRelativeTo(null);
         activityDialog.setVisible(true);
         break;

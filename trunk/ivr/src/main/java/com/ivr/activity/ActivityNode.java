@@ -276,6 +276,60 @@ public class ActivityNode extends MultiPortNode
   
   private String activityNodeProperties;
   
+  private String displayName;
+  private String systemName;
+  private String description;
+  private String defaultLanguage;
+  private String timeoutSeconds;
+  private String systemVariable;
+public String getDisplayName() {
+	return displayName;
+}
+
+public void setDisplayName(String displayName) {
+	this.displayName = displayName;
+}
+
+public String getSystemName() {
+	return systemName;
+}
+
+public void setSystemName(String systemName) {
+	this.systemName = systemName;
+}
+
+public String getDescription() {
+	return description;
+}
+
+public void setDescription(String description) {
+	this.description = description;
+}
+
+public String getDefaultLanguage() {
+	return defaultLanguage;
+}
+
+public void setDefaultLanguage(String defaultLanguage) {
+	this.defaultLanguage = defaultLanguage;
+}
+
+public String getTimeoutSeconds() {
+	return timeoutSeconds;
+}
+
+public void setTimeoutSeconds(String timeoutSeconds) {
+	this.timeoutSeconds = timeoutSeconds;
+}
+
+public String getSystemVariable() {
+	return systemVariable;
+}
+
+public void setSystemVariable(String systemVariable) {
+	this.systemVariable = systemVariable;
+}
+  
 public String getActivityNodeProperties() {
 	return activityNodeProperties;
 }
@@ -284,8 +338,5 @@ public void setActivityNodeProperties(String activityNodeProperties) {
 	this.activityNodeProperties = activityNodeProperties;
 }
 
-public JGoPort getOutputPort() {
-	// TODO Auto-generated method stub
-	return null;
-}
+
 }
