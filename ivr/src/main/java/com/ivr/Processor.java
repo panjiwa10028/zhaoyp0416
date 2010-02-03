@@ -19,6 +19,7 @@ import javax.swing.event.*;
 import java.util.HashMap;
 import java.net.URL;
 import com.nwoods.jgo.*;
+import com.ivr.activity.ActivityNode;
 import com.ivr.jgo.*;
 
 
@@ -416,6 +417,9 @@ System.out.println(UIManager.getSystemLookAndFeelClassName());
     item.setMnemonic('x');
   }
 
+  /**
+   * 初始化左面窗口
+   */
   void initPalette()
   {
     getPalette().setBorder(new TitledBorder("Activities"));
@@ -427,7 +431,7 @@ System.out.println(UIManager.getSystemLookAndFeelClassName());
     doc.addObjectAtTail(cmnt);
 
     ActivityNode snode;
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 3; i++) {
       ActivityNode n = makePaletteNode(i, -1);
       doc.addObjectAtTail(n);
     }
@@ -436,10 +440,12 @@ System.out.println(UIManager.getSystemLookAndFeelClassName());
   ActivityNode makePaletteNode(int acttype, int id)
   {
     ActivityNode snode = new ActivityNode();
-    JGoImage nodeicon = new JGoImage(new Rectangle(0,0,40,40));
-    nodeicon.loadImage(Processor.class.getResource("doc.gif"), true);
+//    JGoImage nodeicon = new JGoImage(new Rectangle(0,0,40,40));
+//    nodeicon.loadImage(Processor.class.getResource("./images/doc.gif"), true);
+//    初始化Node
     snode.initialize(acttype, id);
-    snode.addScatteredPorts(2);
+//    给node添加输入输出端口
+    snode.addScatteredPorts(4);
 //    snode.addScatteredPorts((int)(Math.random()*5)+1);
     snode.getLabel().setSelectable(false);
     return snode;

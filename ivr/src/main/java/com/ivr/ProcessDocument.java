@@ -41,6 +41,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
+import com.ivr.activity.ActivityNode;
+import com.ivr.activity.ActivityPort;
+import com.ivr.flow.FlowLink;
 import com.nwoods.jgo.JGoBasicNode;
 import com.nwoods.jgo.JGoDocument;
 import com.nwoods.jgo.JGoDocumentChangedEdit;
