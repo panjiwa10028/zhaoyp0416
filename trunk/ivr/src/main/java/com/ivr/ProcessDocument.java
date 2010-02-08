@@ -41,9 +41,13 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import com.ivr.activity.ActivityNode;
-import com.ivr.activity.ActivityPort;
+import com.ivr.components.ComponentsNode;
+import com.ivr.components.ComponentsPort;
+import com.ivr.components.prompt.PromptNode;
+import com.ivr.components.start.StartNode;
+import com.ivr.components.stop.StopNode;
 import com.ivr.flow.FlowLink;
+import com.ivr.utils.Constant;
 import com.nwoods.jgo.JGoBasicNode;
 import com.nwoods.jgo.JGoDocument;
 import com.nwoods.jgo.JGoDocumentChangedEdit;
@@ -259,13 +263,14 @@ public class ProcessDocument extends JGoDocument
 
 
   // creating a new activity
-  public ActivityNode newNode(int acttype)
+  public ComponentsNode newNode(int acttype)
   {
-    ActivityNode snode = new ActivityNode();
-    snode.initialize(acttype, getNextNodeID());
-    addObjectAtTail(snode);
-    snode.addScatteredPorts((int)(Math.random()*5)+1);
-    return snode;
+//    ActivityNode snode = new ActivityNode();
+//    snode.initialize(acttype, getNextNodeID());
+//    addObjectAtTail(snode);
+//    snode.addScatteredPorts((int)(Math.random()*5)+1);
+//    return snode;
+	  return null;
   }
 
   public int getNextNodeID()
@@ -273,23 +278,35 @@ public class ProcessDocument extends JGoDocument
     return ++myLastNodeID;
   }
 
-  public ActivityNode findNodeByID(int id)
+  public ComponentsNode findNodeByID(int id)
   {
     // for larger documents, it would be more efficient to keep a
     // hash table mapping id to ActivityNode
     // for this example, we won't bother with the hash table
     JGoListPosition pos = getFirstObjectPos();
+    ComponentsNode node;
     while (pos != null) {
       JGoObject obj = getObjectAtPos(pos);
       // only consider top-level objects
       pos = getNextObjectPosAtTop(pos);
-
-      if (obj instanceof ActivityNode) {
-        ActivityNode node = (ActivityNode)obj;
-        if (node.getID() == id) {
-          return node;
-        }
+      
+      if(obj instanceof StartNode) {
+    	  node = (StartNode)obj;
+    	  if(node.getId() == id) {
+    		  return node;
+    	  }
+      } else if(obj instanceof PromptNode) {
+    	  node = (PromptNode)obj;
+    	  if(node.getId() == id) {
+    		  return node;
+    	  }
+      } else if(obj instanceof StopNode) {
+    	  node = (StopNode)obj;
+    	  if(node.getId() == id) {
+    		  return node;
+    	  }
       }
+
     }
     return null;
   }
@@ -363,20 +380,50 @@ public class ProcessDocument extends JGoDocument
   
   public boolean isAvoidable(JGoObject obj) {
     if (!obj.isVisible()) return false;
-    return (obj instanceof ActivityNode);
+//    return (obj instanceof ActivityNode);
+    return (obj instanceof ComponentsNode);
   }
 
   public Rectangle getAvoidableRectangle(JGoObject obj, Rectangle rect) {
     if (rect == null) rect = new Rectangle(0, 0, 0, 0);
-    if (obj instanceof ActivityNode) {
-      ActivityNode node = (ActivityNode)obj;
-      if (node.getIcon() != null) {
-        Rectangle r = node.getIcon().getBoundingRect();
-        rect.x = r.x;
-        rect.y = r.y;
-        rect.width = r.width;
-        rect.height = r.height;
-      }
+//    if (obj instanceof ActivityNode) {
+//      ActivityNode node = (ActivityNode)obj;
+//      if (node.getIcon() != null) {
+//        Rectangle r = node.getIcon().getBoundingRect();
+//        rect.x = r.x;
+//        rect.y = r.y;
+//        rect.width = r.width;
+//        rect.height = r.height;
+//      }
+//    }
+    ComponentsNode node;
+    if(obj instanceof StartNode) {
+  	  node = (StartNode)obj;
+	  	if (node.getIcon() != null) {
+	      Rectangle r = node.getIcon().getBoundingRect();
+	      rect.x = r.x;
+	      rect.y = r.y;
+	      rect.width = r.width;
+	      rect.height = r.height;
+	    }
+    } else if(obj instanceof PromptNode) {
+  	  node = (PromptNode)obj;
+  	  if (node.getIcon() != null) {
+	      Rectangle r = node.getIcon().getBoundingRect();
+	      rect.x = r.x;
+	      rect.y = r.y;
+	      rect.width = r.width;
+	      rect.height = r.height;
+	    }
+    } else if(obj instanceof StopNode) {
+  	  node = (StopNode)obj;
+  	  if (node.getIcon() != null) {
+	      Rectangle r = node.getIcon().getBoundingRect();
+	      rect.x = r.x;
+	      rect.y = r.y;
+	      rect.width = r.width;
+	      rect.height = r.height;
+	    }
     }
     return rect;
   }
@@ -566,54 +613,137 @@ public class ProcessDocument extends JGoDocument
 	          Node item = elts.item(i);
 	          if (item.getNodeType() == Node.ELEMENT_NODE) {
 	            Element elt = (Element)item;
-	            if (elt.getTagName().equals(activityTag)) {
-	              ActivityNode act = new ActivityNode();
-	              int actid = Integer.parseInt(elt.getAttribute("id"));
-	              int acttype = Integer.parseInt(elt.getAttribute("type"));
-	              int x = Integer.parseInt(elt.getAttribute("x"));
-	              int y = Integer.parseInt(elt.getAttribute("y"));
-	              String text = elt.getAttribute("text");
-	              String prop = elt.getAttribute("prop");
-	              act.initialize(acttype, actid);
-	              act.addScatteredPorts(2);
-	              act.setTopLeft(x, y);
-	              act.setText(text);
-	              act.setActivityNodeProperties(prop);
-	              doc.addObjectAtTail(act);
-	            } else if (elt.getTagName().equals(flowTag)) {
-	              int fromid = Integer.parseInt(elt.getAttribute("from"));
-	              int toid = Integer.parseInt(elt.getAttribute("to"));
-	              ActivityNode from = doc.findNodeByID(fromid);
-	              ActivityNode to = doc.findNodeByID(toid);
-	              if (from != null && to != null) {
-	            	  int size = Integer.parseInt(elt.getAttribute("numpoints"));
-	            	  int fromPort = Integer.parseInt(elt.getAttribute("fromport"));
-	            	  int toPort = Integer.parseInt(elt.getAttribute("toport"));
-	            	  int width = Integer.parseInt(elt.getAttribute("width"));
-	            	  int style = Integer.parseInt(elt.getAttribute("style"));
-	            	  int r = Integer.parseInt(elt.getAttribute("r"));
-	            	  int g = Integer.parseInt(elt.getAttribute("g"));
-	            	  int b = Integer.parseInt(elt.getAttribute("b"));
-	            	  Color color = new Color(r, g, b);
-	            	  ActivityPort fromActivityPort = from.getPortByID(fromPort);
-	            	 
-	            	  ActivityPort toActivityPort = to.getPortByID(toPort);
+	            if(elt.getTagName().equalsIgnoreCase(Constant.START)) {
+	            	StartNode startNode = new StartNode();
+	            	int actid = Integer.parseInt(elt.getAttribute("id"));
+		            int acttype = Integer.parseInt(elt.getAttribute("type"));
+		            int x = Integer.parseInt(elt.getAttribute("x"));
+		            int y = Integer.parseInt(elt.getAttribute("y"));
+		            String text = elt.getAttribute("text");
+		            startNode.initialize();		           
+		            startNode.setTopLeft(x, y);
+		            startNode.setText(text);
+//		            添加属性
+//		            ---------
+//		            添加属性
+		            doc.addObjectAtTail(startNode);
+	            } else if(elt.getTagName().equalsIgnoreCase(Constant.PROMPT)) {
+	            	PromptNode promptNode = new PromptNode();
+	            	int actid = Integer.parseInt(elt.getAttribute("id"));
+		            int acttype = Integer.parseInt(elt.getAttribute("type"));
+		            int x = Integer.parseInt(elt.getAttribute("x"));
+		            int y = Integer.parseInt(elt.getAttribute("y"));
+		            String text = elt.getAttribute("text");
+		            promptNode.initialize();		           
+		            promptNode.setTopLeft(x, y);
+		            promptNode.setText(text);
+//		            添加属性
+//		            ---------
+//		            添加属性
+		            doc.addObjectAtTail(promptNode);
 	            	
-	                FlowLink flow = new FlowLink(fromActivityPort, toActivityPort);
-//	                flow.setWidth(8);
-	               JGoPen jGoPen = new JGoPen(style, width, color);
-	               flow.setPen(jGoPen);
-	                flow.removeAllPoints();
-	                for(int point=0; point<size; point++) {
-	                	int pointX = Integer.parseInt(elt.getAttribute("pointsx" + point));
-	                	int pointY = Integer.parseInt(elt.getAttribute("pointsy" + point));
-	                	flow.addPoint(pointX, pointY);
-	                }
-	                String text = elt.getAttribute("text");
-	                flow.setText(text);
-	                doc.addObjectAtTail(flow);
-	              }
+	            } else if(elt.getTagName().equalsIgnoreCase(Constant.STOP)) {
+	            	StopNode stopNode = new StopNode();
+	            	int actid = Integer.parseInt(elt.getAttribute("id"));
+		            int acttype = Integer.parseInt(elt.getAttribute("type"));
+		            int x = Integer.parseInt(elt.getAttribute("x"));
+		            int y = Integer.parseInt(elt.getAttribute("y"));
+		            String text = elt.getAttribute("text");
+		            stopNode.initialize();		           
+		            stopNode.setTopLeft(x, y);
+		            stopNode.setText(text);
+//		            添加属性
+//		            ---------
+//		            添加属性
+		            doc.addObjectAtTail(stopNode);
+	            	
+	            } else if(elt.getTagName().equalsIgnoreCase(Constant.FLOW)) {
+	            	int fromid = Integer.parseInt(elt.getAttribute("from"));
+		            int toid = Integer.parseInt(elt.getAttribute("to"));
+		            
+		              ComponentsNode from = doc.findNodeByID(fromid);
+		              ComponentsNode to = doc.findNodeByID(toid);
+		              
+		              if (from != null && to != null) {
+		            	  int size = Integer.parseInt(elt.getAttribute("numpoints"));
+		            	  int fromPort = Integer.parseInt(elt.getAttribute("fromport"));
+		            	  int toPort = Integer.parseInt(elt.getAttribute("toport"));
+		            	  int width = Integer.parseInt(elt.getAttribute("width"));
+		            	  int style = Integer.parseInt(elt.getAttribute("style"));
+		            	  int r = Integer.parseInt(elt.getAttribute("r"));
+		            	  int g = Integer.parseInt(elt.getAttribute("g"));
+		            	  int b = Integer.parseInt(elt.getAttribute("b"));
+		            	  Color color = new Color(r, g, b);
+		            	  
+		            	  ComponentsPort fromActivityPort = from.getPortByID(fromPort);
+		            	 
+		            	  ComponentsPort toActivityPort = to.getPortByID(toPort);
+		            	
+		                FlowLink flow = new FlowLink(fromActivityPort, toActivityPort);
+//		                flow.setWidth(8);
+		               JGoPen jGoPen = new JGoPen(style, width, color);
+		               flow.setPen(jGoPen);
+		                flow.removeAllPoints();
+		                for(int point=0; point<size; point++) {
+		                	int pointX = Integer.parseInt(elt.getAttribute("pointsx" + point));
+		                	int pointY = Integer.parseInt(elt.getAttribute("pointsy" + point));
+		                	flow.addPoint(pointX, pointY);
+		                }
+		                String text = elt.getAttribute("text");
+		                flow.setText(text);
+		                doc.addObjectAtTail(flow);
+		              }
 	            }
+	            
+	            
+//	            if (elt.getTagName().equals(activityTag)) {
+//	              ActivityNode act = new ActivityNode();
+//	              int actid = Integer.parseInt(elt.getAttribute("id"));
+//	              int acttype = Integer.parseInt(elt.getAttribute("type"));
+//	              int x = Integer.parseInt(elt.getAttribute("x"));
+//	              int y = Integer.parseInt(elt.getAttribute("y"));
+//	              String text = elt.getAttribute("text");
+//	              String prop = elt.getAttribute("prop");
+//	              act.initialize(acttype, actid);
+//	              act.addScatteredPorts(2);
+//	              act.setTopLeft(x, y);
+//	              act.setText(text);
+//	              act.setActivityNodeProperties(prop);
+//	              doc.addObjectAtTail(act);
+//	            } else if (elt.getTagName().equals(flowTag)) {
+//	              int fromid = Integer.parseInt(elt.getAttribute("from"));
+//	              int toid = Integer.parseInt(elt.getAttribute("to"));
+//	              ActivityNode from = doc.findNodeByID(fromid);
+//	              ActivityNode to = doc.findNodeByID(toid);
+//	              if (from != null && to != null) {
+//	            	  int size = Integer.parseInt(elt.getAttribute("numpoints"));
+//	            	  int fromPort = Integer.parseInt(elt.getAttribute("fromport"));
+//	            	  int toPort = Integer.parseInt(elt.getAttribute("toport"));
+//	            	  int width = Integer.parseInt(elt.getAttribute("width"));
+//	            	  int style = Integer.parseInt(elt.getAttribute("style"));
+//	            	  int r = Integer.parseInt(elt.getAttribute("r"));
+//	            	  int g = Integer.parseInt(elt.getAttribute("g"));
+//	            	  int b = Integer.parseInt(elt.getAttribute("b"));
+//	            	  Color color = new Color(r, g, b);
+//	            	  ComponentsPort fromActivityPort = from.getPortByID(fromPort);
+//	            	 
+//	            	  ComponentsPort toActivityPort = to.getPortByID(toPort);
+//	            	
+//	                FlowLink flow = new FlowLink(fromActivityPort, toActivityPort);
+////	                flow.setWidth(8);
+//	               JGoPen jGoPen = new JGoPen(style, width, color);
+//	               flow.setPen(jGoPen);
+//	                flow.removeAllPoints();
+//	                for(int point=0; point<size; point++) {
+//	                	int pointX = Integer.parseInt(elt.getAttribute("pointsx" + point));
+//	                	int pointY = Integer.parseInt(elt.getAttribute("pointsy" + point));
+//	                	flow.addPoint(pointX, pointY);
+//	                }
+//	                String text = elt.getAttribute("text");
+//	                flow.setText(text);
+//	                doc.addObjectAtTail(flow);
+//	              }
+//	            }
 	          }
 	        }
 	      }
@@ -672,18 +802,57 @@ public class ProcessDocument extends JGoDocument
 	        JGoObject obj = getObjectAtPos(pos);
 	        pos = getNextObjectPosAtTop(pos);
 
-	        if (obj instanceof ActivityNode) {
-	          ActivityNode node = (ActivityNode)obj;
-	          Element act = document.createElement(activityTag);
-	          act.setAttribute("id", Integer.toString(node.getID()));
-	          act.setAttribute("type", Integer.toString(node.getActivityType()));
-	          act.setAttribute("x", Integer.toString(node.getLeft()));
-	          act.setAttribute("y", Integer.toString(node.getTop()));
-	          act.setAttribute("text", node.getText());
-	          act.setAttribute("prop", node.getActivityNodeProperties());
-	     
-	          process.appendChild(act);
+//	        if (obj instanceof ActivityNode) {
+//	          ActivityNode node = (ActivityNode)obj;
+//	          Element act = document.createElement(activityTag);
+//	          act.setAttribute("id", Integer.toString(node.getID()));
+//	          act.setAttribute("type", Integer.toString(node.getActivityType()));
+//	          act.setAttribute("x", Integer.toString(node.getLeft()));
+//	          act.setAttribute("y", Integer.toString(node.getTop()));
+//	          act.setAttribute("text", node.getText());
+//	          act.setAttribute("prop", node.getActivityNodeProperties());
+//	     
+//	          process.appendChild(act);
+//	        }
+	        
+	        if (obj instanceof StartNode) {
+		          StartNode node = (StartNode)obj;
+		          Element act = document.createElement(Constant.START);
+		          act.setAttribute("id", Integer.toString(node.getId()));
+		          act.setAttribute("type", Integer.toString(Constant.START_TYPE));
+		          act.setAttribute("x", Integer.toString(node.getLeft()));
+		          act.setAttribute("y", Integer.toString(node.getTop()));
+		          act.setAttribute("text", node.getText());
+//			添加属性
+//			添加属性
+		     
+		          process.appendChild(act);
+	        } else if (obj instanceof PromptNode) {
+	        	PromptNode node = (PromptNode)obj;
+		          Element act = document.createElement(Constant.PROMPT);
+		          act.setAttribute("id", Integer.toString(node.getId()));
+		          act.setAttribute("type", Integer.toString(Constant.PROMPT_TYPE));
+		          act.setAttribute("x", Integer.toString(node.getLeft()));
+		          act.setAttribute("y", Integer.toString(node.getTop()));
+		          act.setAttribute("text", node.getText());
+//			添加属性
+//			添加属性
+		     
+		          process.appendChild(act);
+	        } else if (obj instanceof StopNode) {
+	        	StopNode node = (StopNode)obj;
+		          Element act = document.createElement(Constant.STOP);
+		          act.setAttribute("id", Integer.toString(node.getId()));
+		          act.setAttribute("type", Integer.toString(Constant.STOP_TYPE));
+		          act.setAttribute("x", Integer.toString(node.getLeft()));
+		          act.setAttribute("y", Integer.toString(node.getTop()));
+		          act.setAttribute("text", node.getText());
+//			添加属性
+//			添加属性
+		     
+		          process.appendChild(act);
 	        }
+	        
 	      }
 
 	      // then produce all of the links
@@ -693,15 +862,15 @@ public class ProcessDocument extends JGoDocument
 	        pos = getNextObjectPosAtTop(pos);
 
 	        if (obj instanceof FlowLink) {
-	          FlowLink link = (FlowLink)obj; JGoPen jPen = new JGoPen(); 
-	          Element flow = document.createElement(flowTag);
-	          flow.setAttribute("from", Integer.toString(link.getFromNode().getID()));
-	          flow.setAttribute("to", Integer.toString(link.getToNode().getID()));
+	          FlowLink link = (FlowLink)obj; 
+	          Element flow = document.createElement(Constant.FLOW);
+	          flow.setAttribute("from", Integer.toString(link.getFromNode().getId()));
+	          flow.setAttribute("to", Integer.toString(link.getToNode().getId()));
 	          flow.setAttribute("text", link.getText());
 //	          取从组件的第几个口出
-	          flow.setAttribute("fromport", Integer.toString(((ActivityPort)link.getFromPort()).getID()));
+	          flow.setAttribute("fromport", Integer.toString(((ComponentsPort)link.getFromPort()).getID()));
 //	          取到组件的第几个口
-	          flow.setAttribute("toport", Integer.toString(((ActivityPort)link.getToPort()).getID()));
+	          flow.setAttribute("toport", Integer.toString(((ComponentsPort)link.getToPort()).getID()));
 //	          取连线的坐标的总数量
 	          int size = link.getNumPoints();
 	          flow.setAttribute("numpoints", Integer.toString(size));

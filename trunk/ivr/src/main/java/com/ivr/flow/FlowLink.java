@@ -16,7 +16,7 @@ import java.awt.Point;
 
 import com.ivr.ProcessDocument;
 import com.ivr.ProcessView;
-import com.ivr.activity.ActivityNode;
+import com.ivr.components.ComponentsNode;
 import com.nwoods.jgo.JGoLabeledLink;
 import com.nwoods.jgo.JGoLink;
 import com.nwoods.jgo.JGoObject;
@@ -58,16 +58,16 @@ public class FlowLink extends JGoLabeledLink
 
   public ProcessDocument getDoc() { return (ProcessDocument)getDocument(); }
 
-  public ActivityNode getFromNode()
+  public ComponentsNode getFromNode()
   {
     if (getFromPort() != null)
-      return (ActivityNode)(getFromPort().getParent());
+      return (ComponentsNode)(getFromPort().getParent());
     return null;
   }
-  public ActivityNode getToNode()
+  public ComponentsNode getToNode()
   {
     if (getToPort() != null)
-      return (ActivityNode)(getToPort().getParent());
+      return (ComponentsNode)(getToPort().getParent());
     return null;
   }
 

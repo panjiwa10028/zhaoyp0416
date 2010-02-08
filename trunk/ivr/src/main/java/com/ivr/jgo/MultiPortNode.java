@@ -22,7 +22,11 @@ import java.awt.*;
  */
 public class MultiPortNode extends JGoNode
 {
-  /** Create an empty MultiPortNode.  Call initialize() before using it. */
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3350759818833962687L;
+/** Create an empty MultiPortNode.  Call initialize() before using it. */
   public MultiPortNode()
   {
     super();
