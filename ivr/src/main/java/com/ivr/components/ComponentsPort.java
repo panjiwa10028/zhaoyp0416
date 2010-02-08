@@ -9,7 +9,7 @@
  *
  */
 
-package com.ivr.activity;
+package com.ivr.components;
 
 import com.nwoods.jgo.*;
 import com.ivr.jgo.*;
@@ -18,10 +18,10 @@ import java.awt.*;
 /**
  * ActivityPort implements the kind of port used in ActivityNode.
  */
-public class ActivityPort extends MultiPortNodePort
+public class ComponentsPort extends MultiPortNodePort
 {
   /** Call initialize() before using. */
-  public ActivityPort()
+  public ComponentsPort()
   {
   }
 
@@ -37,7 +37,7 @@ public class ActivityPort extends MultiPortNodePort
    * parent：
    * id:这个组件上的这个端口id
    */
-  public ActivityPort(boolean input, boolean output, int linkspot, Point offset, Dimension size, JGoObject icon, JGoArea parent, int id)
+  public ComponentsPort(boolean input, boolean output, int linkspot, Point offset, Dimension size, JGoObject icon, JGoArea parent, int id)
   {
     super(input, output, linkspot, offset, size, icon, parent);
     initialize(input, output, linkspot, offset, icon, parent, id);
@@ -52,7 +52,7 @@ public class ActivityPort extends MultiPortNodePort
 
   public JGoObject copyObject(JGoCopyEnvironment env)
   {
-    ActivityPort p = (ActivityPort)super.copyObject(env);
+    ComponentsPort p = (ComponentsPort)super.copyObject(env);
     if (p != null) {
       p.myID = myID;
       p.myOrigSpot = myOrigSpot;

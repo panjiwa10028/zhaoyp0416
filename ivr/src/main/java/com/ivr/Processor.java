@@ -19,7 +19,9 @@ import javax.swing.event.*;
 import java.util.HashMap;
 import java.net.URL;
 import com.nwoods.jgo.*;
-import com.ivr.activity.ActivityNode;
+import com.ivr.components.prompt.PromptNode;
+import com.ivr.components.start.StartNode;
+import com.ivr.components.stop.StopNode;
 import com.ivr.jgo.*;
 
 
@@ -430,26 +432,44 @@ System.out.println(UIManager.getSystemLookAndFeelClassName());
     cmnt.setEditable(true);
     doc.addObjectAtTail(cmnt);
 
-    ActivityNode snode;
-    for (int i = 0; i < 3; i++) {
-      ActivityNode n = makePaletteNode(i, -1);
-      doc.addObjectAtTail(n);
-    }
+//    添加组件
+    addPaletteNode(doc);
+//    添加组件
+//    ActivityNode snode;
+//    for (int i = 0; i < 3; i++) {
+//      ActivityNode n = makePaletteNode(i, -1);
+//      doc.addObjectAtTail(n);
+//    }
   }
   
-  ActivityNode makePaletteNode(int acttype, int id)
-  {
-    ActivityNode snode = new ActivityNode();
-//    JGoImage nodeicon = new JGoImage(new Rectangle(0,0,40,40));
-//    nodeicon.loadImage(Processor.class.getResource("./images/doc.gif"), true);
-//    初始化Node
-    snode.initialize(acttype, id);
-//    给node添加输入输出端口
-    snode.addScatteredPorts(4);
-//    snode.addScatteredPorts((int)(Math.random()*5)+1);
-    snode.getLabel().setSelectable(false);
-    return snode;
+  private void addPaletteNode(JGoDocument doc) {
+	  StartNode startNode = new StartNode();
+	  startNode.initialize();
+	  
+	  PromptNode promptNode = new PromptNode();
+	  promptNode.initialize();
+	  
+	  StopNode stopNode = new StopNode();
+	  stopNode.initialize();
+	  
+	  doc.addObjectAtTail(startNode);
+	  doc.addObjectAtTail(promptNode);
+	  doc.addObjectAtTail(stopNode);
   }
+  
+//  ActivityNode makePaletteNode(int acttype, int id)
+//  {
+//    ActivityNode snode = new ActivityNode();
+////    JGoImage nodeicon = new JGoImage(new Rectangle(0,0,40,40));
+////    nodeicon.loadImage(Processor.class.getResource("./images/doc.gif"), true);
+////    初始化Node
+//    snode.initialize(acttype, id);
+////    给node添加输入输出端口
+//    snode.addScatteredPorts(4);
+////    snode.addScatteredPorts((int)(Math.random()*5)+1);
+//    snode.getLabel().setSelectable(false);
+//    return snode;
+//  }
 
   public void init()  // Applet initialization
   {
@@ -741,4 +761,11 @@ System.out.println(UIManager.getSystemLookAndFeelClassName());
   protected JMenu helpmenu;
 
   private int myDocCount = 1;
+  
+  private static int primaryKeyId = 0;
+
+
+	public static int getPrimaryKeyId() {
+		return ++primaryKeyId;
+	}
 }

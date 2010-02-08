@@ -880,32 +880,32 @@ public class ProcessView extends JGoView implements JGoViewListener
 
   public void insertActivity()
   {
-    getDoc().startTransaction();
-    Point loc = getDefaultLocation();
-    if (loc == null) loc = new Point(100, 70);
-    ActivityNode snode = getDoc().newNode(ActivityNode.Activity);
-    snode.setTopLeft(loc);
-    getDoc().endTransaction("new Activity");
+//    getDoc().startTransaction();
+//    Point loc = getDefaultLocation();
+//    if (loc == null) loc = new Point(100, 70);
+//    ActivityNode snode = getDoc().newNode(ActivityNode.Activity);
+//    snode.setTopLeft(loc);
+//    getDoc().endTransaction("new Activity");
   }
 
   public void insertInput()
   {
-    getDoc().startTransaction();
-    Point loc = getDefaultLocation();
-    if (loc == null) loc = new Point(100, 70);
-    ActivityNode snode = getDoc().newNode(ActivityNode.Start);
-    snode.setTopLeft(loc);
-    getDoc().endTransaction("new Output");
+//    getDoc().startTransaction();
+//    Point loc = getDefaultLocation();
+//    if (loc == null) loc = new Point(100, 70);
+//    ActivityNode snode = getDoc().newNode(ActivityNode.Start);
+//    snode.setTopLeft(loc);
+//    getDoc().endTransaction("new Output");
   }
 
   public void insertOutput()
   {
-    getDoc().startTransaction();
-    Point loc = getDefaultLocation();
-    if (loc == null) loc = new Point(100, 70);
-    ActivityNode snode = getDoc().newNode(ActivityNode.Finish);
-    snode.setTopLeft(loc);
-    getDoc().endTransaction("new Input");
+//    getDoc().startTransaction();
+//    Point loc = getDefaultLocation();
+//    if (loc == null) loc = new Point(100, 70);
+//    ActivityNode snode = getDoc().newNode(ActivityNode.Finish);
+//    snode.setTopLeft(loc);
+//    getDoc().endTransaction("new Input");
   }
 
   public void insertComment()
