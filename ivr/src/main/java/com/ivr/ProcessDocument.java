@@ -22,6 +22,8 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -628,6 +630,29 @@ public class ProcessDocument extends JGoDocument
 		            startNode.setText(text);
 		            
 //		            添加属性
+		            startNode.setDisplayName(elt.getAttribute("displayname"));
+		            startNode.setSystemName(elt.getAttribute("systemname"));
+		            startNode.setDescription(elt.getAttribute("description"));
+		            startNode.setDefaultLanguage(elt.getAttribute("defaultlanguage"));
+		            startNode.setTimeoutSeconds(elt.getAttribute("timeoutseconds"));
+		            startNode.setSystemVariable(elt.getAttribute("systemvariable"));
+		            NodeList chirdNodeList = elt.getChildNodes();
+		            List<Object[]> list = new ArrayList();
+		            for(int j=0;j<chirdNodeList.getLength();j++) {
+		            	Node chirdNode = chirdNodeList.item(j);
+		            	 if (chirdNode.getNodeType() == Node.ELEMENT_NODE) {
+		            		 Element chirdElt = (Element)chirdNode;
+					            if(chirdElt.getTagName().equalsIgnoreCase("variable")) {
+					            	Object[] obj = new Object[2];
+					            	obj[0] = chirdElt.getAttribute("name");
+					            	obj[1] = chirdElt.getAttribute("value");
+					            	list.add(obj);
+					            }
+		            	 }
+		            	
+		            }
+		            startNode.setVariable(list);
+			         
 //		            ---------
 //		            添加属性
 		            doc.addObjectAtTail(startNode);
@@ -835,6 +860,21 @@ public class ProcessDocument extends JGoDocument
 		          act.setAttribute("text", node.getText());
 		          act.setAttribute("portcount", String.valueOf(node.getPortCount()));
 //			添加属性
+		          act.setAttribute("displayname", node.getDisplayName());
+		          act.setAttribute("systemname", node.getSystemName());
+		          act.setAttribute("description", node.getDescription());
+		          act.setAttribute("defaultlanguage", node.getDefaultLanguage());
+		          act.setAttribute("timeoutseconds", node.getTimeoutSeconds());
+		          act.setAttribute("systemvariable", node.getSystemVariable());
+		          List<Object[]> list =  node.getVariable();
+		          
+		          for(Object[] startVariable:list) {
+		        	  Element startEl = document.createElement("variable");
+		        	  startEl.setAttribute("name", startVariable[0].toString());
+		        	  startEl.setAttribute("value", startVariable[1].toString());
+		        	  act.appendChild(startEl);
+		          }
+		          
 //			添加属性
 		     
 		          process.appendChild(act);
