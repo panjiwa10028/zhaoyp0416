@@ -11,7 +11,9 @@
 
 package com.ivr.jgo;
 
+import com.ivr.Processor;
 import com.nwoods.jgo.*;
+
 import java.awt.*;
 
 /**

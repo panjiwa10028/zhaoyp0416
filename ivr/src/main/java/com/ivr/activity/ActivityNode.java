@@ -15,6 +15,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 
+import javax.swing.JOptionPane;
+
 import com.ivr.ProcessDocument;
 import com.ivr.ProcessView;
 import com.ivr.jgo.MultiPortNode;
@@ -158,6 +160,9 @@ public class ActivityNode extends MultiPortNode
   {
     if (view instanceof ProcessView) {
       ProcessView processView = (ProcessView)view;
+      JOptionPane.showInternalMessageDialog(processView,
+              "A Start node id:" + getID(),
+              "information", JOptionPane.INFORMATION_MESSAGE);
       processView.editActivity(this);
       return true;
     }

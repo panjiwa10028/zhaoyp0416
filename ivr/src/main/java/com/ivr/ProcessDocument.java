@@ -620,9 +620,13 @@ public class ProcessDocument extends JGoDocument
 		            int x = Integer.parseInt(elt.getAttribute("x"));
 		            int y = Integer.parseInt(elt.getAttribute("y"));
 		            String text = elt.getAttribute("text");
-		            startNode.initialize();		           
+		            int protCount = Integer.parseInt(elt.getAttribute("portcount"));
+		            startNode.setImgType(1);
+		            startNode.initialize(protCount);		            
+		            startNode.setId(actid);
 		            startNode.setTopLeft(x, y);
 		            startNode.setText(text);
+		            
 //		            添加属性
 //		            ---------
 //		            添加属性
@@ -634,7 +638,10 @@ public class ProcessDocument extends JGoDocument
 		            int x = Integer.parseInt(elt.getAttribute("x"));
 		            int y = Integer.parseInt(elt.getAttribute("y"));
 		            String text = elt.getAttribute("text");
-		            promptNode.initialize();		           
+		            int protCount = Integer.parseInt(elt.getAttribute("portcount"));
+		            promptNode.setImgType(1);
+		            promptNode.initialize(protCount);	
+		            promptNode.setId(actid);
 		            promptNode.setTopLeft(x, y);
 		            promptNode.setText(text);
 //		            添加属性
@@ -649,7 +656,10 @@ public class ProcessDocument extends JGoDocument
 		            int x = Integer.parseInt(elt.getAttribute("x"));
 		            int y = Integer.parseInt(elt.getAttribute("y"));
 		            String text = elt.getAttribute("text");
-		            stopNode.initialize();		           
+		            int protCount = Integer.parseInt(elt.getAttribute("portcount"));
+		            stopNode.setImgType(1);
+		            stopNode.initialize(protCount);		
+		            stopNode.setId(actid);
 		            stopNode.setTopLeft(x, y);
 		            stopNode.setText(text);
 //		            添加属性
@@ -823,6 +833,7 @@ public class ProcessDocument extends JGoDocument
 		          act.setAttribute("x", Integer.toString(node.getLeft()));
 		          act.setAttribute("y", Integer.toString(node.getTop()));
 		          act.setAttribute("text", node.getText());
+		          act.setAttribute("portcount", String.valueOf(node.getPortCount()));
 //			添加属性
 //			添加属性
 		     
@@ -835,7 +846,11 @@ public class ProcessDocument extends JGoDocument
 		          act.setAttribute("x", Integer.toString(node.getLeft()));
 		          act.setAttribute("y", Integer.toString(node.getTop()));
 		          act.setAttribute("text", node.getText());
+		          act.setAttribute("portcount", String.valueOf(node.getPortCount()));
 //			添加属性
+		          
+		          
+		         
 //			添加属性
 		     
 		          process.appendChild(act);
@@ -847,6 +862,7 @@ public class ProcessDocument extends JGoDocument
 		          act.setAttribute("x", Integer.toString(node.getLeft()));
 		          act.setAttribute("y", Integer.toString(node.getTop()));
 		          act.setAttribute("text", node.getText());
+		          act.setAttribute("portcount", String.valueOf(node.getPortCount()));
 //			添加属性
 //			添加属性
 		     

@@ -19,6 +19,7 @@ import javax.swing.event.*;
 import java.util.HashMap;
 import java.net.URL;
 import com.nwoods.jgo.*;
+import com.ivr.activity.ActivityNode;
 import com.ivr.components.prompt.PromptNode;
 import com.ivr.components.start.StartNode;
 import com.ivr.components.stop.StopNode;
@@ -444,32 +445,32 @@ System.out.println(UIManager.getSystemLookAndFeelClassName());
   
   private void addPaletteNode(JGoDocument doc) {
 	  StartNode startNode = new StartNode();
-	  startNode.initialize();
-	  
+	  startNode.initialize(0);
+	  startNode.getLabel().setSelectable(true);
 	  PromptNode promptNode = new PromptNode();
-	  promptNode.initialize();
-	  
+	  promptNode.initialize(0);
+	  promptNode.getLabel().setSelectable(true);
 	  StopNode stopNode = new StopNode();
-	  stopNode.initialize();
-	  
+	  stopNode.initialize(0);
+	  stopNode.getLabel().setSelectable(true);
 	  doc.addObjectAtTail(startNode);
 	  doc.addObjectAtTail(promptNode);
 	  doc.addObjectAtTail(stopNode);
   }
   
-//  ActivityNode makePaletteNode(int acttype, int id)
-//  {
-//    ActivityNode snode = new ActivityNode();
-////    JGoImage nodeicon = new JGoImage(new Rectangle(0,0,40,40));
-////    nodeicon.loadImage(Processor.class.getResource("./images/doc.gif"), true);
-////    初始化Node
-//    snode.initialize(acttype, id);
-////    给node添加输入输出端口
-//    snode.addScatteredPorts(4);
-////    snode.addScatteredPorts((int)(Math.random()*5)+1);
-//    snode.getLabel().setSelectable(false);
-//    return snode;
-//  }
+  ActivityNode makePaletteNode(int acttype, int id)
+  {
+    ActivityNode snode = new ActivityNode();
+//    JGoImage nodeicon = new JGoImage(new Rectangle(0,0,40,40));
+//    nodeicon.loadImage(Processor.class.getResource("./images/doc.gif"), true);
+//    初始化Node
+    snode.initialize(acttype, id);
+//    给node添加输入输出端口
+    snode.addScatteredPorts(4);
+//    snode.addScatteredPorts((int)(Math.random()*5)+1);
+    snode.getLabel().setSelectable(false);
+    return snode;
+  }
 
   public void init()  // Applet initialization
   {
