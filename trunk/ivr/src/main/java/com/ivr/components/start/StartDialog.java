@@ -361,12 +361,14 @@ public class StartDialog extends JDialog {
     }
     timeoutSecondsField.setText(myObject.getTimeoutSeconds());
     List<Object[]> list =  myObject.getVariable();
-    if(list.size() == 0) {
+    if(list == null || list.size() == 0) {
     	tableModel.addRow(new Object[][]  { null, null });
+    } else {
+    	for(Object[] obj:list) {
+        	tableModel.addRow(obj);
+        }
     }
-    for(Object[] obj:list) {
-    	tableModel.addRow(obj);
-    }
+    
     
    
   }
