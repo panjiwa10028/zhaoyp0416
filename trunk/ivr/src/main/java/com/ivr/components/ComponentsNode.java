@@ -30,10 +30,11 @@ public interface ComponentsNode {
 	/**
 	 * 组件初始化
 	 */
-	public void initialize();
-	
+	public void initialize(int protCount);
 	/**
 	 * 添加默认端口
 	 */
 	public void addDefaultPorts();
+
+	
 }
