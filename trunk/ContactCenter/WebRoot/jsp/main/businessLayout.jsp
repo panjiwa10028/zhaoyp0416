@@ -823,8 +823,10 @@ function getStrUserInfo() {
 var miniLayout = 0;
 //初始化页面个部分大小
 function initSize(){
-	var bheight = document.documentElement.clientHeight-164-36;
-	
+	//alert(document.getElementById("topDiv").style.height);
+	//document.getElementById("topDiv").style.height="95px";
+	var bheight = document.documentElement.clientHeight-165-36;
+	//alert(document.getElementById("topDiv").style.height);
 	document.getElementById("mainIframe").style.height = bheight;
 	//22是右侧标题的高度
 	document.getElementById("floatRightDiv").style.height = bheight-22;
@@ -851,7 +853,7 @@ function toggleLayout(){
 			document.getElementById("miniTopDiv").style.display = "";
 			miniLayout = 1;
 	}else{
-		var bheight = document.documentElement.clientHeight-95-36;
+		var bheight = document.documentElement.clientHeight-165-36;
 			document.getElementById("topDiv").style.display = "";
 			document.getElementById("miniTopDiv").style.display = "none";
 			miniLayout = 0;
@@ -865,7 +867,7 @@ function toggleLayout(){
 
 function setNormalLayout(){
 	if (miniLayout == 1) {
-		var bheight = document.documentElement.clientHeight-95-36;
+		var bheight = document.documentElement.clientHeight-165-36;
 		document.getElementById("topDiv").style.display = "";
 		document.getElementById("miniTopDiv").style.display = "none";
 		miniLayout = 0;
@@ -1913,8 +1915,6 @@ function goBackHistoryAndReady()
       	return 'IPCC_STOP_FUNCTION';
     }
  }
-
-
 </script>
 </head>
 
@@ -2060,7 +2060,7 @@ function goBackHistoryAndReady()
 											<table width="100%" border="0" cellpadding="0"
 												cellspacing="0">
 												<tr>
-												<td width="15">
+												<td width="50">
 														$nbsp;<!-- 设置往右的距离 -->
 													</td>
 													<td width="50">
