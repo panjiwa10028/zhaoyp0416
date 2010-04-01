@@ -24,8 +24,8 @@ body {
 	padding:5px 2px 2px 24px;
 	cursor:pointer;
 	color:#434343;
-	margin-left:10px;
-	margin-right:10px;
+	margin-left:6px;
+	margin-right:6px;
 	
 }
 .menuTitleOver {
@@ -49,8 +49,8 @@ body {
 	padding:5px 0px 0px 24px;
 	cursor:pointer;
 	font-weight:bold;
-	margin-left:10px;
-	margin-right:10px;
+	margin-left:6px;
+	margin-right:6px;
 }
 .menuTitleOver td {
 	font-weight:bold;
@@ -82,8 +82,7 @@ body {
 	overflow:auto;
 }
 #handle { 
-	height:8px;
-	background-image:url(<%=strContextPath%>/images/handle_normal_bg.gif);
+	height:8px;	
 	font-size:1px;
 	text-align:center;
 	cursor:pointer;
@@ -343,10 +342,10 @@ var handleStat = 1;//全局变量，菜单状态,1=bar状大菜单,0=icon状小�
 
 function initSize(){//页面加载初始尺寸
 	var menuNumber = document.getElementById("menu").getElementsByTagName("div").length;//主菜单数
-	var bheight = window.document.body.offsetHeight-38-84;
+	var bheight = window.document.body.offsetHeight-8-57;
 	var contentDivHeight;
-	 
-	if(bheight > menuNumber*25+100){contentDivHeight = bheight - menuNumber*25;}
+	
+	if(bheight > menuNumber*25){contentDivHeight = bheight - menuNumber*25;}
 	else{contentDivHeight = 100;}
 		document.getElementById("menuContent").style.height = contentDivHeight;
 		document.getElementById("personalFlagFrm").style.height = contentDivHeight;
@@ -434,9 +433,9 @@ function clickPerson(url)
 			divObj[i].className = "menuTitle";
 		}
 	}
-	if(event.srcElement.tagName =="IMG"){event.srcElement.parentNode.className = "menuTitleDown"; document.getElementById("menuWord").innerText = event.srcElement.parentNode.innerText;}
-	if(event.srcElement.tagName =="SPAN"){event.srcElement.parentNode.className = "menuTitleDown"; document.getElementById("menuWord").innerText = event.srcElement.parentNode.innerText;}
-	if(event.srcElement.tagName =="DIV"){event.srcElement.className = "menuTitleDown";document.getElementById("menuWord").innerText = event.srcElement.innerText;}
+	if(event.srcElement.tagName =="IMG"){event.srcElement.parentNode.className = "menuTitleDown"; top.document.getElementById("menuSelectedWord").innerText = event.srcElement.parentNode.innerText;}
+	if(event.srcElement.tagName =="SPAN"){event.srcElement.parentNode.className = "menuTitleDown"; top.document.getElementById("menuSelectedWord").innerText = event.srcElement.parentNode.innerText;}
+	if(event.srcElement.tagName =="DIV"){event.srcElement.className = "menuTitleDown";top.document.getElementById("menuSelectedWord").innerText = event.srcElement.innerText;}
 
 }
 
@@ -462,9 +461,9 @@ function clickMenu(subMenu){
 			divObj[i].className = "menuTitle";
 		}
 	}
-	if(event.srcElement.tagName =="IMG"){event.srcElement.parentNode.className = "menuTitleDown"; document.getElementById("menuWord").innerText = event.srcElement.parentNode.innerText;}
-	if(event.srcElement.tagName =="SPAN"){event.srcElement.parentNode.className = "menuTitleDown"; document.getElementById("menuWord").innerText = event.srcElement.parentNode.innerText;}
-	if(event.srcElement.tagName =="DIV"){event.srcElement.className = "menuTitleDown";document.getElementById("menuWord").innerText = event.srcElement.innerText;}
+	if(event.srcElement.tagName =="IMG"){event.srcElement.parentNode.className = "menuTitleDown"; top.document.getElementById("menuSelectedWord").innerText = event.srcElement.parentNode.innerText;}
+	if(event.srcElement.tagName =="SPAN"){event.srcElement.parentNode.className = "menuTitleDown"; top.document.getElementById("menuSelectedWord").innerText = event.srcElement.parentNode.innerText;}
+	if(event.srcElement.tagName =="DIV"){event.srcElement.className = "menuTitleDown";top.document.getElementById("menuSelectedWord").innerText = event.srcElement.innerText;}
 }
 
 
@@ -531,7 +530,8 @@ function handleOut(){
 function handleClick(){
 var menuNumber = document.getElementById("menu").getElementsByTagName("div");//主菜单数
 	if(handleStat == 1){//变成icon状
-		document.getElementById("menuContent").style.height   = window.document.body.offsetHeight-38-25-84;
+		
+		document.getElementById("menuContent").style.height   = window.document.body.offsetHeight-57 - 25 -8;
 		document.getElementById("personalFlagFrm").style.height   = window.document.body.offsetHeight-38-25;
 		document.getElementById("menu").style.overflow   = "hidden";
 		document.getElementById("menu").style.height   = "25px";
