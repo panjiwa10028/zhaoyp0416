@@ -6,11 +6,12 @@
 </head>
 
 
-<frameset rows="67,*" frameborder="NO" border="0" framespacing="0"  name="contentsFrameSet" id="contentsFrameSet">
-<frameset rows="30,*" frameborder="NO" border="0" framespacing="0"  name="parentContentsFrameSet" id="parentContentsFrameSet">
+<frameset rows="38,*" frameborder="NO" border="0" framespacing="0"  name="contentsFrameSet" id="contentsFrameSet">
+<!--frameset rows="30,*" frameborder="NO" border="0" framespacing="0"  name="parentContentsFrameSet" id="parentContentsFrameSet">
 <frame src="tab1.jsp" name="tabFrame1" id="tabFrame1" scrolling="NO" noresize>
   <frame src="tab.jsp" name="tabFrame" id="tabFrame" scrolling="NO" noresize>
-  </frameset>
+  </frameset-->
+   <frame src="tab.jsp" name="tabFrame" id="tabFrame" scrolling="NO" noresize>
   <frame src="" name="contentFrame" id="contentFrame">
 </frameset>
 	

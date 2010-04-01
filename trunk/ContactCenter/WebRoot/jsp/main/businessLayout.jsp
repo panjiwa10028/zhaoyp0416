@@ -825,7 +825,8 @@ var miniLayout = 0;
 function initSize(){
 	//alert(document.getElementById("topDiv").style.height);
 	//document.getElementById("topDiv").style.height="95px";
-	var bheight = document.documentElement.clientHeight-165-36;
+	
+	var bheight = document.documentElement.clientHeight-158-36;
 	//alert(document.getElementById("topDiv").style.height);
 	document.getElementById("mainIframe").style.height = bheight;
 	//22是右侧标题的高度
@@ -853,7 +854,7 @@ function toggleLayout(){
 			document.getElementById("miniTopDiv").style.display = "";
 			miniLayout = 1;
 	}else{
-		var bheight = document.documentElement.clientHeight-165-36;
+		var bheight = document.documentElement.clientHeight-158-36;
 			document.getElementById("topDiv").style.display = "";
 			document.getElementById("miniTopDiv").style.display = "none";
 			miniLayout = 0;
@@ -867,7 +868,7 @@ function toggleLayout(){
 
 function setNormalLayout(){
 	if (miniLayout == 1) {
-		var bheight = document.documentElement.clientHeight-165-36;
+		var bheight = document.documentElement.clientHeight-158-36;
 		document.getElementById("topDiv").style.display = "";
 		document.getElementById("miniTopDiv").style.display = "none";
 		miniLayout = 0;
@@ -1952,23 +1953,13 @@ function goBackHistoryAndReady()
 <!-- 左边的树形区域 -->
 <div id="leftTree" style="display:none">
 	<table width="100%" height="100%"  border="0" cellpadding="0" cellspacing="0">
-		<tr>
-			<td height="57" colspan="2">
-				<table width="100%" border="0" cellpadding="0" cellspacing="0" height="57">
-					<tr>
-						<td width="14"><img src="<%=strContextPath%>/images/leftTree_top1.gif" width="14" height="57"></td>
-						<td width="100%" background="<%=strContextPath%>/images/leftTree_top2.gif"><div id="menuWord" style="color:#cff300;font-size:14px; font-weight:bold; padding-top:5px;cursor:default"  class="nobreak"></div></td>
-						<td width="14"><img src="<%=strContextPath%>/images/leftTree_top3.gif" width="14" height="57" border="0"></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
+		
 		<tr>
 			<td>
 			<table width="100%" border="0" cellpadding="0" cellspacing="0" height="57">
 					<tr>
 						<td width="14" valign="top" style="background-image:url(<%=strContextPath%>/images/leftTree_1.gif);background-repeat:repeat-y;background-position:left; padding-left:6px;"></td>
-						<td width="91%" ><div id="menuContent"></div>
+						<td width="186" ><div id="menuContent"></div>
 				<div id="personalFlagDiv" style="display:none;">
 					<iframe frameborder="0" width="100%" src="" id="personalFlagFrm"></iframe>
 				</div>	
@@ -2038,14 +2029,42 @@ function goBackHistoryAndReady()
   	</tr>
 	</table>
 				<div id="topDiv" class="ContactTopDiv"><!-- 在chrome.css里有高度设置 -->
-					<table width="100%" border=0 cellPadding=0 cellSpacing=0>
-						<tr>
-							<td width="205" rowspan="2" valign="top"
+				<table width="100%" border=0 cellPadding=0 cellSpacing=0>
+				<tr>
+					<td width="210" valign="top"
 								background="<%=strContextPath%>/images/Top_logobg.gif">
-								<table width="205" border="0" cellpadding="0" cellspacing="0">
-									<jsp:include page="/softphone/stateIcon.jsp" flush="true" />
+					<table  border="0" cellpadding="0" cellspacing="0">
+									
+									<tr height="100">
+										<td >
+										&nbsp;
+									
+										</td>
+									</tr>
+									<tr>
+										<td >
+										<table id="leftTreeTitleTab" width="210" border="0" cellpadding="0" cellspacing="0" height="57">
+					<tr>
+						<td width="14"><img src="<%=strContextPath%>/images/leftTree_top1.gif" width="14" height="57"></td>
+						<td width="100%" background="<%=strContextPath%>/images/leftTree_top2.gif"><div id="menuSelectedWord" style="color:#cff300;font-size:14px; font-weight:bold; padding-top:5px;cursor:default"  class="nobreak"></div></td>
+						<td width="14"><img src="<%=strContextPath%>/images/leftTree_top3.gif" width="14" height="57" border="0"></td>
+					</tr>
+				</table>
+										</td>
+									</tr>
 								</table>
-							</td>
+					</td>
+					<td>
+					<table  border=0 cellPadding=0 cellSpacing=0>
+						<tr>
+							<td >
+										<table  border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td><jsp:include page="/softphone/stateIcon.jsp" flush="true" /></td>
+					</tr>
+				</table>
+									
+										</td>
 							<td width="99%" height="22" valign="top"
 								background="<%=strContextPath%>/images/Top_lab1bg.gif">
 								<table width="100%" cellpadding="0" cellspacing="0">
@@ -2099,6 +2118,9 @@ function goBackHistoryAndReady()
 							</td>
 						</tr>
 					</table>
+					</td>
+				</tr>
+					
 				</div>
 			</c:when>
 	<c:otherwise>
