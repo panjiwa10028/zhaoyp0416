@@ -826,7 +826,7 @@ function initSize(){
 	//alert(document.getElementById("topDiv").style.height);
 	//document.getElementById("topDiv").style.height="95px";
 	
-	var bheight = document.documentElement.clientHeight-158-36;
+	var bheight = document.documentElement.clientHeight-175-36;
 	//alert(document.getElementById("topDiv").style.height);
 	document.getElementById("mainIframe").style.height = bheight;
 	//22是右侧标题的高度
@@ -854,7 +854,7 @@ function toggleLayout(){
 			document.getElementById("miniTopDiv").style.display = "";
 			miniLayout = 1;
 	}else{
-		var bheight = document.documentElement.clientHeight-158-36;
+		var bheight = document.documentElement.clientHeight-175-36;
 			document.getElementById("topDiv").style.display = "";
 			document.getElementById("miniTopDiv").style.display = "none";
 			miniLayout = 0;
@@ -868,7 +868,7 @@ function toggleLayout(){
 
 function setNormalLayout(){
 	if (miniLayout == 1) {
-		var bheight = document.documentElement.clientHeight-158-36;
+		var bheight = document.documentElement.clientHeight-175-36;
 		document.getElementById("topDiv").style.display = "";
 		document.getElementById("miniTopDiv").style.display = "none";
 		miniLayout = 0;
@@ -2035,13 +2035,13 @@ function goBackHistoryAndReady()
 								background="<%=strContextPath%>/images/Top_logobg.gif">
 					<table  border="0" cellpadding="0" cellspacing="0">
 									
-									<tr height="100">
+									<tr height="117">
 										<td >
 										&nbsp;
 									
 										</td>
 									</tr>
-									<tr>
+									<tr valign="bottom">
 										<td >
 										<table id="leftTreeTitleTab" width="210" border="0" cellpadding="0" cellspacing="0" height="57">
 					<tr>
@@ -2057,10 +2057,10 @@ function goBackHistoryAndReady()
 					<td>
 					<table  border=0 cellPadding=0 cellSpacing=0>
 						<tr>
-							<td >
+							<td align="right" width="100">
 										<table  border="0" cellpadding="0" cellspacing="0">
 					<tr>
-						<td><jsp:include page="/softphone/stateIcon.jsp" flush="true" /></td>
+						<td align="right"><jsp:include page="/softphone/stateIcon.jsp" flush="true" /></td>
 					</tr>
 				</table>
 									
@@ -2079,8 +2079,8 @@ function goBackHistoryAndReady()
 											<table width="100%" border="0" cellpadding="0"
 												cellspacing="0">
 												<tr>
-												<td width="50">
-														$nbsp;<!-- 设置往右的距离 -->
+												<td width="30">
+														<!-- 设置往右的距离 -->
 													</td>
 													<td width="50">
 														<%@ include file="/softphone/voiceIcon.jsp"%>
@@ -2088,7 +2088,7 @@ function goBackHistoryAndReady()
 													<td>
 														<table border="0" cellpadding="0" cellspacing="0">
 															<tr>
-																<td><jsp:include page="/softphone/mediaIcon.jsp"
+																<td aligh="left"><jsp:include page="/softphone/mediaIcon.jsp"
 																		flush="true" /></td>
 																<td><%@ include file="/jsp/media/contactIcon.jsp"%></td>
 															</tr>
