@@ -1,0 +1,1250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>EZ Actor</title>
+<link href="style/chrome.css" rel="stylesheet" type="text/css">
+<link href="style/test.css" rel="stylesheet" type="text/css">
+<script src="js/common.js"></script>
+<script src="js/tab.js"></script>
+<script src="js/uiComponent.js" type="text/javascript"></script>
+<style type="text/css">
+<!--
+.class0{
+	border-width:0px;
+
+}
+.class1{
+	background-image:url(images/pop_tab_current.gif);
+	background-position:top;
+	width:29px;
+}
+-->
+</style>
+
+<script language="javascript" type="text/javascript">
+
+
+
+
+
+var isPinFloat = false; //0=没有pin float,1=pin float
+var isMesFloat=1; //记住弹出窗是否浮动，0为嵌入，1为浮动，2为关闭
+var isFaqFloat=2; //记住Faq弹出窗是否浮动，0为嵌入，1为浮动，2为关闭
+
+function initSize(){ //初始化页面个部分大小
+
+//设置整体布局
+var bheight = document.documentElement.clientHeight-document.getElementById("topDiv").offsetHeight-36;//下半部分的高度,不算状态栏，64是状态栏的高度
+	if(bheight > document.getElementById("rightBoardIcon").offsetHeight){
+	document.getElementById("mainIframe").style.height = bheight+"px";
+	document.getElementById("floatRightDiv").style.height = (bheight-21)+"px"; //22是右侧标题的高度
+	document.getElementById("floatRightFrame").style.height = (bheight-21)+"px";
+	}
+	
+	//设置右下角小窗口的位置
+	document.getElementById("IMalert").style.top  = (document.documentElement.clientHeight - document.getElementById("IMalert").offsetHeight)+"px";
+	document.getElementById("IMalert").style.left = (document.documentElement.clientWidth - document.getElementById("IMalert").offsetWidth)+"px";
+	
+	
+	//设置跑马灯的宽度,
+	bwidth  = document.documentElement.clientWidth;//页面宽度
+	if(bwidth >363){document.getElementById("marqueeMessage").style.width = (bwidth-363)+"px";} 
+	else{document.getElementById("marqueeMessage").style.width = "0px";}
+	
+	//设置浮动窗口的大小[仅在嵌入时起作用]
+	if(isMesFloat == 0){
+		document.getElementById("popTable1").style.width = mainIframe.frames[1].document.body.clientWidth+"px";
+	}
+	document.getElementById("numberBox").value = document.body.clientHeight;
+}
+
+function closeFloatRight(){ //关闭右侧边条
+	if(isPinFloat==false){
+		hideDiv('floatRightDiv');
+	}
+	else{
+		document.getElementById("sensorRight").style.width = 24;
+		document.getElementById("floatRightDiv").style.marginLeft = -202;
+		hideDiv('floatRightDiv');
+		isPinFloat = false;
+	}
+	document.getElementById('pinPic').src = 'images/st_pin.gif';
+	if(isMesFloat == 0){document.getElementById("popTable1").style.width = mainIframe.frames[1].document.body.clientWidth;}
+}
+
+function canHideDiv(divId){ //隐藏右侧边条
+	if(isPinFloat==false){
+		hideDiv(divId)
+	}else
+	{
+		return false;
+	}
+}
+
+function pinFloat(){ //订住右侧边条
+if(isPinFloat == false){
+		document.getElementById("sensorRight").style.width = 224;
+		document.getElementById("floatRightDiv").style.marginLeft = 0;
+		document.getElementById("pinPic").src = "images/st_release.gif";
+		document.getElementById("pinPic").alt = "浮动在主界面上";
+		if(isMesFloat == 0){document.getElementById("popTable1").style.width = mainIframe.frames[1].document.body.clientWidth;}
+		isPinFloat = true;
+	}
+	else{
+		document.getElementById("sensorRight").style.width = 24;
+		document.getElementById("floatRightDiv").style.marginLeft = -200;
+		document.getElementById("pinPic").src = "images/st_pin.gif";
+		document.getElementById("pinPic").alt = "固定在主界面中";
+		if(isMesFloat == 0){document.getElementById("popTable1").style.width = mainIframe.frames[1].document.body.clientWidth;}
+		isPinFloat = false;
+	}
+}
+
+function rightBoard(url,rightBoardWord){
+	if(document.getElementById("floatRightDiv").style.display =="none"){
+		document.getElementById("floatRightDiv").style.display ="";
+		document.getElementById("floatRightFrame").src = url;
+		document.getElementById("rightBoardWord").innerText = rightBoardWord;
+		
+	}else {
+					if(document.getElementById("floatRightFrame").src == url){
+						document.getElementById("floatRightDiv").style.display ="none";
+						document.getElementById("floatRightFrame").src = "";
+						closeFloatRight();
+						document.getElementById('pinPic').src = 'images/st_pin.gif'
+						document.getElementById("rightBoardWord").innerText = "";
+					}else{
+						document.getElementById("floatRightFrame").src = url;
+						document.getElementById("rightBoardWord").innerText = rightBoardWord;
+					}
+	}
+}
+
+
+function changeSrc(target,url){
+	document.getElementById(target).src = url;
+}
+
+function goTop(){
+	mainIframe.centerContentFrame.rows = "150,*";  //设置上下栏的大小
+	document.getElementById("popTable1").style.top ="95px";   //设置float的x位置
+	document.getElementById("popTable1").style.left ="205px";   //设置float的y位置
+	document.getElementById("popTable1").style.width =mainIframe.frames[1].document.body.clientWidth;    //设置float的宽度
+	document.getElementById("popTable1").style.height =150-29;    //设置float的高度
+	document.getElementById("popTableTitle").style.display ="none";	    //设置float隐藏标题栏
+	document.getElementById("inHandle").style.display ="block";	    //设置float拖拽句柄
+	document.getElementById("floatHandle").style.display ="none";	    //设置float拖拽句柄
+	document.getElementById("onTop").style.display ="block";	    //设置浮动按钮显示
+	document.getElementById("popTable1").style.zIndex ="0";	    //设置float的遮盖关系
+	document.getElementById("popTable1").style.borderWidth ="0px";    //取消float的边框
+	document.getElementById("popTable1").style.borderTop  ="1px solid #6D6D6D";    //设置float的上边框
+	offsetSize = 29;    //设置拖拽便宜
+	isMesFloat = 0;    //设置float的变量标记属性
+}
+	
+function goFloat(){
+	mainIframe.centerContentFrame.rows = "0,*";  //设置上下栏的大小
+	document.getElementById("popTable1").style.top ="320px";   //设置float的x位置
+	document.getElementById("popTable1").style.left ="400px";   //设置float的y位置
+	document.getElementById("popTable1").style.width ="500px";    //设置float的宽度
+	document.getElementById("popTable1").style.height ="130px";    //设置float的高度
+	document.getElementById("popTableTitle").style.display ="block";	    //设置float隐藏标题栏
+	document.getElementById("inHandle").style.display ="none";	    //设置float拖拽句柄
+	document.getElementById("floatHandle").style.display ="block";	    //设置float拖拽句柄
+	document.getElementById("onTop").style.display ="none";	    //设置浮动按钮显示
+	document.getElementById("popTable1").style.zIndex ="10010";	    //设置float的遮盖关系
+	document.getElementById("popTable1").style.borderWidth ="1px";    //取消float的边框
+	document.getElementById("popTable1").style.borderTop  ="1px solid #7191C1";    //设置float的上边框
+	offsetSize = 62;    //设置拖拽便宜
+	isMesFloat = 1;    //设置float的变量标记属性
+}
+
+function closeFloat(){
+	mainIframe.centerContentFrame.rows = "0,*";  //设置上下栏的大小
+	document.getElementById("popTable1").style.display ="none";   //设置float的x位置
+}
+
+function openFloat(){ //打开float菜单
+	if(isMesFloat == 0){
+		mainIframe.centerContentFrame.rows = "150,*";
+		document.getElementById("popTable1").style.height =150-29;
+		document.getElementById("popTable1").style.zIndex ="0";
+	}
+	document.getElementById("popTable1").style.display ="block";
+	
+	
+	
+		if(document.getElementById("popTable1").offsetLeft + document.getElementById("popTable1").offsetWidth <50){
+			document.getElementById("popTable1").style.left = -document.getElementById("popTable1").offsetWidth + 100;
+		}
+	
+	
+	
+}
+//**************for layout icon start************************// 
+function shLeft(){
+if(mainIframe.mainFrame.cols == "202,*"){
+		mainIframe.mainFrame.cols = "0,*";
+		mainIframe.mainFrame.frameSpacing = "0";
+	}
+	else{
+		mainIframe.mainFrame.cols = "202,*";
+		mainIframe.mainFrame.frameSpacing = "2";
+	}
+}
+function shRight(){
+	showHideDiv('sensorRight');
+}
+
+
+function shFloat(divId){
+	if(isMesFloat == 1){showHideDiv(divId)}//浮动时直接控制
+	else{//嵌入到frame里,---弹出窗是否浮动，0为嵌入，1为浮动，2为关闭
+			if(isMesFloat == 0){
+					mainIframe.centerContentFrame.rows = "0,*";
+					mainIframe.centerContentFrame.frameSpacing = "0";
+					isMesFloat = 2;
+					return false;
+				}
+				
+			if(isMesFloat == 2){
+					mainIframe.centerContentFrame.rows = "160,*";
+					mainIframe.centerContentFrame.frameSpacing = "3";
+					isMesFloat = 0;
+					return false;
+				}
+	}
+}
+
+
+function addTab_old2323(tabId,text,url){
+//alert(parent.mainIframe.mainCenter.tabFrame);
+//处理tab
+var TabAreaTr = mainIframe.mainCenter.tabFrame.document.getElementById("TabAreaTr");//标签区域的tr
+	if(mainIframe.mainCenter.tabFrame.document.getElementById(tabId)){//判断是否已经有了这个标签，如果有了就不再加新的了，而是转到该标签就ok了
+		mainIframe.mainCenter.contentFrame.location.href=url; 
+		mainIframe.mainCenter.tabFrame.document.getElementById(tabId).firstChild.firstChild.childNodes[1].innerText = text;
+		
+				for(i=0;i<TabAreaTr.getElementsByTagName("img").length;i++){//其他的图片全变灰色
+						if(i % 3 == 0){TabAreaTr.getElementsByTagName("img")[i].src ="../images/tab_un_l1.gif";}
+						if(i % 3 == 1){TabAreaTr.getElementsByTagName("img")[i].src ="../images/tab_close2.gif";}
+						if(i % 3 == 2){TabAreaTr.getElementsByTagName("img")[i].src ="../images/tab_un_l3.gif";}
+					}
+					
+				for(i=0;i<TabAreaTr.getElementsByTagName("td").length;i++){//其他的背景全变灰色
+						if(TabAreaTr.getElementsByTagName("td")[i].style.backgroundImage == "url(../images/tab_cu_l2.gif)"){
+							TabAreaTr.getElementsByTagName("td")[i].style.backgroundImage = "url(../images/tab_un_l2.gif)";
+						}
+					}
+					
+				mainIframe.mainCenter.tabFrame.document.getElementById(tabId).getElementsByTagName("img")[0].src ="../images/tab_cu_l1.gif";
+				mainIframe.mainCenter.tabFrame.document.getElementById(tabId).getElementsByTagName("img")[1].src ="../images/tab_close1.gif";
+				mainIframe.mainCenter.tabFrame.document.getElementById(tabId).getElementsByTagName("img")[2].src ="../images/tab_cu_l3.gif";
+				mainIframe.mainCenter.tabFrame.document.getElementById(tabId).getElementsByTagName("td")[1].style.backgroundImage = "url(../images/tab_cu_l2.gif)";
+				mainIframe.mainCenter.tabFrame.document.getElementById(tabId).getElementsByTagName("td")[2].style.backgroundImage = "url(../images/tab_cu_l2.gif)";
+		return false;//继续写
+	} 
+	
+	//如果没有该标签添加新的标签，如下
+	else{
+		for(i=0;i<TabAreaTr.getElementsByTagName("img").length;i++){//其他的图片全变灰色
+				if(i % 3 == 0){TabAreaTr.getElementsByTagName("img")[i].src ="../images/tab_un_l1.gif";}
+				if(i % 3 == 1){TabAreaTr.getElementsByTagName("img")[i].src ="../images/tab_close2.gif";}
+				if(i % 3 == 2){TabAreaTr.getElementsByTagName("img")[i].src ="../images/tab_un_l3.gif";}
+			}
+			
+		for(i=0;i<TabAreaTr.getElementsByTagName("td").length;i++){//其他的背景全变灰色
+				if(TabAreaTr.getElementsByTagName("td")[i].style.backgroundImage == "url(../images/tab_cu_l2.gif)"){
+					TabAreaTr.getElementsByTagName("td")[i].style.backgroundImage = "url(../images/tab_un_l2.gif)";
+				}
+			}
+	TabAreaTr.insertCell().innerHTML +="<td><table  border='0' cellspacing='0' cellpadding='0' title='"+text+"' id='"+tabId+"'><tr style='cursor:pointer' onclick='parent.contentFrame.location.href=\"../"+url+"\";for(i=0;i<document.getElementById(\"TabAreaTr\").getElementsByTagName(\"img\").length;i++){if(i % 3 == 0){document.getElementById(\"TabAreaTr\").getElementsByTagName(\"img\")[i].src =\"../images/tab_un_l1.gif\";}if(i % 3 == 1){document.getElementById(\"TabAreaTr\").getElementsByTagName(\"img\")[i].src =\"../images/tab_close2.gif\";}if(i % 3 == 2){document.getElementById(\"TabAreaTr\").getElementsByTagName(\"img\")[i].src =\"../images/tab_un_l3.gif\";}}for(i=0;i<document.getElementById(\"TabAreaTr\").getElementsByTagName(\"td\").length;i++){if(document.getElementById(\"TabAreaTr\").getElementsByTagName(\"td\")[i].style.backgroundImage == \"url(../images/tab_cu_l2.gif)\"){document.getElementById(\"TabAreaTr\").getElementsByTagName(\"td\")[i].style.backgroundImage = \"url(../images/tab_un_l2.gif)\";}}document.getElementById(\""+tabId+"\").getElementsByTagName(\"img\")[0].src =\"../images/tab_cu_l1.gif\";document.getElementById(\""+tabId+"\").getElementsByTagName(\"img\")[1].src =\"../images/tab_close1.gif\";document.getElementById(\""+tabId+"\").getElementsByTagName(\"img\")[2].src =\"../images/tab_cu_l3.gif\";document.getElementById(\""+tabId+"\").getElementsByTagName(\"td\")[1].style.backgroundImage = \"url(../images/tab_cu_l2.gif)\";document.getElementById(\""+tabId+"\").getElementsByTagName(\"td\")[2].style.backgroundImage = \"url(../images/tab_cu_l2.gif)\";return false;'  onDblClick='document.getElementsByTagName(\"img\")[0].src =\"../images/tab_cu_l1.gif\";document.getElementsByTagName(\"img\")[1].src =\"../images/tab_close1.gif\";document.getElementsByTagName(\"img\")[2].src =\"../images/tab_cu_l3.gif\";document.getElementsByTagName(\"td\")[2].style.backgroundImage = \"url(../images/tab_cu_l2.gif)\";document.getElementsByTagName(\"td\")[3].style.backgroundImage = \"url(../images/tab_cu_l2.gif)\";document.getElementById(\"TabAreaTr\").deleteCell(window.event.srcElement.parentElement.parentElement.parentElement.parentElement.cellIndex);return false;'><td width='4'><img src='../images/tab_cu_l1.gif' border='0'></td><td align='center' style='padding-top:3px;white-space:nowrap;color:black;background-image:url(../images/tab_cu_l2.gif)'> "+text+" </td><td width='10' align='center' style='background-image:url(../images/tab_cu_l2.gif)'><img src='../images/tab_close1.gif' border='0' alt='Close this tab' onclick='document.getElementById(\"TabAreaTr\").deleteCell(window.event.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.cellIndex);return false;'></td><td width='4'><img src='../images/tab_cu_l3.gif' border='0'></td></tr></table></td>";
+	}
+	mainIframe.mainCenter.contentFrame.location.href=url; //转到该标签,暂时这么写
+	
+}
+
+function changeSoftKeyBoard(MenuItem){
+	if(MenuItem == "softKey"){
+		document.getElementById("softKeyImg").src = "images/SZJP_tab1_current.gif";
+		document.getElementById("hisAddImg").src = "images/SZJP_tab2_normal.gif";
+		document.getElementById("AddImg").src = "images/SZJP_tab3_normal.gif";
+		document.getElementById("softKeyBoard").style.display = "";
+		document.getElementById("callHistoryBoard").style.display = "none";
+		document.getElementById("addressBoard").style.display = "none";
+	}
+	if(MenuItem == "callHis"){
+		document.getElementById("softKeyImg").src = "images/SZJP_tab1_normal.gif";
+		document.getElementById("hisAddImg").src = "images/SZJP_tab2_current.gif";
+		document.getElementById("AddImg").src = "images/SZJP_tab3_normal.gif";
+		document.getElementById("softKeyBoard").style.display = "none";
+		document.getElementById("callHistoryBoard").style.display = "";
+		document.getElementById("addressBoard").style.display = "none";
+	}
+	if(MenuItem == "address"){
+		document.getElementById("softKeyImg").src = "images/SZJP_tab1_normal.gif";
+		document.getElementById("hisAddImg").src = "images/SZJP_tab2_normal.gif";
+		document.getElementById("AddImg").src = "images/SZJP_tab3_current.gif";
+		document.getElementById("softKeyBoard").style.display = "none";
+		document.getElementById("callHistoryBoard").style.display = "none";
+		document.getElementById("addressBoard").style.display = "";
+	}
+}
+
+
+
+function ywTab(url){ //点击图标方法
+	//前4行是取得图标数量，并切换背景图片
+	var mesIconNumber = document.getElementById("mesIconTable").getElementsByTagName("td").length-1;   //图标数量
+	for(i=0;i<=mesIconNumber;i++){document.getElementById("mesIconTable").getElementsByTagName("td")[i].className = "class0";}
+	if(event.srcElement.tagName == "IMG"){event.srcElement.parentNode.className = "class1";}
+	if(event.srcElement.tagName == "TD") {event.srcElement.className = "class1";}
+
+	if(isMesFloat==0 || document.getElementById("popTable1").style.height=="0px"){
+		mainIframe.centerContentFrame.rows = "150,*"
+		document.getElementById("popTable1").style.height ="121px";
+	}
+		document.getElementById("popIframe").src=url;
+}
+function dbClickBar(){ //双击图标区域的方法
+	if(isMesFloat == 0){
+			if(document.getElementById("popTable1").style.height == "0px"){
+					mainIframe.centerContentFrame.rows = "150,*"
+					document.getElementById("popTable1").style.height ="121px";
+				}
+			else{
+					mainIframe.centerContentFrame.rows = "26,*"
+					document.getElementById("popTable1").style.height ="0px";
+				}
+	}
+}
+</script>
+<script language="javascript" type="text/javascript">
+	function openMaskAlert(alertStr,timeStr){
+	document.getElementById("alertFramePad").style.display = "block";
+	document.getElementById("alertDivPad").style.display = "block";
+	document.getElementById("alertDiv").style.display = "block";
+	
+	document.getElementById("tip").innerHTML = alertStr;
+	
+
+	document.getElementById("alertFramePad").style.height = document.documentElement.clientHeight;
+	document.getElementById("alertFramePad").style.width = document.documentElement.clientWidth;
+	document.getElementById("alertDivPad").style.height = document.documentElement.clientHeight;
+	document.getElementById("alertDivPad").style.width = document.documentElement.clientWidth;
+	document.getElementById("alertDiv").style.left = (document.documentElement.clientWidth-350)/2;
+	document.getElementById("alertDiv").style.top = (document.documentElement.clientHeight-150)/2;
+	
+	if (timeStr == null) { timeStr = 5000 }
+	setTimeout("testAlertClose()",timeStr)
+	
+	}
+	
+	function closeMaskAlert(){
+	document.getElementById("alertFramePad").style.display = "none";
+	document.getElementById("alertDivPad").style.display = "none";
+	document.getElementById("alertDiv").style.display = "none";
+	}
+	
+////////////////////////////////////////////////////
+	function openIvr(){
+	document.getElementById("alertFramePad").style.display = "block";
+	document.getElementById("alertDivPad").style.display = "block";
+	document.getElementById("ivrDiv").style.display = "block";
+	
+	document.getElementById("ivrFRM").src = "common/ivr.htm"
+		
+	document.getElementById("alertFramePad").style.height = document.documentElement.clientHeight;
+	document.getElementById("alertFramePad").style.width = document.documentElement.clientWidth;
+	document.getElementById("alertDivPad").style.height = document.documentElement.clientHeight;
+	document.getElementById("alertDivPad").style.width = document.documentElement.clientWidth;
+	document.getElementById("ivrDiv").style.left = (document.documentElement.clientWidth-240)/2;
+	document.getElementById("ivrDiv").style.top = (document.documentElement.clientHeight-320)/2;
+
+	}
+	
+	function closeIvr(){
+	document.getElementById("alertFramePad").style.display = "none";
+	document.getElementById("alertDivPad").style.display = "none";
+	document.getElementById("ivrDiv").style.display = "none";
+	document.getElementById("ivrFRM").src = ""
+	}
+</script>
+</head>
+
+<body onLoad="initSize();" onResize="initSize()" scroll="no">
+<div id="topDiv">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="205" rowspan="2" valign="bottom" background="images/Top_logobg.gif">
+	<img src="images/ez_logo.gif" border="0" style="position:absolute; left:0px; top:0px;">
+	<table width="205" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="155">
+<div id="statMenu" style="display:none"> 
+<script language="javascript" type="text/javascript">
+	function ww(thisId){
+	  for (i=1;i<6;i++){ document.getElementById("zxStat"+i).style.fontWeight = "normal"; document.getElementById("zxStat"+i+"Img").src = "images/left_space.gif";}
+		document.getElementById(thisId).style.fontWeight = 'bolder';
+		document.getElementById(thisId+"Img").src = "images/green_dot.gif";
+		document.getElementById("disStat").innerText = event.srcElement.innerText;
+	}
+</script> 
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+                      <tr> 
+                        <td class="notCurrentMenu">更改座席状态</td> 
+                      </tr> 
+                      <tr> 
+                        <td id="zxStat1" onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="ww('zxStat1')"><img id="zxStat1Img" src="images/left_space.gif" width="20" height="22" border="0" align="absmiddle">全部就绪</td> 
+                      </tr> 
+                      <tr> 
+                        <td id="zxStat2" onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="ww('zxStat2')" style="font-weight:bold"><img id="zxStat2Img" src="images/green_dot.gif" width="20" height="22" border="0" align="absmiddle">部分就绪</td> 
+                      </tr> 
+                      <tr> 
+                        <td id="zxStat3" onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="ww('zxStat3')"><img id="zxStat3Img" src="images/left_space.gif" width="20" height="22" border="0" align="absmiddle">忙碌</td> 
+                      </tr> 
+                      <tr> 
+                        <td id="zxStat4" onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="ww('zxStat4')"><img id="zxStat4Img" src="images/left_space.gif" width="20" height="22" border="0" align="absmiddle">会议</td> 
+                      </tr> 
+                      <tr> 
+                        <td id="zxStat5" onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="ww('zxStat5')"><img id="zxStat5Img" src="images/left_space.gif" width="20" height="22" border="0" align="absmiddle">培训</td> 
+                      </tr> 
+                    </table> 
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+                      <tr> 
+                        <td class="notCurrentMenu">更改管道状态</td> 
+                        <td class="notCurrentMenu">&nbsp;</td>
+                        <td class="notCurrentMenu">&nbsp;</td> 
+                      </tr> 
+                      <tr  id="gdStat1" onMouseOver="showDiv('gdStat1_select1');this.className='tdOver'" onClick="hideDiv('gdStat1_select1')" onMouseOut="hideDiv('gdStat1_select1');this.className='tdOut'"> 
+                        <td><img id="gdStat1Img" src="images/left_space.gif" width="20" height="22" border="0" align="absmiddle"><span style="width:50px;">电话</span></td> 
+                        <td> <span id="gdStat1_stat1">[处理中]</span> </td>
+                        <td width="10"><img src="images/sanjiao.gif" width="5" height="9" border="0" align="absmiddle"> 
+                          <div id="gdStat1_select1" style="margin-left:0px; display:none; position:absolute;　border:1px solid #8592B5; background-color:#FFFFFF; width: 80px;"> 
+                            <table width="100%" border="0" cellspacing="0" cellpadding="4"> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat1_select1');document.getElementById('gdStat1_stat1').innerText='[处理中]'">处理中</td> 
+                              </tr> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat1_select1');document.getElementById('gdStat1_stat1').innerText='[待机]'">待机</td> 
+                              </tr> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat1_select1');document.getElementById('gdStat1_stat1').innerText='[暂停]'">暂停</td> 
+                              </tr> 
+                            </table> 
+                          </div></td> 
+                      </tr> 
+                      <tr   id="gdStat2" onMouseOver="showDiv('gdStat2_select1');this.className='tdOver'"  onClick="hideDiv('gdStat2_select1')" onMouseOut="hideDiv('gdStat2_select1');this.className='tdOut'"> 
+                        <td><img id="gdStat2Img" src="images/left_space.gif" width="20" height="22" border="0" align="absmiddle"><span style="width:50px;">E-mail</span> </td> 
+                        <td ><span id="gdStat2_stat1">[处理中]</span></td>
+                        <td ><img src="images/sanjiao.gif" width="5" height="9" border="0" align="absmiddle"> 
+                          <div id="gdStat2_select1" style="margin-left:0px; display:none; position:absolute;　border:1px solid #8592B5; background-color:#FFFFFF; width: 80px;"> 
+                            <table width="100%" border="0" cellspacing="0" cellpadding="4"> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat2_select1');document.getElementById('gdStat2_stat1').innerText='[处理中]'">处理中</td> 
+                              </tr> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat2_select1');document.getElementById('gdStat2_stat1').innerText='[待机]'">待机</td> 
+                              </tr> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat2_select1');document.getElementById('gdStat2_stat1').innerText='[暂停]'">暂停</td> 
+                              </tr> 
+                            </table> 
+                          </div></td> 
+                      </tr> 
+                      <tr id="gdStat3" onMouseOver="showDiv('gdStat3_select1');this.className='tdOver'" onClick="hideDiv('gdStat3_select1')" onMouseOut="hideDiv('gdStat3_select1');this.className='tdOut'"> 
+                        <td><img id="gdStat3Img" src="images/left_space.gif" width="20" height="22" border="0" align="absmiddle"><span style="width:50px;">短信</span> </td> 
+                        <td><span id="gdStat3_stat1">[处理中]</span></td>
+                        <td><img src="images/sanjiao.gif" width="5" height="9" border="0" align="absmiddle"> 
+                          <div id="gdStat3_select1" style="margin-left:0px; display:none; position:absolute;　border:1px solid #8592B5; background-color:#FFFFFF; width: 80px;"> 
+                            <table width="100%" border="0" cellspacing="0" cellpadding="4"> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat3_select1');document.getElementById('gdStat3_stat1').innerText='[处理中]'">处理中</td> 
+                              </tr> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat3_select1');document.getElementById('gdStat3_stat1').innerText='[待机]'">待机</td> 
+                              </tr> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat3_select1');document.getElementById('gdStat3_stat1').innerText='[暂停]'">暂停</td> 
+                              </tr> 
+                            </table> 
+                          </div></td> 
+                      </tr> 
+                      <tr id="gdStat4" onMouseOver="showDiv('gdStat4_select1');this.className='tdOver'" onClick="hideDiv('gdStat4_select1')" onMouseOut="hideDiv('gdStat4_select1');this.className='tdOut'"> 
+                        <td ><img id="gdStat4Img" src="images/left_space.gif" width="20" height="22" border="0" align="absmiddle"><span style="width:50px;">传真</span></td> 
+                        <td> <span id="gdStat4_stat1">[待机]</span></td>
+                        <td><img src="images/sanjiao.gif" width="5" height="9" border="0" align="absmiddle"> 
+                          <div id="gdStat4_select1" style="margin-left:0px; display:none; position:absolute;　border:1px solid #8592B5; background-color:#FFFFFF; width: 80px;"> 
+                            <table width="100%" border="0" cellspacing="0" cellpadding="4"> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat4_select1');document.getElementById('gdStat4_stat1').innerText='[处理中]'">处理中</td> 
+                              </tr> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat4_select1');document.getElementById('gdStat4_stat1').innerText='[待机]'">待机</td> 
+                              </tr> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat4_select1');document.getElementById('gdStat4_stat1').innerText='[暂停]'">暂停</td> 
+                              </tr> 
+                            </table> 
+                          </div></td> 
+                      </tr> 
+                      <tr id="gdStat5" onMouseOver="showDiv('gdStat5_select1');this.className='tdOver'" onClick="hideDiv('gdStat5_select1')" onMouseOut="hideDiv('gdStat5_select1');this.className='tdOut'"> 
+                        <td><img id="zxStat5Img" src="images/left_space.gif" width="20" height="22" border="0" align="absmiddle"><span style="width:50px;">Chat</span> </td> 
+                        <td><span id="gdStat5_stat1">[暂停] </span></td>
+                        <td><img src="images/sanjiao.gif" width="5" height="9" border="0" align="absmiddle"> 
+                          <div id="gdStat5_select1" style="margin-left:0px; display:none; position:absolute;　border:1px solid #8592B5; background-color:#FFFFFF; width: 80px;"> 
+                            <table width="100%" border="0" cellspacing="0" cellpadding="4"> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat5_select1');document.getElementById('gdStat5_stat1').innerText='[处理中]'">处理中</td> 
+                              </tr> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat5_select1');document.getElementById('gdStat5_stat1').innerText='[待机]'">待机</td> 
+                              </tr> 
+                              <tr> 
+                                <td onMouseOver="this.className='tdOver';" onMouseOut="this.className='tdOut'" onClick="hideDiv('gdStat5_select1');document.getElementById('gdStat5_stat1').innerText='[暂停]'">暂停</td> 
+                              </tr> 
+                            </table> 
+                          </div></td> 
+                      </tr> 
+                    </table> 
+              </div>
+		</td>
+        <td width="50" align="center" style="padding-right:5px;"><img src="images/agentStat38_allReady.gif" name="Image3" width="38" height="44" border="0" style="cursor:pointer" onClick="showHideDiv('statMenu');event.cancelBubble = true;"></td>
+        </tr>
+      <tr valign="top">
+        <td height="16" colspan="2" align="right"><span id="disStat">全部就绪</span> 02:12:35&nbsp;&nbsp; </td>
+        </tr>
+    </table>	</td>
+    <td width="99%" height="22" valign="top" background="images/Top_lab1bg.gif"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td style="background-image:url(images/Top_lab1_left.gif); background-repeat:no-repeat; background-position:left" height="22" align="right" class="nobreak">Alias,2003-12-12 星期三&nbsp; <img src="images/rank_198.gif" width="20" height="20" border="0" align="absmiddle">&nbsp;&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="73" valign="top" background="images/Top_lab2bg1.gif"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><img src="images/Top_lab1_corner.gif" width="45" height="7" border="0" align="absmiddle"></td>
+      </tr>
+    </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>
+          <div id="softPhoneDiv">
+            <table width="100%" height="57" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td width="52" align="right"><img id="keyboard" src="images/keyboard_normal.gif" width="37" height="37"  style="cursor:pointer" alt="软键盘" onMouseOver="this.src='images/keyboard_over.gif'" onMouseOut="this.src='images/keyboard_normal.gif'" onMouseUp="this.src='images/keyboard_over.gif'"  onMouseDown="this.src='images/keyboard_down.gif'" onClick="showHideDiv('softKeyBoardDiv');"></td>
+                <td width="50"><table width="100%" border="0" cellpadding="1" cellspacing="0">
+                    <tr>
+                      <td><img id="pLine1" src="images/light/light_1A1.gif" width="43" height="14" border="0" align="absmiddle" class="pointer"></td>
+                    </tr>
+                    <tr>
+                      <td><img id="pLine2" src="images/light/light_2S4.gif" width="43" height="14"  border="0" align="absmiddle" class="pointer"></td>
+                    </tr>
+                    <tr>
+                      <td><img id="pLine3" src="images/light/light_3S4.gif" width="43" height="14" border="0" align="absmiddle" class="pointer"></td>
+                    </tr>
+                </table></td>
+                <td width="160">
+                  <table width="157" height="47" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td width="5" rowspan="3"><img src="images/Top_toolbarM_left.gif" width="5" height="47"></td>
+                      <td height="6" colspan="2" background="images/Top_toolbarM_topbg.gif"></td>
+                      <td width="5" rowspan="3"><img src="images/Top_toolbarM_right.gif" width="5" height="47"></td>
+                    </tr>
+                    <tr>
+                      <td height="23" colspan="2" background="images/box02_out_bg.gif"><input name="numberBox" id="numberBox" type="text" class="phoneNumberBox" value="" maxlength="60"></td>
+                    </tr>
+                    <tr>
+                      <td height="16" valign="top" background="images/Top_toolbarM_bottombg.gif"> <span id="statWord" class="pointer" title="Busy"><img src="images/ban_top_phone_busy.gif" width="10" height="8" border="0" align="absmiddle"> <span class="statWord">Busy</span></span> </td>
+                      <td align="right" background="images/Top_toolbarM_bottombg.gif"><span class="statWord">12:05</span></td>
+                    </tr>
+                </table></td>
+                <td width="90"><table width="50" border="0" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td><img id="dial" src="images/dial_normal.gif" width="43" height="44" style="cursor:pointer" alt="接听" onMouseOver="this.src='images/dial_over.gif'" onMouseOut="this.src='images/dial_normal.gif'" onMouseUp="this.src='images/dial_over.gif'"  onMouseDown="this.src='images/dial_down.gif'"></td>
+                      <td><img id="discon" src="images/discon_normal.gif" width="37" height="44" style="cursor:pointer" alt="挂断" onMouseOver="this.src='images/discon_over.gif'" onMouseOut="this.src='images/discon_normal.gif'" onMouseUp="this.src='images/discon_over.gif'" onMouseDown="this.src='images/discon_down.gif'"></td>
+                    </tr>
+                </table></td>
+                <td><table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td><img id="call1" src="images/call_01_normal.gif" width="34" height="34" style="cursor:pointer" alt="HOLD"  onMouseOver="this.src='images/call_01_over.gif'" onMouseOut="this.src='images/call_01_normal.gif'" onMouseUp="this.src='images/call_01_over.gif'"  onMouseDown="this.src='images/call_01_down.gif'"></td>
+                      <td><img id="call2" src="images/call_02_normal.gif" width="31" height="34" style="cursor:pointer" alt="转接"  onMouseOver="this.src='images/call_02_over.gif'" onMouseOut="this.src='images/call_02_normal.gif'" onMouseUp="this.src='images/call_02_over.gif'"  onMouseDown="this.src='images/call_02_down.gif'"></td>
+					  <td><img id="call5" src="images/call_05_normal.gif" width="31" height="34" style="cursor:pointer" alt="多部转接"  onMouseOver="this.src='images/call_05_over.gif'" onMouseOut="this.src='images/call_05_normal.gif'" onMouseUp="this.src='images/call_05_over.gif'"  onMouseDown="this.src='images/call_05_down.gif'"></td>
+                      <td><img id="call3" src="images/call_03_normal.gif" width="31" height="34" style="cursor:pointer" alt="接听"  onMouseOver="this.src='images/call_03_over.gif'" onMouseOut="this.src='images/call_03_normal.gif'" onMouseUp="this.src='images/call_03_over.gif'"  onMouseDown="this.src='images/call_03_down.gif'"></td>
+                      <td><img id="call4" src="images/call_04_normal.gif" width="32" height="34" style="cursor:pointer" alt="IVR"  onMouseOver="this.src='images/call_04_over.gif'" onMouseOut="this.src='images/call_04_normal.gif'" onMouseUp="this.src='images/call_04_over.gif'"  onMouseDown="this.src='images/call_04_down.gif'" onClick="openIvr()"></td>
+                    </tr>
+                </table></td>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+          </div>
+		
+          <div id="softKeyBoardDiv" style="display:none">
+            <table border="0" width="464" height="197" cellpadding="0" cellspacing="0">
+              <tr>
+                <td width="32" valign="top" nowrap background="images/SZJP_leftbg.gif"><table width="32" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td valign="top"><img id="softKeyImg" src="images/SZJP_tab1_current.gif" width="32" height="43" class="pointer" alt="软键盘" onClick="changeSoftKeyBoard('softKey')"></td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><img id="hisAddImg" src="images/SZJP_tab2_normal.gif" width="32" height="43" border="0" class="pointer" alt="历史地址" onClick="changeSoftKeyBoard('callHis')"></td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><img id="AddImg" src="images/SZJP_tab3_normal.gif" width="32" height="43" border="0" class="pointer" alt="地址簿" onClick="changeSoftKeyBoard('address')"></td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><img src="images/SZJP_tab_bottom.gif" width="32" height="3" class="pointer"></td>
+                    </tr>
+                </table></td>
+                <td width="416" valign="top" background="images/SZJP_middlebg.gif"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td height="2" colspan="2" background="images/SZJP_topbg.gif"><img src="images/SZJP_top_middle.gif" width="262" height="2"></td>
+                    </tr>
+                  </table>
+                    <div id="softKeyBoard" style="display:">
+                      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td><table border="0" cellpadding="0" cellspacing="8">
+                              <tr>
+                                <td width="55" height="39" id="softkey1" class="skBig" onMouseOut="this.className='skBig'" onMouseOver="this.className='skBigOver'" onMouseDown="this.className='skBigDown'" onMouseUp="this.className='skBigOver'">1<div style="position:absolute; margin-left:-28px"><img src="images/null.gif" width="45" height="29" border="0" align="absmiddle"></div></td>
+                                <td width="55" height="39" id="softkey1" class="skBig" onMouseOut="this.className='skBig'" onMouseOver="this.className='skBigOver'" onMouseDown="this.className='skBigDown'" onMouseUp="this.className='skBigOver'">2</td>
+                                <td width="55" height="39" id="softkey1" class="skBig" onMouseOut="this.className='skBig'" onMouseOver="this.className='skBigOver'" onMouseDown="this.className='skBigDown'" onMouseUp="this.className='skBigOver'">3</td>
+                                <td width="55" height="39" ><img src="images/SZJP_button1_01a.gif" id="softkeyA" name="softkeyA" width="55" height="39" border="0" class="pointer" onMouseOver="this.src='images/SZJP_button1_01b.gif'" onMouseOut="this.src='images/SZJP_button1_01a.gif'"  onMouseDown="this.src='images/SZJP_button1_01c.gif'" onMouseUp="this.src='images/SZJP_button1_01b.gif'"></td>
+                              </tr>
+                              <tr>
+                                <td width="55" height="39" id="softkey1" class="skBig" onMouseOut="this.className='skBig'" onMouseOver="this.className='skBigOver'" onMouseDown="this.className='skBigDown'" onMouseUp="this.className='skBigOver'">4</td>
+                                <td width="55" height="39" id="softkey1" class="skBig" onMouseOut="this.className='skBig'" onMouseOver="this.className='skBigOver'" onMouseDown="this.className='skBigDown'" onMouseUp="this.className='skBigOver'">5</td>
+                                <td width="55" height="39" id="softkey1" class="skBig" onMouseOut="this.className='skBig'" onMouseOver="this.className='skBigOver'" onMouseDown="this.className='skBigDown'" onMouseUp="this.className='skBigOver'">6</td>
+                                <td width="55" height="39" id="softkeyB"><img src="images/SZJP_button1_02a.gif" name="Image10" width="55" height="39" border="0" class="pointer" onMouseOver="this.src='images/SZJP_button1_02b.gif'" onMouseOut="this.src='images/SZJP_button1_02a.gif'" onMouseDown="this.src='images/SZJP_button1_02c.gif'" onMouseUp="this.src='images/SZJP_button1_02b.gif'"></td>
+                              </tr>
+                              <tr>
+                                <td width="55" height="39" id="softkey1" class="skBig" onMouseOut="this.className='skBig'" onMouseOver="this.className='skBigOver'" onMouseDown="this.className='skBigDown'" onMouseUp="this.className='skBigOver'">7</td>
+                                <td width="55" height="39" id="softkey1" class="skBig" onMouseOut="this.className='skBig'" onMouseOver="this.className='skBigOver'" onMouseDown="this.className='skBigDown'" onMouseUp="this.className='skBigOver'">8</td>
+                                <td width="55" height="39" id="softkey1" class="skBig" onMouseOut="this.className='skBig'" onMouseOver="this.className='skBigOver'" onMouseDown="this.className='skBigDown'" onMouseUp="this.className='skBigOver'">9</td>
+                                <td width="55" height="39" id="softkeyC"><img src="images/SZJP_button1_03a.gif" name="Image11" width="55" height="39" border="0" class="pointer" onMouseOver="this.src='images/SZJP_button1_03b.gif'" onMouseOut="this.src='images/SZJP_button1_03a.gif'" onMouseDown="this.src='images/SZJP_button1_03c.gif'" onMouseUp="this.src='images/SZJP_button1_03b.gif'"></td>
+                              </tr>
+                              <tr>
+                                <td width="55" height="39" id="softkey1" class="skBig" onMouseOut="this.className='skBig'" onMouseOver="this.className='skBigOver'" onMouseDown="this.className='skBigDown'" onMouseUp="this.className='skBigOver'">*</td>
+                                <td width="55" height="39" id="softkey1" class="skBig" onMouseOut="this.className='skBig'" onMouseOver="this.className='skBigOver'" onMouseDown="this.className='skBigDown'" onMouseUp="this.className='skBigOver'">0</td>
+                                <td width="55" height="39" id="softkey1" class="skBig" onMouseOut="this.className='skBig'" onMouseOver="this.className='skBigOver'" onMouseDown="this.className='skBigDown'" onMouseUp="this.className='skBigOver'">#</td>
+                                <td width="55" height="39" id="softkeyD"><img src="images/SZJP_button1_04a.gif" name="Image12" width="55" height="39" border="0" class="pointer" onMouseOver="this.src='images/SZJP_button1_04b.gif'" onMouseOut="this.src='images/SZJP_button1_04a.gif'" onMouseDown="this.src='images/SZJP_button1_04c.gif'" onMouseUp="this.src='images/SZJP_button1_04b.gif'"></td>
+                              </tr>
+                          </table></td>
+                          <td valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td height="5"></td>
+                              </tr>
+                              <tr>
+                                <td valign="top"><table border="0" cellpadding="0" cellspacing="5">
+                                    <tr>
+                                      <td width="35" height="22" class="skMiddle" onMouseOut="this.className='skMiddle'" onMouseOver="this.className='skMiddleOver'" onMouseDown="this.className='skMiddleDown'" onMouseUp="this.className='skMiddleOver'">1</td>
+                                      <td width="69"><input name="TL12" type="text" class="skInput" value="BJ Office" size="8"></td>
+                                      <td width="35" height="22" class="skFun1" onMouseOut="this.className='skFun1'" onMouseOver="this.className='skFun1Over'" onMouseDown="this.className='skFun1Down'" onMouseUp="this.className='skFun1Over'" title="同群代接"> F1</td>
+                                    </tr>
+                                    <tr>
+                                      <td width="35" height="22" class="skMiddle" onMouseOut="this.className='skMiddle'" onMouseOver="this.className='skMiddleOver'" onMouseDown="this.className='skMiddleDown'" onMouseUp="this.className='skMiddleOver'">2</td>
+                                      <td><input name="TL22" type="text" class="skInput" size="8"></td>
+                                      <td width="35" height="22" class="skFun1" onMouseOut="this.className='skFun1'" onMouseOver="this.className='skFun1Over'" onMouseDown="this.className='skFun1Down'" onMouseUp="this.className='skFun1Over'" title="来话跟随设定">F2</td>
+                                    </tr>
+                                    <tr>
+                                      <td width="35" height="22" class="skMiddle" onMouseOut="this.className='skMiddle'" onMouseOver="this.className='skMiddleOver'" onMouseDown="this.className='skMiddleDown'" onMouseUp="this.className='skMiddleOver'">3</td>
+                                      <td><input name="TL32" type="text" class="skInput" value="TB Office" size="8"></td>
+                                      <td width="35" height="22" class="skFun1" onMouseOut="this.className='skFun1'" onMouseOver="this.className='skFun1Over'" onMouseDown="this.className='skFun1Down'" onMouseUp="this.className='skFun1Over'">F3</td>
+                                    </tr>
+                                    <tr>
+                                      <td width="35" height="22" class="skMiddle" onMouseOut="this.className='skMiddle'" onMouseOver="this.className='skMiddleOver'" onMouseDown="this.className='skMiddleDown'" onMouseUp="this.className='skMiddleOver'">4</td>
+                                      <td><input name="TL42" type="text" class="skInput" value="HK Office" size="8"></td>
+                                      <td width="35" height="22" class="skFun1" onMouseOut="this.className='skFun1'" onMouseOver="this.className='skFun1Over'" onMouseDown="this.className='skFun1Down'" onMouseUp="this.className='skFun1Over'">F4</td>
+                                    </tr>
+                                    <tr>
+                                      <td width="35" height="22" class="skMiddle" onMouseOut="this.className='skMiddle'" onMouseOver="this.className='skMiddleOver'" onMouseDown="this.className='skMiddleDown'" onMouseUp="this.className='skMiddleOver'">5</td>
+                                      <td><input name="TL52" type="text" class="skInput" size="8"></td>
+                                      <td width="35" height="22" class="skFun1" onMouseOut="this.className='skFun1'" onMouseOver="this.className='skFun1Over'" onMouseDown="this.className='skFun1Down'" onMouseUp="this.className='skFun1Over'">F5</td>
+                                    </tr>
+                                    <tr>
+                                      <td width="35" height="22" class="skMiddle" onMouseOut="this.className='skMiddle'" onMouseOver="this.className='skMiddleOver'" onMouseDown="this.className='skMiddleDown'" onMouseUp="this.className='skMiddleOver'">6</td>
+                                      <td><input name="TL62" type="text" class="skInput" size="8"></td>
+                                      <td width="35" height="22" class="skFun2"  onMouseOut="this.className='skFun2'" onMouseOver="this.className='skFun2Over'" onMouseDown="this.className='skFun2Down'" onMouseUp="this.className='skFun2Over'" onClick="window.open('common/help/softPhone_Help.htm','help','')">Help</td>
+                                    </tr>
+                                    <tr>
+                                      <td width="35" height="22" class="skMiddle" onMouseOut="this.className='skMiddle'" onMouseOver="this.className='skMiddleOver'" onMouseDown="this.className='skMiddleDown'" onMouseUp="this.className='skMiddleOver'">7</td>
+                                      <td><input name="TL72" type="text" class="skInput" size="8"></td>
+                                      <td width="35" height="22" class="skFun1" onMouseOut="this.className='skFun1'" onMouseOver="this.className='skFun1Over'" onMouseDown="this.className='skFun1Down'" onMouseUp="this.className='skFun1Over'"><img src="images/SZJP_button2_tool.gif" width="21" height="10"></td>
+                                    </tr>
+                                </table></td>
+                              </tr>
+                          </table></td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div id="callHistoryBoard" style="padding:5px 0px 0px 7px; display:none">
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td><table width="201" border="0" cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td> <img id="call_his_left_01" src="images/call_his_left_01.gif" width="6" height="6" alt=""></td>
+                                <td width="189"> <img id="call_his_left_02" src="images/call_his_left_02.gif" width="189" height="6" alt=""></td>
+                                <td> <img id="call_his_left_03" src="images/call_his_left_03.gif" width="6" height="6" alt=""></td>
+                              </tr>
+                            </table>
+                              <table width="201" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td background="images/call_his_left_04.gif" width="2" style="width:2px"></td>
+                                  <td height="170" width="197" valign="top" background="images/call_his_left_05.gif">
+                                    <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_in.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>021-88888888</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_in.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>0355-89653214</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_in.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>054113910388670</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_in.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>17909-1088888888</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_in.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>000364995111212</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_in.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>021-88888888</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_in.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>0355-89653214</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_in.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>054113910388670</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_in.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>17909-1088888888</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_in.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>000364995111212</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                  </table></td>
+                                  <td style="background-image:url(images/call_his_left_06.gif); background-position:right; width:2px" width="2"></td>
+                                </tr>
+                              </table>
+                              <table width="201" border="0" cellpadding="0" cellspacing="0">
+                                <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                  <td> <img id="call_his_left_07" src="images/call_his_left_07.gif" width="6" height="6" alt=""></td>
+                                  <td width="189"> <img id="call_his_left_08" src="images/call_his_left_08.gif" width="189" height="6" alt=""></td>
+                                  <td> <img id="call_his_left_09" src="images/call_his_left_09.gif" width="6" height="6" alt=""></td>
+                                </tr>
+                            </table></td>
+                          <td width="7"></td>
+                          <td><table width="201" border="0" cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td> <img id="call_his_right_01" src="images/call_his_right_01.gif" width="6" height="6" alt="" /></td>
+                                <td width="189"> <img id="call_his_right_02" src="images/call_his_right_02.gif" width="189" height="6" alt="" /></td>
+                                <td> <img id="call_his_right_03" src="images/call_his_right_03.gif" width="6" height="6" alt="" /></td>
+                              </tr>
+                            </table>
+                              <table id="callHistoryRight" width="201" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td background="images/call_his_right_04.gif" style="width:2px" width="2"></td>
+                                  <td height="170" width="197" valign="top" background="images/call_his_right_05.gif">
+								  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_out.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>021-88888888</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_out.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>0355-89653214</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_out.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>054113910388670</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_out.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>17909-1088888888</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_out.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>000364995111212</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_out.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>021-88888888</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_out.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>0355-89653214</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_out.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>054113910388670</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_out.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>17909-1088888888</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                      <tr onMouseOver="this.className='callHisItem'" onMouseOut="this.className=''">
+                                        <td width="26" height="17" align="center"><img src="images/call_his_out.gif" width="13" height="11" border="0" align="absbottom"></td>
+                                        <td>000364995111212</td>
+                                        <td width="60" class="data">07/12 12:00</td>
+                                      </tr>
+                                  </table></td>
+                                  <td style="width:2px; background-image:url(images/call_his_right_06.gif); background-position:right "></td>
+                                </tr>
+                              </table>
+                              <table width="201" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td> <img id="call_his_right_07" src="images/call_his_right_07.gif" width="6" height="6" alt="" /></td>
+                                  <td width="189"> <img id="call_his_right_08" src="images/call_his_right_08.gif" width="189" height="6" alt="" /></td>
+                                  <td> <img id="call_his_right_09" src="images/call_his_right_09.gif" width="6" height="6" alt="" /></td>
+                                </tr>
+                            </table></td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div id="addressBoard" style="display:none">
+	<iframe id="addressFRM" src="common/address.htm" frameborder="0" hspace="0" marginheight="0" marginwidth="0" width="415" height="195" allowtransparency="yes"></iframe>
+					</div></td>
+                <td width="16" align="right" valign="top" nowrap background="images/SZJP_rightbg.gif"><img src="images/SZJP_top_right.gif" width="16" height="8"></td>
+              </tr>
+              <tr>
+                <td height="2" colspan="3" valign="top" nowrap background="images/SZJP_bottombg.gif"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td width="90%" align="left" valign="top"><img src="images/SZJP_bottom_left.gif" width="262" height="2"></td>
+                      <td width="10%" align="right" valign="top"><img src="images/SZJP_bottom_right.gif" width="20" height="2"></td>
+                    </tr>
+                </table></td>
+              </tr>
+            </table>
+        </div></td>
+        <td align="center">
+		<script language="javascript" type="text/javascript">
+		function addCell(inType,tdId){
+		   switch (inType){
+		   case "tel":  func="common/pop_tel.htm";   funi="images/tel_icon1.gif";  funurl="common/tel.htm";  break;
+		   case "email": func="common/pop_mail.htm"; funi="images/mail_icon1.gif"; funurl="common/sendmail.htm"; break;
+		   case "chat": func="common/pop_chat.htm";  funi="images/chat_icon1.gif"; funurl="common/chat.htm"; break;
+		   case "sms": func="common/pop_sms.htm";  funi="images/19icon_sms.gif"; funurl="common/sms.htm"; break;
+		   case "fax": func="common/pop_fax.htm";  funi="images/19icon_fax.gif"; funurl="common/fax.htm"; break;
+		   case "mail": func="common/pop_youji.htm";  funi="images/19icon_mail.gif"; funurl="common/youji.htm"; break;
+			}
+
+			var xx =document.getElementById("mesIconTable").getElementsByTagName("tr")[0].insertCell();
+				xx.id = tdId;
+				xx.style.cssText="width:29px; text-align:center;cursor:pointer;";
+				xx.onclick=function (){ywTab(func)}
+				
+				var newCellString = "";
+				newCellString += "<img src='"+funi+"' width='15' height='14' border='0' align='absmiddle' onClick='addTab(\"chat\",\"chat\",\""+funurl+"\")'>";
+				xx.innerHTML = newCellString;
+		}
+		function delCell(tdId){
+			if(document.getElementById(tdId)){
+				ccc = document.getElementById(tdId).cellIndex;
+				document.getElementById("mesIconTable").getElementsByTagName("tr")[0].deleteCell(ccc);
+			}
+		}
+		</script>
+          <table border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td><img src="images/ban_top2_1_01_normal.gif" width="30" height="29" class="pointer" alt="email" onClick="addCell('email','dd');addTab('email','email','common/sendmail.htm')" onMouseOver="this.src='images/ban_top2_1_01_over.gif'"  onMouseDown="this.src='images/ban_top2_1_01_down.gif'"  onMouseUp="this.src='images/ban_top2_1_01_over.gif'"  onMouseOut="this.src='images/ban_top2_1_01_normal.gif'"></td>
+              <td><img src="images/ban_top8_4_01_normal.gif" width="30" height="29" class="pointer" alt="chat" onClick="addCell('workbin','ww')" onMouseOver="this.src='images/ban_top8_4_01_over.gif'"  onMouseDown="this.src='images/ban_top8_4_01_down.gif'"  onMouseUp="this.src='images/ban_top8_4_01_over.gif'"  onMouseOut="this.src='images/ban_top8_4_01_normal.gif'"></td>
+			  <td><img src="images/ban_top2_2_01_normal.gif" width="30" height="29" class="pointer" alt="chat" onClick="addCell('chat','ee');addTab('chatTest','chatTest','common/chat.htm')" onMouseOver="this.src='images/ban_top2_2_01_over.gif'"  onMouseDown="this.src='images/ban_top2_2_01_down.gif'"  onMouseUp="this.src='images/ban_top2_2_01_over.gif'"  onMouseOut="this.src='images/ban_top2_2_01_normal.gif'"></td>
+              <td><img src="images/ban_top2_3_01_normal.gif" width="30" height="29" class="pointer" alt=""     onMouseOver="this.src='images/ban_top2_3_01_over.gif'"  onMouseDown="this.src='images/ban_top2_3_01_down.gif'"  onMouseUp="this.src='images/ban_top2_3_01_over.gif'"  onMouseOut="this.src='images/ban_top2_3_01_normal.gif'" onClick="window.open('coBrowser.htm','','toolbar=no,location=no,menubar=no,scrollbars=auto,status=yes,resizable=yes')"></td>
+              <td><img src="images/ban_top2_5_01_normal.gif" width="30" height="29" class="pointer" alt="SMS" onClick="addCell('sms','ee');addTab('SMS','短信','common/sendSms.htm')" onMouseOver="this.src='images/ban_top2_5_01_over.gif'"  onMouseDown="this.src='images/ban_top2_5_01_down.gif'"  onMouseUp="this.src='images/ban_top2_5_01_over.gif'"  onMouseOut="this.src='images/ban_top2_5_01_normal.gif'"></td>
+              <td><img src="images/ban_top2_6_01_normal.gif" width="30" height="29" class="pointer" alt="传真" onClick="addCell('fax','ee');addTab('fax','传真','common/sendFax.htm')" onMouseOver="this.src='images/ban_top2_6_01_over.gif'"  onMouseDown="this.src='images/ban_top2_6_01_down.gif'"  onMouseUp="this.src='images/ban_top2_6_01_over.gif'"  onMouseOut="this.src='images/ban_top2_6_01_normal.gif'"></td>
+              <td><img src="images/ban_top2_7_01_normal.gif" width="30" height="29" class="pointer" alt="mail" onClick="addCell('mail','ee');addTab('邮寄','邮寄','common/sendYouji.htm')" onMouseOver="this.src='images/ban_top2_7_01_over.gif'"  onMouseDown="this.src='images/ban_top2_7_01_down.gif'"  onMouseUp="this.src='images/ban_top2_7_01_over.gif'"  onMouseOut="this.src='images/ban_top2_7_01_normal.gif'"></td>
+            </tr>
+        </table></td>
+        <td width="100" align="center">
+		<img src="images/gb/exit_normal.gif" style="cursor:pointer" border="0" onMouseOver="this.src='images/gb/exit_hover.gif'" onMouseOut="this.src='images/gb/exit_normal.gif'" onMouseUp="this.src='images/gb/exit_hover.gif'" onMouseDown="this.src='images/gb/exit_down.gif'">
+        </td>
+      </tr>
+    </table>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><img src="images/Top_lab1_corner2.gif" width="24" height="9" border="0" align="absmiddle"></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table border="0" cellpadding='0' cellspacing='0'  id="popTable1" name="popTable1" style="position:absolute; display:block; top:200px; left:50px; width:500px; height:130px; z-index:1010; table-layout:fixed; border:1px solid #7191c1; background-color:#ffffff;">
+<tbody id="popTableTitle">
+  <tr style="cursor:default;" onmousedown="Down(this)" onmousemove="Remove(this)" onmouseup="Up(this)" onClick="document.body.click()">
+  <td height="20" background="images/popTitleBg.gif" style="height:20px;">
+		<table width="100%" height="20"  border="0" cellpadding="0" cellspacing="0">
+		  <tr>
+			<td style="padding-left:12px; white-space:nowrap; overflow:hidden">联络信息</td>
+			<td align="right" style="white-space:nowrap; overflow:hidden"><img src="images/st_gotop.gif" alt="固定在界面中" border="0" align="absmiddle" style="cursor:pointer;" onClick="goTop()">  <img src="images/st_close17.gif" alt="关闭" border="0" align="absmiddle" style="cursor:pointer; margin-left:3px;"  onClick="closeFloat()"> </td>
+		  </tr>
+		</table>
+	</td>
+  <td width="16" height="20" align='right'  background="images/popTitleBg.gif"></td>
+ </tr>
+</tbody>
+ <tr>
+  <td colspan="2" valign='top' style="height:24px;">
+  <script>
+var buttonWidth = 40;
+function getAreaLeftPos(){
+	return 0;
+}
+function getAreaRightPos(){
+		return document.documentElement.clientWidth-buttonWidth;
+}
+
+
+//滚动页签组的左上角坐标
+function getTabsLeftPos(){  
+		return document.getElementById("PopuArea").style.posLeft;
+	}
+	
+//滚动页签组的右上角坐标
+function getTabsRightPos(){  
+		return document.getElementById("PopuArea").style.posLeft 
+		       + document.getElementById("PopuArea").offsetWidth;
+	}
+function checkShowButton(){
+	if(document.getElementById("PopuArea").offsetWidth<(document.documentElement.clientWidth-buttonWidth)){
+		movePopuButton.style.display = "none";
+	}else{
+		movePopuButton.style.display = "";
+	}
+}
+	
+function movePopuLR(distance,isLeft){
+//alert(getAreaRightPos()+"_"+getTabsRightPos()+"_"+getTabsLeftPos()+"_"+getAreaLeftPos());
+checkShowButton();
+	var pos = 0;
+	if(isLeft){
+		var pos = getAreaRightPos()-getTabsRightPos();
+		if(pos>=0){
+			distance = 0;
+		}else{
+			if(pos*-1<distance){
+				distance = pos*-1;
+			}else{
+				
+			}
+		}
+	}else{
+		var pos = getTabsLeftPos()-getAreaLeftPos();
+		if(pos>=0){
+			distance = 0;
+		}else{
+			if(pos*-1<distance){
+				distance = pos*-1;
+			}else{
+				
+			}
+		}
+	}
+	//alert(distance);
+	if(isLeft){
+		document.getElementById("PopuArea").style.posLeft -= distance;
+	}else{
+		document.getElementById("PopuArea").style.posLeft += distance;
+	}
+}
+  
+  </script>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" id="popFrame" style="height:100%;">
+      <tr onDblClick="dbClickBar()" style="border-bottom:1px solid #b9d1e7">
+        <td height="24" background="images/pop_tab_bg.gif">
+		<div id="PopuArea">
+		<table height="24"  border="0" cellpadding="0" cellspacing="0" id="mesIconTable">
+          <tr>
+            <td width="12">&nbsp;</td>
+            <td width="29" align="center" class="class1" style="cursor:pointer" onClick="ywTab('common/pop_tel.htm')"><img src="images/tel_icon1.gif" width="15" height="14" border="0" align="absmiddle"></td>
+            <td width="29" align="center" style="cursor:pointer"  onClick="ywTab('common/pop_mail.htm')"><img src="images/mail_icon1.gif" width="15" height="14" border="0" align="absmiddle" onClick="addTab('邮件1','邮件1','common/sendmail.htm')"></td>
+            <td width="29" align="center" style="cursor:pointer"  onClick="ywTab('common/pop_mail.htm')"><img src="images/mail_icon1.gif" width="15" height="14" border="0" align="absmiddle" onClick="addTab('邮件2','邮件2','common/sendmail.htm')"></td>
+            <td width="29" align="center" style="cursor:pointer"  onClick="ywTab('common/pop_chat.htm')"><img src="images/chat_icon1.gif" width="15" height="14" border="0" align="absmiddle" onClick="addTab('chat','chat','common/chat.htm')"></td>
+          </tr>
+        </table>
+		</div>
+		</td>
+        <td  align="right" background="images/pop_tab_bg.gif">
+		<span style="display:none; padding-right:12px; text-align:right" id="onTop"><img src="images/st_pop.gif" border="0" align="absmiddle"  style="cursor:pointer"  onClick="goFloat()" alt="变成浮动面板">  <img src="images/st_close17.gif" border="0" align="absmiddle" style="cursor:pointer; margin-left:3px"  onClick="closeFloat()" alt="关闭"></span>
+	</td>
+      </tr>
+</table>
+
+
+
+</td>
+  </tr>
+  <tr>
+	  <td colspan="2" valign="top" height="100%">
+	  <iframe id="popIframe" src="common/pop_tel.htm" frameborder="0" allowtransparency="yes" hspace="0" marginheight="0" marginwidth="0" width="100%" height="100%"></iframe>
+	  </td>
+  </tr>
+   
+	<tbody id="inHandle" style="display:none">
+		<tr>
+		<td colspan="2" height="2" style="cursor: s-resize; height:4px; background-image:url(images/dragGrid1.gif)" onmousedown="Down(this)" onmouseup="Up(this)" onmousemove="ResizeH(this)"><img src="images/null.gif" height="1"></td>
+		</tr>
+	</tbody> 
+	  
+	<tbody id="floatHandle" style="display:">
+		<tr>
+			<td  style="cursor:n-resize; height:0px;" onmousedown="Down(this)" onmouseup="Up(this)" onmousemove="ResizeVertical(this)"><img style="position:absolute; margin-top:-5px;" src="images/null.gif" width="100%" height="10" border="0" align="absmiddle"></td>
+			<td style="cursor:se-resize; height:0px;" onmousedown="Down(this)" onmouseup="Up(this)" onmousemove="Resize(this)"><img style="position:absolute; margin-top:-5px;" src="images/null.gif" width="18" height="16" border="0" align="absmiddle"></td>
+		</tr>
+	</tbody> 
+</table>
+<table border="0" cellpadding='0' cellspacing='0' onmousedown="Focus(this)" id="popTable2"  name="popTable2" style="position:absolute; display:none; top:243px; left:189px; width:700px; height:320px; z-index:1010; table-layout:fixed; border:1px solid #7191c1; background-color:#ffffff;">
+ <tr style="cursor:default;" onmousedown="Down(this)" onmousemove="Remove(this)" onmouseup="Up(this)">
+  <td height="20" background="images/floatRightDivTitleBg.gif">
+<table width="100%" height="20"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td style="padding-left:12px; white-space:nowrap; overflow:hidden">Faq</td>
+    <td align="right" style="white-space:nowrap; overflow:hidden"><a href="#" onClick="goBottom('common/Faq.htm')">goBottom</a> <a href="#" onClick="hideDiv('popTable2');isFaqFloat=2">Close</a> </td>
+  </tr>
+</table> </td>
+  <td width="14" height="20" align='right'  background="images/floatRightDivTitleBg.gif"></td>
+ </tr>
+ <tr>
+  <td colspan="2" valign='top' style="height:100%;"><iframe id="popFaqFrame" src="common/faq/faq.htm" allowtransparency="yes" frameborder="0" height="100%" width="100%" hspace="0" longdesc="0" marginheight="0" marginwidth="0" scrolling="auto" vspace="0"></iframe> 
+</td>
+  </tr>
+ <tr>
+  <td></td>
+  <td width="16" valign="bottom" align="right" style="cursor:se-resize; height:16px; width:16px;" onmousedown="Down(this)" onmouseup="Up(this)" onmousemove="Resize(this)"><img src="images/resizeHandle.gif" width="14" height="14" border="0" align="absmiddle"></td>
+</table>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+		<iframe id="mainIframe" src="common/mainIframe.htm" allowtransparency="yes"  frameborder="0" width="100%" hspace="0" longdesc="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0"></iframe>
+	</td>
+    <td width="24" id="sensorRight" valign="top">
+	<!--td width="20" id="sensorRight" valign="top" onMouseOver="showDiv('floatRightDiv');">
+	<div id="floatRightDiv" style="display:none"  onMouseOut="canHideDiv('floatRightDiv')"-->
+	<div id="floatRightDiv" style="display:none;">
+		<table width="100%" height="20"  border="0" cellpadding="0" cellspacing="0" background="images/popTitleBg.gif">
+		  <tr>
+			<td><div id="rightBoardWord" style="padding-left:5px; width:160px; overflow:hidden" class="nobreak">&nbsp;</div></td>
+			<!--td style="cursor:pointer" width="65" align="center"><a href="#" onClick="addTab('Faq','common/Faq.htm')">add Tab</a></td-->
+			<td style="cursor:pointer" width="50" align="center"><img src="images/st_pin.gif" width="11" height="11" border="0" align="absmiddle" id="pinPic" onClick="pinFloat()" alt="固定在主界面中">  <img src="images/st_close.gif" width="11" height="11" border="0" align="absmiddle" style="cursor:pointer" onClick="closeFloatRight();"></td>
+		  </tr>
+		</table>
+		<iframe id="floatRightFrame" src="common/null.htm" allowtransparency="yes" frameborder="0" width="100%" hspace="0" longdesc="0" marginheight="0" marginwidth="0" scrolling="no" vspace="0"></iframe>
+	</div>
+	<div id="rightBoardIcon">
+	<table width="24" border="0" align="right" cellpadding="0" cellspacing="0">
+	  <tr>
+	    <td height="10">&nbsp;</td>
+	    </tr>
+	  <tr>
+		<td height="50" align="right" style="cursor:pointer"><img src="images/right_icon_shortCut_normal.gif" id="function1" alt="快捷键" width="22" height="50" border="0" align="absmiddle" onClick="rightBoard('common/shortCutFrm.htm','快捷键')" onMouseOver="this.src='images/right_icon_shortCut_hover.gif'" onMouseDown="this.src='images/right_icon_shortCut_down.gif'" onMouseOut="this.src='images/right_icon_shortCut_normal.gif'"></td>
+	  </tr>
+	  <tr>
+	    <td align="center" height="10"><img src="images/right_line.gif" width="18" height="2" border="0" align="absmiddle"></td>
+	    </tr>
+	  <tr>
+	    <td height="50" align="right" style="cursor:pointer"><img src="images/right_icon_address_normal.gif"  id="function3" alt="地址簿" width="22" height="50" border="0" align="absmiddle"  onClick="rightBoard('common/floatRight3.htm','地址簿')" onMouseOver="this.src='images/right_icon_address_hover.gif'" onMouseDown="this.src='images/right_icon_address_down.gif'" onMouseOut="this.src='images/right_icon_address_normal.gif'"></td>
+	    </tr>
+	  <tr>
+	    <td align="center" height="10"><img src="images/right_line.gif" width="18" height="2" border="0" align="absmiddle"></td>
+	    </tr>
+	  <tr>
+		<td height="50" align="right" style="cursor:pointer"><img src="images/right_icon_normal_01.gif" id="function1" alt="座席状态" width="22" height="50" border="0" align="absmiddle" onClick="rightBoard('common/agentInfo.htm','座席状态')" onMouseOver="this.src='images/right_icon_over_01.gif'" onMouseDown="this.src='images/right_icon_down_01.gif'" onMouseOut="this.src='images/right_icon_normal_01.gif'"></td>
+	  </tr>
+	  <tr>
+	    <td align="center" height="10"><img src="images/right_line.gif" width="18" height="2" border="0" align="absmiddle"></td>
+	    </tr>
+	  <tr>
+	    <td height="50" align="right" style="cursor:pointer"><img src="images/right_icon_normal_02.gif"  id="function2" alt="功能选项1" width="22" height="50" border="0" align="absmiddle"  onClick="rightBoard('common/agentStat.htm','座席信息')" onMouseOver="this.src='images/right_icon_over_02.gif'" onMouseDown="this.src='images/right_icon_down_02.gif'"  onMouseOut="this.src='images/right_icon_normal_02.gif'"></td>
+	    </tr>
+	  <tr>
+	    <td align="center" height="10"><img src="images/right_line.gif" width="18" height="2" border="0" align="absmiddle"></td>
+	    </tr>
+	</table>
+	</div>
+	
+	</td>
+  </tr>
+</table>
+
+
+
+
+
+<div id="bottomDiv">
+	<div id="bottomLeft">
+		<table border="0" cellpadding="0" cellspacing="0" style="margin-top:7px;">
+		  <tr>
+			<td><img src="images/ban_bottom_left01.gif"   alt="折叠/展开左侧区域" width="26" height="22" border="0" class="pointer" onClick="shLeft()" onMouseOver="this.src='images/ban_bottom_left02.gif'"  onMouseOut="this.src='images/ban_bottom_left01.gif'" onMouseDown="this.src='images/ban_bottom_left03.gif'" onMouseUp="this.src='images/ban_bottom_left02.gif'"></td>
+			<td><img src="images/ban_bottom_middle01.gif" alt="打开/关闭浮动面板" width="27" height="23" border="0" class="pointer" onClick="openFloat()" onMouseOver="this.src='images/ban_bottom_middle02.gif'"  onMouseOut="this.src='images/ban_bottom_middle01.gif'" onMouseDown="this.src='images/ban_bottom_middle03.gif'" onMouseUp="this.src='images/ban_bottom_middle02.gif'"></td>
+			<td><img src="images/ban_bottom_right01.gif"  alt="折叠/展开右侧区域" width="26" height="22" border="0" class="pointer" onClick="shRight()" onMouseOver="this.src='images/ban_bottom_right02.gif'"  onMouseOut="this.src='images/ban_bottom_right01.gif'" onMouseDown="this.src='images/ban_bottom_right03.gif'" onMouseUp="this.src='images/ban_bottom_right02.gif'"></td>
+		 </tr>
+		</table>
+	</div>
+
+	<div id="Queue">
+		队列:12用户
+	</div>
+
+	<div id="bottomRight">
+		<img src="images/jiangpai.gif" border="0" align="absmiddle">
+	</div>
+
+	<div id="marqueeDiv">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+			<td id="marqueeLeft"></td>
+			<td id="marqueeStatus"><img id="marqueeStatSign" src="images/ban_bottom_light_green.gif"  border="0" onClick="marqueeDBclick()" class="pointer"></td>
+			<td id="marqueeBg">
+				<marquee id="marqueeMessage" scrolldelay="150" onMouseOver="marqueeMouseOver()" onMouseOut="marqueeMouseOut()" onDblClick="marqueeDBclick()">盼足协点头望小马回头 女足队员：让马良行回归</marquee>
+			</td>
+			<td id="marqueeRight"></td>
+			</tr>
+	  </table>
+	</div>
+</div>
+
+<div id="IMalert">
+<table width="100%" height="16" border="0" cellpadding="0" cellspacing="0" background="images/imAlert.gif">
+  <tr>
+    <td style="padding-left:8px">提示</td>
+    <td align="right" style="padding-right:8px"><img src="images/st_close.gif" width="11" style="cursor:pointer" height="11" align="Close" onClick="hideDiv('IMalert')"></td>
+  </tr>
+</table>
+
+<table width="100%" height="46" border="0" cellpadding="5" cellspacing="0">
+  <tr>
+    <td><a href="#" onClick="addTab('公告信息','公告信息','common/gonggao.htm'); hideDiv('IMalert')">12:04:12 收到3条公告信息</a></td>
+    </tr>
+</table>
+</div>
+
+
+<iframe id="alertFramePad" style="position:absolute; border-width:0px; top:0px; left:0px; width:0px; height:0px;z-index:100010; background-color:#ffffff;filter:alpha(Opacity=0);opacity:0"></iframe>
+<div id="alertDivPad" style="position:absolute; display:none; top:0px; left:0px; width:0px; height:0px;z-index:100020; background-color:#ffffff;filter:alpha(Opacity=70);opacity:0.7"></div>
+<div id="alertDiv" style="position:absolute;  display:none; width:350px; height:150px;z-index:100030; background-color:#ffffff;border:1px solid #7191c1;table-layout:fixed; ">
+<table width="100%" height="22" border="0" cellpadding="4" cellspacing="0" background="images/drop3.gif" style="border-bottom:1px solid #e0edf6">
+  <tr>
+    <td id="alertDivTitle"><img src="images/alertDot.gif" width="13" height="13" border="0" align="absmiddle"> 系统提示</td>
+
+  </tr>
+</table>
+<table width="330" height="94" border="0" align="center" cellpadding="5" cellspacing="0">
+  <tr>
+    <td align="center"><div id="tip"></div></td>
+    </tr>
+</table>
+<table width="100%" height="32" border="0" cellpadding="5" cellspacing="0" bgcolor="ecf4fa">
+  <tr>
+    <td align="center"><input name="Submit" type="button" class="button" value="关闭" onClick="closeMaskAlert()"></td>
+    </tr>
+</table>	
+</div>
+
+<div id="ivrDiv" style="position:absolute;  display:none; width:240px; height:320px;z-index:100030; background-color:#ffffff;border:1px solid #7191c1;table-layout:fixed; ">
+<table width="100%" height="22" border="0" cellpadding="4" cellspacing="0" background="images/drop3.gif" style="border-bottom:1px solid #e0edf6">
+  <tr>
+    <td> 转IVR </td>
+    <td align="right" style="padding-right:8px"><img src="images/tab_close2.gif" width="8" style="cursor:pointer" height="8" onMouseOver="this.src='images/tab_close1.gif'" onMouseOut="this.src='images/tab_close2.gif'" onClick="testAlertClose()"></td>
+  </tr>
+</table>
+<table width="240" height="266" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center">
+	<iframe id="ivrFRM" src="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" width="240" height="266" allowtransparency="yes"></iframe>
+	</td>
+    </tr>
+</table>
+<table width="100%" height="32" border="0" cellpadding="5" cellspacing="0" bgcolor="ecf4fa">
+  <tr>
+    <td align="center">
+	<input name="Submit" type="button" class="button" value="确定" onClick="closeIvr()">
+	<input name="Submit" type="button" class="button" value="关闭" onClick="closeIvr()">
+	</td>
+    </tr>
+</table>	
+</div>
+</body>
+</html>
