@@ -1,0 +1,273 @@
+/* for softPhone style */
+#softPhoneDiv { 
+	width:610px; 
+	height:160px; 
+	background-image:url(../../images/cti_image/top_bg.jpg);
+}
+.phoneNumberBox {
+	padding: 0px 2px 0px 2px; 
+	border: 1px solid #525665;
+	font-size: 55px; 
+	font-weight:bold;
+	width: 420px;
+	background-color: #9cafe1;
+	height: 70px;
+	line-height:80px;
+	text-align:right;
+	font-family:Arial, Helvetica, sans-serif;
+}
+.statWord {
+	color: #000000;
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 10px;
+	line-height: 12px;
+	TEXT-DECORATION: none
+}
+
+/*  for softKeyboard component */
+#softKeyBoardDiv {
+	position:absolute;
+	margin-left:8px;
+	z-index:101;
+}
+#softPhonePadFrame {
+	position:absolute;
+	margin-left:8px;
+	z-index:100;
+	height:203px;
+	width:464px;
+}
+
+.skInput {
+	padding:1px 2px 1px 2px;
+	BORDER-RIGHT: #8a889d 1px solid; 
+	BORDER-TOP: #8a889d 1px solid; 
+	FONT: 11px Verdana; 
+	BORDER-LEFT: #8a889d 1px solid; 
+	BORDER-BOTTOM: #8a889d 1px solid; 
+	BACKGROUND-COLOR: #F1F1F1;
+}
+
+.skBig {
+	color: #FFFFFF;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	text-align:center;
+	line-height:24px;
+	cursor:pointer;
+	background-image:url(../../images/keypad_image/SZJP_button1_eb.gif);
+	background-repeat:no-repeat;
+}
+.skBigOver {
+	color: #FFFFFF;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	text-align:center;
+	line-height:24px;
+	cursor:pointer;
+	background-image:url(../../images/keypad_image/SZJP_button1_mo.gif);
+	background-repeat:no-repeat;
+	line-height:24px;
+}
+.skBigDown {
+	color: #FFFFFF;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	text-align:center;
+	cursor:pointer;
+	background-image:url(../../images/keypad_image/SZJP_button1_dn.gif);
+	background-repeat:no-repeat;
+	line-height:32px;
+}
+.skMiddle {
+	color: #FFFFFF; 
+	font-weight: bold; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 16px; 
+	text-align:center;
+	cursor:pointer;
+	background-image:url(../../images/keypad_image/SZJP_button2_eb.gif);
+	background-repeat:no-repeat;
+}
+.skMiddleOver {
+	color: #FFFFFF; 
+	font-weight: bold; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 16px; 
+	text-align:center;
+	cursor:pointer;
+	background-image:url(../../images/keypad_image/SZJP_button2_mo.gif);
+	background-repeat:no-repeat;
+}
+.skMiddleDown {
+	color: #FFFFFF; 
+	font-weight: bold; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 16px; 
+	text-align:center;
+	cursor:pointer;
+	background-image:url(../../images/keypad_image/SZJP_button2_dn.gif);
+	background-repeat:no-repeat;
+	line-height:20px;
+}
+.skMiddleRest {
+	color: #707684; 
+	font-weight: bold; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 16px; 
+	text-align:center;
+	cursor:default;
+	background-image:url(../../images/keypad_image/SZJP_button2_re.gif);
+	background-repeat:no-repeat;
+	line-height:20px;
+}
+.skFun1 {
+	color: #FFFFFF; 
+	font-weight: bold; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 14px; 
+	text-align:center;
+	cursor:pointer;
+	background-image:url(../../images/keypad_image/SZJP_button2_eb.gif);
+	background-repeat:no-repeat;
+}
+.skFun1Over {
+	color: #FFFFFF; 
+	font-weight: bold; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 14px; 
+	text-align:center;
+	cursor:pointer;
+	background-image:url(../../images/keypad_image/SZJP_button2_mo.gif);
+	background-repeat:no-repeat;
+}
+.skFun1Down {
+	color: #FFFFFF; 
+	font-weight: bold; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 14px; 
+	text-align:center;
+	cursor:pointer;
+	background-image:url(../../images/keypad_image/SZJP_button2_dn.gif);
+	background-repeat:no-repeat;
+}
+.skFun1Rest {
+	color: #707684; 
+	font-weight: bold; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 14px; 
+	text-align:center;
+	cursor:default;
+	background-image:url(../../images/keypad_image/SZJP_button2_re.gif);
+	background-repeat:no-repeat;
+}
+.skFun2 {
+	color: #FFFFFF; 
+	font-weight: bold; 
+	font-family: Arial, Helvetica, sans-serif;
+	 font-size: 12px; 
+	text-align:center;
+	cursor:pointer;
+	background-image:url(../../images/keypad_image/SZJP_button2_eb.gif);
+	background-repeat:no-repeat;
+}
+.skFun2Over {
+	color: #FFFFFF; 
+	font-weight: bold; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 12px; 
+	text-align:center;
+	cursor:pointer;
+	background-image:url(../../images/keypad_image/SZJP_button2_mo.gif);
+	background-repeat:no-repeat;
+}
+.skFun2Down {
+	color: #FFFFFF; 
+	font-weight: bold; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 12px; 
+	text-align:center;
+	cursor:pointer;
+	background-image:url(../../images/keypad_image/SZJP_button2_dn.gif);
+	background-repeat:no-repeat;
+}
+.skFun2Rest {
+	color: #707684; 
+	font-weight: bold; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 12px; 
+	text-align:center;
+	cursor:default;
+	background-image:url(../../images/keypad_image/SZJP_button2_re.gif);
+	background-repeat:no-repeat;
+}
+
+/* for callHistoryList style */
+.data {font-size:10px; font-family:Arial, Helvetica, sans-serif; color:#333333}
+.callHisItem {
+	background-image:url(../../images/keypad_image/call_his_item_bg.gif);
+	background-repeat:repeat-x;
+	color:#FFFFFF;
+	cursor:pointer;
+}
+#callHistoryBoard td {font-family:Arial, Helvetica, sans-serif; font-size:11px;}
+
+
+
+
+/*  for statMenu component */
+#statMenu {
+	position:absolute;
+	border:1px solid #8592B5;
+	width:157px;
+	background-color:#FFFFFF;
+	overflow:visible;
+	margin-left:62px;
+	margin-top:35px;
+	z-index:101;
+}
+#statMenuPadFrame {
+	position:absolute;
+	width:159px;
+	margin-left:62px;
+	margin-top:35px;
+	z-index:100;
+}
+#statMenu td { line-height:15px;}
+#statMenu .currentMenu {
+	background-color:#DFE1E4;
+	border-bottom:1px solid #CBD6EA;
+	height:22px;
+	padding-top:1px;
+	padding-left:6px;
+}
+#statMenu .notCurrentMenu { 
+	border-top:1px solid #CBD6EA;
+	height:20px;
+	padding-top:3px;
+	padding-left:6px;
+	background-image:url(../../images/agent_image/sub_menu_bg.gif);
+}
+#statMenu  .tdOver{background-color:#B2CFEE; color:#000000; cursor:pointer;}
+#statMenu  .tdOut{background-color:#ffffff;  cursor:pointer;}
+
+
+.gdstat_Select{
+	margin-left:0px; 
+	display:none; 
+	position:absolute;　
+	border:1px solid #8592B5; 
+	background-color:#FFFFFF; 
+	width: 80px;
+}
+
+.redClass {color: red;}
+.greenClass{color:green;}
+
+.softkeyA_class{cursor:pointer;}
+.softkeyB_class{cursor:pointer;}
+.softkeyC_class{cursor:pointer;}
+.softkeyD_class{cursor:pointer;}
