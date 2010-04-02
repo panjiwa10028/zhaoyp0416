@@ -349,6 +349,7 @@ function initSize(){//页面加载初始尺寸
 	else{contentDivHeight = 100;}
 		document.getElementById("menuContent").style.height = contentDivHeight;
 		document.getElementById("personalFlagFrm").style.height = contentDivHeight;
+		
 }
 
 function reSizePage(){//resize重绘各部分
@@ -604,7 +605,7 @@ function loadModule(prename,name,lefturl,workurl)
 </script>
 </head>
 
-<body onload="beforeDone();" id="leftBody" class="leftBody" scroll="no" onresize="initSize();" >
+<body onload="beforeDone();" id="leftBody" class="leftBody" scroll="no" onresize="initSize();" oncontextmenu="window.event.returnValue=false" onselectstart ="return false" onselect="document.selection.empty()">
 
 
 <div id="leftTree"></div>
