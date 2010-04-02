@@ -1,0 +1,60 @@
+.yui-gb {WIDTH: 100%;}
+.yui-gb a{ 
+	color:#0066ff;
+	line-height:180%;
+}
+.yui-gb a:hover{
+	color:#ff3300;
+	text-decoration:underline;
+}
+.yui-gb .date{ color:#999999; }
+#c_1 {FLOAT: left; WIDTH: 50%;}
+#c_2 {FLOAT: left; WIDTH: 49%; clear:right}
+.yui-k {FLOAT: left; WIDTH: 1%;}
+.dragTitle {COLOR: #4363a1; HEIGHT: 30px; BACKGROUND-COLOR: #ffffff;}
+.dragDIV {BACKGROUND-COLOR: #ffffff;}
+STRONG {COLOR: #4363a1;}
+.dropTitle {font-size:14px; font-weight:bold; padding-top:8px; color:#cff300}
+.agentName { font-size:20px; }
+.personalTable {
+	
+	background-image:url(../../images/ddtile_bg.gif);
+	border-bottom:1px solid #dedede;
+}
+#personalPicDiv { 
+	width: 122px; 
+	height:122px; 
+	overflow:hidden; 
+	text-align:center;
+	background-image:url(../../images/pic_bg.gif);
+}
+.personalPic { 
+	margin-top: expression((122-this.height )/2);
+	/*width: expression(this.width > 100 ? 100: this.width);
+	height: expression(this.height > 100 ? 100: this.height);*/
+}
+.agentInfoLabel {
+
+}
+.agentLabel {
+	color:#666666;
+	width:110px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-align:right;
+	display:block;
+	font-size:12px;
+	height:12px;
+	line-height:12px;
+}
+.agentInfo {
+	color:#000000;
+	font-size:12px;
+	white-space:nowrap;
+	height:12px;
+	line-height:12px;
+}
+
+.displayTable {table-layout:fixed;overflow:; border-style:none; background-color:#ffffff;}
+.displayTable td{ white-space:nowrap; border-style:none }
+.displayText{width:100%; text-overflow:ellipsis; -o-text-overflow:ellipsis; white-space:nowrap; overflow:hidden;float:inherit;display:block;}

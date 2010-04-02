@@ -1,0 +1,271 @@
+UNKNOWN {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none
+}
+BODY {
+	FONT-SIZE: 12px;
+	COLOR: #000000; 
+	FONT-FAMILY: Arial; 
+	BACKGROUND-COLOR: #fafaf9;
+	SCROLLBAR-FACE-COLOR: #f0f0f0;
+	SCROLLBAR-HIGHLIGHT-COLOR: #f8f8f8;
+	SCROLLBAR-SHADOW-COLOR: #bfbfbf;
+	SCROLLBAR-3DLIGHT-COLOR: #bfbfbf;
+	SCROLLBAR-ARROW-COLOR: #9ab9c2;
+	SCROLLBAR-TRACK-COLOR: #f8f8f8;
+	SCROLLBAR-DARKSHADOW-COLOR: #f8f8f8;
+}
+A:active {
+	FONT: 11px Verdana; COLOR: #000000; TEXT-DECORATION: none
+}
+A:link {
+	FONT: 11px Verdana; COLOR: #000000; TEXT-DECORATION: none
+}
+A:visited {
+	FONT: 11px Verdana; COLOR: #000000; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #000000; TEXT-DECORATION: underline
+}
+.tdTitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; VERTICAL-ALIGN: bottom; COLOR: #003399
+}
+TABLE {
+	FONT: 11px Verdana; COLOR: #000000; TEXT-DECORATION: none
+}
+.tda01 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16pt; COLOR: #8a889d
+}
+.tda02 {
+	FONT-WEIGHT: bold; FONT-SIZE: 14pt; COLOR: #8a889d
+}
+.tda03 {
+	FONT: 12px Verdana; COLOR: #000000
+}
+.tda04 {
+	FONT-SIZE: 12pt; COLOR: #5a5a80
+}
+.tda05 {
+	FONT-SIZE: 12pt; COLOR: #000000
+}
+.tda06 {
+	FONT-SIZE: 12pt; COLOR: #564766
+}
+.tda07 {
+	BORDER-RIGHT: #93e7fb 1px solid; BORDER-TOP: #93e7fb 1px solid; BORDER-LEFT: #93e7fb 1px solid; BORDER-BOTTOM: #93e7fb 1px solid; BACKGROUND-COLOR: #dadde3
+}
+.tda08 {
+	BORDER-RIGHT: #93e7fb 1px solid; BORDER-TOP: #93e7fb 1px solid; BORDER-LEFT: #93e7fb 1px solid; BORDER-BOTTOM: #93e7fb 1px solid
+}
+.tda09 {
+	BACKGROUND-COLOR: #eeeceb
+}
+.tda10 {
+	BORDER-RIGHT: #2f2b28 1px solid; BORDER-TOP: #2f2b28 1px solid; BORDER-LEFT: #2f2b28 1px solid; BORDER-BOTTOM: #2f2b28 1px solid; BACKGROUND-COLOR: #f1f1f1
+}
+.tda11 {
+	BORDER-RIGHT: #919b9c 1px solid; BORDER-TOP: #919b9c 1px solid; BORDER-LEFT: #919b9c 1px solid; BORDER-BOTTOM: #919b9c 1px solid; BACKGROUND-COLOR: #f1f1f1
+}
+.tdaemail01 {
+	BORDER-RIGHT: #6a6d60 1px solid; BORDER-TOP: #ffffff 1px solid; FONT: 11px Verdana; BORDER-LEFT: #ffffff 1px solid; COLOR: #585858; BORDER-BOTTOM: #6a6d60 1px solid; BACKGROUND-COLOR: #dcdcdc
+}
+.tdaemail02 {
+	BORDER-RIGHT: #6a6d60 1px solid; FONT: 11px Verdana; COLOR: #000000; BACKGROUND-COLOR: #ffffff
+}
+.tda12 {
+	FILTER: dropshadow(color=#EEECEB, offx=1, offy=1); COLOR: #707070
+}
+.tda13 {
+	COLOR: #717070; BACKGROUND-COLOR: #ecebeb
+}
+.tda13b {
+	COLOR: #717070; BACKGROUND-COLOR: #e0dfdf
+}
+.tda14 {
+	COLOR: #606060; BACKGROUND-COLOR: #eeeceb
+}
+.tda15 {
+	FONT-SIZE: 12px; COLOR: #ffffff
+}
+.tda16 {
+	FONT: 11px Verdana; COLOR: #ffffff; BACKGROUND-COLOR: #5e5e5e
+}
+.tdaQ {
+	FONT-SIZE: 12pt; COLOR: #ff0000
+}
+.tdaA {
+	FONT-SIZE: 12pt; COLOR: #0000ff
+}
+.box01 {
+	BORDER-RIGHT: #8a889d 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #8a889d 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 1px; FONT: 11px Verdana; BORDER-LEFT: #8a889d 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: #8a889d 1px solid; BACKGROUND-COLOR: #ffffff
+}
+.box02 {
+	BORDER-RIGHT: #8a889d 1px solid; PADDING-RIGHT: 0.25em; BORDER-TOP: #8a889d 1px solid; PADDING-LEFT: 0.25em; PADDING-BOTTOM: 0.2em; BORDER-LEFT: #8a889d 1px solid; WIDTH: auto; PADDING-TOP: 0.15em; BORDER-BOTTOM: #8a889d 1px solid; HEIGHT: auto
+}
+.box03 {
+	FONT: 11px Verdana; BACKGROUND-COLOR: #ffffff
+}
+.box04 {
+	FONT: 11px Verdana; BACKGROUND-COLOR: #ffffff
+}
+DIV.tableContainer {
+	CLEAR: both; OVERFLOW: auto; WIDTH: 100%; HEIGHT: 200px
+}
+HTML DIV.tableContainer {
+	PADDING-RIGHT: 16px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+UNKNOWN {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; WIDTH: 740px; PADDING-TOP: 0px; HEIGHT: auto
+}
+UNKNOWN {
+	OVERFLOW: hidden; WIDTH: 756px; HEIGHT: 200px
+}
+DIV.tableContainer TABLE {
+	FLOAT: left; WIDTH: 100%
+}
+HTML DIV.tableContainer TABLE {
+	MARGIN: 0px -16px 0px 0px
+}
+.menuBox {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #666666 1px solid
+}
+.lab {
+	BORDER-RIGHT: #2f2b28 1px solid; BORDER-TOP: #2f2b28 1px solid; BORDER-LEFT: #2f2b28 1px solid; BORDER-BOTTOM: #2f2b28 1px solid; BACKGROUND-COLOR: #abc3dc
+}
+.lab2 {
+	FONT: 11px Verdana; COLOR: #000000; BACKGROUND-COLOR: #bddde3
+}
+.lab3 {
+	COLOR: #000000; BACKGROUND-COLOR: #ebebeb
+}
+.lab4 {
+	COLOR: #000000; BACKGROUND-COLOR: #ffffff
+}
+.textReadonly {
+	BORDER-RIGHT: #8a889d 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #8a889d 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 1px; FONT: 11px Verdana; BORDER-LEFT: #8a889d 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: #8a889d 1px solid; BACKGROUND-COLOR: #f1f1f1
+}
+.textReadonlyMain {
+	BORDER-RIGHT: #8a889d 1px solid; PADDING-RIGHT: 0.25em; BORDER-TOP: #8a889d 1px solid; PADDING-LEFT: 0.25em; PADDING-BOTTOM: 0.2em; BORDER-LEFT: #8a889d 1px solid; WIDTH: auto; PADDING-TOP: 0.15em; BORDER-BOTTOM: #8a889d 1px solid; HEIGHT: auto; BACKGROUND-COLOR: #f1f1f1
+}
+.font {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #5b628e; LINE-HEIGHT: 22px; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"; TEXT-DECORATION: none
+}
+.font:link {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #5b628e; LINE-HEIGHT: 22px; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"; TEXT-DECORATION: none
+}
+.font:visited {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #5b628e; LINE-HEIGHT: 22px; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"; TEXT-DECORATION: none
+}
+.font:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #c5d9fa; LINE-HEIGHT: 22px; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"; TEXT-DECORATION: underline
+}
+.font1 {
+	FONT-SIZE: 11px; COLOR: #004080; LINE-HEIGHT: 22px; TEXT-DECORATION: none
+}
+.font1:link {
+	FONT-SIZE: 11px; COLOR: #004080; LINE-HEIGHT: 22px; TEXT-DECORATION: none
+}
+.font1:visited {
+	FONT-SIZE: 11px; COLOR: #004080; LINE-HEIGHT: 22px; TEXT-DECORATION: none
+}
+.font1:hover {
+	FONT-SIZE: 11px; COLOR: #98abd6; LINE-HEIGHT: 22px; TEXT-DECORATION: underline
+}
+.font2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #0c88ba; LINE-HEIGHT: 22px; FONT-FAMILY: "宋体", "Arial"; TEXT-DECORATION: none
+}
+.font2:link {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #0c4fba; LINE-HEIGHT: 22px; FONT-FAMILY: "宋体", "Arial"; TEXT-DECORATION: none
+}
+.font2:visited {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #0c4fba; LINE-HEIGHT: 22px; FONT-FAMILY: "宋体", "Arial"; TEXT-DECORATION: none
+}
+.font2:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #0c4fba; LINE-HEIGHT: 22px; FONT-FAMILY: "宋体", "Arial"; TEXT-DECORATION: underline
+}
+.lab1a {
+	BORDER-LEFT: #585951 1px solid
+}
+.lab1b {
+	BORDER-RIGHT: #c0d0da 1px solid; BORDER-LEFT: #c0d0da 1px solid; BORDER-BOTTOM: #c0d0da 1px solid
+}
+.lab1c {
+	BORDER-RIGHT: #43403d 1px solid; BORDER-LEFT: #43403d 1px solid; BORDER-BOTTOM: #43403d 1px solid
+}
+.mainMenu {
+	BACKGROUND-IMAGE: url(../images/mainMenu_bg1.gif); WIDTH: 70px; CURSOR: pointer; PADDING-TOP: 3px; BACKGROUND-REPEAT: no-repeat; TEXT-ALIGN: center
+}
+.mainMenuOver {
+	BACKGROUND-IMAGE: url(../images/mainMenu_bg2.gif); WIDTH: 70px; CURSOR: pointer; PADDING-TOP: 3px; BACKGROUND-REPEAT: no-repeat; TEXT-ALIGN: center
+}
+.subMenu {
+	WIDTH: 74px; CURSOR: pointer; PADDING-TOP: 1px; HEIGHT: 20px; TEXT-ALIGN: center
+}
+.subMenuOver {
+	BACKGROUND-IMAGE: url(../images/subMenu_bg2.gif); WIDTH: 74px; CURSOR: pointer; PADDING-TOP: 1px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 20px; TEXT-ALIGN: center
+}
+.subMenuDown {
+	BACKGROUND-IMAGE: url(../images/subMenu_bg3.gif); WIDTH: 74px; CURSOR: pointer; PADDING-TOP: 2px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 20px; TEXT-ALIGN: center
+}
+.dialogNormal {
+	BACKGROUND-IMAGE: url(../images/dialog_tab1.gif); WIDTH: 70px; CURSOR: pointer; PADDING-TOP: 3px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 24px; TEXT-ALIGN: center
+}
+.dialogCurrent {
+	BACKGROUND-IMAGE: url(../images/dialog_tab2.gif); WIDTH: 70px; CURSOR: pointer; PADDING-TOP: 3px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 24px; TEXT-ALIGN: center
+}
+.phoneNumber {
+	BORDER-RIGHT: #888888 1px solid; BORDER-TOP: #888888 1px solid; FONT-SIZE: 14px; BORDER-LEFT: #888888 1px solid; WIDTH: 110px; PADDING-TOP: 3px; BORDER-BOTTOM: #888888 1px solid; HEIGHT: 26px
+}
+.phoneNumberHover {
+	BORDER-RIGHT: #57a0bf 1px solid; BORDER-TOP: #57a0bf 1px solid; FONT-SIZE: 14px; BORDER-LEFT: #57a0bf 1px solid; WIDTH: 110px; PADDING-TOP: 3px; BORDER-BOTTOM: #57a0bf 1px solid; HEIGHT: 26px; BACKGROUND-COLOR: #f5fafe
+}
+#keypadArea {
+	BORDER-RIGHT: #b2c7dc 1px solid; BORDER-TOP: #b2c7dc 1px solid; BORDER-LEFT: #b2c7dc 1px solid; WIDTH: 240px; BORDER-BOTTOM: #b2c7dc 1px solid; POSITION: absolute; HEIGHT: 180px; BACKGROUND-COLOR: #ffffff
+}
+#phoneNumberHistory {
+	BORDER-RIGHT: #b2c7dc 1px solid; BORDER-TOP: #b2c7dc 1px solid; OVERFLOW: visible; BORDER-LEFT: #b2c7dc 1px solid; WIDTH: 110px; BORDER-BOTTOM: #b2c7dc 1px solid; POSITION: absolute; HEIGHT: 110px; BACKGROUND-COLOR: #ffffff
+}
+#phoneNumberHistory TD {
+	CURSOR: pointer
+}
+#phoneNumberHistory .tdOver {
+	CURSOR: pointer; COLOR: #ffffff; BACKGROUND-COLOR: #0a246a
+}
+#phoneNumberHistory .tdOut {
+	CURSOR: pointer; COLOR: #000000; BACKGROUND-COLOR: #ffffff
+}
+#statMenu {
+	BORDER-RIGHT: #8592b5 1px solid; BORDER-TOP: #8592b5 1px solid; OVERFLOW: visible; BORDER-LEFT: #8592b5 1px solid; WIDTH: 157px; BORDER-BOTTOM: #8592b5 1px solid; POSITION: absolute; BACKGROUND-COLOR: #ffffff
+}
+#statMenu .currentMenu {
+	PADDING-LEFT: 6px; PADDING-TOP: 7px; BORDER-BOTTOM: #cbd6ea 1px solid; HEIGHT: 26px; BACKGROUND-COLOR: #dfe1e4
+}
+#statMenu .notCurrentMenu {
+	BORDER-TOP: #cbd6ea 1px solid; PADDING-LEFT: 6px; BACKGROUND-IMAGE: url(../images/state/menu_bg.gif); PADDING-TOP: 7px; BORDER-BOTTOM: #cbd6ea 1px solid; HEIGHT: 26px
+}
+#statMenu .tdOver {
+	CURSOR: pointer; COLOR: #ffffff; BACKGROUND-COLOR: #0a246a
+}
+#statMenu .tdOut {
+	CURSOR: pointer; BACKGROUND-COLOR: #ffffff
+}
+#shortcutKeyDiv {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; BACKGROUND-IMAGE: url(../images/shortcutKey_bg1.gif); WIDTH: 69px; CURSOR: pointer; PADDING-TOP: 4px; HEIGHT: 21px; TEXT-ALIGN: center
+}
+#shortcutKeyList {
+	BORDER-RIGHT: #8592b5 1px solid; BORDER-TOP: #8592b5 1px solid; MARGIN-LEFT: -20px; BORDER-LEFT: #8592b5 1px solid; WIDTH: 100px; BORDER-BOTTOM: #8592b5 1px solid; POSITION: absolute; BACKGROUND-COLOR: #ffffff
+}
+#shortcutKeyList TD {
+	PADDING-LEFT: 10px; CURSOR: pointer; HEIGHT: 22px
+}
+#shortcutKeyList .trOver {
+	CURSOR: pointer; COLOR: #ffffff; BACKGROUND-COLOR: #0a246a
+}
+#shortcutKeyList .trOut {
+	CURSOR: pointer; BACKGROUND-COLOR: #ffffff
+}
+#processMessage {
+	BORDER-RIGHT: #00aeda 1px solid; BORDER-TOP: #00aeda 1px solid; MARGIN-TOP: -31px; PADDING-LEFT: 6px; FILTER: alpha(80); BORDER-LEFT: #00aeda 1px solid; WIDTH: 100%; PADDING-TOP: 6px; BORDER-BOTTOM: #00aeda 1px solid; POSITION: absolute; HEIGHT: 26px; BACKGROUND-COLOR: #c5f1ff
+}
+.ulg {
+	BORDER-BOTTOM: #d0e0e6 1px solid
+}
