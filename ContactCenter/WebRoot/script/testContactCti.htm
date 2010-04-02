@@ -1,0 +1,409 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title></title>
+<script src="contact_cti.js"></script>
+<script type="text/javascript" src="../script/contactCommon/jsonrpc.js"></script>
+</head>
+
+<body>
+<script>
+function testAddContact(){
+	var interactionID = "111111";
+	var callType = CONTACT_CALLTYPE_INBOUND;
+	var status = STATUS_RINGING;
+	var lineId = 0;
+	var completeFlag = "";
+	var nChannelId = CHANNELID_PHONE;
+	var attachedData = "";
+	var strChannelValue ="6655777";
+	var dtStatTime = "2007-05-06 12:30:10";
+	var strContent = "";
+	
+	contactArray.addContact(interactionID,callType,status,lineId,completeFlag,nChannelId,attachedData ,strChannelValue,dtStatTime,strContent);
+	
+	var interactionID = "111111";
+	var callType = CONTACT_CALLTYPE_INBOUND;
+	var status = STATUS_TALKING;
+	var lineId = 0;
+	var completeFlag = "";
+	var nChannelId = CHANNELID_PHONE;
+	var attachedData = "";
+	var strChannelValue ="6655777";
+	var dtStatTime = "2007-05-06 12:31:10";
+	var strContent = "";
+	
+	contactArray.addContact(interactionID,callType,status,lineId,completeFlag,nChannelId,attachedData,strChannelValue,dtStatTime,strContent);
+	
+	var interactionID = "111111";
+	var callType = CONTACT_CALLTYPE_INBOUND;
+	var status = STATUS_IDLE;
+	var lineId = 0;
+	var completeFlag = "";
+	var nChannelId = CHANNELID_PHONE;
+	var attachedData = "";
+	var strChannelValue ="6655777";
+	var dtStatTime = "2007-05-06 12:35:20";
+	var strContent = "";
+	
+	contactArray.addContact(interactionID,callType,status,lineId,completeFlag,nChannelId,attachedData,strChannelValue,dtStatTime,strContent);
+	
+	var interactionID = "22222";
+	var callType = CONTACT_CALLTYPE_OUTBOUND;
+	var status = STATUS_DIALING;
+	var lineId = 0;
+	var completeFlag = "";
+	var nChannelId = CHANNELID_PHONE;
+	var attachedData = "";
+	var strChannelValue ="6655777";
+	var dtStatTime = "2007-05-06 12:32:20";
+	var strContent = "";
+	
+	contactArray.addContact(interactionID,callType,status,lineId,completeFlag,nChannelId,attachedData,strChannelValue,dtStatTime,strContent);
+	
+	var interactionID = "22222";
+	var callType = CONTACT_CALLTYPE_OUTBOUND;
+	var status = STATUS_TALKING;
+	var lineId = 0;
+	var completeFlag = "";
+	var nChannelId = CHANNELID_PHONE;
+	var attachedData = "";
+	var strChannelValue ="6655777";
+	var dtStatTime = "2007-05-06 12:33:20";
+	var strContent = "";
+	
+	contactArray.addContact(interactionID,callType,status,lineId,completeFlag,nChannelId,attachedData,strChannelValue,dtStatTime,strContent);
+	
+	var interactionID = "22222";
+	var callType = CONTACT_CALLTYPE_OUTBOUND;
+	var status = STATUS_IDLE;
+	var lineId = 0;
+	var completeFlag = "";
+	var nChannelId = CHANNELID_PHONE;
+	var attachedData = "";
+	var strChannelValue ="6655777";
+	var dtStatTime = "2007-05-06 12:54:20";
+	var strContent = "";
+	
+	contactArray.addContact(interactionID,callType,status,lineId,completeFlag,nChannelId,attachedData,strChannelValue,dtStatTime,strContent);
+}
+
+function testGetContactByInteractionID(){
+	var interactionID = "111111";
+	alert('length :'+contactArray.getContactsByInteractionID(interactionID).length);
+	alert('all contact for interactionID '+contactArray.getContactsByInteractionID(interactionID));
+}
+
+function testGetAboutContactByInteractionID(){
+	var interactionID = "111111";
+	alert('length :'+contactArray.getAboutContactsByInteractionID(interactionID).length);
+	alert('all contact for interactionID '+contactArray.getAboutContactsByInteractionID(interactionID));
+}
+
+function testGetAllContacts(){
+	alert('length:'+contactArray.getAllContacts().length);
+	alert('toString:'+contactArray.getAllContacts());
+}
+
+function testContactArrayToString(){
+	//alert(contactArray);
+	setMessage(opener.contactArray.toString().replaceAll('\n',"<br>"));
+}
+
+function testRemoveContactByInteractionID(){
+	var interactionID = "900002";
+	opener.contactArray.removeContactByInteractionID(interactionID);
+	//alert('remove after get :'+contactArray.getContactsByInteractionID(interactionID));
+}
+
+function testLong(){
+	var now = new Date();
+	alert(now.getTime());
+	var s = "118239454564000";
+	var n1 = new Date(parseInt(s));
+	alert(n1);
+}
+
+function testGetDateByExtensions(){
+	var str="seconds=1182394545640"+DELIMETE+"asfasdf=sadf";
+	alert(contactUtils.getDateByExtensions(str));
+}
+
+function testOnVoiceEvent(){
+
+	var interactionID = "900001";
+	var callType = CALLTYPE_OUTBOUND;
+	var lineId = 0;
+	var attachedData = "";
+	var ani = "01085188535";
+	var dnis = "95588";
+	var attachedData ="testssss";
+	var extensions = "seconds="+parseDate("2007-05-06 12:30:10").getTime();
+	
+	onVoiceEvent(STATUS_RINGING,lineId,callType,interactionID,ani,dnis,attachedData, extensions);
+	
+	extensions = "seconds="+parseDate("2007-05-06 12:31:10").getTime();
+	onVoiceEvent(STATUS_TALKING,lineId,callType,interactionID,ani,dnis,attachedData, extensions);
+	
+	extensions = "seconds="+parseDate("2007-05-06 12:36:10").getTime();
+	onVoiceEvent(STATUS_IDLE,lineId,callType,interactionID,ani,dnis,attachedData, extensions);
+}
+
+
+function testGetContactsDetailByInteractionID(){
+	var interactionID = "900001";
+	//alert('length :'+contactArray.getContactsDetailByInteractionID(interactionID).length);
+	alert('all contact for interactionID '+contactArray.getContactsDetailByInteractionID(interactionID));
+}
+
+
+function testSaveContactSummary(){
+	var interactionID = "900001";
+	try{
+		jsonrpc = new JSONRpcClient("/BusinessCenter/JSON-RPC");
+		jsonrpc.contactSummaryManager.setCallback(true);
+		contactModel = new ContactModel();
+		contactModel.setStrCustomerId("00234");
+		contactModel.setLActivityId(5687);
+		
+		jsonrpc.contactSummaryManager.saveContactSummary(stockResultCallBack,contactModel,contactArray.getContactsDetailByInteractionID(interactionID));
+	}catch(e){
+		alert(e.description);
+	}
+}
+
+function stockResultCallBack(result,exception) {
+	setMessage("result:"+result);
+}
+
+
+function setMessage(str){
+	document.getElementById("msgDiv").innerHTML = str;
+}
+
+String.prototype.replaceAll = function(AFindText,ARepText){
+  raRegExp = new RegExp(AFindText,"g");
+  return this.replace(raRegExp,ARepText)
+}
+
+
+function testOnScreenPopup(){
+	var mediaType = opener.MEDIATYPE_VOICE;
+	var interactionID = "900002";
+	var callType = opener.CALLTYPE_INBOUND;
+	//var lineId = 0;
+	var ani = "01085188535";
+	var dnis = "95588";
+	var attachedData ="test=ssss#@@#name=$234090(),asdf#@@#tas=sdf rree#@@#IvrInfo=this is test ivr";
+	var status = opener.STATUS_RINGING;
+	//var extensions = "seconds="+parseDate("2007-05-06 12:30:10").getTime();
+
+	opener.onScreenPopup(mediaType,interactionID,callType,status, ani,dnis, attachedData);
+}
+
+function testOnScreenPopup2(){
+	var mediaType = opener.MEDIATYPE_VOICE;
+	var interactionID = "900003";
+	var callType = opener.CALLTYPE_INBOUND;
+	//var lineId = 0;
+	var ani = "010111111";
+	var dnis = "222222";
+	var attachedData ="testssss";
+	var status = opener.STATUS_RINGING;
+	//var extensions = "seconds="+parseDate("2007-05-06 12:30:10").getTime();
+	
+	opener.onScreenPopup(mediaType,interactionID,callType,status, ani,dnis, attachedData);
+}
+
+function testOnVoiceEventTalking(){
+	var interactionID = "900002";
+	var callType = opener.CALLTYPE_INBOUND;
+	var lineId = 0;
+	var ani = "01085188535";
+	var dnis = "95588";
+	var attachedData ="testssss";
+	//extensions = "seconds="+opener.parseDate("2007-05-06 12:31:10").getTime();
+
+	extensions = "seconds="+(new Date()).getTime();
+	opener.onVoiceEvent(opener.STATUS_TALKING,lineId,callType,interactionID,ani,dnis,attachedData, extensions);
+}
+
+function testOnVoiceEventIdle(){
+	var interactionID = "900002";
+	var callType = opener.CALLTYPE_INBOUND;
+	var lineId = 0;
+	var ani = "01085188535";
+	var dnis = "95588";
+	var attachedData ="testssss";
+	//extensions = "seconds="+opener.parseDate("2007-05-06 12:36:10").getTime();
+	extensions = "seconds="+(new Date()).getTime();
+	opener.onVoiceEvent(opener.STATUS_IDLE,lineId,callType,interactionID,ani,dnis,attachedData, extensions);
+}
+
+
+function testOnVoiceEventTalking_CALLTYPE_OUTBOUND(){
+	var interactionID = "900004";
+	var callType = opener.CALLTYPE_OUTBOUND;
+	var lineId = 0;
+	var ani = "01085188535";
+	var dnis = "8008100001";
+	var attachedData ="testssss";
+	extensions = "seconds="+opener.parseDate("2007-05-06 12:51:10").getTime();
+	opener.onVoiceEvent(opener.STATUS_TALKING,lineId,callType,interactionID,ani,dnis,attachedData, extensions);
+}
+
+function testOnVoiceEventIdle_CALLTYPE_OUTBOUND(){
+	var interactionID = "900004";
+	var callType = opener.CALLTYPE_OUTBOUND;
+	var lineId = 0;
+	var ani = "01085188535";
+	var dnis = "8008100001";
+	var attachedData ="testssss";
+	extensions = "seconds="+opener.parseDate("2007-05-06 12:56:10").getTime();
+	opener.onVoiceEvent(opener.STATUS_IDLE,lineId,callType,interactionID,ani,dnis,attachedData, extensions);
+}
+
+
+function testOnScreenPopupEmail1(){
+	var mediaType = opener.MEDIATYPE_EMAIL;
+	var interactionID = "700002";
+	var callType = opener.CALLTYPE_INBOUND;
+	//var lineId = 0;
+	var ani = "test1@163.com";
+	var dnis = "95588";
+	var attachedData ="testssss";
+	var status = opener.STATUS_RINGING;
+	//var extensions = "seconds="+parseDate("2007-05-06 12:30:10").getTime();
+
+	opener.onScreenPopup(mediaType,interactionID,callType,status, ani,dnis, attachedData);
+}
+
+function testOnScreenPopupEmail2(){
+	var mediaType = opener.MEDIATYPE_EMAIL;
+	var interactionID = "700003";
+	var callType = opener.CALLTYPE_INBOUND;
+	//var lineId = 0;
+	var ani = "test2@163.com";
+	var dnis = "222222";
+	var attachedData ="testssss";
+	var status = opener.STATUS_RINGING;
+	//var extensions = "seconds="+parseDate("2007-05-06 12:30:10").getTime();
+	
+	opener.onScreenPopup(mediaType,interactionID,callType,status, ani,dnis, attachedData);
+}
+
+function testOnEmailEvent_STATUS_TALKING(){
+	var interactionID = "700002";
+	var callType = opener.CALLTYPE_INBOUND;
+	//var lineId = 0;
+	var fromAddress = 'test@163.com';
+	var attachedData ="testssss";
+	extensions = "seconds="+opener.parseDate("2007-05-06 13:29:10").getTime();
+	opener.onEmailEvent(opener.STATUS_TALKING, callType, interactionID, fromAddress, attachedData, extensions);
+}
+
+function testOnEmailEvent_STATUS_IDLE(){
+	var interactionID = "700002";
+	var callType = opener.CALLTYPE_INBOUND;
+	//var lineId = 0;
+	var fromAddress = 'test@163.com';
+	var attachedData ="testssss";
+	extensions = "seconds="+opener.parseDate("2007-05-06 13:35:10").getTime();
+	opener.onEmailEvent(opener.STATUS_IDLE, callType, interactionID, fromAddress, attachedData, extensions);
+}
+
+
+
+function testOnScreenPopupChat1(){
+	var mediaType = opener.MEDIATYPE_CHAT;
+	var interactionID = "600002";
+	var callType = opener.CALLTYPE_INBOUND;
+	//var lineId = 0;
+	var ani = "test1@163.com";
+	var dnis = "95588";
+	var attachedData ="testssss";
+	var status = opener.STATUS_RINGING;
+	//var extensions = "seconds="+parseDate("2007-05-06 12:30:10").getTime();
+
+	opener.onScreenPopup(mediaType,interactionID,callType,status, ani,dnis, attachedData);
+}
+
+function testOnScreenPopupChat2(){
+	var mediaType = opener.MEDIATYPE_CHAT;
+	var interactionID = "600003";
+	var callType = opener.CALLTYPE_INBOUND;
+	//var lineId = 0;
+	var ani = "test2@163.com";
+	var dnis = "222222";
+	var attachedData ="testssss";
+	var status = opener.STATUS_RINGING;
+	//var extensions = "seconds="+parseDate("2007-05-06 12:30:10").getTime();
+	
+	opener.onScreenPopup(mediaType,interactionID,callType,status, ani,dnis, attachedData);
+}
+
+function testOnChatEvent_STATUS_TALKING(){
+	var interactionID = "600002";
+	var callType = opener.CALLTYPE_INBOUND;
+	//var lineId = 0;
+	var customerName = 'test@163.com';
+	var attachedData ="testssss";
+	extensions = "seconds="+opener.parseDate("2007-05-06 13:29:10").getTime();
+	opener.onChatEvent(opener.STATUS_TALKING, callType, interactionID,customerName, attachedData, extensions);
+}
+
+function testOnChatEvent_STATUS_IDLE(){
+	var interactionID = "600002";
+	var callType = opener.CALLTYPE_INBOUND;
+	//var lineId = 0;
+	var customerName = 'test@163.com';
+	var attachedData ="testssss";
+	extensions = "seconds="+opener.parseDate("2007-05-06 13:35:10").getTime();
+	opener.onChatEvent(opener.STATUS_IDLE, callType, interactionID,customerName, attachedData, extensions);
+}
+</script>
+test msg:<div id="msgDiv"></div>
+<br>
+<input type="button" value="testAddContact" onclick="testAddContact();">
+<br>
+<input type="button" value="testGetContactByInteractionID" onclick="testGetContactByInteractionID();">
+<br>
+<input type="button" value="testGetAboutContactByInteractionID" onclick="testGetAboutContactByInteractionID();">
+<br>
+<input type="button" value="testGetContacts" onclick="testGetAllContacts();">
+<br>
+<input type="button" value="testContactArrayToString" onclick="testContactArrayToString();">
+<br>
+<input type="button" value="testRemoveContactByInteractionID" onclick="testRemoveContactByInteractionID();">
+<br>
+<input type="button" value="testLong" onclick="testLong();">
+<br>
+<input type="button" value="testGetDateByExtensions" onclick="testGetDateByExtensions();">
+<br>
+<input type="button" value="testOnVoiceEvent" onclick="testOnVoiceEvent();">
+<br>
+<input type="button" value="testGetContactsDetailByInteractionID" onclick="testGetContactsDetailByInteractionID();">
+<br>
+<input type="button" value="testSaveContactSummary" onclick="testSaveContactSummary();">
+
+<br>
+<input type="button" value="testOnScreenPopup" onclick="testOnScreenPopup();">
+<input type="button" value="testOnScreenPopup2" onclick="testOnScreenPopup2();"> 
+<input type="button" value="testOnVoiceEventTalking" onclick="testOnVoiceEventTalking();"> 
+<input type="button" value="testOnVoiceEventIdle" onclick="testOnVoiceEventIdle();"> 
+<br>
+<input type="button" value="testOnVoiceEventTalking_CALLTYPE_OUTBOUND" onclick="testOnVoiceEventTalking_CALLTYPE_OUTBOUND();"> 
+<input type="button" value="testOnVoiceEventIdle_CALLTYPE_OUTBOUND" onclick="testOnVoiceEventIdle_CALLTYPE_OUTBOUND();"> 
+<br>
+<input type="button" value="testOnScreenPopupEmail1" onclick="testOnScreenPopupEmail1();">
+<input type="button" value="testOnScreenPopupEmail2" onclick="testOnScreenPopupEmail2();"> 
+<input type="button" value="testOnEmailEvent_STATUS_TALKING" onclick="testOnEmailEvent_STATUS_TALKING();">
+<input type="button" value="testOnEmailEvent_STATUS_IDLE" onclick="testOnEmailEvent_STATUS_IDLE();"> 
+
+<br>
+<input type="button" value="testOnScreenPopupChat1" onclick="testOnScreenPopupChat1();">
+<input type="button" value="testOnScreenPopupChat2" onclick="testOnScreenPopupChat2();"> 
+<input type="button" value="testOnChatEvent_STATUS_TALKING" onclick="testOnChatEvent_STATUS_TALKING();">
+<input type="button" value="testOnChatEvent_STATUS_IDLE" onclick="testOnChatEvent_STATUS_IDLE();"> 
+</body>
+</html>
