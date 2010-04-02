@@ -110,8 +110,8 @@
           </td>
           </tr>
       </table></td>
-      <td width="459" background="<%=contextPath%>/images/cti_image/Top_toolbarM_bg.jpg">
-		  <table width="459" height="135" border="0" cellpadding="0" cellspacing="0">
+      <td width="334" background="<%=contextPath%>/images/cti_image/Top_toolbarM_bg.jpg">
+		  <table width="334" height="135" border="0" cellpadding="0" cellspacing="0">
 		  	<tr align="right">
 			  <td height="16" valign="top">
                 <span id="statWord"> <span class="statWord" id="lineStatusDiv"></span></span></td>
