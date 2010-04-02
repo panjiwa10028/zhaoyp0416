@@ -2088,7 +2088,7 @@ function goBackHistoryAndReady()
 													<td>
 														<table border="0" cellpadding="0" cellspacing="0">
 															<tr>
-																<td aligh="left"><jsp:include page="/softphone/mediaIcon.jsp"
+																<td aligh="left" width="485"><jsp:include page="/softphone/mediaIcon.jsp"
 																		flush="true" /></td>
 																<td><%@ include file="/jsp/media/contactIcon.jsp"%></td>
 															</tr>
