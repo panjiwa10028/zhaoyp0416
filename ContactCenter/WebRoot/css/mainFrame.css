@@ -1,0 +1,57 @@
+﻿body,td,th {
+	font-size: 12px;
+	color: #333333;
+}
+body {
+	margin: 0px;
+	SCROLLBAR-FACE-COLOR: #f0f0f0;
+	SCROLLBAR-HIGHLIGHT-COLOR: #f8f8f8;
+	SCROLLBAR-SHADOW-COLOR: #bfbfbf;
+	SCROLLBAR-3DLIGHT-COLOR: #bfbfbf;
+	SCROLLBAR-ARROW-COLOR: #9ab9c2;
+	SCROLLBAR-TRACK-COLOR: #f8f8f8;
+	SCROLLBAR-DARKSHADOW-COLOR: #f8f8f8;
+}
+a {
+	color: #636C87;
+	text-decoration: none;
+}
+a:hover {
+	color: #FF3300;
+}
+
+/*for part style*/
+#topDiv {
+	height:80px;
+}
+
+#bottomDiv {
+	height:31px;
+	border-top:1px solid #cccccc;
+	background-image:url(images/mac_main_bg.gif);
+}
+#floatRightDiv {
+	position:absolute;
+	border:1px solid #ababab;
+	width:200px;
+	margin-left:-200px;
+	background-color:#FFFFFF
+}
+#sensorRight {
+	background-image:url(images/right_bg.gif);
+	background-repeat:repeat-y;
+	background-color: #dddcd8;
+	background-position:right;
+}
+#shortcutKeyDiv {
+	background-image:url(images/shortcutKey_bg1.gif); height:21px; width:69px; text-align:center; cursor:pointer; font-size:12px; font-weight:normal; overflow:hidden;
+}
+#shortcutKeyList {
+	position:absolute; background-color:#FFFFFF; border:1px solid #cccccc; margin-left:-40px; width:120px; z-index:32; 
+}
+#shortcutKeyList  .trOver{
+	background-color:#0A246A; color:#FFFFFF; cursor:pointer;
+}
+#shortcutKeyList  .trOut{
+	background-color:;  cursor:pointer;
+}

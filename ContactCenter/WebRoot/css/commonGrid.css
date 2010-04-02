@@ -1,0 +1,87 @@
+td{ color: #333333;}
+
+.oOutline { border: 0px solid #cccccc;overflow: hidden;}
+.oToolBtnActive { border: 1px solid #333333;}
+.oFrameTable {}
+.oDataTable {}
+
+.oDataTable td{ 
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	overflow: hidden;
+}
+
+.oRowNumTable{ width:100%; background-color:#f5f4ed;}
+
+.oRowNumTable td{ 
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #333333;
+	border-top: 1px solid #d4d0c8;
+	text-align:center;
+}
+.oFrameTable{ border-color:#FF0000;}
+.oFrameTable td{ 
+	line-height: 18px;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	white-space:nowrap;
+	display:block;
+	overflow:hidden;
+	width:100%;
+}
+
+.oTopLeftAreaTd {}
+.oTitleAreaTd {}
+.oRowNumAreaTd { background-position: 100%;}
+.oDataTableAreaTd { overflow: scroll}
+
+.rowStyle1 {
+	background-color: #fafbfc;
+}
+.rowStyle2 {}
+.oExtendArea {
+	background-position: top;
+}
+.rowActive {
+	background-color: #FFFFD9;
+}
+.oActiveCell {
+	border-style: none;
+	color: #FFFFFF;
+	background-color: #0a246a;
+}
+.oActiveRow { 
+	background-color: #BFDFFF;
+}
+.oTitleItem {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #333333;
+}
+
+.oTitleItemActive{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #333333;
+	border-bottom-width: 2px;;
+	border-bottom-style: groove;
+	border-bottom-color: #FF9933;		
+}
+.oRowNum {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	cursor:default;
+	text-align:center;
+	border-top: 1px solid #d4d0c8;
+	padding:0px;
+	margin:0px;
+}
+.oWaiting {
+	background-image: url(JGridRes/wait.gif);
+	background-repeat: no-repeat;
+	height: 23px;
+	width: 120px;
+	border: 1px solid #333333;
+}

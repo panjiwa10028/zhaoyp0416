@@ -1,0 +1,27 @@
+body {
+	margin: 2px;
+	padding: 0px;
+}
+
+.commentInputText 
+{
+	font-size:12px;
+	border:1px solid #808080;
+	padding:2px;
+}
+
+.tcontent td
+{
+    border-bottom:1px solid #c9e2f1; 
+    background-color:#f7fcff;
+}
+
+.tcontent.ltd, .ltd
+{
+    background-color:#dceefc;
+}
+
+.vtd
+{ 
+    border-right:1px solid #c9e2f1
+}
