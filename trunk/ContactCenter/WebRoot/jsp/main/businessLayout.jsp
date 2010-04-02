@@ -2057,7 +2057,7 @@ function goBackHistoryAndReady()
 					<td>
 					<table  border=0 cellPadding=0 cellSpacing=0>
 						<tr>
-							<td align="right" width="100">
+							<td align="right" width="70">
 										<table  border="0" cellpadding="0" cellspacing="0">
 					<tr>
 						<td align="right"><jsp:include page="/softphone/stateIcon.jsp" flush="true" /></td>
