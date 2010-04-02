@@ -2007,7 +2007,7 @@ function goBackHistoryAndReady()
 				<table width="100%" border="0" cellpadding="0" cellspacing="0" height="57">
 					<tr>
 						<td width="14"><img src="<%=strContextPath%>/images/leftTree_bottom1.gif" width="14" height="57"></td>
-						<td width="100%" background="<%=strContextPath%>/images/leftTree_bottom2.gif"><div id="menuWord" style="font-size:14px; font-weight:bold; padding-top:5px;cursor:default"  class="nobreak"></div></td>
+						<td width="100%" background="<%=strContextPath%>/images/leftTree_bottom2.gif"><div id="menuBottomWord" style="font-size:14px; font-weight:bold; padding-top:5px;cursor:default"  class="nobreak"></div></td>
 						<td width="14"><img src="<%=strContextPath%>/images/leftTree_bottom3.gif" width="14" height="57" border="0"></td>
 					</tr>
 				</table>
