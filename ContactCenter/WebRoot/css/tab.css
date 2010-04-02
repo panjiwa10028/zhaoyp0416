@@ -6,7 +6,7 @@
 body {
 	margin: 0px;
 	color:#666666;
-	border: none;
+	border:0px solid red;
 	overflow: hidden;
 	background-image:url(../images/tab_bg.gif);
 	background-repeat:repeat-x;
