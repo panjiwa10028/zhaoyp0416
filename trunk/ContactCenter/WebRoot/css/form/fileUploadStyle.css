@@ -1,0 +1,97 @@
+/* 
+	Cusco Sky table styles
+	written by Braulio Soncco http://www.buayacorp.com
+*/
+
+table, th, td {
+	border: 0px solid #D4E0EE;
+	border-collapse: collapse;
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	color: #555;
+}
+
+caption {
+	font-size: 150%;
+	font-weight: bold;
+	margin: 5px;
+}
+
+td, th {
+	padding: 4px;
+}
+
+thead th {
+	text-align: center;
+	background: #E6EDF5;
+	color: #4F76A3;
+	font-size: 100% !important;
+}
+
+tbody th {
+	font-weight: bold;
+}
+
+tbody tr { background: #FCFDFE; }
+
+tbody tr.odd { background: #F7F9FC; }
+
+table a:link {
+	color: #718ABE;
+	text-decoration: none;
+}
+
+table a:visited {
+	color: #718ABE;
+	text-decoration: none;
+}
+
+table a:hover {
+	color: #718ABE;
+	text-decoration: underline !important;
+}
+
+tfoot th, tfoot td {
+	font-size: 85%;
+}
+
+/* CSS needed for the script */
+
+#ajax_tooltipObj{
+	z-index:1000000;
+	text-align:left;
+}
+#ajax_tooltipObj div{
+	position:relative;
+}
+
+/* If you don't want the arrow - Just set the width of this div to 1 or something like that and drop the background selectors from the CSS below */
+
+#ajax_tooltipObj .ajax_tooltip_arrow{	/* Left div for the small arrow */
+	/*background-image:url('../images/arrow.gif');*/
+	width:20px;
+	position:absolute;
+	left:0px;
+	top:0px;
+	background-repeat:no-repeat;
+	background-position:center left;
+	z-index:1000005;
+	height:60px;
+}
+
+#ajax_tooltipObj .ajax_tooltip_content{
+	/*border:2px solid #317082;	 Border width */
+	left:18px;	/* Same as border thickness */
+	top:0px;
+	position:absolute;
+	width:350px;	/* Width of tooltip content */
+	height:200px;	/* Height of tooltip content */
+	background-color:#FFF;	/* Background color */
+	padding:5px;	/* Space between border and content */
+	font-size:0.8em;	/* Font size of content */
+	overflow:auto;	/* Hide overflow content */
+	z-index:1000001;
+	/*bg-color: #555;*/
+}
+
+#progressBar { padding-top: 5px; }
+#progressBarBox { width: 350px; height: 20px; border: 1px inset; background: #eee;}

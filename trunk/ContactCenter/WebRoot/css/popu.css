@@ -1,0 +1,39 @@
+﻿body,td,th {
+	font-size: 12px;
+	color:#555555;
+}
+body {
+	margin:5px 2px 2px 5px;
+	background-color: #FFFFFF;
+	border: none;
+	SCROLLBAR-FACE-COLOR: #f0f0f0;
+	SCROLLBAR-HIGHLIGHT-COLOR: #f8f8f8;
+	SCROLLBAR-SHADOW-COLOR: #bfbfbf;
+	SCROLLBAR-3DLIGHT-COLOR: #bfbfbf;
+	SCROLLBAR-ARROW-COLOR: #9ab9c2;
+	SCROLLBAR-TRACK-COLOR: #f8f8f8;
+	SCROLLBAR-DARKSHADOW-COLOR: #f8f8f8;
+}
+a {
+	color: #636C87;
+	text-decoration: none;
+}
+a:hover {
+	color: #FF3300;
+}
+.class0{
+	border-width:0px;
+
+}
+.class1{
+	border:1px solid #cccccc;
+	border-bottom-width:0px;
+	background-color:#f6f6f6;
+}
+.class2{
+	border-width:0px;
+}
+.class3{
+	border:1px solid #cccccc;
+}
+.style1 {color: #000000}

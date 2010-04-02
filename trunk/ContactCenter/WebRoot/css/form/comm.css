@@ -1,0 +1,119 @@
+.button 
+{
+	 border:1px solid #a0a0a0;
+	 border-bottom:1px solid #666666; 
+	 padding: 2px 2px 0px 2px; 
+	 font-size: 11px;
+	 height:21px;
+	 font-family:Tahoma,Verdana,Segoe,sans-serif;
+	 background:#ffffff url(../../images/button_normal_bg.gif);
+	 background-position:0px 0px;
+	 cursor:poniter;
+	 padding-top:3px;
+}
+.ouPicker {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	padding: 5px;
+	white-space: nowrap;
+}
+.ouPicker img {
+	border: 0px;
+	height: 18px;
+	vertical-align: text-bottom;
+}
+.ouPicker a {
+	color: #000000;
+	text-decoration: none;
+}
+.ouPicker a:hover {
+	color: #345373;
+}
+.ouPickerBtn{
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-size: 10px;
+}
+.decisionTable {
+	padding:0px 0px; 
+	width:100%; 
+	border-collapse:collapse;
+	border-top:1px solid #959595;
+	border-bottom:1px solid #959595;
+	table-layout:fixed;
+}
+.decisionTable td
+{
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	white-space:nowrap;
+	display:block;
+	overflow:hidden;
+	border-right:1px solid #959595;
+	border-left:1px solid #959595;
+	border-bottom:1px solid #959595;
+	padding:3px;
+}
+.decisionTable th
+{
+	height:20px;
+	font-weight:normal;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	white-space:nowrap;
+	display:block;
+	overflow:hidden;
+	border-right:1px solid #959595;
+	border-left:1px solid #959595;
+	border-bottom:1px solid #959595;
+	background-color: #F4F4F4;
+	cursor:default;
+}
+.commentTable 
+{
+	padding:0px 0px; 
+	width:100%; 
+	border-collapse:collapse;
+	border-top:1px solid #959595;
+	border-bottom:1px solid #959595;
+	table-layout:fixed;
+}
+.commentTable td
+{
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	white-space:nowrap;
+	display:block;
+	overflow:hidden;
+	border-right:1px solid #959595;
+	border-left:1px solid #959595;
+	border-bottom:1px solid #959595;
+	padding:3px;
+}
+.commentTable th
+{
+	font-weight:normal;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	white-space:nowrap;
+	display:block;
+	overflow:hidden;
+	border-right:1px solid #959595;
+	border-left:1px solid #959595;
+	border-bottom:1px solid #959595;
+	background-color:#F4F4F4;
+	cursor:default;
+}
+.xGridTable {
+	table-layout:fixed;
+	border-collapse:collapse;
+	border:1px solid #959595;
+}
+.xGridTable td{
+	border:1px solid #cccccc;
+}
+.xHead td{
+	background-image:url(../../images/grid_head.gif);
+	text-align:center;
+	border-bottom:1px solid #959595;
+	border-right:1px solid #94a8cd;
+}

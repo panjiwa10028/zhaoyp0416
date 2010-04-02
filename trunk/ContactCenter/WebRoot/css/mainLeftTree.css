@@ -1,0 +1,42 @@
+﻿body,td,th {
+	font-size: 12px;
+	color: #666666;
+}
+body {
+	margin: 0px;
+	background-image: url(../images/mac_main_bg.gif);
+	border: none;
+	overflow: hidden;
+	SCROLLBAR-FACE-COLOR: #f0f0f0;
+	SCROLLBAR-HIGHLIGHT-COLOR: #f8f8f8;
+	SCROLLBAR-SHADOW-COLOR: #bfbfbf;
+	SCROLLBAR-3DLIGHT-COLOR: #bfbfbf;
+	SCROLLBAR-ARROW-COLOR: #9ab9c2;
+	SCROLLBAR-TRACK-COLOR: #f8f8f8;
+	SCROLLBAR-DARKSHADOW-COLOR: #f8f8f8;
+}
+.menu1 {
+	border-top:1px solid #999999;
+	padding-left:40px;
+	font-weight:bold;
+	cursor:pointer;
+	height:25px;
+	background-color:;
+	white-space:nowrap;
+}
+.menu2 {
+	border-top:1px solid #999999;
+	padding-left:40px;
+	font-weight:bold;
+	cursor:pointer;
+	height:25px;
+	background-color:#cccccc;
+	white-space:nowrap;
+}
+a {
+	color: #636C87;
+	text-decoration: none;
+}
+a:hover {
+	color: #FF3300;
+}

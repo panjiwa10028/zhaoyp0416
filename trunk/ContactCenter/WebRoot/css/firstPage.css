@@ -1,0 +1,19 @@
+﻿body {
+	background-color: #ffffff;
+}
+.grey {font-size: 9px; color:#999999}
+.yui-gb {
+	WIDTH: 780px
+}
+.yui-u {
+	FLOAT: left; WIDTH: 48%
+}
+.yui-k {
+	FLOAT: left; WIDTH: 4%
+}
+.dragTitle {
+	COLOR: #4363a1; HEIGHT: 25px; BACKGROUND-COLOR: #ffffff
+}
+STRONG {
+	COLOR: #4363a1
+}

@@ -1,0 +1,32 @@
+.dtree {
+	FONT-SIZE: 11px;
+	COLOR: #666;
+	FONT-FAMILY: Verdana, Tahoma, Arial;
+	WHITE-SPACE: nowrap
+}
+.dtree IMG {
+	BORDER-WIDTH: 0px;
+	VERTICAL-ALIGN: middle;
+}
+.dtree A {
+	COLOR: #333;
+	TEXT-DECORATION: none;
+}
+.dtree A.node,A.nodeSel {
+	PADDING-RIGHT: 1px 2px;
+	WHITE-SPACE: nowrap;
+}
+.dtree A.node:hover,A.nodeSel:hover {
+	COLOR: #333;
+	TEXT-DECORATION: underline;
+}
+.dtree A.nodeSel {
+	BACKGROUND-COLOR: #c0d2ec;
+}
+.dtree .clip {
+	OVERFLOW: hidden;
+}
+.checkbox {
+	width:15px;
+	height:15px;
+}
