@@ -531,28 +531,28 @@ function handleClick(){
 var menuNumber = document.getElementById("menu").getElementsByTagName("div");//主菜单数
 	if(handleStat == 1){//变成icon状
 		
-		document.getElementById("menuContent").style.height   = window.document.body.offsetHeight-57 - 25 -8;
-		document.getElementById("personalFlagFrm").style.height   = window.document.body.offsetHeight-38-25;
+		document.getElementById("menuContent").style.height   = window.document.body.offsetHeight-57  -8;
+		//document.getElementById("personalFlagFrm").style.height   = window.document.body.offsetHeight-38-25;
 		document.getElementById("menu").style.overflow   = "hidden";
 		document.getElementById("menu").style.height   = "25px";
 		document.getElementById("menu").style.width   = "180px";
 		document.getElementById("menu").style.backgroundImage   = "url(<%=strContextPath%>/images/mt_bg.gif)";
 		document.getElementById("menu").style.textAlign   = "center";
-		
-		
+		document.getElementById("menu").style.display = "none";
 		for(i=0;i<menuNumber.length;i++){
-		menuNumber[i].getElementsByTagName("SPAN")[0].style.display = "none";
+		menuNumber[i].getElementsByTagName("SPAN")[0].style.display = "none"; //菜单文字
 		menuNumber[i].style.display = "inline";
 		menuNumber[i].style.width  = "20px";
 		menuNumber[i].style.height = "25px";
-		//menuNumber[i].style.padding = "5px 0px 0px 0px";
+		menuNumber[i].style.padding = "5px 0px 0px 0px";
 		menuNumber[i].title = menuNumber[i].getElementsByTagName("SPAN")[0].innerText;
 		
-		document.getElementById("handleOpenImg").style.display = "none";
-		document.getElementById("handleCloseImg").style.display = "";
 		
 		
 		}
+		document.getElementById("handleOpenImg").style.display = "none";
+		document.getElementById("handleCloseImg").style.display = "";
+		
 		handleStat = 0;
 	}
 	else{ //恢复成bar状菜单
@@ -571,11 +571,12 @@ var menuNumber = document.getElementById("menu").getElementsByTagName("div");//�
 		menuNumber[i].title = "";
 		
 		
-		document.getElementById("handleOpenImg").style.display = "";
-		document.getElementById("handleCloseImg").style.display = "none";
 		
 		
 		}
+		document.getElementById("handleOpenImg").style.display = "";
+		document.getElementById("handleCloseImg").style.display = "none";
+		document.getElementById("menu").style.display = "";
 		handleStat = 1;
 	}
 }
@@ -603,7 +604,7 @@ function loadModule(prename,name,lefturl,workurl)
 </script>
 </head>
 
-<body onload="beforeDone();" id="leftBody" class="leftBody" scroll="no" onresize="initSize();" oncontextmenu="window.event.returnValue=false" onselectstart ="return false" onselect="document.selection.empty()">
+<body onload="beforeDone();" id="leftBody" class="leftBody" scroll="no" onresize="initSize();" >
 
 
 <div id="leftTree"></div>
