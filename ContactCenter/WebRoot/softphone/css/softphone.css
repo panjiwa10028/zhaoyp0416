@@ -2,43 +2,43 @@
 /*Created@2007-11-14*/
 
 #keypadImage{
-	width:37px; 
-	height:37px; 
-	background-image:url(../../images/cti_image/keyboard.gif);
+	width:35px; 
+	height:35px; 
+	background-image:url(../../images/new_cti_image/keyboard.gif);
 }
 	.keypadImage_enabled{	background-position:0px 0px;	cursor:pointer;}
-	.keypadImage_over{		background-position:-37px 0px;	cursor:pointer;}
-	.keypadImage_down{		background-position:-74px 0px;	cursor:pointer;}
-	.keypadImage_disabled{	background-position:-111px 0px;	cursor:not-allowed;}
+	.keypadImage_over{		background-position:-35px 0px;	cursor:pointer;}
+	.keypadImage_down{		background-position:-70px 0px;	cursor:pointer;}
+	.keypadImage_disabled{	background-position:-105px 0px;	cursor:not-allowed;}
 
 
 #dialImage{
-	width:43px; 
-	height:44px; 
-	background-image:url(../../images/cti_image/dial.gif);
+	width:35px; 
+	height:35px; 
+	background-image:url(../../images/new_cti_image/dial.gif);
 }
 	.dialImage_enabled{		background-position:0px 0px;	cursor:pointer;}
-	.dialImage_over{		background-position:-43px 0px;	cursor:pointer;}
-	.dialImage_down{		background-position:-86px 0px;	cursor:pointer;}
-	.dialImage_disabled{	background-position:-129px 0px;	cursor:not-allowed;}
-	.dialImage_flash{		background-position:-172px 0px;	cursor:pointer;}
-	.dialImage_flash_down{	background-position:-258px 0px;	cursor:pointer;}
-	.dialImage_ringing{		background-position:-172px 0px;	cursor:pointer;}
-	.dialImage_dialing{		background-position:-172px 0px;	cursor:pointer;}
-	.dialImage_talking{		background-position:-215px 0px;	cursor:pointer;}
+	.dialImage_over{		background-position:-35px 0px;	cursor:pointer;}
+	.dialImage_down{		background-position:-70px 0px;	cursor:pointer;}
+	.dialImage_disabled{	background-position:-105px 0px;	cursor:not-allowed;}
+	.dialImage_flash{		background-position:-140px 0px;	cursor:pointer;}
+	.dialImage_flash_down{	background-position:-210px 0px;	cursor:pointer;}
+	.dialImage_ringing{		background-position:-140px 0px;	cursor:pointer;}
+	.dialImage_dialing{		background-position:-140px 0px;	cursor:pointer;}
+	.dialImage_talking{		background-position:-175px 0px;	cursor:pointer;}
 
 
 #disconImage{
-	width:37px; 
-	height:44px; 
-	background-image:url(../../images/cti_image/discon.gif);
+	width:35px; 
+	height:35px; 
+	background-image:url(../../images/new_cti_image/discon.gif);
 } 
 	.disconImage_enabled{  background-position:0px 0px;		cursor:pointer;}
-	.disconImage_over{		background-position:-37px 0px;	cursor:pointer;}
-	.disconImage_down{		background-position:-74px 0px;	cursor:pointer;}
-	.disconImage_disabled{	background-position:-111px 0px;	cursor:not-allowed;}
-	.disconImage_hangup{	background-position:-148px 0px;	cursor:pointer;}
-	.disconImage_refuse{	background-position:-185px 0px;	cursor:pointer;}
+	.disconImage_over{		background-position:-35px 0px;	cursor:pointer;}
+	.disconImage_down{		background-position:-70px 0px;	cursor:pointer;}
+	.disconImage_disabled{	background-position:-105px 0px;	cursor:not-allowed;}
+	.disconImage_hangup{	background-position:-140px 0px;	cursor:pointer;}
+	.disconImage_refuse{	background-position:-175px 0px;	cursor:pointer;}
 
 
 #holdImage{
@@ -86,10 +86,10 @@
 
 
 #lineOneImage{
-	width:43px; 
+	width:23px; 
 	height:14px;
 	overflow:hidden;
-	background-image:url(../../images/cti_image/line.gif);
+	background-image:url(../../images/new_cti_image/line.gif);
 } 
 	.lineOneImage_on_idle{		background-position:0px 0px;	cursor:pointer;}
 	.lineOneImage_on_ringing{	background-position:0px -14px;	cursor:pointer;}
@@ -105,41 +105,41 @@
 
 
 #lineTwoImage{
-	width:43px; 
+	width:23px; 
 	height:14px;
 	overflow:hidden;
-	background-image:url(../../images/cti_image/line.gif);
+	background-image:url(../../images/new_cti_image/line.gif);
 } 
-	.lineTwoImage_on_idle{		background-position:-43px 0px;		cursor:pointer;}
-	.lineTwoImage_on_ringing{	background-position:-43px -14px;	cursor:pointer;}
-	.lineTwoImage_on_dialing{	background-position:-43px -28px;	cursor:pointer;}
-	.lineTwoImage_on_talking{	background-position:-43px -28px;	cursor:pointer;}
-	.lineTwoImage_on_hold{		background-position:-43px -42px;	cursor:pointer;}
-	.lineTwoImage_off_idle{		background-position:-43px -56px;	cursor:pointer;}
-	.lineTwoImage_off_disabled{	background-position:-43px -56px;	cursor:not-allowed;}
-	.lineTwoImage_off_ringing{	background-position:-43px -70px;	cursor:pointer;}
-	.lineTwoImage_off_dialing{	background-position:-43px -84px;	cursor:pointer;}
-	.lineTwoImage_off_talking{	background-position:-43px -84px;	cursor:pointer;}
-	.lineTwoImage_off_hold{		background-position:-43px -98px;	cursor:pointer;}
+	.lineTwoImage_on_idle{		background-position:-23px 0px;		cursor:pointer;}
+	.lineTwoImage_on_ringing{	background-position:-23px -14px;	cursor:pointer;}
+	.lineTwoImage_on_dialing{	background-position:-23px -28px;	cursor:pointer;}
+	.lineTwoImage_on_talking{	background-position:-23px -28px;	cursor:pointer;}
+	.lineTwoImage_on_hold{		background-position:-23px -42px;	cursor:pointer;}
+	.lineTwoImage_off_idle{		background-position:-23px -56px;	cursor:pointer;}
+	.lineTwoImage_off_disabled{	background-position:-23px -56px;	cursor:not-allowed;}
+	.lineTwoImage_off_ringing{	background-position:-23px -70px;	cursor:pointer;}
+	.lineTwoImage_off_dialing{	background-position:-23px -84px;	cursor:pointer;}
+	.lineTwoImage_off_talking{	background-position:-23px -84px;	cursor:pointer;}
+	.lineTwoImage_off_hold{		background-position:-23px -98px;	cursor:pointer;}
 
 
 #lineThreeImage{
-	width:43px; 
+	width:23px; 
 	height:14px;
 	overflow:hidden;
-	background-image:url(../../images/cti_image/line.gif);
+	background-image:url(../../images/new_cti_image/line.gif);
 } 
-	.lineThreeImage_on_idle{	background-position:-86px 0px;		cursor:pointer;}
-	.lineThreeImage_on_ringing{	background-position:-86px -14px;	cursor:pointer;}
-	.lineThreeImage_on_dialing{	background-position:-86px -28px;	cursor:pointer;}
-	.lineThreeImage_on_talking{	background-position:-86px -28px;	cursor:pointer;}
-	.lineThreeImage_on_hold{	background-position:-86px -42px;	cursor:pointer;}
-	.lineThreeImage_off_idle{	background-position:-86px -56px;	cursor:pointer;}
-	.lineThreeImage_off_disabled{background-position:-86px -56px;	cursor:not-allowed;}
-	.lineThreeImage_off_ringing{background-position:-86px -70px;	cursor:pointer;}
-	.lineThreeImage_off_dialing{background-position:-86px -84px;	cursor:pointer;}
-	.lineThreeImage_off_talking{background-position:-86px -84px;	cursor:pointer;}
-	.lineThreeImage_off_hold{	background-position:-86px -98px;	cursor:pointer;}
+	.lineThreeImage_on_idle{	background-position:-46px 0px;		cursor:pointer;}
+	.lineThreeImage_on_ringing{	background-position:-46px -14px;	cursor:pointer;}
+	.lineThreeImage_on_dialing{	background-position:-46px -28px;	cursor:pointer;}
+	.lineThreeImage_on_talking{	background-position:-46px -28px;	cursor:pointer;}
+	.lineThreeImage_on_hold{	background-position:-46px -42px;	cursor:pointer;}
+	.lineThreeImage_off_idle{	background-position:-46px -56px;	cursor:pointer;}
+	.lineThreeImage_off_disabled{background-position:-46px -56px;	cursor:not-allowed;}
+	.lineThreeImage_off_ringing{background-position:-46px -70px;	cursor:pointer;}
+	.lineThreeImage_off_dialing{background-position:-46px -84px;	cursor:pointer;}
+	.lineThreeImage_off_talking{background-position:-46px -84px;	cursor:pointer;}
+	.lineThreeImage_off_hold{	background-position:-46px -98px;	cursor:pointer;}
 
 
 #mailinImage{
