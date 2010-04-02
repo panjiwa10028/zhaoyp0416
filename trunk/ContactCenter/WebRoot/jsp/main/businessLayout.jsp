@@ -2065,7 +2065,7 @@ function goBackHistoryAndReady()
 				</table>
 									
 										</td>
-							<td width="99%" height="22" valign="top"
+							<td width="99%"  valign="top"
 								background="<%=strContextPath%>/images/Top_lab1bg.gif">
 								<table width="100%" cellpadding="0" cellspacing="0">
 									<tr>
