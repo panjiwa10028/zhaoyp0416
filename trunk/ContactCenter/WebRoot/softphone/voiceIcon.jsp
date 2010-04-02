@@ -71,6 +71,24 @@
 	tips_map.put("softkeyC",			"<%=com.esoon.EZActor.BusinessCenter.Function.getMultiLangItemContent("softphone.redial", request)%>");
 	tips_map.put("softkeyD",			"<%=com.esoon.EZActor.BusinessCenter.Function.getMultiLangItemContent("softphone.call", request)%>");
 	tip_style = document.getElementById(tip_div_Id).style;
+	
+	var popKeyBoxTimer = null;
+	function showKeyBoxByPop(){
+		if(document.getElementById("softKeyBoardDiv").style.display == "none"){
+			document.getElementById("softKeyBoardDiv").style.top="55px";
+			popKeyBoxTimer = setTimeout("popKeyBox()",100);
+			showHideDiv('softKeyBoardDiv');showHideDiv('softPhonePadFrame');
+		}else{
+			document.getElementById("softKeyBoardDiv").style.top=(parseInt(document.getElementById("softKeyBoardDiv").style.top)-100)+"px";
+			showHideDiv('softKeyBoardDiv');showHideDiv('softPhonePadFrame');
+		}
+	}
+	
+	function popKeyBox(){
+		document.getElementById("softKeyBoardDiv").style.top=(parseInt(document.getElementById("softKeyBoardDiv").style.top)+100)+"px";
+		//document.getElementById("softPhonePadFrame").style.top=(parseInt(document.getElementById("softPhonePadFrame").style.top)+100)+"px";
+		if(popKeyBoxTimer != null){ window.clearTimeout(popKeyBoxTimer);popKeyBoxTimer = null; }
+	}
 </script>
 <div id="softPhoneDiv">
 <!-- div style="position:absolute;left:500px;top: 100px;display:;">
@@ -91,6 +109,9 @@
           			onClick="webMouseClick(this.id);changeLineStatus(this.id)" disabled></div>
           </td>
         </tr>
+        <tr height="5">
+	          <td>&nbsp;</td>
+	    </tr>
         <tr>
           <td>
           	<!--<input type="image" name="lineTwoImage" id="lineTwoImage" src="<%=contextPath%>/images/cti_image/lineTwo_Off_1.gif" width="43" height="14"  border="0" align="absmiddle" style="cursor:not-allowed" onMouseMove="setTipShow(this.id)" onMouseOut="hideTips()" onclick="webMouseClick(this.name);changeLineStatus(this.name)" onFocus="this.blur()" disabled>-->
@@ -100,6 +121,9 @@
           			onClick="webMouseClick(this.id);changeLineStatus(this.id)" disabled></div>
           </td>
           </tr>
+          <tr height="5">
+	          <td>&nbsp;</td>
+	    </tr>
         <tr>
           <td>
           	<!--<input type="image" name="lineThreeImage" id="lineThreeImage" src="<%=contextPath%>/images/cti_image/lineThree_Off_1.gif" width="43" height="14" border="0" align="absmiddle" style="cursor:not-allowed" onMouseMove="setTipShow(this.id)" onMouseOut="hideTips()" onclick="webMouseClick(this.name);changeLineStatus(this.name)" onFocus="this.blur()" disabled>-->
@@ -110,6 +134,7 @@
           </td>
           </tr>
       </table></td>
+      <td width="10">&nbsp;</td>
       <td width="334" background="<%=contextPath%>/images/cti_image/Top_toolbarM_bg.jpg">
 		  <table width="334" height="135" border="0" cellpadding="0" cellspacing="0">
 		  	<tr align="right">
@@ -173,7 +198,7 @@
 	  </td>
       <td width="90"><table width="50" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
-          <td>
+          <td align="center" height="40">
           	<!--<input type="image" name="dialImage" id="dialImage" accessKey="1" src="<%=contextPath%>/images/cti_image/dial_disabled.gif" width="43" height="44" style="cursor:not-allowed" onFocus="this.blur()" onMouseOver="webMouseOver(this.name)" onMouseOut="webMouseOut(this.name);hideTips()" onMouseUp="webMouseUp(this.name)"  onMouseDown="webMouseDown(this.name)" onMouseMove="setTipShow(this.id)" onclick="webMouseClick(this.name);" disabled>-->
 			<div id="dialImage" class="dialImage_disabled" 
 					onMouseOver="webMouseOver(this.id)"
@@ -185,7 +210,7 @@
           </td>
         </tr>
         <tr>
-          <td>
+          <td align="center" height="40">
           	<!--<input type="image" name="disconImage" id="disconImage" accessKey="2" src="<%=contextPath%>/images/cti_image/discon_disabled.gif" width="37" height="44" style="cursor:not-allowed" onFocus="this.blur()" onMouseOver="this.src='<%=contextPath%>/images/cti_image/discon_over.gif'" onMouseOut="webMouseOut(this.name);hideTips()" onMouseUp="this.src='<%=contextPath%>/images/cti_image/discon_over.gif'" onMouseDown="this.src='<%=contextPath%>/images/cti_image/discon_down.gif'" onMouseMove="setTipShow(this.id)" onclick="webMouseClick(this.name);" disabled>-->
           	<div id="disconImage" class="disconImage_disabled" 
 					onMouseOver="webMouseOver(this.id)"
@@ -197,7 +222,7 @@
           </td>
         </tr>
         <tr>
-	      <td width="52" align="right">
+	      <td width="52" align="center" height="40">
 	      	<!--<input type="image" id="keypadImage" src="<%=contextPath%>/images/cti_image/keyboard_disabled.gif" width="37" height="37"  style="cursor:not-allowed" onMouseOver="this.src='<%=contextPath%>/images/cti_image/keyboard_over.gif'" onMouseOut="this.src='<%=contextPath%>/images/cti_image/keyboard_enabled.gif';hideTips()" onMouseUp="this.src='<%=contextPath%>/images/cti_image/keyboard_over.gif'"  onMouseDown="this.src='<%=contextPath%>/images/cti_image/keyboard_down.gif'" onMouseMove="setTipShow(this.id)" onClick="showHideDiv('softKeyBoardDiv');showHideDiv('softPhonePadFrame');" onFocus="this.blur()" disabled>-->
 	      	<div id="keypadImage" class="keypadImage_disabled" 
 						onMouseOver="this.className='keypadImage_over'"
@@ -205,7 +230,7 @@
 						onMouseUp="this.className='keypadImage_over'" 
 						onMouseOut="this.className='keypadImage_enabled';hideTips()"
 						onMouseMove="setTipShow(this.id)"
-						onClick="showHideDiv('softKeyBoardDiv');showHideDiv('softPhonePadFrame');" disabled></div>
+						onClick="showKeyBoxByPop();" disabled></div>
 	      </td>
         </tr>
       </table></td>
@@ -219,33 +244,33 @@
       </tr>
   </table>
 </div>
-<iframe id="softPhonePadFrame" style="display:none"></iframe>
+<iframe id="softPhonePadFrame" style="display:none" frameborder="no"></iframe>
 <div id="softKeyBoardDiv" style="display:none">
-<table border="0" width="464" height="203" cellpadding="0" cellspacing="0">
+<table border="0" width="485" height="203" cellpadding="0" cellspacing="0">
 	<tr>
-	  <td width="32" valign="top" nowrap background="<%=contextPath%>/images/keypad_image/SZJP_leftbg.gif"><table width="32" border="0" cellpadding="0" cellspacing="0">
+	  <td width="52" nowrap align="right"><table width="32" border="0" cellpadding="0" cellspacing="0">
         <tr>
-          <td valign="top"><img id="softKeyImg" src="<%=contextPath%>/images/keypad_image/SZJP_tab1_current.gif" width="32" height="43" class="pointer" alt="<%=com.esoon.EZActor.BusinessCenter.Function.getMultiLangItemContent("softphone.keyboard", request)%>" onClick="changeSoftKeyBoard('softKey')"></td>
+          <td ><img id="softKeyImg" src="<%=contextPath%>/images/keypad_image/SZJP_tab1_current.gif" width="32" height="43" class="pointer" alt="<%=com.esoon.EZActor.BusinessCenter.Function.getMultiLangItemContent("softphone.keyboard", request)%>" onClick="changeSoftKeyBoard('softKey')"></td>
         </tr>
         <tr>
-          <td valign="top"><img id="hisAddImg" src="<%=contextPath%>/images/keypad_image/SZJP_tab2_normal.gif" width="32" height="43" border="0" class="pointer" alt="<%=com.esoon.EZActor.BusinessCenter.Function.getMultiLangItemContent("softphone.callhistory", request)%>" onClick="changeSoftKeyBoard('callHis')"></td>
+          <td ><img id="hisAddImg" src="<%=contextPath%>/images/keypad_image/SZJP_tab2_normal.gif" width="32" height="43" border="0" class="pointer" alt="<%=com.esoon.EZActor.BusinessCenter.Function.getMultiLangItemContent("softphone.callhistory", request)%>" onClick="changeSoftKeyBoard('callHis')"></td>
         </tr>
         <tr>
-          <td valign="top"><img id="AddImg" src="<%=contextPath%>/images/keypad_image/SZJP_tab3_normal.gif" width="32" height="43" border="0" class="pointer" alt="<%=com.esoon.EZActor.BusinessCenter.Function.getMultiLangItemContent("softphone.address", request)%>" onClick="changeSoftKeyBoard('address')"></td>
+          <td><img id="AddImg" src="<%=contextPath%>/images/keypad_image/SZJP_tab3_normal.gif" width="32" height="43" border="0" class="pointer" alt="<%=com.esoon.EZActor.BusinessCenter.Function.getMultiLangItemContent("softphone.address", request)%>" onClick="changeSoftKeyBoard('address')"></td>
         </tr>
         <tr>
-          <td valign="top"><img src="<%=contextPath%>/images/keypad_image/SZJP_tab_bottom.gif" width="32" height="3" class="pointer"></td>
+          <td ></td>
         </tr>
       </table></td>
-      <td width="416" valign="top" background="<%=contextPath%>/images/keypad_image/SZJP_middlebg.gif"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <td width="406" valign="top" ><table width="100%" border="0" cellpadding="0" cellspacing="0">
         <tr>
-          <td height="2" colspan="2" background="<%=contextPath%>/images/keypad_image/SZJP_topbg.gif"><img src="<%=contextPath%>/images/keypad_image/SZJP_top_middle.gif" width="262" height="2"></td>
+          <td height="12" colspan="2" ></td>
         </tr>
       </table>
         <div id="softKeyBoard">
 		<table width="100%" border="0" cellpadding="0" cellspacing="0">
           <tr>
-            <td><table border="0" cellpadding="0" cellspacing="8">
+            <td><table border="0" cellpadding="0" cellspacing="2">
                 <tr>
                   <td width="55" height="39" id="softkey1" class="skBig" onMouseOut="this.className='skBig'" onMouseOver="this.className='skBigOver'" onMouseDown="this.className='skBigDown'" onMouseUp="this.className='skBigOver'">1<div style="position:absolute; margin-left:-34px; margin-top:-4px"><img src="<%=contextPath%>/images/keypad_image/null.gif" width="55" height="39" border="0" align="absmiddle" onClick="inputNumber('1')"></div></td>
                   <td width="55" height="39" id="softkey2" class="skBig" onMouseOut="this.className='skBig'" onMouseOver="this.className='skBigOver'" onMouseDown="this.className='skBigDown'" onMouseUp="this.className='skBigOver'">2<div style="position:absolute; margin-left:-34px; margin-top:-4px"><img src="<%=contextPath%>/images/keypad_image/null.gif" width="55" height="39" border="0" align="absmiddle" onClick="inputNumber('2')"></div></td>
@@ -273,10 +298,10 @@
             </table></td>
             <td valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td height="5"></td>
+                  <td height="4"></td>
                 </tr>
                 <tr>
-                  <td valign="top"><table border="0" cellpadding="0" cellspacing="5">
+                  <td valign="top"><table border="0" cellpadding="0" cellspacing="2">
                       <tr>
                       	<%if(!"".equals(strPhone[0])){%>
                         <td width="35" height="22" class="skMiddle" onMouseOut="this.className='skMiddle'" onMouseOver="this.className='skMiddleOver'" onMouseDown="this.className='skMiddleDown'" onMouseUp="this.className='skMiddleOver'">1<div style="position:absolute; margin-left:-28px"><img src="<%=contextPath%>/images/keypad_image/null.gif" width="45" height="29" border="0" align="absmiddle" onClick="execShortcutKeyDial('<%=strPhone[0]%>')"></div></td>
@@ -377,7 +402,7 @@
 		</div>
 		
 		
-		<div id="callHistoryBoard" style="padding:5px 0px 0px 7px; display:none">
+		<div id="callHistoryBoard" style="padding:8px 0px 0px 1px; display:none">
 		  <table border="0" cellspacing="0" cellpadding="0">
 	        <tr>
 	          <td><table width="201" border="0" cellpadding="0" cellspacing="0">
@@ -390,7 +415,7 @@
 	            <table width="201" border="0" cellpadding="0" cellspacing="0">
 	              <tr>
 	                <td background="<%=contextPath%>/images/keypad_image/call_his_left_04.gif" width="2" style="width:2px"></td>
-	                <td height="170" width="198" valign="top" background="<%=contextPath%>/images/keypad_image/call_his_left_05.gif">
+	                <td height="150" width="198" valign="top" background="<%=contextPath%>/images/keypad_image/call_his_left_05.gif">
 	                <div id="CallHistoryLeft"></div>
 	                </td>
 	                <td style="background-image:url(<%=contextPath%>/images/keypad_image/call_his_left_06.gif); background-position:right; width:2px" width="2"></td>
@@ -414,7 +439,7 @@
 	            <table width="201" border="0" cellpadding="0" cellspacing="0">
 	              <tr>
 	                <td background="<%=contextPath%>/images/keypad_image/call_his_right_04.gif" style="width:2px" width="2"></td>
-	                <td height="170" width="198" valign="top" background="<%=contextPath%>/images/keypad_image/call_his_right_05.gif">
+	                <td height="150" width="198" valign="top" background="<%=contextPath%>/images/keypad_image/call_his_right_05.gif">
 	                <div id="CallHistoryRight"></div>
 	                </td>
 	                <td style="width:2px; background-image:url(<%=contextPath%>/images/keypad_image/call_his_right_06.gif); background-position:right "></td>
@@ -432,17 +457,17 @@
 		  </div>
 	  
 	  	<div id="addressBoard" style="display:none">
-	  		<iframe id="addressFRM" src="<%=contextPath%>/localeAction.do?method=qryEmployee" frameborder="0" hspace="0" marginheight="0" marginwidth="0" width="415" height="195" allowtransparency="yes"></iframe>
+	  		<iframe id="addressFRM" src="<%=contextPath%>/localeAction.do?method=qryEmployee" frameborder="0" hspace="0" marginheight="0" marginwidth="0" width="415" height="185" allowtransparency="yes"></iframe>
 		</div>
 		
 		</td>
-      <td width="16" align="right" valign="top" nowrap background="<%=contextPath%>/images/keypad_image/SZJP_rightbg.gif"><img src="<%=contextPath%>/images/keypad_image/SZJP_top_right.gif" width="16" height="8"></td>
+      <td width="16" align="right" valign="top" nowrap "><img src="<%=contextPath%>/images/keypad_image/SZJP_top_right.gif" width="16" height="8"></td>
 	</tr>
 	<tr>
-	  <td height="2" colspan="3" valign="top" nowrap background="<%=contextPath%>/images/keypad_image/SZJP_bottombg.gif"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+	  <td height="2" colspan="3" valign="top" nowrap ><table width="100%" border="0" cellpadding="0" cellspacing="0">
         <tr>
-          <td width="90%" align="left" valign="top"><img src="<%=contextPath%>/images/keypad_image/SZJP_bottom_left.gif" width="262" height="2"></td>
-          <td width="10%" align="right" valign="top"><img src="<%=contextPath%>/images/keypad_image/SZJP_bottom_right.gif" width="20" height="2"></td>
+          <td width="90%" align="left" valign="top"></td>
+          <td width="10%" align="right" valign="top"></td>
         </tr>
       </table></td>
   </tr>
