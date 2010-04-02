@@ -69,7 +69,13 @@ function moveLR(distance,isLeft){
 	}
 }
 
-
+function init(){
+	
+	//alert(top.document.all.span_report_ele.value);
+	top.document.all.span_report_ele.value = "1";
+	//window.parent.parent.document.getElementById("leftTreeFrame").contentWindow.loadinfo();
+	//window.parent.parent.loadinfo();
+}
 </script>
 </head>
 
@@ -77,7 +83,7 @@ function moveLR(distance,isLeft){
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td>
-			<div  style="float:left; width:7px; height:38px; background-color:#CCCCCC; background-image:url(<%=strContextPath%>/images/tab_corner.gif)"></div>
+			<div  style="float:left; width:7px; height:37px; background-color:#CCCCCC; background-image:url(<%=strContextPath%>/images/tab_corner.gif)"></div>
 			
 			<div id="TabArea">
 				<table border="0" cellspacing="0" cellpadding="1" id="TabAreaTable"><tbody><tr id="TabAreaTr"></tr></tbody></table>
@@ -95,15 +101,5 @@ function moveLR(distance,isLeft){
 	</td>
   </tr>
 </table>
-
 </body>
-<script>
-function init(){
-	
-	//alert(top.document.all.span_report_ele.value);
-	top.document.all.span_report_ele.value = "1";
-	//window.parent.parent.document.getElementById("leftTreeFrame").contentWindow.loadinfo();
-	//window.parent.parent.loadinfo();
-}
-</script>
 </html>
