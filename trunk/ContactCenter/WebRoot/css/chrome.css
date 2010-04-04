@@ -86,6 +86,7 @@ marquee {	cursor:default;}
 .opBg{
 	background-image:url(../images/mac_bg1.gif);
 	border-bottom:1px solid #959595;
+	
 }
 .advSearchPannel {
 	background-color:#ecf2fe; 
@@ -116,10 +117,11 @@ marquee {	cursor:default;}
 	 border-bottom:1px solid #999999; 
 	 padding: 2px 2px 0px 2px; 
 	 font-size: 11px;
-	 height:21px;
+	 height:25px;
+	 color:#cff300;
 	 /*filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#C3DAF5); */
 	 font-family:Tahoma,Verdana,Segoe,sans-serif;
-	 background:#ffffff url(../images/button_normal_bg.gif);
+	 background: url(../images/button_normal_bg.gif);
 	 background-position:0px 0px;
 }
 
