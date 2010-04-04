@@ -19,8 +19,8 @@ String commonAspPath = "";//"asp/";
 <html>
   <head>
     <title><%=Function.getMultiLangItemContent("Contact.Title",request)%></title>
-    <link rel="Shortcut Icon" href="<%=strContextPath%>/images/esoon.ico"/>
-	<link rel="Bookmark" href="<%=strContextPath%>/images/esoon.ico"/>
+    <link rel="Shortcut Icon" href="<%=strContextPath%>/images/login/new_contact/esoon.ico"/>
+	<link rel="Bookmark" href="<%=strContextPath%>/images/login/new_contact/esoon.ico"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
 	<!-- add by Colin Kuo for IPCC-272 -->
@@ -56,8 +56,8 @@ String commonAspPath = "";//"asp/";
 	<script src="<%=strContextPath%>/script/commonHeader.js"></script>
 <script language="javascript">
 	var settingWin=null;
-	var loginWidth=718;
-	var loginHeight=560; //IPCC-339 IE7 or IE8 登入時被遮擋  
+	var loginWidth=717;
+	var loginHeight=556; //IPCC-339 IE7 or IE8 登入時被遮擋  
 	x=(screen.width-loginWidth)/2;
 	y=(screen.height-loginHeight)/2;
 
@@ -523,7 +523,11 @@ function getSkillGroup() {
 <style type="text/css">
 body {
 	background-color: #d4d0c4;
-	margin:5px;
+	margin:1px;
+}
+.messageDIV {
+border:0px solid red;
+position:absolute; right:auto; top:auto; left:2px; bottom:20px;
 }
 </style>
 
@@ -531,8 +535,6 @@ body {
 <!-- %@ include file = "/softphone/softphoneApplet.jsp" % -->
 
 </head>
-<body onkeydown="enterSubmit()" onload="loadInfo();" oncontextmenu="return false;">
-<table border="0" height="100%" align="center" cellpadding="0" cellspacing="0" style="border:1px solid #747474;background-color:#d8d8d8">
 <form id="loginForm" name="loginForm" action="<%=strContextPath%>/logonAction.do" method="post">
 <tr><td valign="top" colspan="2">
 
@@ -557,94 +559,205 @@ body {
 <input name="lDeviceId" type="hidden" value="" />
 
 <input name="strServiceIP" type="hidden" value="<c:out value="${pageContext.request.remoteAddr}"/>" />
-
-<table border="0" align="center" cellpadding="0" cellspacing="0">
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onkeydown="enterSubmit()" onload="loadInfo();" oncontextmenu="return false;">
+<!-- Save for Web Slices (未标题-2) -->
+<table id="__01" width="710" height="495" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
-		<table width="100%" border="0" cellpadding="0" cellspacing="0">
-  			<tr>
-    			<td>
-    			<table width="100%" border="0" cellpadding="0"  cellspacing="0">
-        			<tr>
-          				<td><table width="100%" height="100%" border="0" align="center" cellpadding="0" cellspacing="0">
-              				<tr>
-                				<td width="350" height="64"><img src="<%=strContextPath%>/images/login/contact/A_01.jpg" width="350" height="64" alt=""></td>
-                				<td colspan="3"><img src="<%=strContextPath%>/images/login/contact/A_02.jpg" width="350" height="64" alt=""></td>
-              				</tr>
-              				<tr>
-                				<td height="141"><img src="<%=strContextPath%>/images/login/contact/A_03.jpg" width="350" height="141" alt=""></td>
-                				<td colspan="3"><img src="<%=strContextPath%>/images/login/contact/A_04_Enterprise.jpg" width="350" height="141" alt=""></td>
-              				</tr>
-              				<tr>
-                				<td height="148" rowspan="5" valign="top"><img src="<%=strContextPath%>/images/login/contact/A_05.jpg" width="350" height="148" alt=""></td>
-                				<td height="21" colspan="3"><img src="<%=strContextPath%>/images/login/contact/A_06.jpg" width="350" height="21" alt=""></td>
-              				</tr>
-              				<tr>
-                				<td width="114" rowspan="2" background="<%=strContextPath%>/images/login/contact/<%=strMultiLangName%>/A_07_Enterprise.jpg" width="114" height="72">
-                				</td>
-                				<td height="34" colspan="2" background="<%=strContextPath%>/images/login/contact/A_08.jpg"><table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
-                  					<tr>
-                    					<td><input class="box04" name="strLoginId" size="18"/></td>
-                  					</tr>
-                				</table></td>
-              				</tr>
-              				<tr>
-                				<td height="38" colspan="2" background="<%=strContextPath%>/images/login/contact/A_09.jpg"><table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
-                  					<tr>
-                    					<td><input class=box04 type="password" name="strPassword" size="18"/></td>
-                  					</tr>
-                				</table></td>
-              				</tr>
-              				<tr>
-                				<td><img src="<%=strContextPath%>/images/login/contact/A_10.jpg" width="114" height="32" alt=""></td>
-                				<td width="131" background="<%=strContextPath%>/images/login/contact/A_11.jpg"><table width="105%"  border="0" cellspacing="2" cellpadding="1">
-                  					<tr>
-			                            <!-- 
-			                            <td>
-			                            <a href="#" onClick="submitForm()" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image15','','<%=strContextPath%>/images/login/contact/<%=strMultiLangName%>/an1_2.gif',1)"><img src="<%=strContextPath%>/images/login/contact/<%=strMultiLangName%>/an1.gif" name="Image15" width="54" height="24" border="0"></a>
-			                            </td>
-			                            -->
-			                            
-			                            <td id="displaySubmitTD" style="display:none">
-                    						<a style="cursor:hand;" id="submitButton" onClick="submitForm()" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image15','','<%=request.getContextPath()%>/images/login/contact/<%=strMultiLangName%>/an1_2.gif',1)"><img src="<%=request.getContextPath()%>/images/login/contact/<%=strMultiLangName%>/an1.gif" name="Image15" width="54" height="24" border="0"></a>
-					                    </td>
-                    					<td id="blackSubmitTD">
-					                    	<img src="<%=request.getContextPath()%>/images/login/contact/<%=strMultiLangName%>/an1_2.gif" name="Image14" width="54" height="24" border="0">
-                    					</td>
-                    					
-			                            <td><img src="<%=strContextPath%>/images/login/contact/<%=strMultiLangName%>/an2.gif" style="cursor:pointer" onClick="getSkillGroup()" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image16','','<%=strContextPath%>/images/login/contact/<%=strMultiLangName%>/an2_2.gif',1)" name="Image16" width="54" height="24" border="0"></td>
-			                             
-                  					</tr>
-                				</table></td>
-                				<td width="105"><img src="<%=strContextPath%>/images/login/contact/A_12.jpg" width="105" height="32" alt=""></td>
-              				</tr>
-              				<tr>
-                				<td height="23" colspan="3" valign="top"><img src="<%=strContextPath%>/images/login/contact/A_13.jpg" width="350" height="23" alt=""></td>
-              				</tr>
-              				<tr>
-                				<td><img src="<%=strContextPath%>/images/login/contact/A_14.jpg" width="350" height="127" alt=""></td>
-                				<td colspan="3"><img src="<%=strContextPath%>/images/login/contact/A_15.jpg" width="350" height="127" alt=""></td>
-              				</tr>
-          				</table></td>
-        			</tr>
-    			</table></td>
-  			</tr>
-		</table>
-	</td></tr>
-</table></td>
-</tr>
+			<img src="<%=strContextPath%>/images/login/new_contact/login_01.gif" width="141" height="61" alt=""></td>
+		<td colspan="10">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_02.gif" width="494" height="61" alt=""></td>
+		<td colspan="2">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_03.gif" width="74" height="61" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="61" alt=""></td>
+	</tr>
+	<tr>
+		<td rowspan="15">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_04.gif" width="141" height="377" alt=""></td>
+		<td colspan="2" rowspan="15">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_05.gif" width="192" height="377" alt=""></td>
+		<td colspan="10">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_06.gif" width="376" height="53" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="53" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="10">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_07.gif" width="376" height="27" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="27" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="10">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_08.gif" width="376" height="72" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="72" alt=""></td>
+	</tr>
+	<tr>
+		<td rowspan="12">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_09.gif" width="89" height="225" alt=""></td>
+		<td colspan="9">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_10.gif" width="287" height="12" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="12" alt=""></td>
+	</tr>
+	<tr>
+		<td rowspan="10">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_11.gif" width="40" height="126" alt=""></td>
+		<td colspan="7">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_12.gif" width="195" height="20" alt=""></td>
+		<td rowspan="11">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_13.gif" width="52" height="213" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="20" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_14.gif" width="40" height="19" alt=""></td>
+		<td colspan="3">
+			<input class="new_box04" name="strLoginId" size="18"/></td>
+		<td colspan="2">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_16.gif" width="32" height="19" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="19" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="7">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_17.gif" width="195" height="12" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="12" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_17-19.gif" width="40" height="1" alt=""></td>
+		<td colspan="3" rowspan="3">
+			<input class="new_box04" type="password" name="strPassword" size="18"/></td>
+		<td colspan="2">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_17-21.gif" width="32" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="1" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_21.gif" width="40" height="1" alt=""></td>
+		<td colspan="2">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_22.gif" width="32" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="1" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="2" rowspan="2">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_23.gif" width="40" height="18" alt=""></td>
+		<td colspan="2" rowspan="2">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_24.gif" width="32" height="18" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="17" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_25.gif" width="123" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="1" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="7">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_26.gif" width="195" height="16" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="16" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_27.gif" width="40" height="26" alt=""></td>
+		<td id="displaySubmitTD" style="display:none">
+			<img  src="<%=strContextPath%>/images/login/new_contact/login_28.gif" width="57" height="26" border="0" alt="" style="cursor:hand;" onClick="submitForm()"></td>
+		<td id="blackSubmitTD">			
+		<img src="<%=strContextPath%>/images/login/new_contact/login_28.gif" width="57" height="26" border="0" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/login_29.gif" width="10" height="26" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/login_30.gif" width="56" height="26" border="0" alt="" style="cursor:pointer" onClick="getSkillGroup()"></td>
+		<td colspan="2">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_31.gif" width="32" height="26" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="26" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="7">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_32.gif" width="195" height="13" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="13" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="8">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_33.gif" width="235" height="87" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="87" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="2" rowspan="2">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_34.gif" width="266" height="56" alt=""></td>
+		<td colspan="4">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_35.gif" width="216" height="29" alt=""></td>
+		<td colspan="2" rowspan="2">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_36.gif" width="77" height="56" alt=""></td>
+		<td colspan="5" rowspan="2">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_37.gif" width="150" height="56" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="29" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<img src="<%=strContextPath%>/images/login/new_contact/login_38.gif" width="216" height="27" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="1" height="27" alt=""></td>
+	</tr>
+	<tr>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="141" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="125" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="67" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="89" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="40" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="20" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="20" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="57" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="10" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="56" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="10" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="22" height="1" alt=""></td>
+		<td>
+			<img src="<%=strContextPath%>/images/login/new_contact/separator.gif" width="52" height="1" alt=""></td>
+		<td></td>
+	</tr>
+</table>
+<div id="messageDIV" class="messageDIV">
+<table id="messageTab">
 <tr>
-<td height="100%" style="padding-left:8px;border-top:1px solid #747474">
+<td height="100%" style="padding-left:8px;border-top:0px solid #747474">
 <input name="strTenantId" type="hidden" value="default" />
 <font color="#ff0000" class="titleSmall"><%=Function.getMultiLangItemContent("login.message",request)%>: 
 <span  id="msgInfo" class="titleSmall"><%=Function.getMultiLangItemContent((String)request.getAttribute("STRRETURNINFO"), request)%></span></font>
 </td>
-<td height="100%" style="padding-left:8px;border-top:1px solid #747474" align="right">
+<td height="100%" style="padding-left:8px;border-top:0px solid #747474" align="right">
 <span  id="msgInfo2" class="titleSmall"></span>
 </td>
 </tr>
-</form>
 </table>
+</div>
+<!-- End Save for Web Slices -->
 </body>
+</form>
 </html>
 <script type="text/javascript">InsertFlash("<%=request.getContextPath()%>/EZflash/pieF380.swf?filename=<%=request.getContextPath()%>/jsp/FlashXMLFile/1",0,0,"1");</script>
