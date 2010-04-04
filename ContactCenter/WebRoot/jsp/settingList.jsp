@@ -410,7 +410,7 @@ td,tr,table {
 <body style="overflow:auto" onLoad="setValible();aa()">
 <table width="100%" height="50"  border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td style="padding-left:20px"><strong><%=Function.getMultiLangItemContent("setupPlaceAndDN.title", request)%></strong></td>
+    <td style="padding-left:20px;color:#cff300"><strong><%=Function.getMultiLangItemContent("setupPlaceAndDN.title", request)%></strong></td>
   </tr>
 </table>
 <input name="strTenantId" type="hidden" value="<c:out value="${param.strTenantId}" />" />
@@ -429,7 +429,7 @@ td,tr,table {
 <input name="strLoginId" id="strLoginId" type="hidden" value="${param.strLoginId }"/>
 <div style="padding:0px 20px;">
 <div id="contentArea" style="height:; overflow:auto; margin-bottom:8px; border:1px solid #cccccc; background-color:#FFFFFF;">
-  <table width="100%" height="50"  border="0" cellpadding="5" cellspacing="0" style="background-color:#d5e2f3; height:50px; border-bottom:1px solid #abc4e4; margin-bottom:1px ">
+  <table width="100%" height="50"  border="0" cellpadding="5" cellspacing="0" style="background-color:#c7cbcf; height:50px; border-bottom:1px solid #abc4e4; margin-bottom:1px ">
     <tr>
       <td><table border="0" align="center">
           <tr>
@@ -516,17 +516,17 @@ td,tr,table {
     </tr>
   </table>
   <div id="dnTable1" > 
-  <table width="100%" border="0" cellpadding="7" cellspacing="0" background="<%=strContextPath%>/images/title_bg2.gif">
+  <table width="100%" border="0" cellpadding="5" cellspacing="0" background="<%=strContextPath%>/images/mac_bg1.gif">
     <tr>
-      <td style="color:#304b8b; font-weight:bold"><%=Function.getMultiLangItemContent("setupPlaceAndDN.selectDN", request)%></td>
+      <td style="color:#424542; font-weight:bold"><%=Function.getMultiLangItemContent("setupPlaceAndDN.selectDN", request)%></td>
      </tr>
   </table>            
   <div style="padding:10px">
   <table id="dnTable" width="95%" border="0" align="center" cellpadding="2" cellspacing="1" bgcolor="8fa9d5">
-    <tr bgcolor="cad9ec">
+    <tr bgcolor="#424542" >
       
-      <td align="center"><strong><%=Function.getMultiLangItemContent("setupPlaceAndDN.DN", request)%></strong></td>
-      <td width="80" align="center"><strong><%=Function.getMultiLangItemContent("setupPlaceAndDN.state", request)%></strong></td>
+      <td align="center" ><strong style="color:#cff300"><%=Function.getMultiLangItemContent("setupPlaceAndDN.DN", request)%></strong></td>
+      <td width="80" align="center"><strong style="color:#cff300"><%=Function.getMultiLangItemContent("setupPlaceAndDN.state", request)%></strong></td>
     </tr>
     <c:forEach var="dn" items="${DEVICERECORDSET}" varStatus="status">
     	
