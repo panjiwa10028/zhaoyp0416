@@ -139,7 +139,7 @@ function loadInfo() {
 	</form>
 <table width="100%" height="50"  border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td><strong style="font-size:12px; padding-left:20px"><%=Function.getMultiLangItemContent("personalInfo.setting",request)%></strong></td>
+    <td><strong style=" color:#cff300;font-size:12px; padding-left:20px"><%=Function.getMultiLangItemContent("personalInfo.setting",request)%></strong></td>
   </tr>
 </table>
 <div style="padding:0px 20px;">
