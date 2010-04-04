@@ -1284,13 +1284,18 @@ function getPropertyValue(strKey)
 
 //以下三个是关于布局管理器的layout icon
 function shLeft(){
-	if(mainIframe.mainFrame.cols == "200,*"){
+	if(mainIframe.mainFrame.cols == "210,*"){
 		mainIframe.mainFrame.cols = "0,*";
 		mainIframe.mainFrame.frameSpacing = "0";
+		document.getElementById("leftTreeTitleTab").style.display = "none";
+		document.getElementById("leftTreeTitleTabHidden").style.display = "";
+		
 	}
 	else{
-		mainIframe.mainFrame.cols = "200,*";
-		mainIframe.mainFrame.frameSpacing = "3";
+		mainIframe.mainFrame.cols = "210,*";
+		mainIframe.mainFrame.frameSpacing = "2";
+		document.getElementById("leftTreeTitleTab").style.display = "";
+		document.getElementById("leftTreeTitleTabHidden").style.display = "none";
 	}
 }
 
@@ -2043,6 +2048,11 @@ function goBackHistoryAndReady()
 									</tr>
 									<tr valign="bottom">
 										<td >
+										<table id="leftTreeTitleTabHidden" style="display: none" width="210" border="0" cellpadding="0" cellspacing="0" height="57">
+											<tr>
+												<td width="14">&nbsp;</td>
+											</tr>
+										</table>
 										<table id="leftTreeTitleTab" width="210" border="0" cellpadding="0" cellspacing="0" height="57">
 					<tr>
 						<td width="14"><img src="<%=strContextPath%>/images/leftTree_top1.gif" width="14" height="57"></td>
@@ -2172,7 +2182,7 @@ function goBackHistoryAndReady()
 			
 			<table border="0" align="right" cellpadding="0" cellspacing="0">
 				<tr id="menuEntry" style="display:none">
-					<td height="50" align="right" style="cursor:pointer"><img src="<%=strContextPath%>/images/right_icon_shortCut_normal.gif" id="function0" alt="<%=Function.getMultiLangItemContent("lable.rightBoard.shortcut", request)%>" width="22" height="50" border="0" align="absmiddle" onClick="rightBoard('','<%=Function.getMultiLangItemContent("lable.rightBoard.shortcut", request)%>','quikMenu');" onMouseOver="this.src='<%=strContextPath%>/images/right_icon_shortCut_over.gif'" onMouseDown="this.src='<%=strContextPath%>/images/right_icon_shortCut_down.gif'" onMouseOut="this.src='<%=strContextPath%>/images/right_icon_shortCut_normal.gif'"></td>
+					<td height="50" align="right" style="cursor:pointer"><img src="<%=strContextPath%>/images/right_icon_shortCut_normal.gif" id="function0" alt="<%=Function.getMultiLangItemContent("lable.rightBoard.shortcut", request)%>" width="22"  border="0" align="absmiddle" onClick="rightBoard('','<%=Function.getMultiLangItemContent("lable.rightBoard.shortcut", request)%>','quikMenu');" onMouseOver="this.src='<%=strContextPath%>/images/right_icon_shortCut_over.gif'" onMouseDown="this.src='<%=strContextPath%>/images/right_icon_shortCut_down.gif'" onMouseOut="this.src='<%=strContextPath%>/images/right_icon_shortCut_normal.gif'"></td>
 				</tr>
 				<tr>
 					<td align="center" height="10"><img src="<%=strContextPath%>/images/right/right_line.gif" width="18" height="2" border="0" align="absmiddle"></td>
@@ -2207,11 +2217,11 @@ function goBackHistoryAndReady()
 					<tr  id="bottomLeft" style="display:none">
 						<td width="100" align="center">
 							<div id="layoutChangeIcon">
-								<table border="0" cellpadding="0" cellspacing="0">
+								<table border="0" cellpadding="3" cellspacing="1">
 									<tr align="right">
-										<td><img id="ban_bottom_left"   src="<%=strContextPath%>/images/ban_bottom_left01.gif"   alt="<%=Function.getMultiLangItemContent("layout.label.openLeft", request)%>" width="26" height="22" border="0" class="pointer" onClick="shLeft()" onMouseOver="this.src='<%=strContextPath%>/images/ban_bottom_left02.gif'"  onMouseOut="this.src='<%=strContextPath%>/images/ban_bottom_left01.gif'" onMouseDown="this.src='<%=strContextPath%>/images/ban_bottom_left03.gif'" onMouseUp="this.src='<%=strContextPath%>/images/ban_bottom_left02.gif'"></td>
-										<td><img id="ban_bottom_middle" src="<%=strContextPath%>/images/ban_bottom_middle01.gif" alt="<%=Function.getMultiLangItemContent("layout.label.openTab", request)%>" width="27" height="22" border="0" class="pointer" onClick="toggleLayout()" onMouseOver="this.src='<%=strContextPath%>/images/ban_bottom_middle02.gif'"  onMouseOut="this.src='<%=strContextPath%>/images/ban_bottom_middle01.gif'" onMouseDown="this.src='<%=strContextPath%>/images/ban_bottom_middle03.gif'" onMouseUp="this.src='<%=strContextPath%>/images/ban_bottom_middle02.gif'"></td>
-										<td><img id="ban_bottom_right"  src="<%=strContextPath%>/images/ban_bottom_right01.gif"  alt="<%=Function.getMultiLangItemContent("layout.label.openRight", request)%>" width="26" height="22" border="0" class="pointer" onClick="shRight()" onMouseOver="this.src='<%=strContextPath%>/images/ban_bottom_right02.gif'"  onMouseOut="this.src='<%=strContextPath%>/images/ban_bottom_right01.gif'" onMouseDown="this.src='<%=strContextPath%>/images/ban_bottom_right03.gif'" onMouseUp="this.src='<%=strContextPath%>/images/ban_bottom_right02.gif'"></td>
+										<td><img id="ban_bottom_left"   src="<%=strContextPath%>/images/ban_bottom_left01.gif"   alt="<%=Function.getMultiLangItemContent("layout.label.openLeft", request)%>" width="20" height="20" border="0" class="pointer" onClick="shLeft()" onMouseOver="this.src='<%=strContextPath%>/images/ban_bottom_left02.gif'"  onMouseOut="this.src='<%=strContextPath%>/images/ban_bottom_left01.gif'" onMouseDown="this.src='<%=strContextPath%>/images/ban_bottom_left03.gif'" onMouseUp="this.src='<%=strContextPath%>/images/ban_bottom_left02.gif'"></td>
+										<!--td><img id="ban_bottom_middle" src="<%=strContextPath%>/images/ban_bottom_middle01.gif" alt="<%=Function.getMultiLangItemContent("layout.label.openTab", request)%>" width="20" height="20" border="0" class="pointer" onClick="toggleLayout()" onMouseOver="this.src='<%=strContextPath%>/images/ban_bottom_middle02.gif'"  onMouseOut="this.src='<%=strContextPath%>/images/ban_bottom_middle01.gif'" onMouseDown="this.src='<%=strContextPath%>/images/ban_bottom_middle03.gif'" onMouseUp="this.src='<%=strContextPath%>/images/ban_bottom_middle02.gif'"></td  -->
+										<td><img id="ban_bottom_right"  src="<%=strContextPath%>/images/ban_bottom_right01.gif"  alt="<%=Function.getMultiLangItemContent("layout.label.openRight", request)%>" width="20" height="20" border="0" class="pointer" onClick="shRight()" onMouseOver="this.src='<%=strContextPath%>/images/ban_bottom_right02.gif'"  onMouseOut="this.src='<%=strContextPath%>/images/ban_bottom_right01.gif'" onMouseDown="this.src='<%=strContextPath%>/images/ban_bottom_right03.gif'" onMouseUp="this.src='<%=strContextPath%>/images/ban_bottom_right02.gif'"></td>
 									</tr>
 								</table>
 							</div>
