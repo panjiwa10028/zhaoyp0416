@@ -429,6 +429,7 @@ marquee {	cursor:default;}
 	border: 1px solid #999999;
 	font-family: Verdana, Tahoma, sans-serif;
 }
+.new_box04 {	FONT: 11px Verdana; background-color: #ffffff; width:123px;height:16px; border: 0px solid red;}
 .box03,.box04 {	FONT: 11px Verdana; background-color: #ffffff;}
 .box05 		{ padding:1px 2px 1px 2px; BORDER: #999999 1px solid; BACKGROUND-COLOR: #C0C0C0;}
 .message01  { background-color: #B1D1E4;}
@@ -630,4 +631,9 @@ thead td{
 }
 .inputRight {
 text-align:right
+}
+.dialogTitle {
+color:#cff300;
+font-size:12px;
+padding-left:20px;
 }
