@@ -2158,7 +2158,7 @@ function goBackHistoryAndReady()
 			<div id="floatRightDiv" style="display:none" >
 				<table width="100%" height="20"  border="0" cellpadding="0" cellspacing="0" background="<%=strContextPath%>/images/floatRightDivTitleBg.gif">
 					<tr>
-						<td><div id="rightBoardWord" style="padding-left:5px; width:160px; overflow:hidden" class="nobreak">&nbsp;</div></td>
+						<td><div id="rightBoardWord" style="color:#cff300;padding-left:5px; width:160px; overflow:hidden" class="nobreak">&nbsp;</div></td>
 						<td style="cursor:pointer" width="50" align="center">
 							<img src="<%=strContextPath%>/images/right/st_pin.gif" width="11" height="11" border="0" align="absmiddle" id="pinPic" onClick="pinFloat()" alt="固定在主界面中">  
 							<img src="<%=strContextPath%>/images/right/st_close.gif" width="11" height="11" border="0" align="absmiddle" style="cursor:pointer" onClick="closeFloatRight();" alt="Close">
