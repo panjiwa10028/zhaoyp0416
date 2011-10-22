@@ -1,0 +1,151 @@
+2011-10-09 20:18:36,472 [main] DEBUG [com.allennb.form.MaterialForm] -  open material form
+2011-10-09 20:19:11,596 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 20:19:16,774 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 20:19:16,793 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 20:19:16,794 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.99inf.com/e/member/login/
+2011-10-09 20:19:16,794 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:login url.
+2011-10-09 20:19:16,796 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=usernamevalue=gzywyjs
+2011-10-09 20:19:16,797 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=passwordvalue=3764570
+2011-10-09 20:27:31,971 [main] DEBUG [com.allennb.form.MaterialForm] -  open material form
+2011-10-09 20:27:32,117 [main] DEBUG [com.allennb.common.FileUtils] - properties path:/E:/Workspaces/promotion/bin//config.properties
+2011-10-09 20:28:21,367 [main] DEBUG [com.allennb.form.MaterialForm] -  open material form
+2011-10-09 20:28:21,511 [main] DEBUG [com.allennb.common.FileUtils] - properties path:/E:/Workspaces/promotion/bin//config.properties
+2011-10-09 21:02:12,704 [main] DEBUG [com.allennb.form.MaterialForm] -  open material form
+2011-10-09 21:02:38,041 [main] DEBUG [com.allennb.form.MaterialForm] -  open material form
+2011-10-09 21:03:12,590 [main] DEBUG [com.allennb.form.MaterialForm] -  open material form
+2011-10-09 21:04:24,024 [main] DEBUG [com.allennb.form.MaterialForm] -  open material form
+2011-10-09 21:06:05,315 [main] DEBUG [com.allennb.form.MaterialForm] -  open material form
+2011-10-09 21:06:28,539 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:06:28,540 [main] DEBUG [com.allennb.form.PublishForm] - browser url:https://login.koubei.com/member/login.html?city=2595
+2011-10-09 21:06:28,540 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:login url.
+2011-10-09 21:06:28,549 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=user-namevalue=gzywyjs
+2011-10-09 21:06:28,554 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=user-passwordvalue=3764570
+2011-10-09 21:06:57,156 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:06:57,156 [main] DEBUG [com.allennb.form.PublishForm] - browser url:https://login.koubei.com/member/login.html?city=2595
+2011-10-09 21:06:57,157 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:login url.
+2011-10-09 21:06:57,162 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=user-namevalue=gzywyjs
+2011-10-09 21:06:57,167 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=user-passwordvalue=3764570
+2011-10-09 21:07:00,667 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:07:01,198 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:07:01,198 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://beijing.koubei.com/
+2011-10-09 21:07:01,199 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:unknown.
+2011-10-09 21:07:03,214 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:07:03,214 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.koubei.com/fuwu/poststep2.html?categoryId=712&city=2595
+2011-10-09 21:07:03,214 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:publish url.
+2011-10-09 21:07:03,215 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=o.5736value=33333333333333333|bbbbbbbbbbbbbbb
+2011-10-09 21:07:03,226 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=yk-iu-editorvalue=aaaaaaaaaaaaaaaaaaaa<br/>aaaaaaaaaaaaaaaaaaa<br/>aaaaaaaaaaaaaaaaaaaaaaaa<br/><br/>受到鼠标动作的时候，下拉列表出现；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用 CTRL 键来进行多选；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用鼠标的滑动同时选中一个连续的列表；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当该下来列表失去焦点的时候，文本框获得文字；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文字表现为多个选中项目的文本的连接，用逗号分开；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下拉列表弹出的时候，需要高亮显示已被选中的文本。<br/>回页首<br/>设计<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有了综合出来的需求，我们就可以根据需求来一步步地进行设计。由于我们将使用已有的 SWT 组件来构建新的组件，自然而然我们就会使用 SWT Text 和 SWT List 作为开发的基础。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 List 组件需要根据 Text 组件的位置动态的进行显示，所以它需要有一个 SWT Shell 作为容器来显示它。这个动态的 Shell 根据 Text 组件上的事件响应而显示，也根据其他的一些事件而销毁。在 Shell 销毁的时候，它所容纳的 List 组件也会自动销毁。对于 Text 组件，我们把它也封装在一个 Composite 当中，这样客户程序员只需要把这个组件当成一个普通的 SWT 组件来使用即可。<br/>图 2 是该自定义组件的设计图。<br/><br/>2222222222222<br/>2222222222222222222222<br/>222222222222222222<br/><br/>
+2011-10-09 21:07:03,227 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=post-input-5733value=2011-10-01
+2011-10-09 21:07:03,227 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=cal.endvalue=2012-10-01
+2011-10-09 21:07:03,682 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:07:03,683 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.koubei.com/fuwu/poststep2.html?categoryId=712&city=2595
+2011-10-09 21:07:03,683 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:publish url.
+2011-10-09 21:07:03,683 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=o.5736value=33333333333333333|bbbbbbbbbbbbbbb
+2011-10-09 21:07:03,684 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=yk-iu-editorvalue=aaaaaaaaaaaaaaaaaaaa<br/>aaaaaaaaaaaaaaaaaaa<br/>aaaaaaaaaaaaaaaaaaaaaaaa<br/><br/>受到鼠标动作的时候，下拉列表出现；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用 CTRL 键来进行多选；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用鼠标的滑动同时选中一个连续的列表；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当该下来列表失去焦点的时候，文本框获得文字；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文字表现为多个选中项目的文本的连接，用逗号分开；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下拉列表弹出的时候，需要高亮显示已被选中的文本。<br/>回页首<br/>设计<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有了综合出来的需求，我们就可以根据需求来一步步地进行设计。由于我们将使用已有的 SWT 组件来构建新的组件，自然而然我们就会使用 SWT Text 和 SWT List 作为开发的基础。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 List 组件需要根据 Text 组件的位置动态的进行显示，所以它需要有一个 SWT Shell 作为容器来显示它。这个动态的 Shell 根据 Text 组件上的事件响应而显示，也根据其他的一些事件而销毁。在 Shell 销毁的时候，它所容纳的 List 组件也会自动销毁。对于 Text 组件，我们把它也封装在一个 Composite 当中，这样客户程序员只需要把这个组件当成一个普通的 SWT 组件来使用即可。<br/>图 2 是该自定义组件的设计图。<br/><br/>2222222222222<br/>2222222222222222222222<br/>222222222222222222<br/><br/>
+2011-10-09 21:07:03,687 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=post-input-5733value=2011-10-01
+2011-10-09 21:07:03,687 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=cal.endvalue=2012-10-01
+2011-10-09 21:07:03,711 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:07:03,712 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.koubei.com/fuwu/poststep2.html?categoryId=712&city=2595
+2011-10-09 21:07:03,712 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:publish url.
+2011-10-09 21:07:03,712 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=o.5736value=33333333333333333|bbbbbbbbbbbbbbb
+2011-10-09 21:07:03,713 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=yk-iu-editorvalue=aaaaaaaaaaaaaaaaaaaa<br/>aaaaaaaaaaaaaaaaaaa<br/>aaaaaaaaaaaaaaaaaaaaaaaa<br/><br/>受到鼠标动作的时候，下拉列表出现；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用 CTRL 键来进行多选；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用鼠标的滑动同时选中一个连续的列表；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当该下来列表失去焦点的时候，文本框获得文字；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文字表现为多个选中项目的文本的连接，用逗号分开；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下拉列表弹出的时候，需要高亮显示已被选中的文本。<br/>回页首<br/>设计<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有了综合出来的需求，我们就可以根据需求来一步步地进行设计。由于我们将使用已有的 SWT 组件来构建新的组件，自然而然我们就会使用 SWT Text 和 SWT List 作为开发的基础。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 List 组件需要根据 Text 组件的位置动态的进行显示，所以它需要有一个 SWT Shell 作为容器来显示它。这个动态的 Shell 根据 Text 组件上的事件响应而显示，也根据其他的一些事件而销毁。在 Shell 销毁的时候，它所容纳的 List 组件也会自动销毁。对于 Text 组件，我们把它也封装在一个 Composite 当中，这样客户程序员只需要把这个组件当成一个普通的 SWT 组件来使用即可。<br/>图 2 是该自定义组件的设计图。<br/><br/>2222222222222<br/>2222222222222222222222<br/>222222222222222222<br/><br/>
+2011-10-09 21:07:03,713 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=post-input-5733value=2011-10-01
+2011-10-09 21:07:03,714 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=cal.endvalue=2012-10-01
+2011-10-09 21:07:17,160 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:07:19,725 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:07:19,728 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:07:19,728 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.99inf.com/e/member/login/
+2011-10-09 21:07:19,728 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:login url.
+2011-10-09 21:07:19,729 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=usernamevalue=gzywyjs
+2011-10-09 21:07:19,730 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=passwordvalue=3764570
+2011-10-09 21:07:23,250 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:07:23,250 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.99inf.com/e/enews/index.php
+2011-10-09 21:07:23,250 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:unknown.
+2011-10-09 21:07:24,479 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:07:30,602 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:07:30,606 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:07:30,606 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.99inf.com/e/DoInfo/AddInfo.php?enews=MAddInfo&classid=1119
+2011-10-09 21:07:30,606 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:publish url.
+2011-10-09 21:07:30,607 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=titlevalue=33333333333333333|bbbbbbbbbbbbbbb
+2011-10-09 21:07:30,620 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=newstextvalue=aaaaaaaaaaaaaaaaaaaa<br/>aaaaaaaaaaaaaaaaaaa<br/>aaaaaaaaaaaaaaaaaaaaaaaa<br/><br/>受到鼠标动作的时候，下拉列表出现；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用 CTRL 键来进行多选；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用鼠标的滑动同时选中一个连续的列表；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当该下来列表失去焦点的时候，文本框获得文字；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文字表现为多个选中项目的文本的连接，用逗号分开；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下拉列表弹出的时候，需要高亮显示已被选中的文本。<br/>回页首<br/>设计<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有了综合出来的需求，我们就可以根据需求来一步步地进行设计。由于我们将使用已有的 SWT 组件来构建新的组件，自然而然我们就会使用 SWT Text 和 SWT List 作为开发的基础。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 List 组件需要根据 Text 组件的位置动态的进行显示，所以它需要有一个 SWT Shell 作为容器来显示它。这个动态的 Shell 根据 Text 组件上的事件响应而显示，也根据其他的一些事件而销毁。在 Shell 销毁的时候，它所容纳的 List 组件也会自动销毁。对于 Text 组件，我们把它也封装在一个 Composite 当中，这样客户程序员只需要把这个组件当成一个普通的 SWT 组件来使用即可。<br/>图 2 是该自定义组件的设计图。<br/><br/>2222222222222<br/>2222222222222222222222<br/>222222222222222222<br/><br/>
+2011-10-09 21:07:30,621 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=gqtimevalue=2012-12-12
+2011-10-09 21:07:30,623 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=smalltextvalue=aaaaaaaaaaaaaaaaaaaa<br/>aaaaaaaaaaaaaaaaaaa<br/>aaaaaaaaaaaaaaaaaaaaaaaa<br/><br/>受到鼠标动作的时候，下拉列表出现；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用 CTRL 键来进行多选；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用鼠标的滑动同时选中一个连续的列表；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当该下来列表失去焦点的时候，文本框获得文字；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文字表现为多个选中项目的文本的连接，用逗号分开；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下拉列表弹出的时候，需要高亮显示已被选中的文本。<br/>回页首<br/>设计<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有了综合出来的需求，我们就可以根据需求来一步步地进行设计。由于我们将使用已有的 SWT 组件来构建新的组件，自然而然我们就会使用 SWT Text 和 SWT List 作为开发的基础。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 List 组件需要根据 Text 组件的位置动态的进行显示，所以它需要有一个 SWT Shell 作为容器来显示它。这个动态的 Shell 根据 Text 组件上的事件响应而显示，也根据其他的一些事件而销毁。在 Shell 销毁的时候，它所容纳的 List 组件也会自动销毁。对于 Text 组件，我们把它也封装在一个 Composite 当中，这样客户程序员只需要把这个组件当成一个普通的 SWT 组件来使用即可。<br/>图 2 是该自定义组件的设计图。<br/><br/>2222222222222<br/>2222222222222222222222<br/>222222222222222222<br/><br/>
+2011-10-09 21:09:22,710 [main] DEBUG [com.allennb.form.MaterialForm] -  open material form
+2011-10-09 21:09:28,713 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:09:33,929 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:09:33,946 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:09:33,946 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.99inf.com/e/member/login/
+2011-10-09 21:09:33,946 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:login url.
+2011-10-09 21:09:33,947 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=usernamevalue=gzywyjs
+2011-10-09 21:09:33,948 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=passwordvalue=3764570
+2011-10-09 21:09:36,065 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:09:36,065 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.99inf.com/e/enews/index.php
+2011-10-09 21:09:36,065 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:unknown.
+2011-10-09 21:09:37,144 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:09:38,926 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:09:38,929 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:09:38,929 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.99inf.com/e/DoInfo/AddInfo.php?enews=MAddInfo&classid=1119
+2011-10-09 21:09:38,929 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:publish url.
+2011-10-09 21:09:38,929 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=titlevalue=2222222222222|ddddddddddddd
+2011-10-09 21:09:38,931 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=newstextvalue=bbbbbbbbbbbbbbbbb\r\nbbbbbbbbbbbbbbbbbbbbbbbbbbb\r\nbbbbbbbbbbbbbbbbbbbbbbbb\r\n\r\n如何扩展\r\n                    通常而言，制作自定义的 SWT 组件有三种方式，\r\n                    继承已有的 SWT 组件类型，并修改其表现形式；\r\n		组合多种已有的 SWT 组件来构建新的组件；\r\n		从操作系统的原生组件上进行制作，之后创建 SWT 组件来封装它。\r\n		由于 SWT Combo 本身的特点，本文将采用第二种方法来进行扩展。\r\n回页首\r\n搜集需求\r\n		由于这个目标组件，也就是支持多选的 SWT Combo，具有一些特定的表现形式，在动手之前，开发人员必须把要实现的每个功能点都了解清楚。以便为实现清晰的设计做好准备。经过仔细研究和分析，该组件应该具备如下的表现形式。\r\n		整个组件可以由 Text 和 List 两个部分组成\r\n		文本框受到鼠标动作的时候，下拉列表出现；\r\n		可以使用 CTRL 键来进行多选；\r\n		可以使用鼠标的滑动同时选中一个连续的列表；\r\n		当该下来列表失去焦点的时候，文本框获得文字；\r\n		文字表现为多个选中项目的文本的连接，用逗号分开；\r\n		下拉列表弹出的时候，需要高亮显示已被选中的文本。\r\n回页首\r\n设计\r\n		有了综合出来的需求，我们就可以根据需求来一步步地进行设计。由于我们将使用已有的 SWT 组件来构建新的组件，自然而然我们就会使用 SWT Text 和 SWT List 作为开发的基础。\r\n		由于 List 组件需要根据 Text 组件的位置动态的进行显示，所以它需要有一个 SWT Shell 作为容器来显示它。这个动态的 Shell 根据 Text 组件上的事件响应而显示，也根据其他的一些事件而销毁。在 Shell 销毁的时候，它所容纳的 List 组件也会自动销毁。对于 Text 组件，我们把它也封装在一个 Composite 当中，这样客户程序员只需要把这个组件当成一个普通的 SWT 组件来使用即可。\r\n图 2 是该自定义组件的设计图。\r\n\r\n2222222222222\r\n2222222222222222222222\r\n222222222222222222\r\n\r\n
+2011-10-09 21:09:38,932 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=gqtimevalue=2012-12-12
+2011-10-09 21:09:38,932 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=smalltextvalue=bbbbbbbbbbbbbbbbb\r\nbbbbbbbbbbbbbbbbbbbbbbbbbbb\r\nbbbbbbbbbbbbbbbbbbbbbbbb\r\n\r\n如何扩展\r\n                    通常而言，制作自定义的 SWT 组件有三种方式，\r\n                    继承已有的 SWT 组件类型，并修改其表现形式；\r\n		组合多种已有的 SWT 组件来构建新的组件；\r\n		从操作系统的原生组件上进行制作，之后创建 SWT 组件来封装它。\r\n		由于 SWT Combo 本身的特点，本文将采用第二种方法来进行扩展。\r\n回页首\r\n搜集需求\r\n		由于这个目标组件，也就是支持多选的 SWT Combo，具有一些特定的表现形式，在动手之前，开发人员必须把要实现的每个功能点都了解清楚。以便为实现清晰的设计做好准备。经过仔细研究和分析，该组件应该具备如下的表现形式。\r\n		整个组件可以由 Text 和 List 两个部分组成\r\n		文本框受到鼠标动作的时候，下拉列表出现；\r\n		可以使用 CTRL 键来进行多选；\r\n		可以使用鼠标的滑动同时选中一个连续的列表；\r\n		当该下来列表失去焦点的时候，文本框获得文字；\r\n		文字表现为多个选中项目的文本的连接，用逗号分开；\r\n		下拉列表弹出的时候，需要高亮显示已被选中的文本。\r\n回页首\r\n设计\r\n		有了综合出来的需求，我们就可以根据需求来一步步地进行设计。由于我们将使用已有的 SWT 组件来构建新的组件，自然而然我们就会使用 SWT Text 和 SWT List 作为开发的基础。\r\n		由于 List 组件需要根据 Text 组件的位置动态的进行显示，所以它需要有一个 SWT Shell 作为容器来显示它。这个动态的 Shell 根据 Text 组件上的事件响应而显示，也根据其他的一些事件而销毁。在 Shell 销毁的时候，它所容纳的 List 组件也会自动销毁。对于 Text 组件，我们把它也封装在一个 Composite 当中，这样客户程序员只需要把这个组件当成一个普通的 SWT 组件来使用即可。\r\n图 2 是该自定义组件的设计图。\r\n\r\n2222222222222\r\n2222222222222222222222\r\n222222222222222222\r\n\r\n
+2011-10-09 21:09:44,571 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:09:44,572 [main] DEBUG [com.allennb.form.PublishForm] - browser url:https://login.koubei.com/member/login.html?city=2595
+2011-10-09 21:09:44,572 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:login url.
+2011-10-09 21:09:44,579 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=user-namevalue=gzywyjs
+2011-10-09 21:09:44,584 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=user-passwordvalue=3764570
+2011-10-09 21:09:48,971 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:09:48,974 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:09:48,975 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://beijing.koubei.com/
+2011-10-09 21:09:48,975 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:unknown.
+2011-10-09 21:09:49,718 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:09:49,718 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.koubei.com/fuwu/poststep2.html?categoryId=712&city=2595
+2011-10-09 21:09:49,718 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:publish url.
+2011-10-09 21:09:49,719 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=o.5736value=2222222222222|ddddddddddddd
+2011-10-09 21:09:49,721 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=yk-iu-editorvalue=bbbbbbbbbbbbbbbbb<br/>bbbbbbbbbbbbbbbbbbbbbbbbbbb<br/>bbbbbbbbbbbbbbbbbbbbbbbb<br/><br/>如何扩展<br/>                    通常而言，制作自定义的 SWT 组件有三种方式，<br/>                    继承已有的 SWT 组件类型，并修改其表现形式；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;组合多种已有的 SWT 组件来构建新的组件；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从操作系统的原生组件上进行制作，之后创建 SWT 组件来封装它。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 SWT Combo 本身的特点，本文将采用第二种方法来进行扩展。<br/>回页首<br/>搜集需求<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于这个目标组件，也就是支持多选的 SWT Combo，具有一些特定的表现形式，在动手之前，开发人员必须把要实现的每个功能点都了解清楚。以便为实现清晰的设计做好准备。经过仔细研究和分析，该组件应该具备如下的表现形式。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;整个组件可以由 Text 和 List 两个部分组成<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文本框受到鼠标动作的时候，下拉列表出现；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用 CTRL 键来进行多选；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用鼠标的滑动同时选中一个连续的列表；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当该下来列表失去焦点的时候，文本框获得文字；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文字表现为多个选中项目的文本的连接，用逗号分开；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下拉列表弹出的时候，需要高亮显示已被选中的文本。<br/>回页首<br/>设计<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有了综合出来的需求，我们就可以根据需求来一步步地进行设计。由于我们将使用已有的 SWT 组件来构建新的组件，自然而然我们就会使用 SWT Text 和 SWT List 作为开发的基础。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 List 组件需要根据 Text 组件的位置动态的进行显示，所以它需要有一个 SWT Shell 作为容器来显示它。这个动态的 Shell 根据 Text 组件上的事件响应而显示，也根据其他的一些事件而销毁。在 Shell 销毁的时候，它所容纳的 List 组件也会自动销毁。对于 Text 组件，我们把它也封装在一个 Composite 当中，这样客户程序员只需要把这个组件当成一个普通的 SWT 组件来使用即可。<br/>图 2 是该自定义组件的设计图。<br/><br/>2222222222222<br/>2222222222222222222222<br/>222222222222222222<br/><br/>
+2011-10-09 21:09:49,721 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=post-input-5733value=2011-10-01
+2011-10-09 21:09:49,722 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=cal.endvalue=2012-10-01
+2011-10-09 21:09:50,125 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:09:50,126 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.koubei.com/fuwu/poststep2.html?categoryId=712&city=2595
+2011-10-09 21:09:50,126 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:publish url.
+2011-10-09 21:09:50,127 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=o.5736value=2222222222222|ddddddddddddd
+2011-10-09 21:09:50,128 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=yk-iu-editorvalue=bbbbbbbbbbbbbbbbb<br/>bbbbbbbbbbbbbbbbbbbbbbbbbbb<br/>bbbbbbbbbbbbbbbbbbbbbbbb<br/><br/>如何扩展<br/>                    通常而言，制作自定义的 SWT 组件有三种方式，<br/>                    继承已有的 SWT 组件类型，并修改其表现形式；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;组合多种已有的 SWT 组件来构建新的组件；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从操作系统的原生组件上进行制作，之后创建 SWT 组件来封装它。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 SWT Combo 本身的特点，本文将采用第二种方法来进行扩展。<br/>回页首<br/>搜集需求<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于这个目标组件，也就是支持多选的 SWT Combo，具有一些特定的表现形式，在动手之前，开发人员必须把要实现的每个功能点都了解清楚。以便为实现清晰的设计做好准备。经过仔细研究和分析，该组件应该具备如下的表现形式。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;整个组件可以由 Text 和 List 两个部分组成<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文本框受到鼠标动作的时候，下拉列表出现；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用 CTRL 键来进行多选；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用鼠标的滑动同时选中一个连续的列表；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当该下来列表失去焦点的时候，文本框获得文字；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文字表现为多个选中项目的文本的连接，用逗号分开；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下拉列表弹出的时候，需要高亮显示已被选中的文本。<br/>回页首<br/>设计<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有了综合出来的需求，我们就可以根据需求来一步步地进行设计。由于我们将使用已有的 SWT 组件来构建新的组件，自然而然我们就会使用 SWT Text 和 SWT List 作为开发的基础。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 List 组件需要根据 Text 组件的位置动态的进行显示，所以它需要有一个 SWT Shell 作为容器来显示它。这个动态的 Shell 根据 Text 组件上的事件响应而显示，也根据其他的一些事件而销毁。在 Shell 销毁的时候，它所容纳的 List 组件也会自动销毁。对于 Text 组件，我们把它也封装在一个 Composite 当中，这样客户程序员只需要把这个组件当成一个普通的 SWT 组件来使用即可。<br/>图 2 是该自定义组件的设计图。<br/><br/>2222222222222<br/>2222222222222222222222<br/>222222222222222222<br/><br/>
+2011-10-09 21:09:50,130 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=post-input-5733value=2011-10-01
+2011-10-09 21:09:50,131 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=cal.endvalue=2012-10-01
+2011-10-09 21:09:50,151 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:09:50,152 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.koubei.com/fuwu/poststep2.html?categoryId=712&city=2595
+2011-10-09 21:09:50,152 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:publish url.
+2011-10-09 21:09:50,152 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=o.5736value=2222222222222|ddddddddddddd
+2011-10-09 21:09:50,153 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=yk-iu-editorvalue=bbbbbbbbbbbbbbbbb<br/>bbbbbbbbbbbbbbbbbbbbbbbbbbb<br/>bbbbbbbbbbbbbbbbbbbbbbbb<br/><br/>如何扩展<br/>                    通常而言，制作自定义的 SWT 组件有三种方式，<br/>                    继承已有的 SWT 组件类型，并修改其表现形式；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;组合多种已有的 SWT 组件来构建新的组件；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从操作系统的原生组件上进行制作，之后创建 SWT 组件来封装它。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 SWT Combo 本身的特点，本文将采用第二种方法来进行扩展。<br/>回页首<br/>搜集需求<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于这个目标组件，也就是支持多选的 SWT Combo，具有一些特定的表现形式，在动手之前，开发人员必须把要实现的每个功能点都了解清楚。以便为实现清晰的设计做好准备。经过仔细研究和分析，该组件应该具备如下的表现形式。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;整个组件可以由 Text 和 List 两个部分组成<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文本框受到鼠标动作的时候，下拉列表出现；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用 CTRL 键来进行多选；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用鼠标的滑动同时选中一个连续的列表；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当该下来列表失去焦点的时候，文本框获得文字；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文字表现为多个选中项目的文本的连接，用逗号分开；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下拉列表弹出的时候，需要高亮显示已被选中的文本。<br/>回页首<br/>设计<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有了综合出来的需求，我们就可以根据需求来一步步地进行设计。由于我们将使用已有的 SWT 组件来构建新的组件，自然而然我们就会使用 SWT Text 和 SWT List 作为开发的基础。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 List 组件需要根据 Text 组件的位置动态的进行显示，所以它需要有一个 SWT Shell 作为容器来显示它。这个动态的 Shell 根据 Text 组件上的事件响应而显示，也根据其他的一些事件而销毁。在 Shell 销毁的时候，它所容纳的 List 组件也会自动销毁。对于 Text 组件，我们把它也封装在一个 Composite 当中，这样客户程序员只需要把这个组件当成一个普通的 SWT 组件来使用即可。<br/>图 2 是该自定义组件的设计图。<br/><br/>2222222222222<br/>2222222222222222222222<br/>222222222222222222<br/><br/>
+2011-10-09 21:09:50,153 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=post-input-5733value=2011-10-01
+2011-10-09 21:09:50,154 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=cal.endvalue=2012-10-01
+2011-10-09 21:10:18,625 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:19,956 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:20,119 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:20,274 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:20,983 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:22,022 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:22,022 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:22,331 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:22,332 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:22,933 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:23,008 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:23,009 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:23,010 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://b2b.sg560.com/member/login_1.aspx
+2011-10-09 21:10:23,010 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:login url.
+2011-10-09 21:10:23,011 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=ctl00_ContentPlaceHolder1_tbUserNamevalue=zghzjjkw2
+2011-10-09 21:10:23,011 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=ctl00_ContentPlaceHolder1_tbPasswordvalue=3764570
+2011-10-09 21:10:28,731 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:28,731 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.haolaba.com/login.htm
+2011-10-09 21:10:28,731 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:login url.
+2011-10-09 21:10:28,732 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=usernamevalue=zghzjjkw1
+2011-10-09 21:10:28,732 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=passwordvalue=3764570
+2011-10-09 21:10:47,759 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:47,759 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.haolaba.com/UserCenter.htm
+2011-10-09 21:10:47,759 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:unknown.
+2011-10-09 21:10:49,316 [main] DEBUG [com.allennb.form.PublishForm] - ----------------------------------
+2011-10-09 21:10:49,316 [main] DEBUG [com.allennb.form.PublishForm] - browser url:http://www.haolaba.com/Publish.html
+2011-10-09 21:10:49,316 [main] DEBUG [com.allennb.form.PublishForm] - Browser's address:publish url.
+2011-10-09 21:10:49,428 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=Titlevalue=33333333333333333|bbbbbbbbbbbbbbb
+2011-10-09 21:10:49,431 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=contentvalue=aaaaaaaaaaaaaaaaaaaa<br/>aaaaaaaaaaaaaaaaaaa<br/>aaaaaaaaaaaaaaaaaaaaaaaa<br/><br/>受到鼠标动作的时候，下拉列表出现；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用 CTRL 键来进行多选；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用鼠标的滑动同时选中一个连续的列表；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当该下来列表失去焦点的时候，文本框获得文字；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文字表现为多个选中项目的文本的连接，用逗号分开；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下拉列表弹出的时候，需要高亮显示已被选中的文本。<br/>回页首<br/>设计<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有了综合出来的需求，我们就可以根据需求来一步步地进行设计。由于我们将使用已有的 SWT 组件来构建新的组件，自然而然我们就会使用 SWT Text 和 SWT List 作为开发的基础。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 List 组件需要根据 Text 组件的位置动态的进行显示，所以它需要有一个 SWT Shell 作为容器来显示它。这个动态的 Shell 根据 Text 组件上的事件响应而显示，也根据其他的一些事件而销毁。在 Shell 销毁的时候，它所容纳的 List 组件也会自动销毁。对于 Text 组件，我们把它也封装在一个 Composite 当中，这样客户程序员只需要把这个组件当成一个普通的 SWT 组件来使用即可。<br/>图 2 是该自定义组件的设计图。<br/><br/>2222222222222<br/>2222222222222222222222<br/>222222222222222222<br/><br/>
+2011-10-09 21:10:49,432 [main] DEBUG [com.allennb.form.PublishForm] - Load parameters: key=KeyWordsvalue=33333333333333333|bbbbbbbbbbbbbbb
